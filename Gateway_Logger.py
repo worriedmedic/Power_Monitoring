@@ -9,7 +9,7 @@ import datetime
 import requests
 import os.path
 
-addr                = '/dev/tty.usbserial-A104VAFG'  # serial port to read data from
+addr                = '/dev/ttyUSB0'  # serial port to read data from
 baud                = 9600   # baud rate for serial port
 thingspeak_update   = 'true' # Turn on/off updating to ThingSpeak
 emoncms_update      = 'true' # Turn on/off updating to Emoncms
@@ -37,7 +37,7 @@ with serial.Serial(addr,9600) as pt:
 
         #Prefix 0 == Cuttyhunk Atmospheric Sensors
         if addr.startswith('0'):
-            buffer.split(',)
+            buffer.split(',')
             temp = buffer.split(',')[1].strip('T')
             press = buffer.split(',')[2].strip('P')
             humid = buffer.split(',')[3].strip('H')
@@ -46,7 +46,7 @@ with serial.Serial(addr,9600) as pt:
             
         #Prefix 1 == Dover Atmospheric Sensors
         elif addr.startswith('1'): 
-            buffer.split(',)
+            buffer.split(',')
             temp = buffer.split(',')[1].strip('T')
             press = buffer.split(',')[2].strip('P')
             humid = buffer.split(',')[3].strip('H')
