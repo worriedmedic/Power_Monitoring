@@ -108,7 +108,7 @@ with serial.Serial(addr,9600) as pt:
                 print("SENSOR ID NOT FOUND")
         
         if emoncms_update == 'true':
-            url = 	'https://emoncms.org/feed/update.json?'
+            url = 	'	https://emoncms.org/feed/insert.json?id=0'
             api_key = '4e6eff5d047580696f0e2a7ae9323983'
             payload = {'api_key': api_key, 'Temperature': temp, 'Pressure': press, 'Humidity': humid, 'Voltage': volt, 'RSSI': rssi}
             r = requests.post(url, data=payload)
