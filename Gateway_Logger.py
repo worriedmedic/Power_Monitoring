@@ -108,6 +108,6 @@ with serial.Serial(addr,9600) as pt:
         if emoncms_update == 'true':
             url = 	'https://emoncms.org/feed/update.json?'
             api_key = '4e6eff5d047580696f0e2a7ae9323983'
-            payload = {'Temperature': temp, 'Pressure': press, 'Humidity': humid, 'Voltage': volt, 'RSSI', rssi}
+            payload = {'api_key': api_key, 'Temperature': temp, 'Pressure': press, 'Humidity': humid, 'Voltage': volt, 'RSSI', rssi}
             
             
