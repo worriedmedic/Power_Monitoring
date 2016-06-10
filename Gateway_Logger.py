@@ -75,29 +75,31 @@ with serial.Serial(addr,9600) as pt:
 
         if thingspeak_update == 'true':
             url = 'https://api.thingspeak.com/update.json'
-            temp_payload = {'api_key': api_key, 'field1': addr, 'field2': temp, 'field3': press, 'field4': humid, 'field5': volt, 'field6': rssi}
-            power_payload = {'api_key': api_key, 'field1': addr, 'field2': watts, 'field4': volt, 'field5': rssi}
 
             if addr == '00': #
                 api_key = 'TFGVV0YYM18ALONJ'
+                temp_payload = {'api_key': api_key, 'field1': addr, 'field2': temp, 'field3': press, 'field4': humid, 'field5': volt, 'field6': rssi}
                 r = requests.post(url,data=temp_payload)
                 if verbose == 'true':
                     print(r.text)
 
             elif addr == '01':
                 api_key = 'ARPQ7GWOHTQSYWYW'
+                temp_payload = {'api_key': api_key, 'field1': addr, 'field2': temp, 'field3': press, 'field4': humid, 'field5': volt, 'field6': rssi}
                 r = requests.post(url, data=temp_payload)
                 if verbose == 'true':
                     print(r.text)
                     
             elif addr == '09':
                 api_key = 'TUFQWU8SA1HL1B4O'
+                temp_payload = {'api_key': api_key, 'field1': addr, 'field2': temp, 'field3': press, 'field4': humid, 'field5': volt, 'field6': rssi}
                 r = requests.post(url, data=temp_payload)
                 if verbose == 'true':
                     print(r.text)
 
             elif addr == 'A1':
                 api_key = '2I106Q4EPCT9228E'
+                power_payload = {'api_key': api_key, 'field1': addr, 'field2': watts, 'field4': volt, 'field5': rssi}
                 r = requests.post(url, data=power_payload)
                 if verbose == 'true':
                     print(r.text)
@@ -109,5 +111,7 @@ with serial.Serial(addr,9600) as pt:
             url = 	'https://emoncms.org/feed/update.json?'
             api_key = '4e6eff5d047580696f0e2a7ae9323983'
             payload = {'api_key': api_key, 'Temperature': temp, 'Pressure': press, 'Humidity': humid, 'Voltage': volt, 'RSSI': rssi}
-            
+            r = requests.post(url, data=payload)
+            if verbose == 'true':
+                print(r.text)
             
