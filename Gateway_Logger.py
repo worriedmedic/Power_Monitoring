@@ -35,17 +35,22 @@ with serial.Serial(addr,9600) as pt:
         addr  = buffer[0:2]
 
         if addr.startswith('0'):
-            temp  = buffer[4:9]
-            press = buffer[11:16]
-            humid = buffer[18:23]
-            volt  = buffer[25:30]
-            rssi  = buffer[31:34]
+            buffer.split(',)
+            temp = buffer.split(',')[1].strip('T')
+            press = buffer.split(',')[2].strip('P')
+            humid = buffer.split(',')[3].strip('H')
+            volt = buffer.split(',')[4].strip('V')
+            rssi = buffer.split(',')[5].strip('\n')
+            #temp  = buffer[4:9]
+            #press = buffer[11:16]
+            #humid = buffer[18:23]
+            #volt  = buffer[25:30]
+            #rssi  = buffer[31:34]
 
         elif addr.startswith('A'):
             buffer.split(',')
             total_watts = buffer.split(',')[1].strip('TW')
             watts = buffer.split(',')[2].strip('WC')
-            avg_watts = buffer.split(',')[3].strip('AW')
             volt = buffer.split(',')[4].strip('V')
             rssi = buffer.split(',')[5].strip('\n')
 
@@ -76,6 +81,14 @@ with serial.Serial(addr,9600) as pt:
 
             elif addr == '01':
                 api_key = 'ARPQ7GWOHTQSYWYW'
+                payload = {'api_key': api_key, 'field1': addr, 'field2': temp, 'field3': press, 'field4': humid,
+                       'field5': volt, 'field6': rssi}
+                r = requests.post(url, data=payload)
+                if verbose == 'true':
+                    print(r.text)
+                    
+            elif addr == '09':
+                api_key = 'TUFQWU8SA1HL1B4O'
                 payload = {'api_key': api_key, 'field1': addr, 'field2': temp, 'field3': press, 'field4': humid,
                        'field5': volt, 'field6': rssi}
                 r = requests.post(url, data=payload)
