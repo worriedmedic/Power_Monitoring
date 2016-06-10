@@ -109,9 +109,9 @@ with serial.Serial(addr,9600) as pt:
         
         if emoncms_update == 'true':
             url = 'https://emoncms.org/input/post.json?json='
-            api_key = '4e6eff5d047580696f0e2a7ae9323983'
-            payload = {'api_key': api_key, 'Temperature': temp, 'Pressure': press, 'Humidity': humid, 'Voltage': volt, 'RSSI': rssi}
-            r = requests.post(url, data=payload)
+            api_key = '&apikey=4e6eff5d047580696f0e2a7ae9323983'
+            payload = {'Temperature': temp, 'Pressure': press, 'Humidity': humid, 'Voltage': volt, 'RSSI': rssi}
+            r = requests.post(url, data=payload, api_key)
             if verbose == 'true':
                 print(r.text)
             
