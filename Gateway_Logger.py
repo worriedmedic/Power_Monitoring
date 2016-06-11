@@ -37,7 +37,7 @@ with serial.Serial(addr,9600) as pt:
 
         if addr.startswith('0'):
             buffer.split(',')
-            temp = ((buffer.split(',')[1].strip('T')) * 1.8) + 32
+            temp = buffer.split(',')[1].strip('T')
             press = buffer.split(',')[2].strip('P')
             humid = buffer.split(',')[3].strip('H')
             volt = buffer.split(',')[4].strip('V')
