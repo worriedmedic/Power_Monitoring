@@ -35,7 +35,7 @@ with serial.Serial(addr,9600) as pt:
 
         addr  = buffer[0:2]
 
-        if addr.isadigit():
+        if addr.startswith('0'):
             buffer.split(',')
             temp = ((buffer.split(',')[1].strip('T')) * 1.8) + 32
             press = buffer.split(',')[2].strip('P')
