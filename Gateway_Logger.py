@@ -40,8 +40,8 @@ with serial.Serial(addr,9600) as pt:
             temp = buffer.split(',')[1].strip('T')
             press = buffer.split(',')[2].strip('P')
             humid = buffer.split(',')[3].strip('H')
-            volt = buffer.split(',')[4].strip('V')
-            light = buffer.split(',')[5].strip('L')
+            light = buffer.split(',')[4].strip('L')
+            volt = buffer.split(',')[5].strip('V')
             rssi = buffer.split(',')[6].strip('\n')
             
             print(temp,press,humid,volt,light,rssi)
