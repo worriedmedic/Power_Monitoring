@@ -35,24 +35,15 @@ with serial.Serial(addr,9600) as pt:
 
         addr  = buffer[0:2]
 
-        #Prefix 0 == Cuttyhunk Atmospheric Sensors
-        if addr.startswith('0'):
+        if addr.isadigit():
             buffer.split(',')
-            temp = buffer.split(',')[1].strip('T')
+            temp = ((buffer.split(',')[1].strip('T')) * 1.8) + 32
             press = buffer.split(',')[2].strip('P')
             humid = buffer.split(',')[3].strip('H')
             volt = buffer.split(',')[4].strip('V')
-            rssi = buffer.split(',')[5].strip('\n')
+            light = buffer.split(',')[5].strip('L')
+            rssi = buffer.split(',')[6].strip('\n')
             
-        #Prefix 1 == Dover Atmospheric Sensors
-        elif addr.startswith('1'): 
-            buffer.split(',')
-            temp = buffer.split(',')[1].strip('T')
-            press = buffer.split(',')[2].strip('P')
-            humid = buffer.split(',')[3].strip('H')
-            volt = buffer.split(',')[4].strip('V')
-            rssi = buffer.split(',')[5].strip('\n')
-
         #Prefix A == Dover Power Sensors
         elif addr.startswith('A'):
             buffer.split(',')
@@ -78,21 +69,28 @@ with serial.Serial(addr,9600) as pt:
 
             if addr == '00': #
                 api_key = 'TFGVV0YYM18ALONJ'
-                temp_payload = {'api_key': api_key, 'field1': addr, 'field2': temp, 'field3': press, 'field4': humid, 'field5': volt, 'field6': rssi}
+                temp_payload = {'api_key': api_key, 'field1': addr, 'field2': temp, 'field3': press, 'field4': humid, 'field5': light, 'field6': volt, 'field7': rssi}
                 r = requests.post(url,data=temp_payload)
                 if verbose == 'true':
                     print(r.text)
 
             elif addr == '01':
                 api_key = 'ARPQ7GWOHTQSYWYW'
-                temp_payload = {'api_key': api_key, 'field1': addr, 'field2': temp, 'field3': press, 'field4': humid, 'field5': volt, 'field6': rssi}
+                temp_payload = {'api_key': api_key, 'field1': addr, 'field2': temp, 'field3': press, 'field4': humid, 'field5': light, 'field6': volt, 'field7': rssi}
                 r = requests.post(url, data=temp_payload)
                 if verbose == 'true':
                     print(r.text)
                     
+            elif addr == '08':
+                api_key = '8SHTGBFETA4XVN5P'
+                temp_payload = {'api_key': api_key, 'field1': addr, 'field2': temp, 'field3': press, 'field4': humid, 'field5': light, 'field6': volt, 'field7': rssi}
+                r = requests.post(url, data=temp_payload)
+                if verbose == 'true':
+                    print(r.text)
+
             elif addr == '09':
                 api_key = 'TUFQWU8SA1HL1B4O'
-                temp_payload = {'api_key': api_key, 'field1': addr, 'field2': temp, 'field3': press, 'field4': humid, 'field5': volt, 'field6': rssi}
+                temp_payload = {'api_key': api_key, 'field1': addr, 'field2': temp, 'field3': press, 'field4': humid, 'field5': light, 'field6': volt, 'field7': rssi}
                 r = requests.post(url, data=temp_payload)
                 if verbose == 'true':
                     print(r.text)
@@ -108,7 +106,7 @@ with serial.Serial(addr,9600) as pt:
                 print("SENSOR ID NOT FOUND")
         
         if emoncms_update == 'true':
-            url = 'https://emoncms.org/input/post.json?node=%s&json={T:%s,P:%s,H:%s,V:%s,R:%s}&apikey=4e6eff5d047580696f0e2a7ae9323983' % (addr, temp, press, humid, volt, rssi)
+            url = 'https://emoncms.org/input/post.json?node=%s&json={T:%s,P:%s,H:%s,L:%s,V:%s,R:%s}&apikey=4e6eff5d047580696f0e2a7ae9323983' % (addr, temp, press, humid, light, volt, rssi)
             r = requests.post(url)
             if verbose == 'true':
                 print(r.text)
