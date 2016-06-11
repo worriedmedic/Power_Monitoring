@@ -44,6 +44,8 @@ with serial.Serial(addr,9600) as pt:
             light = buffer.split(',')[5].strip('L')
             rssi = buffer.split(',')[6].strip('\n')
             
+            print(temp,press,humid,volt,light,rssi)
+            
         #Prefix A == Dover Power Sensors
         elif addr.startswith('A'):
             buffer.split(',')
