@@ -44,16 +44,9 @@ with serial.Serial(addr,9600) as pt:
             volt = buffer.split(',')[5].strip('V')
             rssi = buffer.split(',')[6].strip('\n')
             
-            print(temp,press,humid,volt,light,rssi)
+            ### Check output of above split ###
+            #print(temp,press,humid,volt,light,rssi) 
             
-        #Prefix A == Dover Power Sensors
-        elif addr.startswith('A'):
-            buffer.split(',')
-            total_watts = buffer.split(',')[1].strip('TW')
-            watts = buffer.split(',')[2].strip('WC')
-            volt = buffer.split(',')[4].strip('V')
-            rssi = buffer.split(',')[5].strip('\n')
-
         if txt_logging == 'true':
             fname = str(today) + '.log'  # log file to save data in
             fdirectory = 'data_log'
@@ -111,5 +104,8 @@ with serial.Serial(addr,9600) as pt:
             url = 'https://emoncms.org/input/post.json?node=%s&json={T:%s,P:%s,H:%s,L:%s,V:%s,R:%s}&apikey=4e6eff5d047580696f0e2a7ae9323983' % (addr, temp, press, humid, light, volt, rssi)
             r = requests.post(url)
             if verbose == 'true':
-                print(r.text)
+                if r = 'ok':
+                    print("EMONCMS Update OK")
+                else:
+                    print("EMCONMS Update FAILED")
             
