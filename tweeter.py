@@ -11,7 +11,7 @@ import os.path
 url     = 'https://api.thingspeak.com/apps/thingtweet/1/statuses/update'
 #delay   = 600 #In Seconds ### REDUNDANT - NOW USING CRONTAB
 api_key = 'UERV67G8O01HXYVV' #Key for the ThingSpeak Tweeter API
-logging = 'true'
+logging = 'false'
 
 sensor = { #Modified for Dover_Wx_St
     'Inside'        : '123799',
