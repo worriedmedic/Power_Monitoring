@@ -15,16 +15,18 @@ logging = 'false'
 
 sensor = { #Modified for Dover_Wx_St
     'Inside'        : '123799',
-    'Outside'       : '123694'
+    'Outside'       : '123694',
+    'Downstairs'    : '124921'
     
 }
 
 def thingspeaktweet(api_key):
-    tweet = "Outside Temp: %%channel_123694_field_2%%F, Inside Temp: %%channel_123799_field_2%%F, Humid: %%channel_123694_field_4%%%, Press: %%channel_123694_field_3%%mb, Light: %%channel_123694_field_5%%"
+    tweet = "Outside Temp: %%channel_123694_field_2%%F, Inside Temp: %%channel_123799_field_2%%F, Downstaris Temp: %%channel_124921_field_2%%F, Humid: %%channel_123694_field_4%%%, Press: %%channel_123694_field_3%%mb, Light: %%channel_123694_field_5%%"
     print(tweet)
     payload = {'api_key': api_key, 'status': tweet}
     r = requests.post(url, data=payload)
     time.sleep(1)
+    print(now, r.text)
 
     if logging == 'true':
         fname = str(today) + '.log'
