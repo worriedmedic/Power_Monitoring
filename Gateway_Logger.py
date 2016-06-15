@@ -75,7 +75,14 @@ with serial.Serial(addr,9600) as pt:
                 r = requests.post(url, data=temp_payload)
                 if verbose == 'true':
                     print(r.text)
-                    
+            
+            elif addr == '07':
+                api_key = 'NQQZE8CL8ZC445DN'
+                temp_payload = {'api_key': api_key, 'field1': addr, 'field2': temp, 'field3': press, 'field4': humid, 'field5': light, 'field6': volt, 'field7': rssi}
+                r = requests.post(url, data=temp_payload)
+                if verbose == 'true':
+                    print(r.text)
+            
             elif addr == '08':
                 api_key = '8SHTGBFETA4XVN5P'
                 temp_payload = {'api_key': api_key, 'field1': addr, 'field2': temp, 'field3': press, 'field4': humid, 'field5': light, 'field6': volt, 'field7': rssi}
