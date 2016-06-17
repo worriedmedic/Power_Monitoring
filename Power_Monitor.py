@@ -40,7 +40,7 @@ with serial.Serial(addr,9600) as pt:
         ct2p = buffer.split(' ')[1]
         ct3p = buffer.split(' ')[2]
         ct4p = buffer.split(' ')[3]
-        volt = buffer.split(' ')[4]
+        volt = (buffer.split(' ')[4]) / 100
             
         ### Check output of above split ###
         print(ct1p,ct2p,ct3p,ct4p,volt) 
