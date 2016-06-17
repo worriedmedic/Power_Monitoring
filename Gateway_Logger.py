@@ -9,7 +9,7 @@ import datetime
 import requests
 import os.path
 
-addr                = '/dev/ttyUSB0'  # serial port to read data from
+addr                = '/dev/ttyUSB1'  # serial port to read data from
 baud                = 9600   # baud rate for serial port
 thingspeak_update   = 'true' # Turn on/off updating to ThingSpeak
 emoncms_update      = 'true' # Turn on/off updating to Emoncms
