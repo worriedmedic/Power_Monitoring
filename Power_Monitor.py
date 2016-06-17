@@ -33,7 +33,7 @@ with serial.Serial(addr,9600) as pt:
 
         print (x,end='')    # echo line of text on-screen
 
-        addr = 'A1'
+        addr = '10'
         
         buffer.split(' ')
         ct1p = buffer.split(' ')[0]
@@ -60,7 +60,7 @@ with serial.Serial(addr,9600) as pt:
         if thingspeak_update == 'true':
             url = 'https://api.thingspeak.com/update.json'
 
-            if addr == 'A1':
+            if addr == '10':
                 api_key = '2I106Q4EPCT9228E'
                 power_payload = {'api_key': api_key, 'field1': ct1p, 'field2': ct2p, 'field4': ct3p, 'field5': ct4p, 'field6': volt}
                 r = requests.post(url, data=power_payload)
