@@ -46,7 +46,7 @@ with serial.Serial(addr,9600) as pt:
         print(ct1p,ct2p,ct3p,ct4p,volt) 
             
         if txt_logging == 'true':
-            fname = 'str(today) + 'POWER.log'  # log file to save data in
+            fname = str(today) + 'POWER.log'  # log file to save data in
             fdirectory = 'data_log'
             fmode = 'a'  # log file mode = append
 
