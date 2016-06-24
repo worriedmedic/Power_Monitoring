@@ -59,6 +59,16 @@ with serial.Serial(addr,9600) as pt:
             outf.write(x)  # write line of text to file
             outf.flush()  # make sure it actually gets written out
 
+        if emoncms_update == 'true':
+            url = 'https://emoncms.org/input/post.json?node=%s&json={T:%s,P:%s,H:%s,V:%s,R:%s}&apikey=4e6eff5d047580696f0e2a7ae9323983' % (addr, temp, press, humid, volt, rssi)
+            r = requests.post(url)
+            if verbose == 'true':
+                print(r.text)
+            if "ok" in r:
+                print("EMONCMS Update OK")
+            else:
+                print("EMCONMS Update FAILED")
+
         if thingspeak_update == 'true':
             url = 'https://api.thingspeak.com/update.json'
 
@@ -68,10 +78,10 @@ with serial.Serial(addr,9600) as pt:
                 r = requests.post(url,data=temp_payload)
                 if verbose == 'true':
                     print(r.text)
-                if r != '0':
-                    print("Thingspeak Update OK")
-                else:
+                if r.text == "0":
                     print("Thingspeak Update FAILED")
+                else:
+                    print("Thingspeak Update OK")
 
             elif addr == '01':
                 api_key = 'ARPQ7GWOHTQSYWYW'
@@ -79,10 +89,10 @@ with serial.Serial(addr,9600) as pt:
                 r = requests.post(url, data=temp_payload)
                 if verbose == 'true':
                     print(r.text)
-                if r != '0':
-                    print("Thingspeak Update OK")
-                else:
+                if r.text == "0":
                     print("Thingspeak Update FAILED")
+                else:
+                    print("Thingspeak Update OK")
             
             elif addr == '06':
                 api_key = 'LZAFORDCZ4UT75GU'
@@ -90,10 +100,10 @@ with serial.Serial(addr,9600) as pt:
                 r = requests.post(url, data=temp_payload)
                 if verbose == 'true':
                     print(r.text)
-                if r != '0':
-                    print("Thingspeak Update OK")
-                else:
+                if r.text == "0":
                     print("Thingspeak Update FAILED")
+                else:
+                    print("Thingspeak Update OK")
                     
             elif addr == '07':
                 api_key = 'NQQZE8CL8ZC445DN'
@@ -101,10 +111,10 @@ with serial.Serial(addr,9600) as pt:
                 r = requests.post(url, data=temp_payload)
                 if verbose == 'true':
                     print(r.text)
-                if r != '0':
-                    print("Thingspeak Update OK")
-                else:
+                if r.text == "0":
                     print("Thingspeak Update FAILED")
+                else:
+                    print("Thingspeak Update OK")
             
             elif addr == '08':
                 api_key = '8SHTGBFETA4XVN5P'
@@ -112,10 +122,10 @@ with serial.Serial(addr,9600) as pt:
                 r = requests.post(url, data=temp_payload)
                 if verbose == 'true':
                     print(r.text)
-                if r != '0':
-                    print("Thingspeak Update OK")
-                else:
+                if r.text == "0":
                     print("Thingspeak Update FAILED")
+                else:
+                    print("Thingspeak Update OK")
 
             elif addr == '09':
                 api_key = 'TUFQWU8SA1HL1B4O'
@@ -123,20 +133,10 @@ with serial.Serial(addr,9600) as pt:
                 r = requests.post(url, data=temp_payload)
                 if verbose == 'true':
                     print(r.text)
-                if r != '0':
-                    print("Thingspeak Update OK")
-                else:
+                if r.text == "0":
                     print("Thingspeak Update FAILED")
+                else:
+                    print("Thingspeak Update OK")
 
             else:
                 print("SENSOR ID NOT FOUND")
-        
-        if emoncms_update == 'true':
-            url = 'https://emoncms.org/input/post.json?node=%s&json={T:%s,P:%s,H:%s,V:%s,R:%s}&apikey=4e6eff5d047580696f0e2a7ae9323983' % (addr, temp, press, humid, volt, rssi)
-            r = requests.post(url)
-            if verbose == 'true':
-                if "ok" in r:
-                    print("EMONCMS Update OK")
-                else:
-                    print("EMCONMS Update FAILED")
-            
