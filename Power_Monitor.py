@@ -45,7 +45,8 @@ with serial.Serial(addr,9600) as pt:
         volt = float(volt) / 100
             
         ### Check output of above split ###
-        print(ct1p,ct2p,ct3p,ct4p,volt) 
+        if verbose == 'true':
+            print(ct1p,ct2p,ct3p,ct4p,volt) 
             
         if txt_logging == 'true':
             fname = str(today) + 'POWER.log'  # log file to save data in
@@ -75,7 +76,7 @@ with serial.Serial(addr,9600) as pt:
             if addr == '10':
                 api_key = '2I106Q4EPCT9228E'
                 power_payload = {'api_key': api_key, 'field1': ct1p, 'field2': ct2p, 'field3': ct3p, 'field4': ct4p, 'field5': volt}
-                time.sleep(6)
+                time.sleep(7)
                 r = requests.post(url, data=power_payload)
                 if r.text == "0":
                     print("Thingspeak Update FAILED")
