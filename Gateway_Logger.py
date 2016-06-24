@@ -64,50 +64,53 @@ with serial.Serial(addr,9600) as pt:
 
             if addr == '00': #
                 api_key = 'TFGVV0YYM18ALONJ'
-                temp_payload = {'api_key': api_key, 'field1': addr, 'field2': temp, 'field3': press, 'field4': humid, 'field5': light, 'field6': volt, 'field7': rssi}
+                temp_payload = {'api_key': api_key, 'field1': addr, 'field2': temp, 'field3': press, 'field4': humid, 'field6': volt, 'field7': rssi}
                 r = requests.post(url,data=temp_payload)
+                if r != '0':
+                    print("Thingspeak Update OK")
                 if verbose == 'true':
                     print(r.text)
 
             elif addr == '01':
                 api_key = 'ARPQ7GWOHTQSYWYW'
-                temp_payload = {'api_key': api_key, 'field1': addr, 'field2': temp, 'field3': press, 'field4': humid, 'field5': light, 'field6': volt, 'field7': rssi}
+                temp_payload = {'api_key': api_key, 'field1': addr, 'field2': temp, 'field3': press, 'field4': humid, 'field6': volt, 'field7': rssi}
                 r = requests.post(url, data=temp_payload)
+                if r != '0':
+                    print("Thingspeak Update OK")
                 if verbose == 'true':
                     print(r.text)
             
             elif addr == '06':
                 api_key = 'LZAFORDCZ4UT75GU'
-                temp_payload = {'api_key': api_key, 'field1': addr, 'field2': temp, 'field3': press, 'field4': humid, 'field5': light, 'field6': volt, 'field7': rssi}
+                temp_payload = {'api_key': api_key, 'field1': addr, 'field2': temp, 'field3': press, 'field4': humid, 'field6': volt, 'field7': rssi}
                 r = requests.post(url, data=temp_payload)
+                if r != '0':
+                    print("Thingspeak Update OK")
                 if verbose == 'true':
                     print(r.text)
                     
             elif addr == '07':
                 api_key = 'NQQZE8CL8ZC445DN'
-                temp_payload = {'api_key': api_key, 'field1': addr, 'field2': temp, 'field3': press, 'field4': humid, 'field5': light, 'field6': volt, 'field7': rssi}
+                temp_payload = {'api_key': api_key, 'field1': addr, 'field2': temp, 'field3': press, 'field4': humid, 'field6': volt, 'field7': rssi}
                 r = requests.post(url, data=temp_payload)
+                if r != '0':
+                    print("Thingspeak Update OK")
                 if verbose == 'true':
                     print(r.text)
             
             elif addr == '08':
                 api_key = '8SHTGBFETA4XVN5P'
-                temp_payload = {'api_key': api_key, 'field1': addr, 'field2': temp, 'field3': press, 'field4': humid, 'field5': light, 'field6': volt, 'field7': rssi}
+                temp_payload = {'api_key': api_key, 'field1': addr, 'field2': temp, 'field3': press, 'field4': humid, 'field6': volt, 'field7': rssi}
                 r = requests.post(url, data=temp_payload)
                 if verbose == 'true':
                     print(r.text)
 
             elif addr == '09':
                 api_key = 'TUFQWU8SA1HL1B4O'
-                temp_payload = {'api_key': api_key, 'field1': addr, 'field2': temp, 'field3': press, 'field4': humid, 'field5': light, 'field6': volt, 'field7': rssi}
+                temp_payload = {'api_key': api_key, 'field1': addr, 'field2': temp, 'field3': press, 'field4': humid, 'field6': volt, 'field7': rssi}
                 r = requests.post(url, data=temp_payload)
-                if verbose == 'true':
-                    print(r.text)
-
-            elif addr == 'A1':
-                api_key = '2I106Q4EPCT9228E'
-                power_payload = {'api_key': api_key, 'field1': addr, 'field2': watts, 'field4': volt, 'field5': rssi}
-                r = requests.post(url, data=power_payload)
+                if r != '0':
+                    print("Thingspeak Update OK")
                 if verbose == 'true':
                     print(r.text)
 
@@ -115,7 +118,7 @@ with serial.Serial(addr,9600) as pt:
                 print("SENSOR ID NOT FOUND")
         
         if emoncms_update == 'true':
-            url = 'https://emoncms.org/input/post.json?node=%s&json={T:%s,P:%s,H:%s,L:%s,V:%s,R:%s}&apikey=4e6eff5d047580696f0e2a7ae9323983' % (addr, temp, press, humid, light, volt, rssi)
+            url = 'https://emoncms.org/input/post.json?node=%s&json={T:%s,P:%s,H:%s,V:%s,R:%s}&apikey=4e6eff5d047580696f0e2a7ae9323983' % (addr, temp, press, humid, volt, rssi)
             r = requests.post(url)
             if verbose == 'true':
                 if "ok" in r:
