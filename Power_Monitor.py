@@ -71,22 +71,18 @@ with serial.Serial(addr,9600) as pt:
                 print(r.text)
 
         if thingspeak_update == 'true':
-            int i
-            i += 1
-            if i > 1:
-                url = 'https://api.thingspeak.com/update.json'
+            url = 'https://api.thingspeak.com/update.json'
 
-                if addr == '10':
-                    api_key = '2I106Q4EPCT9228E'
-                    power_payload = {'api_key': api_key, 'field1': ct1p, 'field2': ct2p, 'field3': ct3p, 'field4': ct4p, 'field5': volt}
-                    r = requests.post(url, data=power_payload)
-                    if r.text == "0":
-                        print("Thingspeak Update FAILED")
-                    else:
-                        print("Thingspeak Update OK")
-                    
-                    if verbose == 'true':
-                        print(r.text)
-
+            if addr == '10':
+                api_key = '2I106Q4EPCT9228E'
+                power_payload = {'api_key': api_key, 'field1': ct1p, 'field2': ct2p, 'field3': ct3p, 'field4': ct4p, 'field5': volt}
+                r = requests.post(url, data=power_payload)
+                if r.text == "0":
+                    print("Thingspeak Update FAILED")
                 else:
-                    print("SENSOR ID NOT FOUND")
+                    print("Thingspeak Update OK")
+                if verbose == 'true':
+                    print(r.text)
+
+            else:
+                print("SENSOR ID NOT FOUND")
