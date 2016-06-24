@@ -71,6 +71,7 @@ with serial.Serial(addr,9600) as pt:
                 print(r.text)
 
         if thingspeak_update == 'true':
+            int i
             i += 1
             if i > 1:
                 url = 'https://api.thingspeak.com/update.json'
