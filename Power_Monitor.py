@@ -59,13 +59,23 @@ with serial.Serial(addr,9600) as pt:
             outf.write(x)  # write line of text to file
             outf.flush()  # make sure it actually gets written out
 
+        if emoncms_update == 'true':
+            url = 'https://emoncms.org/input/post.json?node=%s&json={CT1:%s,CT2:%s,CT3:%s,CT4:%s,VOLT:%s}&apikey=4e6eff5d047580696f0e2a7ae9323983' % (addr, ct1p, ct2p, ct3p, ct4p, volt)
+            r = requests.post(url)
+            if "ok" in r:
+                print("EMONCMS Update OK")
+            else:
+                print("EMCONMS Update FAILED")
+            if verbose == 'true':
+                print(r.text)
+
         if thingspeak_update == 'true':
             url = 'https://api.thingspeak.com/update.json'
 
             if addr == '10':
                 api_key = '2I106Q4EPCT9228E'
                 power_payload = {'api_key': api_key, 'field1': ct1p, 'field2': ct2p, 'field3': ct3p, 'field4': ct4p, 'field5': volt}
-                time.sleep(5)
+                time.sleep(6)
                 r = requests.post(url, data=power_payload)
                 if r.text == "0":
                     print("Thingspeak Update FAILED")
@@ -77,13 +87,3 @@ with serial.Serial(addr,9600) as pt:
 
             else:
                 print("SENSOR ID NOT FOUND")
-        
-        if emoncms_update == 'true':
-            url = 'https://emoncms.org/input/post.json?node=%s&json={CT1:%s,CT2:%s,CT3:%s,CT4:%s,VOLT:%s}&apikey=4e6eff5d047580696f0e2a7ae9323983' % (addr, ct1p, ct2p, ct3p, ct4p, volt)
-            r = requests.post(url)
-            if "ok" in r:
-                print("EMONCMS Update OK")
-            else:
-                print("EMCONMS Update FAILED")
-            if verbose == 'true':
-                print(r.text)
