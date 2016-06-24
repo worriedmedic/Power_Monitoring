@@ -66,37 +66,45 @@ with serial.Serial(addr,9600) as pt:
                 api_key = 'TFGVV0YYM18ALONJ'
                 temp_payload = {'api_key': api_key, 'field1': addr, 'field2': temp, 'field3': press, 'field4': humid, 'field6': volt, 'field7': rssi}
                 r = requests.post(url,data=temp_payload)
-                if r != '0':
-                    print("Thingspeak Update OK")
                 if verbose == 'true':
                     print(r.text)
+                if r != '0':
+                    print("Thingspeak Update OK")
+                else:
+                    print("Thingspeak Update FAILED")
 
             elif addr == '01':
                 api_key = 'ARPQ7GWOHTQSYWYW'
                 temp_payload = {'api_key': api_key, 'field1': addr, 'field2': temp, 'field3': press, 'field4': humid, 'field6': volt, 'field7': rssi}
                 r = requests.post(url, data=temp_payload)
-                if r != '0':
-                    print("Thingspeak Update OK")
                 if verbose == 'true':
                     print(r.text)
+                if r != '0':
+                    print("Thingspeak Update OK")
+                else:
+                    print("Thingspeak Update FAILED")
             
             elif addr == '06':
                 api_key = 'LZAFORDCZ4UT75GU'
                 temp_payload = {'api_key': api_key, 'field1': addr, 'field2': temp, 'field3': press, 'field4': humid, 'field6': volt, 'field7': rssi}
                 r = requests.post(url, data=temp_payload)
-                if r != '0':
-                    print("Thingspeak Update OK")
                 if verbose == 'true':
                     print(r.text)
+                if r != '0':
+                    print("Thingspeak Update OK")
+                else:
+                    print("Thingspeak Update FAILED")
                     
             elif addr == '07':
                 api_key = 'NQQZE8CL8ZC445DN'
                 temp_payload = {'api_key': api_key, 'field1': addr, 'field2': temp, 'field3': press, 'field4': humid, 'field6': volt, 'field7': rssi}
                 r = requests.post(url, data=temp_payload)
-                if r != '0':
-                    print("Thingspeak Update OK")
                 if verbose == 'true':
                     print(r.text)
+                if r != '0':
+                    print("Thingspeak Update OK")
+                else:
+                    print("Thingspeak Update FAILED")
             
             elif addr == '08':
                 api_key = '8SHTGBFETA4XVN5P'
@@ -104,15 +112,21 @@ with serial.Serial(addr,9600) as pt:
                 r = requests.post(url, data=temp_payload)
                 if verbose == 'true':
                     print(r.text)
+                if r != '0':
+                    print("Thingspeak Update OK")
+                else:
+                    print("Thingspeak Update FAILED")
 
             elif addr == '09':
                 api_key = 'TUFQWU8SA1HL1B4O'
                 temp_payload = {'api_key': api_key, 'field1': addr, 'field2': temp, 'field3': press, 'field4': humid, 'field6': volt, 'field7': rssi}
                 r = requests.post(url, data=temp_payload)
-                if r != '0':
-                    print("Thingspeak Update OK")
                 if verbose == 'true':
                     print(r.text)
+                if r != '0':
+                    print("Thingspeak Update OK")
+                else:
+                    print("Thingspeak Update FAILED")
 
             else:
                 print("SENSOR ID NOT FOUND")
