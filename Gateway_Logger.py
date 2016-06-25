@@ -9,7 +9,7 @@ import datetime
 import requests
 import os.path
 
-addr                = '/dev/ttyUSB1'  # serial port to read data from
+addr                = '/dev/ttyUSB0'  # serial port to read data from
 baud                = 9600   # baud rate for serial port
 thingspeak_update   = 'true' # Turn on/off updating to ThingSpeak
 emoncms_update      = 'true' # Turn on/off updating to Emoncms
@@ -40,12 +40,11 @@ with serial.Serial(addr,9600) as pt:
             temp = buffer.split(',')[1].strip('T')
             press = buffer.split(',')[2].strip('P')
             humid = buffer.split(',')[3].strip('H')
-            light = buffer.split(',')[4].strip('L')
-            volt = buffer.split(',')[5].strip('V')
-            rssi = buffer.split(',')[6].strip('\n')
+            volt = buffer.split(',')[4].strip('V')
+            rssi = buffer.split(',')[5].strip('\n')
             
             ### Check output of above split ###
-            #print(temp,press,humid,volt,light,rssi) 
+            #print(temp,press,humid,volt,rssi) 
             
         if txt_logging == 'true':
             fname = str(today) + '.log'  # log file to save data in
