@@ -22,7 +22,7 @@ dover_sensor = { #Modified for Dover_Wx_St
 }
 
 def thingspeaktweet(api_key):
-    tweet = "Outside: %%channel_123694_field_2%%F, Inside: %%channel_123799_field_2%%F, Downstaris: %%channel_124921_field_2%%F, Garage: %%channel_125305_field_2%%F, Humid: %%channel_123694_field_4%%%, %%channel_123799_field_4%%%, Press: %%channel_123694_field_3%%mb, Bat: %%channel_123799_field_6%%%, %%channel_123694_field_6%%%, %%channel_124921_field_6%%%, %%channel_125305_field_6%%%"
+    tweet = "Outside: %%channel_123694_field_2%%F, Inside: %%channel_123799_field_2%%F, Downstaris: %%channel_124921_field_2%%F, Garage: %%channel_125305_field_2%%F, Humid: %%channel_123694_field_4%%%, %%channel_123799_field_4%%%, Press: %%channel_123694_field_3%%mb"
     print(tweet)
     payload = {'api_key': api_key, 'status': tweet}
     r = requests.post(url, data=payload)
