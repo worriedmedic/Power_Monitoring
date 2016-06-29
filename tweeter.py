@@ -12,6 +12,7 @@ url     = 'https://api.thingspeak.com/apps/thingtweet/1/statuses/update'
 #delay   = 600 #In Seconds ### REDUNDANT - NOW USING CRONTAB
 api_key = 'UERV67G8O01HXYVV' #Key for the ThingSpeak Tweeter API
 logging = 'false'
+verbose = 'false'
 
 dover_sensor = { #Modified for Dover_Wx_St
     'Inside'        : '123799',
@@ -23,7 +24,8 @@ dover_sensor = { #Modified for Dover_Wx_St
 
 def thingspeaktweet(api_key):
     tweet = "Outside: %%channel_123694_field_2%%F, %%channel_123694_field_4%%%, Inside: %%channel_123799_field_2%%F, %%channel_123799_field_4%%%, Downstairs: %%channel_124921_field_2%%F, %%channel_124921_field_4%%%, Garage: %%channel_125305_field_2%%F, %%channel_125305_field_4%%%, Press: %%channel_123694_field_3%%mb"
-    print(tweet)
+    if verbose == 'true':
+        print(tweet)
     payload = {'api_key': api_key, 'status': tweet}
     try:
         r = requests.post(url, data=payload)
