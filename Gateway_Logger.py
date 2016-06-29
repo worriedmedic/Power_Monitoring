@@ -19,7 +19,7 @@ verbose             = 'false'
 with serial.Serial(addr,9600) as pt:
     spb = io.TextIOWrapper(io.BufferedRWPair(pt,pt,1),
         encoding='ascii', errors='ignore',line_buffering=True)
-    spb.readline()  # throw away first line; likely to start mid-sentence (incomplete)
+    spb.readline()  # throw away first 3 lines; likely to start mid-sentence (incomplete)
     spb.readline()
     spb.readline()
 
@@ -59,83 +59,103 @@ with serial.Serial(addr,9600) as pt:
             outf.flush()  # make sure it actually gets written out
 
         if emoncms_update == 'true':
-            url = 'https://emoncms.org/input/post.json?node=%s&json={T:%s,P:%s,H:%s,V:%s,R:%s}&apikey=4e6eff5d047580696f0e2a7ae9323983' % (addr, temp, press, humid, volt, rssi)
-            r = requests.post(url)
-            if verbose == 'true':
-                print(r.text)
-            if "ok" in r:
-                print("EMONCMS Update OK")
-            else:
-                print("EMCONMS Update FAILED")
-
+            try:
+                url = 'https://emoncms.org/input/post.json?node=%s&json={T:%s,P:%s,H:%s,V:%s,R:%s}&apikey=4e6eff5d047580696f0e2a7ae9323983' % (addr, temp, press, humid, volt, rssi)
+                r = requests.post(url)
+                if verbose == 'true':
+                    print(r.text)
+                if "ok" in r:
+                    print("EMONCMS Update OK")
+                else:
+                    print("EMCONMS Update FAILED")
+                except requests.exceptions.RequestException as e:
+                    print(e.text)
+        
         if thingspeak_update == 'true':
             url = 'https://api.thingspeak.com/update.json'
-
-            if addr == '00': #
-                api_key = 'TFGVV0YYM18ALONJ'
-                temp_payload = {'api_key': api_key, 'field1': addr, 'field2': temp, 'field3': press, 'field4': humid, 'field6': volt, 'field7': rssi}
-                r = requests.post(url,data=temp_payload)
-                if verbose == 'true':
-                    print(r.text)
-                if r.text == "0":
-                    print("Thingspeak Update FAILED")
-                else:
-                    print("Thingspeak Update OK")
-
+            if addr == '00':
+                try:
+                    api_key = 'TFGVV0YYM18ALONJ'
+                    temp_payload = {'api_key': api_key, 'field1': addr, 'field2': temp, 'field3': press, 'field4': humid, 'field6': volt, 'field7': rssi}
+                    r = requests.post(url,data=temp_payload)
+                    if verbose == 'true':
+                        print(r.text)
+                    if r.text == "0":
+                        print("Thingspeak Update FAILED")
+                    else:
+                        print("Thingspeak Update OK")
+                except requests.exceptions.RequestException as e:
+                    print(e.text)
+            
             elif addr == '01':
-                api_key = 'ARPQ7GWOHTQSYWYW'
-                temp_payload = {'api_key': api_key, 'field1': addr, 'field2': temp, 'field3': press, 'field4': humid, 'field6': volt, 'field7': rssi}
-                r = requests.post(url, data=temp_payload)
-                if verbose == 'true':
-                    print(r.text)
-                if r.text == "0":
-                    print("Thingspeak Update FAILED")
-                else:
-                    print("Thingspeak Update OK")
+                try:
+                    api_key = 'ARPQ7GWOHTQSYWYW'
+                    temp_payload = {'api_key': api_key, 'field1': addr, 'field2': temp, 'field3': press, 'field4': humid, 'field6': volt, 'field7': rssi}
+                    r = requests.post(url, data=temp_payload)
+                    if verbose == 'true':
+                        print(r.text)
+                    if r.text == "0":
+                        print("Thingspeak Update FAILED")
+                    else:
+                        print("Thingspeak Update OK")
+                except requests.exceptions.RequestException as e:
+                    print(e.text)
             
             elif addr == '06':
-                api_key = 'LZAFORDCZ4UT75GU'
-                temp_payload = {'api_key': api_key, 'field1': addr, 'field2': temp, 'field3': press, 'field4': humid, 'field6': volt, 'field7': rssi}
-                r = requests.post(url, data=temp_payload)
-                if verbose == 'true':
-                    print(r.text)
-                if r.text == "0":
-                    print("Thingspeak Update FAILED")
-                else:
-                    print("Thingspeak Update OK")
-                    
+                try:
+                    api_key = 'LZAFORDCZ4UT75GU'
+                    temp_payload = {'api_key': api_key, 'field1': addr, 'field2': temp, 'field3': press, 'field4': humid, 'field6': volt, 'field7': rssi}
+                    r = requests.post(url, data=temp_payload)
+                    if verbose == 'true':
+                        print(r.text)
+                    if r.text == "0":
+                        print("Thingspeak Update FAILED")
+                    else:
+                        print("Thingspeak Update OK")
+                except requests.exceptions.RequestException as e:
+                    print(e.text)
+            
             elif addr == '07':
-                api_key = 'NQQZE8CL8ZC445DN'
-                temp_payload = {'api_key': api_key, 'field1': addr, 'field2': temp, 'field3': press, 'field4': humid, 'field6': volt, 'field7': rssi}
-                r = requests.post(url, data=temp_payload)
-                if verbose == 'true':
-                    print(r.text)
-                if r.text == "0":
-                    print("Thingspeak Update FAILED")
-                else:
-                    print("Thingspeak Update OK")
+                try:
+                    api_key = 'NQQZE8CL8ZC445DN'
+                    temp_payload = {'api_key': api_key, 'field1': addr, 'field2': temp, 'field3': press, 'field4': humid, 'field6': volt, 'field7': rssi}
+                    r = requests.post(url, data=temp_payload)
+                    if verbose == 'true':
+                        print(r.text)
+                    if r.text == "0":
+                        print("Thingspeak Update FAILED")
+                    else:
+                        print("Thingspeak Update OK")
+                except requests.exceptions.RequestException as e:
+                        print(e.text)
             
             elif addr == '08':
-                api_key = '8SHTGBFETA4XVN5P'
-                temp_payload = {'api_key': api_key, 'field1': addr, 'field2': temp, 'field3': press, 'field4': humid, 'field6': volt, 'field7': rssi}
-                r = requests.post(url, data=temp_payload)
-                if verbose == 'true':
-                    print(r.text)
-                if r.text == "0":
-                    print("Thingspeak Update FAILED")
-                else:
-                    print("Thingspeak Update OK")
-
+                try:
+                    api_key = '8SHTGBFETA4XVN5P'
+                    temp_payload = {'api_key': api_key, 'field1': addr, 'field2': temp, 'field3': press, 'field4': humid, 'field6': volt, 'field7': rssi}
+                    r = requests.post(url, data=temp_payload)
+                    if verbose == 'true':
+                        print(r.text)
+                    if r.text == "0":
+                        print("Thingspeak Update FAILED")
+                    else:
+                        print("Thingspeak Update OK")
+                except requests.exceptions.RequestException as e:
+                    print(e.text)
+            
             elif addr == '09':
-                api_key = 'TUFQWU8SA1HL1B4O'
-                temp_payload = {'api_key': api_key, 'field1': addr, 'field2': temp, 'field3': press, 'field4': humid, 'field6': volt, 'field7': rssi}
-                r = requests.post(url, data=temp_payload)
-                if verbose == 'true':
-                    print(r.text)
-                if r.text == "0":
-                    print("Thingspeak Update FAILED")
-                else:
-                    print("Thingspeak Update OK")
-
+                try:
+                    api_key = 'TUFQWU8SA1HL1B4O'
+                    temp_payload = {'api_key': api_key, 'field1': addr, 'field2': temp, 'field3': press, 'field4': humid, 'field6': volt, 'field7': rssi}
+                    r = requests.post(url, data=temp_payload)
+                    if verbose == 'true':
+                        print(r.text)
+                    if r.text == "0":
+                        print("Thingspeak Update FAILED")
+                    else:
+                        print("Thingspeak Update OK")
+                except requests.exceptions.RequestException as e:
+                    print(e.text)
+            
             else:
                 print("SENSOR ID NOT FOUND")
