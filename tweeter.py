@@ -25,10 +25,13 @@ def thingspeaktweet(api_key):
     tweet = "Outside: %%channel_123694_field_2%%F, %%channel_123694_field_4%%%, Inside: %%channel_123799_field_2%%F, %%channel_123799_field_4%%%, Downstairs: %%channel_124921_field_2%%F, %%channel_124921_field_4%%%, Garage: %%channel_125305_field_2%%F, %%channel_125305_field_4%%%, Press: %%channel_123694_field_3%%mb"
     print(tweet)
     payload = {'api_key': api_key, 'status': tweet}
-    r = requests.post(url, data=payload)
-    time.sleep(1)
-    print(now, r.text)
-
+    try:
+        r = requests.post(url, data=payload)
+        time.sleep(1)
+        print(now, r.text)
+    except requests.exceptions.RequestException as e:
+        print(e.text)
+        
     if logging == 'true':
         fname = str(today) + '.log'
         fdirectory = 'data_log'
@@ -43,7 +46,9 @@ def thingspeaktweet(api_key):
         outf.write(log)
         outf.flush()
 
-if (1):
+try:
     now = time.strftime("%H:%M:%S")
     today = datetime.date.today()
     thingspeaktweet(api_key)
+except:
+    print("UNKNOWN ERROR")
