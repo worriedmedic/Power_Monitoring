@@ -1,5 +1,6 @@
 # Power_Monitoring
-Attempt to monitor power usage using an arduino/RPi setup
+Homebrew home monitoring project. Includes multiple weather sensors and Open Power Monitoring EmonTX v3 sensor for power usage.
 
-Power Meter: Elster A1TQ+
-Using RadioShack Infrared LED Detector (PN #: 2760142) with Arduino Pro Mini (3.3V, 8mHz) and HopeRF RFM95x transcever.
+Weather sensors baised on Arduino Pro Mini (8mhz, 3.3v) with BME280 atmospheric sensor (Temp, Press, Humidity) and Hope RFM95x trancever. Tied with custom PCB. Blindly transmits data q96 sec with unique ID, above readings and a voltage read.
+
+Above read by Arduino Pro Mini (8mhx, 3.3v) and Hope RFM95x transcever, transmitted to RaspberryPi 3 via USB serial connection where front end processing is handeled in the python scripts found here.
