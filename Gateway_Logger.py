@@ -68,8 +68,8 @@ with serial.Serial(addr,9600) as pt:
                     print("EMONCMS Update OK")
                 else:
                     print("EMCONMS Update FAILED")
-                except requests.exceptions.RequestException as e:
-                    print(e.text)
+            except requests.exceptions.RequestException as e:
+                print(e.text)
         
         if thingspeak_update == 'true':
             url = 'https://api.thingspeak.com/update.json'
