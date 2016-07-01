@@ -100,7 +100,21 @@ with serial.Serial(addr,9600) as pt:
                         print("Thingspeak Update OK")
                 except requests.exceptions.RequestException as e:
                     print(e.text)
-            
+
+            elif addr == '05':
+                try:
+                    api_key = '89NM6222ST0UW15H'
+                    temp_payload = {'api_key': api_key, 'field1': addr, 'field2': temp, 'field3': press, 'field4': humid, 'field6': volt, 'field7': rssi}
+                    r = requests.post(url, data=temp_payload)
+                    if verbose == 'true':
+                        print(r.text)
+                    if r.text == "0":
+                        print("Thingspeak Update FAILED")
+                    else:
+                        print("Thingspeak Update OK")
+                except requests.exceptions.RequestException as e:
+                    print(e.text)
+                        
             elif addr == '06':
                 try:
                     api_key = 'LZAFORDCZ4UT75GU'
