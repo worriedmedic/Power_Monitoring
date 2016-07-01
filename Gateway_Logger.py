@@ -36,13 +36,15 @@ with serial.Serial(addr,9600) as pt:
         addr  = buffer[0:2]
 
         if addr.startswith('0'):
-            buffer.split(',')
-            temp = buffer.split(',')[1].strip('T')
-            press = buffer.split(',')[2].strip('P')
-            humid = buffer.split(',')[3].strip('H')
-            volt = buffer.split(',')[4].strip('V')
-            rssi = buffer.split(',')[5].strip('\n')
-            
+            try:
+                buffer.split(',')
+                temp = buffer.split(',')[1].strip('T')
+                press = buffer.split(',')[2].strip('P')
+                humid = buffer.split(',')[3].strip('H')
+                volt = buffer.split(',')[4].strip('V')
+                rssi = buffer.split(',')[5].strip('\n')
+            except:
+                print("Encountered Data Split Error")
             ### Check output of above split ###
             #print(temp,press,humid,volt,rssi) 
             
