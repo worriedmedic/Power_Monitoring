@@ -18,12 +18,13 @@ dover_sensor = { #Modified for Dover_Wx_St
     'Inside'        : '123799',
     'Outside'       : '123694',
     'Downstairs'    : '124921',
-    'Garage'        : '125305'
+    'Garage'        : '125305',
+    'Attic'         : '130195'
     
 }
 
 def thingspeaktweet(api_key):
-    tweet = "Outside: %%channel_123694_field_2%%F, %%channel_123694_field_4%%%, Inside: %%channel_123799_field_2%%F, %%channel_123799_field_4%%%, Downstairs: %%channel_124921_field_2%%F, %%channel_124921_field_4%%%, Garage: %%channel_125305_field_2%%F, %%channel_125305_field_4%%%, Press: %%channel_123694_field_3%%mb"
+    tweet = "Outside: %%channel_123694_field_2%%F, %%channel_123694_field_4%%%, Inside: %%channel_123799_field_2%%F, %%channel_123799_field_4%%%, Downstairs: %%channel_124921_field_2%%F, %%channel_124921_field_4%%%, Garage: %%channel_125305_field_2%%F, %%channel_125305_field_4%%%, Attic: %%channel_130195_field_2%%F, %%channel_130195_field_4%%%, Press: %%channel_123694_field_3%%mb"
     if verbose == 'true':
         print(tweet)
     payload = {'api_key': api_key, 'status': tweet}
@@ -35,22 +36,25 @@ def thingspeaktweet(api_key):
         print(e.text)
         
     if logging == 'true':
-        fname = str(today) + '.log'
-        fdirectory = 'data_log'
-        fmode = 'a' #Append
+        try:
+            fname = str(today) + '.log'
+            fdirectory = 'data_log'
+            fmode = 'a' #Append
 
-        if not os.path.exists(fdirectory):
-            os.makedirs(fdirectory)
+            if not os.path.exists(fdirectory):
+                os.makedirs(fdirectory)
    
-        log = now + ',' + r.text + '\n'
+            log = now + ',' + r.text + '\n'
         
-        outf = open(os.path.join(fdirectory, fname), fmode)
-        outf.write(log)
-        outf.flush()
+            outf = open(os.path.join(fdirectory, fname), fmode)
+            outf.write(log)
+            outf.flush()
+        except:
+            print("DATA LOG ERROR")
 
 try:
     now = time.strftime("%H:%M:%S")
     today = datetime.date.today()
     thingspeaktweet(api_key)
 except:
-    print("UNKNOWN ERROR")
+    print("GENERIC UNKNOWN ERROR")
