@@ -44,21 +44,25 @@ with serial.Serial(addr,9600) as pt:
                 volt = buffer.split(',')[4].strip('V')
                 rssi = buffer.split(',')[5].strip('\n')
             except:
-                print("Encountered Data Split Error")
+                print("DATA SPLIT ERROR")
             ### Check output of above split ###
-            #print(temp,press,humid,volt,rssi) 
+            if verbose == 'true':
+                print(temp,press,humid,volt,rssi) 
             
         if txt_logging == 'true':
-            fname = str(today) + '.log'  # log file to save data in
-            fdirectory = 'data_log'
-            fmode = 'a'  # log file mode = append
+            try:
+                fname = str(today) + '.log'  # log file to save data in
+                fdirectory = 'data_log'
+                fmode = 'a'  # log file mode = append
 
-            if not os.path.exists(fdirectory):
-                os.makedirs(fdirectory)
+                if not os.path.exists(fdirectory):
+                    os.makedirs(fdirectory)
 
-            outf = open(os.path.join(fdirectory, fname), fmode)
-            outf.write(x)  # write line of text to file
-            outf.flush()  # make sure it actually gets written out
+                outf = open(os.path.join(fdirectory, fname), fmode)
+                outf.write(x)  # write line of text to file
+                outf.flush()  # make sure it actually gets written out
+            except:
+                print("DATA LOG ERROR")
 
         if emoncms_update == 'true':
             try:
@@ -71,6 +75,7 @@ with serial.Serial(addr,9600) as pt:
                 else:
                     print("EMCONMS Update FAILED")
             except requests.exceptions.RequestException as e:
+                print("EMONCMS FATAL ERROR")
                 print(e.text)
         
         if thingspeak_update == 'true':
@@ -87,6 +92,7 @@ with serial.Serial(addr,9600) as pt:
                     else:
                         print("Thingspeak Update OK")
                 except requests.exceptions.RequestException as e:
+                    print("THINGSPEAK FATAL ERROR")
                     print(e.text)
             
             elif addr == '01':
@@ -101,6 +107,7 @@ with serial.Serial(addr,9600) as pt:
                     else:
                         print("Thingspeak Update OK")
                 except requests.exceptions.RequestException as e:
+                    print("THINGSPEAK FATAL ERROR")
                     print(e.text)
 
             elif addr == '05':
@@ -115,6 +122,7 @@ with serial.Serial(addr,9600) as pt:
                     else:
                         print("Thingspeak Update OK")
                 except requests.exceptions.RequestException as e:
+                    print("THINGSPEAK FATAL ERROR")
                     print(e.text)
                         
             elif addr == '06':
@@ -129,6 +137,7 @@ with serial.Serial(addr,9600) as pt:
                     else:
                         print("Thingspeak Update OK")
                 except requests.exceptions.RequestException as e:
+                    print("THINGSPEAK FATAL ERROR")
                     print(e.text)
             
             elif addr == '07':
@@ -143,7 +152,8 @@ with serial.Serial(addr,9600) as pt:
                     else:
                         print("Thingspeak Update OK")
                 except requests.exceptions.RequestException as e:
-                        print(e.text)
+                    print("THINGSPEAK FATAL ERROR")
+                    print(e.text)
             
             elif addr == '08':
                 try:
@@ -157,6 +167,7 @@ with serial.Serial(addr,9600) as pt:
                     else:
                         print("Thingspeak Update OK")
                 except requests.exceptions.RequestException as e:
+                    print("THINGSPEAK FATAL ERROR")
                     print(e.text)
             
             elif addr == '09':
@@ -171,7 +182,8 @@ with serial.Serial(addr,9600) as pt:
                     else:
                         print("Thingspeak Update OK")
                 except requests.exceptions.RequestException as e:
+                    print("THINGSPEAK FATAL ERROR")
                     print(e.text)
             
             else:
-                print("SENSOR ID NOT FOUND")
+                print("NOT PUSHED TO THINGSPEAK :: SENSOR ID NOT FOUND")
