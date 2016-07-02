@@ -44,12 +44,18 @@ with serial.Serial(addr,9600) as pt:
             volt = buffer.split(' ')[4]
         
             volt = float(volt) / 100
+        except:
+            print("DATA SPLIT ERROR")
             
             ### Check output of above split ###
-            if verbose == 'true':
+        if verbose == 'true':
+            try:
                 print(ct1p,ct2p,ct3p,ct4p,volt) 
-            
-            if txt_logging == 'true':
+            except:
+                print("VERBOSE PRINT ERROR, CHECK DATA SPLIT")
+        
+        if txt_logging == 'true':
+            try:
                 fname = str(today) + 'POWER.log'  # log file to save data in
                 fdirectory = 'data_log'
                 fmode = 'a'  # log file mode = append
@@ -60,38 +66,40 @@ with serial.Serial(addr,9600) as pt:
                 outf = open(os.path.join(fdirectory, fname), fmode)
                 outf.write(x)  # write line of text to file
                 outf.flush()  # make sure it actually gets written out
+            except:
+                print("DATA LOG ERROR")
 
-            if emoncms_update == 'true':
+        if emoncms_update == 'true':
+            try:
+                url = 'https://emoncms.org/input/post.json?node=%s&json={CT1:%s,CT2:%s,CT3:%s,CT4:%s,VOLT:%s}&apikey=4e6eff5d047580696f0e2a7ae9323983' % (addr, ct1p, ct2p, ct3p, ct4p, volt)
+                r = requests.post(url)
+                if "ok" in r:
+                    print("EMONCMS Update OK")
+                else:
+                    print("EMCONMS Update FAILED")
+                if verbose == 'true':
+                    print(r.text)
+            except requests.exceptions.RequestException as e:
+                print("EMONCMS FATAL ERROR")
+                print(e.text)
+                
+        if thingspeak_update == 'true':
+            url = 'https://api.thingspeak.com/update.json'
+
+            if addr == '10':
                 try:
-                    url = 'https://emoncms.org/input/post.json?node=%s&json={CT1:%s,CT2:%s,CT3:%s,CT4:%s,VOLT:%s}&apikey=4e6eff5d047580696f0e2a7ae9323983' % (addr, ct1p, ct2p, ct3p, ct4p, volt)
-                    r = requests.post(url)
-                    if "ok" in r:
-                        print("EMONCMS Update OK")
+                    api_key = '2I106Q4EPCT9228E'
+                    power_payload = {'api_key': api_key, 'field1': ct1p, 'field2': ct2p, 'field3': ct3p, 'field4': ct4p, 'field5': volt}
+                    r = requests.post(url, data=power_payload)
+                    if r.text == "0":
+                        print("Thingspeak Update FAILED")
                     else:
-                        print("EMCONMS Update FAILED")
+                        print("Thingspeak Update OK")
                     if verbose == 'true':
                         print(r.text)
                 except requests.exceptions.RequestException as e:
+                    print("THINGSPEAK FATAL ERROR")
                     print(e.text)
-                
-            if thingspeak_update == 'true':
-                url = 'https://api.thingspeak.com/update.json'
-
-                if addr == '10':
-                    try:
-                        api_key = '2I106Q4EPCT9228E'
-                        power_payload = {'api_key': api_key, 'field1': ct1p, 'field2': ct2p, 'field3': ct3p, 'field4': ct4p, 'field5': volt}
-                        r = requests.post(url, data=power_payload)
-                        if r.text == "0":
-                            print("Thingspeak Update FAILED")
-                        else:
-                            print("Thingspeak Update OK")
-                        if verbose == 'true':
-                            print(r.text)
-                    except requests.exceptions.RequestException as e:
-                        print(e.text)
             
-                else:
-                    print("SENSOR ID NOT FOUND")
-        except:
-            print("Generic Error encountered")
+            else:
+                print("NOT PUSHED TO THINGSPEAK :: SENSOR ID NOT FOUND")
