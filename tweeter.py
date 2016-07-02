@@ -31,8 +31,9 @@ def thingspeaktweet(api_key):
     try:
         r = requests.post(url, data=payload)
         time.sleep(1)
-        print(now, r.text)
+        print(today, now, r.text)
     except requests.exceptions.RequestException as e:
+        print("THINGSPEAK TWETTER API FATAL ERROR")
         print(e.text)
         
     if logging == 'true':
