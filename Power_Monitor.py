@@ -82,6 +82,8 @@ with serial.Serial(addr,9600) as pt:
             except requests.exceptions.RequestException as e:
                 print("EMONCMS FATAL ERROR")
                 print(e.text)
+            except:
+                print("ERROR")
                 
         if thingspeak_update == 'true':
             url = 'https://api.thingspeak.com/update.json'
@@ -100,6 +102,8 @@ with serial.Serial(addr,9600) as pt:
                 except requests.exceptions.RequestException as e:
                     print("THINGSPEAK FATAL ERROR")
                     print(e.text)
+                except:
+                    print("ERROR")
             
             else:
                 print("NOT PUSHED TO THINGSPEAK :: SENSOR ID NOT FOUND")
