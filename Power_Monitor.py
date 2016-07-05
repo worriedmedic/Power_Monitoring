@@ -81,7 +81,7 @@ with serial.Serial(addr,9600) as pt:
                     print(r.text)
             except requests.exceptions.RequestException as e:
                 print("EMONCMS FATAL ERROR")
-                print(e.text)
+                print(e)
             except:
                 print("ERROR")
                 
@@ -101,7 +101,7 @@ with serial.Serial(addr,9600) as pt:
                         print(r.text)
                 except requests.exceptions.RequestException as e:
                     print("THINGSPEAK FATAL ERROR")
-                    print(e.text)
+                    print(e)
                 except:
                     print("ERROR")
             
