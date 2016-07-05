@@ -44,6 +44,8 @@ with serial.Serial(addr,9600) as pt:
             volt = buffer.split(' ')[4]
         
             volt = float(volt) / 100
+            cttotal = ct1p + ct2p
+            
         except:
             print("DATA SPLIT ERROR")
             
@@ -71,7 +73,7 @@ with serial.Serial(addr,9600) as pt:
 
         if emoncms_update == 'true':
             try:
-                url = 'https://emoncms.org/input/post.json?node=%s&json={CT1:%s,CT2:%s,CT3:%s,CT4:%s,VOLT:%s}&apikey=4e6eff5d047580696f0e2a7ae9323983' % (addr, ct1p, ct2p, ct3p, ct4p, volt)
+                url = 'https://emoncms.org/input/post.json?node=%s&json={CTT:%s,CT1:%s,CT2:%s,CT3:%s,CT4:%s,VOLT:%s}&apikey=4e6eff5d047580696f0e2a7ae9323983' % (addr, cttotal, ct1p, ct2p, ct3p, ct4p, volt)
                 r = requests.post(url)
                 if "ok" in r:
                     print("EMONCMS Update OK")
