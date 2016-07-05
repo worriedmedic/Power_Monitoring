@@ -14,7 +14,7 @@ baud                = 9600   # baud rate for serial port
 thingspeak_update   = 'true' # Turn on/off updating to ThingSpeak
 emoncms_update      = 'true' # Turn on/off updating to Emoncms
 txt_logging         = 'true' # Enable/Disable logging to TXT file
-verbose             = 'false'
+verbose             = 'true'
 
 with serial.Serial(addr,9600) as pt:
     spb = io.TextIOWrapper(io.BufferedRWPair(pt,pt,1),
@@ -44,7 +44,7 @@ with serial.Serial(addr,9600) as pt:
             volt = buffer.split(' ')[4]
         
             volt = float(volt) / 100
-            cttotal = ct1p + ct2p
+            cttotal = int(ct1p) + int(ct2p)
             
         except:
             print("DATA SPLIT ERROR")
@@ -52,7 +52,7 @@ with serial.Serial(addr,9600) as pt:
             ### Check output of above split ###
         if verbose == 'true':
             try:
-                print(ct1p,ct2p,ct3p,ct4p,volt) 
+                print(cttotal,ct1p,ct2p,ct3p,ct4p,volt) 
             except:
                 print("VERBOSE PRINT ERROR, CHECK DATA SPLIT")
         
