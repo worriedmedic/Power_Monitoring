@@ -93,7 +93,7 @@ with serial.Serial(addr,9600) as pt:
             if addr == '10':
                 try:
                     api_key = '2I106Q4EPCT9228E'
-                    power_payload = {'api_key': api_key, 'field1': ct1p, 'field2': ct2p, 'field3': ct3p, 'field4': ct4p, 'field5': volt}
+                    power_payload = {'api_key': api_key, 'field1': cttotal, 'field2': ct1p, 'field3': ct2p, 'field4': ct3p, 'field5': ct4p, 'field6': volt}
                     r = requests.post(url, data=power_payload)
                     if r.text == "0":
                         print("Thingspeak Update FAILED")
