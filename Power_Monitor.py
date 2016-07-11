@@ -59,7 +59,7 @@ with serial.Serial(addr,9600) as pt:
         if txt_logging == 'true':
             try:
                 fname = str(today) + 'POWER.log'  # log file to save data in
-                fdirectory = 'data_log'
+                fdirectory = 'data_log/' + today.year + '-' + today.month
                 fmode = 'a'  # log file mode = append
 
                 if not os.path.exists(fdirectory):
