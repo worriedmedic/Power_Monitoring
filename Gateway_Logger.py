@@ -75,8 +75,10 @@ with serial.Serial(addr,9600) as pt:
                 else:
                     print("EMCONMS Update FAILED")
             except requests.exceptions.RequestException as e:
-                print("EMONCMS FATAL ERROR")
+                print("EMONCMS REQUESTS FATAL ERROR")
                 print(e)
+            except:
+                print("EMONCMS GENERAL FATAL ERROR")
         
         if thingspeak_update == 'true':
             url = 'https://api.thingspeak.com/update.json'
@@ -92,8 +94,10 @@ with serial.Serial(addr,9600) as pt:
                     else:
                         print("Thingspeak Update OK")
                 except requests.exceptions.RequestException as e:
-                    print("THINGSPEAK FATAL ERROR")
+                    print("THINGSPEAK REQUESTS FATAL ERROR")
                     print(e)
+                except:
+                    print("THINGSPEAK GENERAL FATAL ERROR")
             
             elif addr == '01':
                 try:
@@ -107,8 +111,10 @@ with serial.Serial(addr,9600) as pt:
                     else:
                         print("Thingspeak Update OK")
                 except requests.exceptions.RequestException as e:
-                    print("THINGSPEAK FATAL ERROR")
+                    print("THINGSPEAK REQUESTS FATAL ERROR")
                     print(e)
+                except:
+                    print("THINGSPEAK GENERAL FATAL ERROR")
 
             elif addr == '05':
                 try:
@@ -122,8 +128,10 @@ with serial.Serial(addr,9600) as pt:
                     else:
                         print("Thingspeak Update OK")
                 except requests.exceptions.RequestException as e:
-                    print("THINGSPEAK FATAL ERROR")
+                    print("THINGSPEAK REQUESTS FATAL ERROR")
                     print(e)
+                except:
+                    print("THINGSPEAK GENERAL FATAL ERROR")
                         
             elif addr == '06':
                 try:
@@ -137,8 +145,10 @@ with serial.Serial(addr,9600) as pt:
                     else:
                         print("Thingspeak Update OK")
                 except requests.exceptions.RequestException as e:
-                    print("THINGSPEAK FATAL ERROR")
+                    print("THINGSPEAK REQUESTS FATAL ERROR")
                     print(e)
+                except:
+                    print("THINGSPEAK GENERAL FATAL ERROR")
             
             elif addr == '07':
                 try:
@@ -152,8 +162,10 @@ with serial.Serial(addr,9600) as pt:
                     else:
                         print("Thingspeak Update OK")
                 except requests.exceptions.RequestException as e:
-                    print("THINGSPEAK FATAL ERROR")
+                    print("THINGSPEAK REQUESTS FATAL ERROR")
                     print(e)
+                except:
+                    print("THINGSPEAK GENERAL FATAL ERROR")
             
             elif addr == '08':
                 try:
@@ -167,8 +179,10 @@ with serial.Serial(addr,9600) as pt:
                     else:
                         print("Thingspeak Update OK")
                 except requests.exceptions.RequestException as e:
-                    print("THINGSPEAK FATAL ERROR")
+                    print("THINGSPEAK REQUESTS FATAL ERROR")
                     print(e)
+                except:
+                    print("THINGSPEAK GENERAL FATAL ERROR")
             
             elif addr == '09':
                 try:
@@ -182,8 +196,10 @@ with serial.Serial(addr,9600) as pt:
                     else:
                         print("Thingspeak Update OK")
                 except requests.exceptions.RequestException as e:
-                    print("THINGSPEAK FATAL ERROR")
+                    print("THINGSPEAK REQUESTS FATAL ERROR")
                     print(e)
+                except:
+                    print("THINGSPEAK GENERAL FATAL ERROR")
             
             else:
                 print("NOT PUSHED TO THINGSPEAK :: SENSOR ID NOT FOUND")
