@@ -53,8 +53,9 @@ with serial.Serial(addr,9600) as pt:
         if verbose == 'true':
             try:
                 print(cttotal,ct1p,ct2p,ct3p,ct4p,volt) 
-            except:
+            except Exception as e:
                 print("VERBOSE PRINT ERROR, CHECK DATA SPLIT")
+                print(e)
         
         if txt_logging == 'true':
             try:
@@ -68,8 +69,9 @@ with serial.Serial(addr,9600) as pt:
                 outf = open(os.path.join(fdirectory, fname), fmode)
                 outf.write(x)  # write line of text to file
                 outf.flush()  # make sure it actually gets written out
-            except:
+            except Exception as e:
                 print("DATA LOG ERROR")
+                print(e)
 
         if emoncms_update == 'true':
             try:
@@ -84,8 +86,9 @@ with serial.Serial(addr,9600) as pt:
             except requests.exceptions.RequestException as e:
                 print("EMONCMS REQUESTS FATAL ERROR")
                 print(e)
-            except:
+            except Exception as e:
                 print("EMONCMS GENERAL ERROR")
+                print(e)
                 
         if thingspeak_update == 'true':
             url = 'https://api.thingspeak.com/update.json'
@@ -104,8 +107,9 @@ with serial.Serial(addr,9600) as pt:
                 except requests.exceptions.RequestException as e:
                     print("THINGSPEAK REQUESTS FATAL ERROR")
                     print(e)
-                except:
+                except Exception as e:
                     print("THINGSPEAK GENERAL ERROR")
+                    print(e)
             
             else:
                 print("NOT PUSHED TO THINGSPEAK :: SENSOR ID NOT FOUND")
