@@ -17,17 +17,22 @@ txt_logging         = 'true' # Enable/Disable logging to TXT file
 verbose             = 'false'
 
 with serial.Serial(addr,9600) as pt:
-    spb = io.TextIOWrapper(io.BufferedRWPair(pt,pt,1),
-        encoding='ascii', errors='ignore',line_buffering=True)
-    spb.readline()  # throw away first 3 lines; likely to start mid-sentence (incomplete)
-    spb.readline()
-    spb.readline()
+    try:
+        spb = io.TextIOWrapper(io.BufferedRWPair(pt,pt,1), encoding='ascii', errors='ignore',line_buffering=True)
+        spb.readline()  # throw away first 3 lines; likely to start mid-sentence (incomplete)
+        spb.readline()
+        spb.readline()
+    except Exception as e:
+        print(e)
 
     while (1):
         now = time.strftime("%H:%M:%S") # Call time of serial read
         today = datetime.date.today() # Call date of serial read
 
-        buffer = spb.readline()  # read one line of text from serial port
+        try:
+            buffer = spb.readline()  # read one line of text from serial port
+        except Exception as e:
+            print(e)
 
         x = str(today) + ',' + str(now) + ',' + str(buffer)
 
