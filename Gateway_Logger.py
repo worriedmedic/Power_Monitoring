@@ -43,8 +43,9 @@ with serial.Serial(addr,9600) as pt:
                 humid = buffer.split(',')[3].strip('H')
                 volt = buffer.split(',')[4].strip('V')
                 rssi = buffer.split(',')[5].strip('\n')
-            except:
+            except Exception as e:
                 print("DATA SPLIT ERROR")
+                print(e)
             ### Check output of above split ###
             if verbose == 'true':
                 print(temp,press,humid,volt,rssi) 
@@ -61,8 +62,9 @@ with serial.Serial(addr,9600) as pt:
                 outf = open(os.path.join(fdirectory, fname), fmode)
                 outf.write(x)  # write line of text to file
                 outf.flush()  # make sure it actually gets written out
-            except:
+            except Exception as e:
                 print("DATA LOG ERROR")
+                print(e)
 
         if emoncms_update == 'true':
             try:
@@ -77,8 +79,9 @@ with serial.Serial(addr,9600) as pt:
             except requests.exceptions.RequestException as e:
                 print("EMONCMS REQUESTS FATAL ERROR")
                 print(e)
-            except:
+            except Exception as e:
                 print("EMONCMS GENERAL FATAL ERROR")
+                print(e)
         
         if thingspeak_update == 'true':
             url = 'https://api.thingspeak.com/update.json'
@@ -96,8 +99,9 @@ with serial.Serial(addr,9600) as pt:
                 except requests.exceptions.RequestException as e:
                     print("THINGSPEAK REQUESTS FATAL ERROR")
                     print(e)
-                except:
+                except Exception as e:
                     print("THINGSPEAK GENERAL FATAL ERROR")
+                    print(e)
             
             elif addr == '01':
                 try:
@@ -113,8 +117,9 @@ with serial.Serial(addr,9600) as pt:
                 except requests.exceptions.RequestException as e:
                     print("THINGSPEAK REQUESTS FATAL ERROR")
                     print(e)
-                except:
+                except Exception as e:
                     print("THINGSPEAK GENERAL FATAL ERROR")
+                    print(e)
 
             elif addr == '05':
                 try:
@@ -130,8 +135,9 @@ with serial.Serial(addr,9600) as pt:
                 except requests.exceptions.RequestException as e:
                     print("THINGSPEAK REQUESTS FATAL ERROR")
                     print(e)
-                except:
+                except Exception as e:
                     print("THINGSPEAK GENERAL FATAL ERROR")
+                    print(e)
                         
             elif addr == '06':
                 try:
@@ -147,8 +153,9 @@ with serial.Serial(addr,9600) as pt:
                 except requests.exceptions.RequestException as e:
                     print("THINGSPEAK REQUESTS FATAL ERROR")
                     print(e)
-                except:
+                except Exception as e:
                     print("THINGSPEAK GENERAL FATAL ERROR")
+                    print(e)
             
             elif addr == '07':
                 try:
@@ -164,8 +171,9 @@ with serial.Serial(addr,9600) as pt:
                 except requests.exceptions.RequestException as e:
                     print("THINGSPEAK REQUESTS FATAL ERROR")
                     print(e)
-                except:
+                except Exception as e:
                     print("THINGSPEAK GENERAL FATAL ERROR")
+                    print(e)
             
             elif addr == '08':
                 try:
@@ -181,8 +189,9 @@ with serial.Serial(addr,9600) as pt:
                 except requests.exceptions.RequestException as e:
                     print("THINGSPEAK REQUESTS FATAL ERROR")
                     print(e)
-                except:
+                except Exception as e:
                     print("THINGSPEAK GENERAL FATAL ERROR")
+                    print(e)
             
             elif addr == '09':
                 try:
@@ -198,8 +207,9 @@ with serial.Serial(addr,9600) as pt:
                 except requests.exceptions.RequestException as e:
                     print("THINGSPEAK REQUESTS FATAL ERROR")
                     print(e)
-                except:
+                except Exception as e:
                     print("THINGSPEAK GENERAL FATAL ERROR")
+                    print(e)
             
             else:
                 print("NOT PUSHED TO THINGSPEAK :: SENSOR ID NOT FOUND")
