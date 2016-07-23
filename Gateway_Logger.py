@@ -32,7 +32,7 @@ with serial.Serial(addr,9600) as pt:
         try:
             buffer = spb.readline()  # read one line of text from serial port
         except Exception as e:
-            print(e)
+            print(today, now, e)
 
         x = str(today) + ',' + str(now) + ',' + str(buffer)
 
@@ -51,7 +51,7 @@ with serial.Serial(addr,9600) as pt:
                 rssi = buffer.split(',')[5].strip('\n')
             except Exception as e:
                 print("DATA SPLIT ERROR")
-                print(e)
+                print(today, now, e)
             
         if txt_logging == 'true':
             try:
@@ -67,7 +67,7 @@ with serial.Serial(addr,9600) as pt:
                 outf.flush()  # make sure it actually gets written out
             except Exception as e:
                 print("DATA LOG ERROR")
-                print(e)
+                print(today, now, e)
 
         if emoncms_update == 'true':
             try:
@@ -82,10 +82,10 @@ with serial.Serial(addr,9600) as pt:
                         
             except requests.exceptions.RequestException as e:
                 print("EMONCMS REQUESTS FATAL ERROR")
-                print(e)
+                print(today, now, e)
             except Exception as e:
                 print("EMONCMS GENERAL FATAL ERROR")
-                print(e)
+                print(today, now, e)
         
         if thingspeak_update == 'true':
             url = 'https://api.thingspeak.com/update.json'
@@ -103,10 +103,10 @@ with serial.Serial(addr,9600) as pt:
                             
                 except requests.exceptions.RequestException as e:
                     print("THINGSPEAK REQUESTS FATAL ERROR")
-                    print(e)
+                    print(today, now, e)
                 except Exception as e:
                     print("THINGSPEAK GENERAL FATAL ERROR")
-                    print(e)
+                    print(today, now, e)
             
             elif addr == '01':
                 try:
@@ -122,10 +122,10 @@ with serial.Serial(addr,9600) as pt:
                             
                 except requests.exceptions.RequestException as e:
                     print("THINGSPEAK REQUESTS FATAL ERROR")
-                    print(e)
+                    print(today, now, e)
                 except Exception as e:
                     print("THINGSPEAK GENERAL FATAL ERROR")
-                    print(e)
+                    print(today, now, e)
 
             elif addr == '05':
                 try:
@@ -141,10 +141,10 @@ with serial.Serial(addr,9600) as pt:
                             
                 except requests.exceptions.RequestException as e:
                     print("THINGSPEAK REQUESTS FATAL ERROR")
-                    print(e)
+                    print(today, now, e)
                 except Exception as e:
                     print("THINGSPEAK GENERAL FATAL ERROR")
-                    print(e)
+                    print(today, now, e)
                         
             elif addr == '06':
                 try:
@@ -160,10 +160,10 @@ with serial.Serial(addr,9600) as pt:
                             
                 except requests.exceptions.RequestException as e:
                     print("THINGSPEAK REQUESTS FATAL ERROR")
-                    print(e)
+                    print(today, now, e)
                 except Exception as e:
                     print("THINGSPEAK GENERAL FATAL ERROR")
-                    print(e)
+                    print(today, now, e)
             
             elif addr == '07':
                 try:
@@ -179,10 +179,10 @@ with serial.Serial(addr,9600) as pt:
                             
                 except requests.exceptions.RequestException as e:
                     print("THINGSPEAK REQUESTS FATAL ERROR")
-                    print(e)
+                    print(today, now, e)
                 except Exception as e:
                     print("THINGSPEAK GENERAL FATAL ERROR")
-                    print(e)
+                    print(today, now, e)
             
             elif addr == '08':
                 try:
@@ -198,10 +198,10 @@ with serial.Serial(addr,9600) as pt:
                             
                 except requests.exceptions.RequestException as e:
                     print("THINGSPEAK REQUESTS FATAL ERROR")
-                    print(e)
+                    print(today, now, e)
                 except Exception as e:
                     print("THINGSPEAK GENERAL FATAL ERROR")
-                    print(e)
+                    print(today, now, e)
             
             elif addr == '09':
                 try:
@@ -217,10 +217,10 @@ with serial.Serial(addr,9600) as pt:
                             
                 except requests.exceptions.RequestException as e:
                     print("THINGSPEAK REQUESTS FATAL ERROR")
-                    print(e)
+                    print(today, now, e)
                 except Exception as e:
                     print("THINGSPEAK GENERAL FATAL ERROR")
-                    print(e)
+                    print(today, now, e)
             
             else:
                 print("NOT PUSHED TO THINGSPEAK :: SENSOR ID NOT FOUND")
