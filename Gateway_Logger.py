@@ -36,7 +36,8 @@ with serial.Serial(addr,9600) as pt:
 
         x = str(today) + ',' + str(now) + ',' + str(buffer)
 
-        print (x,end='')    # echo line of text on-screen
+        if verbose == 'true':
+            print (x,end='')    # echo line of text on-screen
 
         addr  = buffer[0:2]
 
@@ -51,9 +52,6 @@ with serial.Serial(addr,9600) as pt:
             except Exception as e:
                 print("DATA SPLIT ERROR")
                 print(e)
-            ### Check output of above split ###
-            if verbose == 'true':
-                print(temp,press,humid,volt,rssi) 
             
         if txt_logging == 'true':
             try:
@@ -77,10 +75,11 @@ with serial.Serial(addr,9600) as pt:
                 r = requests.post(url)
                 if verbose == 'true':
                     print(r.text)
-                if "ok" in r:
-                    print("EMONCMS Update OK")
-                else:
-                    print("EMCONMS Update FAILED")
+                    if "ok" in r:
+                        print("EMONCMS Update OK")
+                    else:
+                        print("EMCONMS Update FAILED")
+                        
             except requests.exceptions.RequestException as e:
                 print("EMONCMS REQUESTS FATAL ERROR")
                 print(e)
@@ -97,10 +96,11 @@ with serial.Serial(addr,9600) as pt:
                     r = requests.post(url,data=temp_payload)
                     if verbose == 'true':
                         print(r.text)
-                    if r.text == "0":
-                        print("Thingspeak Update FAILED")
-                    else:
-                        print("Thingspeak Update OK")
+                        if r.text == "0":
+                            print("Thingspeak Update FAILED")
+                        else:
+                            print("Thingspeak Update OK")
+                            
                 except requests.exceptions.RequestException as e:
                     print("THINGSPEAK REQUESTS FATAL ERROR")
                     print(e)
@@ -115,10 +115,11 @@ with serial.Serial(addr,9600) as pt:
                     r = requests.post(url, data=temp_payload)
                     if verbose == 'true':
                         print(r.text)
-                    if r.text == "0":
-                        print("Thingspeak Update FAILED")
-                    else:
-                        print("Thingspeak Update OK")
+                        if r.text == "0":
+                            print("Thingspeak Update FAILED")
+                        else:
+                            print("Thingspeak Update OK")
+                            
                 except requests.exceptions.RequestException as e:
                     print("THINGSPEAK REQUESTS FATAL ERROR")
                     print(e)
@@ -133,10 +134,11 @@ with serial.Serial(addr,9600) as pt:
                     r = requests.post(url, data=temp_payload)
                     if verbose == 'true':
                         print(r.text)
-                    if r.text == "0":
-                        print("Thingspeak Update FAILED")
-                    else:
-                        print("Thingspeak Update OK")
+                        if r.text == "0":
+                            print("Thingspeak Update FAILED")
+                        else:
+                            print("Thingspeak Update OK")
+                            
                 except requests.exceptions.RequestException as e:
                     print("THINGSPEAK REQUESTS FATAL ERROR")
                     print(e)
@@ -151,10 +153,11 @@ with serial.Serial(addr,9600) as pt:
                     r = requests.post(url, data=temp_payload)
                     if verbose == 'true':
                         print(r.text)
-                    if r.text == "0":
-                        print("Thingspeak Update FAILED")
-                    else:
-                        print("Thingspeak Update OK")
+                        if r.text == "0":
+                            print("Thingspeak Update FAILED")
+                        else:
+                            print("Thingspeak Update OK")
+                            
                 except requests.exceptions.RequestException as e:
                     print("THINGSPEAK REQUESTS FATAL ERROR")
                     print(e)
@@ -169,10 +172,11 @@ with serial.Serial(addr,9600) as pt:
                     r = requests.post(url, data=temp_payload)
                     if verbose == 'true':
                         print(r.text)
-                    if r.text == "0":
-                        print("Thingspeak Update FAILED")
-                    else:
-                        print("Thingspeak Update OK")
+                        if r.text == "0":
+                            print("Thingspeak Update FAILED")
+                        else:
+                            print("Thingspeak Update OK")
+                            
                 except requests.exceptions.RequestException as e:
                     print("THINGSPEAK REQUESTS FATAL ERROR")
                     print(e)
@@ -187,10 +191,11 @@ with serial.Serial(addr,9600) as pt:
                     r = requests.post(url, data=temp_payload)
                     if verbose == 'true':
                         print(r.text)
-                    if r.text == "0":
-                        print("Thingspeak Update FAILED")
-                    else:
-                        print("Thingspeak Update OK")
+                        if r.text == "0":
+                            print("Thingspeak Update FAILED")
+                        else:
+                            print("Thingspeak Update OK")
+                            
                 except requests.exceptions.RequestException as e:
                     print("THINGSPEAK REQUESTS FATAL ERROR")
                     print(e)
@@ -205,10 +210,11 @@ with serial.Serial(addr,9600) as pt:
                     r = requests.post(url, data=temp_payload)
                     if verbose == 'true':
                         print(r.text)
-                    if r.text == "0":
-                        print("Thingspeak Update FAILED")
-                    else:
-                        print("Thingspeak Update OK")
+                        if r.text == "0":
+                            print("Thingspeak Update FAILED")
+                        else:
+                            print("Thingspeak Update OK")
+                            
                 except requests.exceptions.RequestException as e:
                     print("THINGSPEAK REQUESTS FATAL ERROR")
                     print(e)
