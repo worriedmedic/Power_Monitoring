@@ -36,7 +36,8 @@ with serial.Serial(addr,9600) as pt:
 
         x = str(today) + ',' + str(now) + ',' + str(buffer)
 
-        print (x,end='')    # echo line of text on-screen
+        if verbose == 'true':
+            print (x,end='')    # echo line of text on-screen
 
         addr = '10'
         
@@ -83,12 +84,13 @@ with serial.Serial(addr,9600) as pt:
             try:
                 url = 'https://emoncms.org/input/post.json?node=%s&json={CTT:%s,CT1:%s,CT2:%s,CT3:%s,CT4:%s,VOLT:%s}&apikey=4e6eff5d047580696f0e2a7ae9323983' % (addr, cttotal, ct1p, ct2p, ct3p, ct4p, volt)
                 r = requests.post(url)
-                if "ok" in r:
-                    print("EMONCMS Update OK")
-                else:
-                    print("EMCONMS Update FAILED")
                 if verbose == 'true':
                     print(r.text)
+                    if "ok" in r:
+                        print("EMONCMS Update OK")
+                    else:
+                        print("EMCONMS Update FAILED")
+
             except requests.exceptions.RequestException as e:
                 print("EMONCMS REQUESTS FATAL ERROR")
                 print(e)
@@ -104,12 +106,13 @@ with serial.Serial(addr,9600) as pt:
                     api_key = '2I106Q4EPCT9228E'
                     power_payload = {'api_key': api_key, 'field1': cttotal, 'field2': ct1p, 'field3': ct2p, 'field4': ct3p, 'field5': ct4p, 'field6': volt}
                     r = requests.post(url, data=power_payload)
-                    if r.text == "0":
-                        print("Thingspeak Update FAILED")
-                    else:
-                        print("Thingspeak Update OK")
                     if verbose == 'true':
                         print(r.text)
+                        if r.text == "0":
+                            print("Thingspeak Update FAILED")
+                        else:
+                            print("Thingspeak Update OK")
+
                 except requests.exceptions.RequestException as e:
                     print("THINGSPEAK REQUESTS FATAL ERROR")
                     print(e)
