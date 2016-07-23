@@ -32,7 +32,7 @@ with serial.Serial(addr,9600) as pt:
         try:
             buffer = spb.readline()  # read one line of text from serial port
         except Exception as e:
-            print(e)
+            print(today, now, e)
 
         x = str(today) + ',' + str(now) + ',' + str(buffer)
 
@@ -54,7 +54,7 @@ with serial.Serial(addr,9600) as pt:
             
         except Exception as e:
             print("DATA SPLIT ERROR")
-            print(e)
+            print(today, now, e)
             
             ### Check output of above split ###
         if verbose == 'true':
@@ -62,7 +62,7 @@ with serial.Serial(addr,9600) as pt:
                 print(cttotal,ct1p,ct2p,ct3p,ct4p,volt) 
             except Exception as e:
                 print("VERBOSE PRINT ERROR, CHECK DATA SPLIT")
-                print(e)
+                print(today, now, e)
         
         if txt_logging == 'true':
             try:
@@ -78,7 +78,7 @@ with serial.Serial(addr,9600) as pt:
                 outf.flush()  # make sure it actually gets written out
             except Exception as e:
                 print("DATA LOG ERROR")
-                print(e)
+                print(today, now, e)
 
         if emoncms_update == 'true':
             try:
@@ -93,10 +93,10 @@ with serial.Serial(addr,9600) as pt:
 
             except requests.exceptions.RequestException as e:
                 print("EMONCMS REQUESTS FATAL ERROR")
-                print(e)
+                print(today, now, e)
             except Exception as e:
                 print("EMONCMS GENERAL ERROR")
-                print(e)
+                print(today, now, e)
                 
         if thingspeak_update == 'true':
             url = 'https://api.thingspeak.com/update.json'
@@ -115,10 +115,10 @@ with serial.Serial(addr,9600) as pt:
 
                 except requests.exceptions.RequestException as e:
                     print("THINGSPEAK REQUESTS FATAL ERROR")
-                    print(e)
+                    print(today, now, e)
                 except Exception as e:
                     print("THINGSPEAK GENERAL ERROR")
-                    print(e)
+                    print(today, now, e)
             
             else:
                 print("NOT PUSHED TO THINGSPEAK :: SENSOR ID NOT FOUND")
