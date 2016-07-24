@@ -31,13 +31,15 @@ def thingspeaktweet(api_key):
     try:
         r = requests.post(url, data=payload)
         time.sleep(1)
-        print(str(today), str(now), r.text)
+        if verbose == 'true':
+            print(str(today), str(now), r.text)
+            
     except requests.exceptions.RequestException as e:
         print("TWEETAPI REQUESTS FATAL ERROR")
-        print(e.text)
+        print(today, now, e)
     except Exception as e:
         print("TWEETAPI GENERIC FATAL ERROR")
-        print(e)
+        print(today, now, e)
         
     if logging == 'true':
         try:
@@ -48,14 +50,14 @@ def thingspeaktweet(api_key):
             if not os.path.exists(fdirectory):
                 os.makedirs(fdirectory)
    
-            log = now + ',' + r.text + '\n'
+            log = today + ',' + now + ',' + r + '\n'
         
             outf = open(os.path.join(fdirectory, fname), fmode)
             outf.write(log)
             outf.flush()
         except Exception as e:
             print("DATA LOG ERROR")
-            print(e)
+            print(today, now, e)
 
 try:
     now = time.strftime("%H:%M:%S")
@@ -63,4 +65,4 @@ try:
     thingspeaktweet(api_key)
 except Exception as e:
     print("GENERIC UNKNOWN ERROR")
-    print(e)
+    print(today, now, e)
