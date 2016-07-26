@@ -31,6 +31,8 @@ with serial.Serial(addr,9600) as pt:
 
         try:
             buffer = spb.readline()  # read one line of text from serial port
+            buffer = buffer.strip("\n")
+            
         except Exception as e:
             print("SERIAL READ ERROR", today, now, e)
 
