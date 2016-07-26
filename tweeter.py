@@ -35,11 +35,9 @@ def thingspeaktweet(api_key):
             print(str(today), str(now), r.text)
             
     except requests.exceptions.RequestException as e:
-        print("TWEETAPI REQUESTS FATAL ERROR")
-        print(today, now, e)
+        print("TWEETAPI REQUESTS ERROR", today, now, e)
     except Exception as e:
-        print("TWEETAPI GENERIC FATAL ERROR")
-        print(today, now, e)
+        print("TWEETAPI GENERIC ERROR", today, now, e)
         
     if logging == 'true':
         try:
@@ -56,13 +54,11 @@ def thingspeaktweet(api_key):
             outf.write(log)
             outf.flush()
         except Exception as e:
-            print("DATA LOG ERROR")
-            print(today, now, e)
+            print("DATA LOG ERROR", today, now, e)
 
 try:
     now = time.strftime("%H:%M:%S")
-    today = datetime.date.today()
+    today = str(datetime.date.today())
     thingspeaktweet(api_key)
 except Exception as e:
-    print("GENERIC UNKNOWN ERROR")
-    print(today, now, e)
+    print("GENERIC ERROR", today, now, e)
