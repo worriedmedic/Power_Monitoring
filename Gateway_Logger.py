@@ -36,7 +36,7 @@ with serial.Serial(addr,9600) as pt:
         except Exception as e:
             print("SERIAL READ ERROR", today, now, e)
 
-        x = str(today) + ',' + str(now) + ',' + str(buffer)
+        x = str(today) + ',' + str(now) + ',' + str(buffer) + '\n'
 
         if verbose == 'true':
             print (x,end='')    # echo line of text on-screen
