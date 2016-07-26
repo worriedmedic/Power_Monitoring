@@ -39,7 +39,11 @@ with serial.Serial(addr,9600) as pt:
         if verbose == 'true':
             print (x,end='')    # echo line of text on-screen
 
-        addr  = buffer[0:2]
+        try:
+            addr  = buffer[0:2]
+        except Exception as e:
+            print(today, now, e)
+
 
         if addr.startswith('0'):
             try:
