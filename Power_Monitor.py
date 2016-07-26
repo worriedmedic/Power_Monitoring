@@ -60,7 +60,7 @@ with serial.Serial(addr,9600) as pt:
             try:
                 print(cttotal,ct1p,ct2p,ct3p,ct4p,volt) 
             except Exception as e:
-                print("VERBOSE PRINT ERROR, CHECK DATA SPLIT", today, now, e, buffer)
+                print("VERBOSE PRINT ERROR", today, now, e, buffer)
         
         if txt_logging == 'true':
             try:
@@ -89,7 +89,7 @@ with serial.Serial(addr,9600) as pt:
                         print("EMCONMS Update FAILED")
 
             except requests.exceptions.RequestException as e:
-                print("EMONCMS REQUESTS FATAL ERROR", today, now, e, buffer)
+                print("EMONCMS REQUESTS ERROR", today, now, e, buffer)
             except Exception as e:
                 print("EMONCMS GENERAL ERROR", today, now, e, buffer)
                 
@@ -109,7 +109,7 @@ with serial.Serial(addr,9600) as pt:
                             print("Thingspeak Update OK")
 
                 except requests.exceptions.RequestException as e:
-                    print("THINGSPEAK REQUESTS FATAL ERROR", today, now, e, buffer)
+                    print("THINGSPEAK REQUESTS ERROR", today, now, e, buffer)
                 except Exception as e:
                     print("THINGSPEAK GENERAL ERROR", today, now, e, buffer)
             
