@@ -32,7 +32,7 @@ with serial.Serial(addr,9600) as pt:
         try:
             buffer = spb.readline()  # read one line of text from serial port
         except Exception as e:
-            print(today, now, e)
+            print("SERIAL READ ERROR", today, now, e)
 
         x = str(today) + ',' + str(now) + ',' + str(buffer)
 
@@ -53,16 +53,14 @@ with serial.Serial(addr,9600) as pt:
             cttotal = int(ct1p) + int(ct2p)
             
         except Exception as e:
-            print("DATA SPLIT ERROR")
-            print(today, now, e)
+            print("DATA SPLIT ERROR", today, now, e, buffer)
             
             ### Check output of above split ###
         if verbose == 'true':
             try:
                 print(cttotal,ct1p,ct2p,ct3p,ct4p,volt) 
             except Exception as e:
-                print("VERBOSE PRINT ERROR, CHECK DATA SPLIT")
-                print(today, now, e)
+                print("VERBOSE PRINT ERROR, CHECK DATA SPLIT", today, now, e, buffer)
         
         if txt_logging == 'true':
             try:
@@ -77,8 +75,7 @@ with serial.Serial(addr,9600) as pt:
                 outf.write(x)  # write line of text to file
                 outf.flush()  # make sure it actually gets written out
             except Exception as e:
-                print("DATA LOG ERROR")
-                print(today, now, e)
+                print("DATA LOG ERROR", today, now, e, buffer)
 
         if emoncms_update == 'true':
             try:
@@ -92,11 +89,9 @@ with serial.Serial(addr,9600) as pt:
                         print("EMCONMS Update FAILED")
 
             except requests.exceptions.RequestException as e:
-                print("EMONCMS REQUESTS FATAL ERROR")
-                print(today, now, e)
+                print("EMONCMS REQUESTS FATAL ERROR", today, now, e, buffer)
             except Exception as e:
-                print("EMONCMS GENERAL ERROR")
-                print(today, now, e)
+                print("EMONCMS GENERAL ERROR", today, now, e, buffer)
                 
         if thingspeak_update == 'true':
             url = 'https://api.thingspeak.com/update.json'
@@ -114,11 +109,9 @@ with serial.Serial(addr,9600) as pt:
                             print("Thingspeak Update OK")
 
                 except requests.exceptions.RequestException as e:
-                    print("THINGSPEAK REQUESTS FATAL ERROR")
-                    print(today, now, e)
+                    print("THINGSPEAK REQUESTS FATAL ERROR", today, now, e, buffer)
                 except Exception as e:
-                    print("THINGSPEAK GENERAL ERROR")
-                    print(today, now, e)
+                    print("THINGSPEAK GENERAL ERROR", today, now, e, buffer)
             
             else:
                 print("NOT PUSHED TO THINGSPEAK :: SENSOR ID NOT FOUND")
