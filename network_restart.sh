@@ -64,8 +64,6 @@ echo $$ > $lockfile
 # We can perform check
 echo "Performing Network check for $wlan"
 
-ping -c2 ${SERVER} > /dev/null
-
 if ifconfig $wlan | grep -q "inet addr:" ; then
     echo "Network is Okay"
 else
@@ -74,6 +72,9 @@ else
     sleep 5
     ifup --force $wlan
     ifconfig $wlan | grep "inet addr"
+
+echo "Pining $SERVER"
+ping -c2 $SERVER > /dev/null
 
 if [ $? != 0 ] ; then
     # Restart the wireless interface
