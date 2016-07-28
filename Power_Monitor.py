@@ -82,10 +82,6 @@ with serial.Serial(addr,9600) as pt:
             try:
                 url = 'https://emoncms.org/input/post.json?node=%s&json={CTT:%s,CT1:%s,CT2:%s,CT3:%s,CT4:%s,VOLT:%s}&apikey=4e6eff5d047580696f0e2a7ae9323983' % (addr, cttotal, ct1p, ct2p, ct3p, ct4p, volt)
                 r = requests.post(url)
-                if "ok" in r:
-                    print("EMONCMS Update OK", r)
-                else:
-                    print("EMCONMS Update FAILED", r)
                 if verbose == 'true':
                     print(r.text)
                     if "ok" in r:
