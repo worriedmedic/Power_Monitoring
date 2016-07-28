@@ -40,10 +40,8 @@ SERVER='8.8.8.8'
 
 
 ##################################################################
-echo
 echo "Starting WiFi check for $wlan"
 date
-echo 
 
 # Check to see if there is a lock file
 if [ -e $lockfile ]; then
@@ -77,17 +75,20 @@ else
     ifup --force $wlan
     ifconfig $wlan | grep "inet addr"
 
-if [ $? != 0 ]
+if [ $? != 0 ] ; then
     # Restart the wireless interface
-    ifdown --force wlan0
-    ifup wlan0
+    echo "WAN Pin Unsuccessful! Attempting reconnection."
+    ifdown --force $wlan
+    sleep 5
+    ifup --force $wlan
+    ifconfig $wlan | grep "inet addr"
+else
+    echo "WAN Ping Successful"
     
 fi
 
-echo 
 echo "Current Setting:"
 ifconfig $wlan | grep "inet addr:"
-echo
  
 # Check is complete, Remove Lock file and exit
 echo "process is complete, removing lockfile"
