@@ -1,35 +1,10 @@
 #!/bin/bash
 ##################################################################
-# A Project of TNET Services, Inc
-#
-# Title:     WiFi_Check
+# "Borrowed" from author bellow (thanks) and modified for 
+# specific use.
 # Author:    Kevin Reed (Dweeber)
-#            dweeber.dweebs@gmail.com
-# Project:   Raspberry Pi Stuff
-#
 # Copyright: Copyright (c) 2012 Kevin Reed <kreed@tnet.com>
 #            https://github.com/dweeber/WiFi_Check
-#
-# Purpose:
-#
-# Script checks to see if WiFi has a network IP and if not
-# restart WiFi
-#
-# Uses a lock file which prevents the script from running more
-# than one at a time.  If lockfile is old, it removes it
-#
-# Instructions:
-#
-# o Install where you want to run it from like /usr/local/bin
-# o chmod 0755 /usr/local/bin/WiFi_Check
-# o Add to crontab
-#
-# Run Every 5 mins - Seems like ever min is over kill unless
-# this is a very common problem.  If once a min change */5 to *
-# once every 2 mins */5 to */2 ... 
-#
-# */5 * * * * /usr/local/bin/WiFi_Check 
-#
 ##################################################################
 # Settings
 # Where and what you want to call the Lockfile
@@ -37,8 +12,6 @@ lockfile='/var/run/WiFi_Check.pid'
 # Which Interface do you want to check/fix
 wlan='wlan0'
 SERVER='8.8.8.8'
-
-
 ##################################################################
 echo "Starting WiFi check for $wlan"
 date
@@ -96,7 +69,3 @@ ifconfig $wlan | grep "inet addr:"
 echo "process is complete, removing lockfile"
 rm $lockfile
 exit 0
-
-##################################################################
-# End of Script
-##################################################################
