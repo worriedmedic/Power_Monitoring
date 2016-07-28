@@ -36,6 +36,9 @@
 lockfile='/var/run/WiFi_Check.pid'
 # Which Interface do you want to check/fix
 wlan='wlan0'
+SERVER='8.8.8.8'
+
+
 ##################################################################
 echo
 echo "Starting WiFi check for $wlan"
@@ -62,6 +65,9 @@ echo $$ > $lockfile
 
 # We can perform check
 echo "Performing Network check for $wlan"
+
+ping -c2 ${SERVER} > /dev/null
+
 if ifconfig $wlan | grep -q "inet addr:" ; then
     echo "Network is Okay"
 else
@@ -70,6 +76,12 @@ else
     sleep 5
     ifup --force $wlan
     ifconfig $wlan | grep "inet addr"
+
+if [ $? != 0 ]
+    # Restart the wireless interface
+    ifdown --force wlan0
+    ifup wlan0
+    
 fi
 
 echo 
