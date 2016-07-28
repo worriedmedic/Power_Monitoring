@@ -72,6 +72,7 @@ else
     sleep 5
     ifup --force $wlan
     ifconfig $wlan | grep "inet addr"
+fi
 
 echo "Pining $SERVER"
 ping -c2 $SERVER > /dev/null
