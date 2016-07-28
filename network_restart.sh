@@ -13,6 +13,7 @@ lockfile='/var/run/WiFi_Check.pid'
 wlan='wlan0'
 SERVER='8.8.8.8'
 ##################################################################
+echo "########################################################"
 echo "Starting WiFi check for $wlan"
 date
 
