@@ -48,16 +48,16 @@ if [ -e $lockfile ]; then
     pid=`cat $lockfile`
     if kill -0 &>1 > /dev/null $pid; then
         # Still Valid... lets let it be...
-        #echo "Process still running, Lockfile valid"
+        echo "Process still running, Lockfile valid"
         exit 1
     else
         # Old Lockfile, Remove it
-        #echo "Old lockfile, Removing Lockfile"
+        echo "Old lockfile, Removing Lockfile"
         rm $lockfile
     fi
 fi
 # If we get here, set a lock file using our current PID#
-#echo "Setting Lockfile"
+echo "Setting Lockfile"
 echo $$ > $lockfile
 
 # We can perform check
@@ -78,7 +78,7 @@ ifconfig $wlan | grep "inet addr:"
 echo
  
 # Check is complete, Remove Lock file and exit
-#echo "process is complete, removing lockfile"
+echo "process is complete, removing lockfile"
 rm $lockfile
 exit 0
 
