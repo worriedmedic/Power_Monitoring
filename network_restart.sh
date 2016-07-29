@@ -13,7 +13,7 @@ lockfile='/var/run/WiFi_Check.pid'
 wlan='wlan0'
 SERVER='8.8.8.8'
 ##################################################################
-date
+date | tr -d '\n'
 
 # Check to see if there is a lock file
 if [ -e $lockfile ]; then
@@ -57,7 +57,7 @@ if [ $? != 0 ] ; then
     ifup --force $wlan
     ifconfig $wlan | grep "inet addr"
 else
-    # echo "WAN Ping Successful"
+    echo " WAN up,"
     
 fi
 
