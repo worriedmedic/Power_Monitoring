@@ -36,15 +36,16 @@ echo $$ > $lockfile
 # We can perform check
 # echo "Performing Network check for $wlan"
 
-if ifconfig $wlan | grep -q "inet addr:" ; then
+if ifconfig $wlan | grep -q "inet addr:"; then
     echo -n " ifconfig up,"
+    ifconfig $wlan | grep -o -E '.{0,10}inet addr:.{0,10}' | tr -d ' '
 else
     echo -n " ifconfig down,"
     ifdown $wlan
     sleep 5
     ifup --force $wlan
     sleep 5
-    ifconfig $wlan | grep "inet addr"
+    ifconfig $wlan | grep -o -E '.{0,10}inet addr:.{0,10}' | tr -d ' '
 fi
 
 # echo "Pining $SERVER"
@@ -57,7 +58,7 @@ if [ $? != 0 ] ; then
     sleep 5
     ifup --force $wlan
     sleep 5
-    ifconfig $wlan | grep "inet addr"
+    ifconfig $wlan | grep -o -E '.{0,10}inet addr:.{0,10}' | tr -d ' '
 else
     echo " WAN up,"
     
