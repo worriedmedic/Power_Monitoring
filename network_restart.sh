@@ -37,10 +37,10 @@ echo $$ > $lockfile
 # echo "Performing Network check for $wlan"
 
 if ifconfig $wlan | grep -q "inet addr:"; then
-    echo -n " ifconfig up,"
+    echo -n " ifconfig up, "
     ifconfig $wlan | grep -o -E '.{0,10}inet addr:.{0,10}' | tr -d ' ' | tr -d '\n'
 else
-    echo -n " ifconfig down,"
+    echo -n " ifconfig down, "
     ifdown $wlan
     sleep 5
     ifup --force $wlan
@@ -53,14 +53,14 @@ ping -c2 $SERVER > /dev/null
 
 if [ $? != 0 ] ; then
     # Restart the wireless interface
-    echo -n " WAN down,"
+    echo -n " WAN down, "
     ifdown --force $wlan
     sleep 5
     ifup --force $wlan
     sleep 5
     ifconfig $wlan | grep -o -E '.{0,10}inet addr:.{0,10}' | tr -d ' ' | tr -d '\n'
 else
-    echo " WAN up,"
+    echo " WAN up"
     
 fi
 
