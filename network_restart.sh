@@ -37,9 +37,9 @@ fi
 # echo "Performing Network check for $wlan"
 
 if ifconfig $wlan | grep -q "inet addr:" ; then
-    # echo "Network is Okay"
+    echo -n " ifconfig up,"
 else
-    echo -n " ifconfig down"
+    echo -n " ifconfig down,"
     ifdown $wlan
     sleep 5
     ifup --force $wlan
@@ -51,7 +51,7 @@ ping -c2 $SERVER > /dev/null
 
 if [ $? != 0 ] ; then
     # Restart the wireless interface
-    echo -n " WAN down"
+    echo -n " WAN down,"
     ifdown --force $wlan
     sleep 5
     ifup --force $wlan
