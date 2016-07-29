@@ -52,14 +52,14 @@ ping -c2 $SERVER > /dev/null
 
 if [ $? != 0 ] ; then
     # Restart the wireless interface
-    echo -n " WAN down:"
+    echo -n " WAN down,"
     ifdown --force $wlan
     sleep 5
     ifup --force $wlan
     sleep 5
     ifconfig $wlan | grep "inet addr"
 else
-    echo " WAN up:"
+    echo " WAN up,"
     
 fi
 
