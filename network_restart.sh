@@ -44,7 +44,7 @@ else
     sleep 5
     ifup --force $wlan
     sleep 5
-    ifconfig $wlan | echo -n "$(grep "inet addr")""
+    ifconfig $wlan | echo -n "$(grep "inet addr")"
 fi
 
 # echo "Pining $SERVER"
