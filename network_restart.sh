@@ -44,7 +44,7 @@ else
     sleep 5
     ifup --force $wlan
     sleep 5
-    ifconfig $wlan | echo -n "$(grep "inet addr")"
+    ifconfig $wlan | grep "inet addr"
 fi
 
 # echo "Pining $SERVER"
@@ -57,14 +57,14 @@ if [ $? != 0 ] ; then
     sleep 5
     ifup --force $wlan
     sleep 5
-    ifconfig $wlan | echo -n "$(grep "inet addr")"
+    ifconfig $wlan | grep "inet addr"
 else
     echo " WAN up:"
     
 fi
 
 # echo "Current Setting:"
-ifconfig $wlan | echo -n "$(grep "inet addr:")"
+# ifconfig $wlan | grep "inet addr:"
  
 # Check is complete, Remove Lock file and exit
 # echo "process is complete, removing lockfile"
