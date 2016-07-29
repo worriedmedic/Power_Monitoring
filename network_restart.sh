@@ -31,7 +31,7 @@ if [ -e $lockfile ]; then
 fi
 # If we get here, set a lock file using our current PID#
 # echo "Setting Lockfile"
-# echo $$ > $lockfile
+echo $$ > $lockfile
 
 # We can perform check
 # echo "Performing Network check for $wlan"
@@ -43,6 +43,7 @@ else
     ifdown $wlan
     sleep 5
     ifup --force $wlan
+    sleep 5
     ifconfig $wlan | grep "inet addr"
 fi
 
@@ -51,13 +52,14 @@ ping -c2 $SERVER > /dev/null
 
 if [ $? != 0 ] ; then
     # Restart the wireless interface
-    echo -n " WAN down,"
+    echo -n " WAN down:"
     ifdown --force $wlan
     sleep 5
     ifup --force $wlan
+    sleep 5
     ifconfig $wlan | grep "inet addr"
 else
-    echo " WAN up,"
+    echo " WAN up:"
     
 fi
 
