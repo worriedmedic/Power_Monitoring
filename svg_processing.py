@@ -274,8 +274,8 @@ while(1):
     		logfile = open('data_log/' + time.strftime("%Y-%m") + '/' + str(today) + '.log',"r")
     		loglines = follow(logfile)
     		for line in loglines:
-        	if verbose == 'true':
-        		print line,
+        		if verbose == 'true':
+        			print line
         except Exception as e:
         	print("LOG FILE OPEN ERROR", str(today), now, e)
         
