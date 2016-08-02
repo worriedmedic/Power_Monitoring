@@ -1,0 +1,220 @@
+import time
+import datetime
+import requests
+import os.path
+import csv
+import codecs
+import urllib2
+import json
+
+debug     = false
+verbose   = false
+
+## INT: Data that will change every day
+today = [None]
+yesterday = [None]
+tomorrow = [None]
+fname = [None]
+sheetname =[None]
+fdir = [None]
+
+## INT: Helper variables for tides
+tide_datetime = [None]
+tide_next_time = [None]
+tide_next_type = [None]
+tide_next_mag = [None]
+tide_pre_time = [None]
+tide_pre_type = [None]
+tide_pre_mag = [None]
+tide_list = []
+tide_time = [None]
+tide_type = [None]
+tide_mag = [None]
+
+## INT: Helper variables for sun
+sun_list = []
+sun_rise = [None]
+sun_down = [None]
+
+## INT: Expected Hi and Lo
+wunder_site_json = 'http://api.wunderground.com/api/1f86b1c989ac268c/forecast/q/ma/cuttyhunk.json'
+onlinejson = [None]
+forecast = [None]
+exp_hi = [None]
+exp_lo = [None]
+
+## INT: Cheating the wind data
+ch_avg_wind_speed = [None]
+ch_wind_dir = [None]
+ch_max_wind_speed = [None]
+
+## INT: Data that will change on every packet
+buff = [None] * 50
+addr  = [None]	
+temp  = [None] * 5
+press = [None] * 5
+humid = [None] * 5
+volt  = [None] * 5
+rssi  = [None] * 5
+wind_speed = [None] * 5
+wind_dir = [None] * 5
+
+## INT: Station 0 - Inside the house. Top floor.
+temp_0 = [None]
+
+## INT: Station 1 - Inside the house. Bottom floor
+temp_1 = [None]
+
+## INT: Station 2 - Outside, near the barn.
+tepm_2 = [None]
+press_2 = [None]
+humid_2 = [None]
+
+## YEARLY SHIT
+## Shit to get the tides in a csv. Once its done dont touch it.
+## All we gotta do is grab one each new day. Thats it. Simple shieeeeet
+
+if (False):
+	tide_text = '8448376_annual.txt'
+	tide_csv = 'cutty_tide.csv'
+	in_txt = csv.reader(open(tide_text,"rb"), delimiter = '\t')
+	temp_csv = csv.writer(open(tide_csv, "wb"))
+	temp_csv.writerows(in_txt)
+	temp_csv.close()
+
+## SUNRISE - SUNSET SHIT GOES HERE
+
+## Or not, done manually on 2016
+
+def follow(thefile):
+    thefile.seek(0,2)
+    while True:
+        line = thefile.readline()
+        if not line:
+            time.sleep(0.1)
+            continue
+        yield line
+        
+## FUNCTIONS
+
+def get_tide(tide_day):
+	## Grab the tide for the day that you input
+	## Requires today or tomorrow as input
+	with open('cutty_tide.csv', 'rb') as tide_csv:
+		tide_reader = csv.reader(tide_csv, delimiter =',')
+		day = tide_day.strftime("%Y/%m/%d")
+		temp_list = []
+		for row in tide_reader:
+			if (row[0] == day):
+				tide_time = row[2]
+				tide_mag = row[3]
+				tide_type = row[7]
+				temp_list.append([tide_time,tide_type,tide_mag])
+	return temp_list
+
+## MAIN LOOP
+
+while(1):
+	
+	'''
+	Executing loop. Code should be running all day.
+	Will have daily goals that need to be updated.
+	Yearly goals will need to manually done.
+	Yearly goals are sunset data, and tide data.
+	'''
+	## DAILY TASKS
+	
+	if (today != datetime.date.today()):
+		
+		'''
+		If our value for today is wrong, we have passed onto the next day
+		These tasks are:
+			Update tide clock for new day
+			Update sunrise and sundown
+			Update Expected Hi and Lo
+			Update Date
+			Create new day's log files
+		'''
+		
+		# UPDATE TODAY'S LOGS
+		
+		today = datetime.date.today()
+		yesterday = datetime.date.today() + datetime.timedelta(days=-1)
+		tomorrow = datetime.date.today() + datetime.timedelta(days=1)
+		fname = str(today) + '.log'
+		fdirectory = 'data_log/' + time.strftime("%Y-%m")
+
+		## GRABBING TIDES
+		# WILL PULL TIDE DATA FOR THE FOLLOWING 24 HOURS
+		
+		if tide_list == []:
+			tide_list = get_tide(today)
+			tide_next_time = '12:00 AM'
+			tide_datetime = datetime.datetime.strptime(tide_next_time,'%I:%M %p')
+			tide_datetime = tide_datetime.replace(today.year,today.month,today.day)
+		
+		# IMPORT SUNRISE / SUNSET DATA
+		
+		with open('Sun_data.csv', 'rb') as sun_csv:
+			sun_reader = csv.reader(sun_csv, delimiter =',')
+			sun_day = today.strftime("%Y/%m/%d")
+			for row in sun_reader:
+				if (row[0] == sun_day):
+					sun_rise = str(row[1])
+					sun_down = str(row[2])
+		sun_rise = sun_rise[1]+':'+ sun_rise[2:]
+		sun_down = sun_down[0:2] + ':' + sun_down[2:]
+
+
+		## Update expected Hi and Lo
+		# Assumptions:
+		# 	Internet is working an never quits
+		#	API calls to Wunderground work
+		#	Wunderground hasnt changed its format on its API
+		
+		# Likely will break this out to another if/else that clarifies 
+		# if we have internet or not. If we dont have internet, 
+		# grab data from yesterday and use that as expected hi and lo
+		
+		if internet:
+			if not os.path.isfile(str(today)+'_forecast.json'):
+				try:
+					onlinejson = requests.get(wunder_site_json)
+					localjson = open(str(today)+'_forecast.json', 'wb')
+					if os.path.isfile(str(yesterday)+'_forecast.json'):
+						os.remove(str(yesterday)+'_forecast.json')
+					for chunk in onlinejson.iter_content(100000):
+						localjson.write(chunk)
+					onlinejson.close()
+					localjson.close()
+				except requests.exceptions.RequestException as e:
+					print("Wunder JSON Requets Error", today, now, e)
+				except Exception as e:
+				  print("Wunder JSON Error" today, now, e)
+					
+			localjson = open(str(today)+'_forecast.json','rb')
+			json_string = localjson.read()
+			parsed_json = json.loads(json_string)
+			exp_hi = parsed_json['forecast']['simpleforecast']['forecastday'][0]['high']['fahrenheit']
+			exp_lo = parsed_json['forecast']['simpleforecast']['forecastday'][0]['low']['fahrenheit']
+			#print(exp_hi)
+			#print(exp_lo)
+		
+
+			## GET WIND SPEED AND DIRECTION FROM WUNDERGROUND (CHEATING)
+			
+			ch_avg_wind_speed = parsed_json['forecast']['simpleforecast']['forecastday'][0]['avewind']['mph']
+			ch_wind_dir = parsed_json['forecast']['simpleforecast']['forecastday'][0]['avewind']['dir']
+			ch_max_wind_speed = parsed_json['forecast']['simpleforecast']['forecastday'][0]['maxwind']['mph']
+			#print(ch_wind_speed)
+			#print(ch_wind_dir)
+		
+
+		### END OF DAILY TASKS, BEGIN STREAMING DATA
+
+        
+if __name__ == '__main__':
+    logfile = open("run/foo/access-log","r")
+    loglines = follow(logfile)
+    for line in loglines:
+        print line,
