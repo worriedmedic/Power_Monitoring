@@ -270,15 +270,25 @@ while(1):
 	now = time.strftime('%H:%M:%S')
 	curr_time = time.strftime('%H:%M')
         
-	if __name__ == '__main__':
-    		try:
-    			logfile = open('data_log/' + time.strftime("%Y-%m") + '/' + str(today) + '.log',"r")
-    			loglines = follow(logfile)
-    			for line in loglines:
-        			if verbose == 'true':
-        				print line,
-        	except Exception as e:
-        		print("LOG FILE OPEN ERROR", str(today), now, e)
+    	try:
+    		logfile = open('data_log/' + time.strftime("%Y-%m") + '/' + str(today) + '.log',"r")
+    		loglines = follow(logfile)
+    		for line in loglines:
+        	if verbose == 'true':
+        		print line,
+        except Exception as e:
+        	print("LOG FILE OPEN ERROR", str(today), now, e)
+        
+        try:
+                line.split(',')
+                addr = line.split(',')[2]
+                temp = line.split(',')[3].strip('T')
+                press = line.split(',')[4].strip('P')
+                humid = line.split(',')[5].strip('H')
+                volt = line.split(',')[6].strip('V')
+                rssi = line.split(',')[7]
+        except Exception as e:
+        	print("DATA SPLIT ERROR", str(today), now, e)
         		
         ## Output data to the svg
 	
