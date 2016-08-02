@@ -9,6 +9,7 @@ import json
 
 debug     = 'false'
 verbose   = 'true'
+internet  = True
 
 ## INT: Data that will change every day
 today = [None]
