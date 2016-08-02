@@ -7,8 +7,8 @@ import codecs
 import urllib2
 import json
 
-debug     = True
-verbose   = True
+debug     = False
+verbose   = False
 internet  = True
 
 ## INT: Data that will change every day
