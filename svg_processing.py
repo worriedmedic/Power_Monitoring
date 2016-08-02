@@ -271,7 +271,7 @@ while(1):
     	try:
     		logfile = open('data_log/' + time.strftime("%Y-%m") + '/' + str(today) + '.log',"r")
     		loglines = follow(logfile)
-    		if line in loglines:
+    		for line in loglines:
         		if debug:
         			print line
         		
