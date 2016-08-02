@@ -263,7 +263,7 @@
 	<text transform="matrix(1 0 0 1 396 436.6137)" class="st1 st11">DWPNT</text>
 	<text transform="matrix(1 0 0 1 396 458.4256)" class="st1 st9">Relitative Humidity (%)</text>
 	<text transform="matrix(1 0 0 1 395.1501 529.6135)" class="st1 st11">RLHUM</text>
-	<text transform="matrix(1 0 0 1 396 548.9193)" class="st1 st9">Pressure (inHg)</text>
+	<text transform="matrix(1 0 0 1 396 548.9193)" class="st1 st9">Pressure (hPa)</text>
 	<text transform="matrix(1 0 0 1 447.474 617.8477)" class="st1 st12">PRESS</text>
 	<text transform="matrix(1 0 0 1 396 75.4262)" class="st1 st9">Forecasted Hi &amp; Low</text>
 	<text transform="matrix(1 0 0 1 396.15 135.5298)" class="st1 st13">FORHI</text>
