@@ -305,11 +305,11 @@ while(1):
 				output = output.replace('CURTIME', str(curr_time))
 				output = output.replace('SNRISE',sun_rise)
 				output = output.replace('SNSET',sun_down)
-				#if internet:
-					#output = output.replace('FORHI',exp_hi)
-					#output = output.replace('FORLO',exp_lo)
-					#output = output.replace('WSP', str(ch_avg_wind_speed))
-					#output = output.replace('WGUS', str(ch_max_wind_speed))
+				if internet:
+					output = output.replace('FORHI',exp_hi)
+					output = output.replace('FORLO',exp_lo)
+					output = output.replace('WSP', str(ch_avg_wind_speed))
+					output = output.replace('WGUS', str(ch_max_wind_speed))
 				output = output.replace('TMPE',str(temp_2))
 				output = output.replace('TMPI',str(temp_0))
 				output = output.replace('TMPG',str(temp))
