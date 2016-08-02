@@ -159,7 +159,7 @@ while(1):
 				tide_datetime = datetime.datetime.strptime(tide_next_time,'%I:%M %p')
 				tide_datetime = tide_datetime.replace(today.year,today.month,today.day)
 			except Exception as e:
-				print("TIDE LIST ERROR", today, now, e)
+				print("TIDE LIST ERROR", str(today), now, e)
 				
 		# IMPORT SUNRISE / SUNSET DATA
 		
@@ -174,7 +174,7 @@ while(1):
 				sun_rise = sun_rise[1]+':'+ sun_rise[2:]
 				sun_down = sun_down[0:2] + ':' + sun_down[2:]
 		except Exception as e:
-			print("SUN TIME ERROR", today, now, e)
+			print("SUN TIME ERROR", str(today), now, e)
 
 		## Update expected Hi and Lo
 		# Assumptions:
@@ -206,9 +206,9 @@ while(1):
 						print(exp_hi)
 						print(exp_lo)
 		except requests.exceptions.RequestException as e:
-			print("Wunder JSON Requets Error", today, now, e)
+			print("Wunder JSON Requets Error", str(today), now, e)
 		except Exception as e:
-			print("Wunder JSON Error", today, now, e)
+			print("Wunder JSON Error", str(today), now, e)
 
 			## GET WIND SPEED AND DIRECTION FROM WUNDERGROUND (CHEATING)
 
@@ -220,7 +220,7 @@ while(1):
 				print(ch_wind_speed)
 				print(ch_wind_dir)
 		except Exception as e:
-			print("WIND IMPORT ERROR", today, time, e)
+			print("WIND IMPORT ERROR", str(today), time, e)
 
 		### END OF DAILY TASKS, BEGIN STREAMING DATA
 
@@ -265,7 +265,7 @@ while(1):
 					print(tide_pre_time)
 					print(tide_next_time)
 	except Exception as e:
-		print("TIDE UPDATE ERROR", today, now, e)
+		print("TIDE UPDATE ERROR", str(today), now, e)
 	
 	now = time.strftime('%H:%M:%S')
 	curr_time = time.strftime('%H:%M')
@@ -278,7 +278,7 @@ while(1):
         			if verbose == 'true':
         				print line,
         	except Exception as e:
-        		print("LOG FILE OPEN ERROR", today, now, e)
+        		print("LOG FILE OPEN ERROR", str(today), now, e)
         		
         ## Output data to the svg
 	
@@ -307,9 +307,9 @@ while(1):
 		output = output.replace('TDFTM',tide_datetime.strftime('%H:%M'))
 		output = output.replace('TDFLV',str(tide_next_mag))
 	except Exception as e:
-		print("CODECS REPLACE ERROR", today, now, e)
+		print("CODECS REPLACE ERROR", str(today), now, e)
 	
 	try:
 		codecs.open('TEST.svg', 'w', encoding='utf-8').write(output)
 	except Exception as e:
-		print("CODECS WRITE ERROR", today, now, e)
+		print("CODECS WRITE ERROR", str(today), now, e)
