@@ -139,11 +139,13 @@ while(1):
 		# UPDATE TODAY'S LOGS
 		
 		try:
+			now = time.strftime("%H:%M:%S") # Call time of serial read
 			today = datetime.date.today()
 			yesterday = datetime.date.today() + datetime.timedelta(days=-1)
 			tomorrow = datetime.date.today() + datetime.timedelta(days=1)
 			fname = str(today) + '.log'
 			fdirectory = 'data_log/' + time.strftime("%Y-%m")
+			
 		except Exception as e:
 			print("TIME UPDATE ERROR", e)
 
@@ -264,8 +266,8 @@ while(1):
 		except Exception as e:
 			print("TIDE UPDATE ERROR", today, now, e)
 	
-	now =str(time.strftime('%H:%M:%S'))
-	curr_time = str(time.strftime('%H:%M'))
+	now = time.strftime('%H:%M:%S')
+	curr_time = time.strftime('%H:%M')
         
 	if __name__ == '__main__':
     		try:
