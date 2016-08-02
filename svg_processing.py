@@ -7,8 +7,8 @@ import codecs
 import urllib2
 import json
 
-debug     = 'false'
-verbose   = 'true'
+debug     = False
+verbose   = True
 internet  = True
 
 ## INT: Data that will change every day
@@ -203,7 +203,7 @@ while(1):
 					parsed_json = json.loads(json_string)
 					exp_hi = parsed_json['forecast']['simpleforecast']['forecastday'][0]['high']['fahrenheit']
 					exp_lo = parsed_json['forecast']['simpleforecast']['forecastday'][0]['low']['fahrenheit']
-					if verbose == 'true':
+					if debug:
 						print(exp_hi)
 						print(exp_lo)
 		except requests.exceptions.RequestException as e:
@@ -217,7 +217,7 @@ while(1):
 			ch_avg_wind_speed = parsed_json['forecast']['simpleforecast']['forecastday'][0]['avewind']['mph']
 			ch_wind_dir = parsed_json['forecast']['simpleforecast']['forecastday'][0]['avewind']['dir']
 			ch_max_wind_speed = parsed_json['forecast']['simpleforecast']['forecastday'][0]['maxwind']['mph']
-			if verbose == 'true':
+			if debug:
 				print(ch_wind_speed)
 				print(ch_wind_dir)
 		except Exception as e:
@@ -261,7 +261,7 @@ while(1):
 				old = tide_datetime
 				dummy = datetime.datetime.strptime(tide_next_time,'%I:%M %p')
 				tide_datetime = tide_datetime.replace(today.year, today.month, today.day, dummy.hour,dummy.minute)
-				if verbose == 'true':
+				if debug:
 					print(tide_list)
 					print(tide_pre_time)
 					print(tide_next_time)
@@ -275,7 +275,7 @@ while(1):
     		logfile = open('data_log/' + time.strftime("%Y-%m") + '/' + str(today) + '.log',"r")
     		loglines = follow(logfile)
     		for line in loglines:
-        		if verbose == 'true':
+        		if debug:
         			print line
         except Exception as e:
         	print("LOG FILE OPEN ERROR", str(today), now, e)
@@ -288,6 +288,20 @@ while(1):
                 humid = line.split(',')[5].strip('H')
                 volt = line.split(',')[6].strip('V')
                 rssi = line.split(',')[7]
+                dew = float(temp) - ((100 - float(humid)) / 5 ) ##FROM DATA PROCESSING PYTHON SCRIPT
+                
+                if debug:
+                	print(addr, temp, press, humid, volt, dew, rssi)
+                
+                if (int(addr) == 9):
+			temp_0 = temp
+		elif (int(addr) == 8):
+			temp_1 = temp
+		elif (int(addr) == 7):
+			temp_2 = temp
+			press_2 = press
+			humid_2 = humid
+		
         except Exception as e:
         	print("DATA SPLIT ERROR", str(today), now, e)
         		
