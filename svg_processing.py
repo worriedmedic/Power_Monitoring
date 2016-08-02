@@ -277,64 +277,64 @@ while(1):
     		for line in loglines:
         		if debug:
         			print line
-        except Exception as e:
-        	print("LOG FILE OPEN ERROR", str(today), now, e)
-        
-        try:
-                line.split(',')
-                addr = line.split(',')[2]
-                temp = line.split(',')[3].strip('T')
-                press = line.split(',')[4].strip('P')
-                humid = line.split(',')[5].strip('H')
-                volt = line.split(',')[6].strip('V')
-                rssi = line.split(',')[7]
-                dew = float(temp) - ((100 - float(humid)) / 5 ) ##FROM DATA PROCESSING PYTHON SCRIPT
+        		try:
+                		line.split(',')
+                		addr = line.split(',')[2]
+                		temp = line.split(',')[3].strip('T')
+                		press = line.split(',')[4].strip('P')
+                		humid = line.split(',')[5].strip('H')
+                		volt = line.split(',')[6].strip('V')
+                		rssi = line.split(',')[7]
+                		dew = float(temp) - ((100 - float(humid)) / 5 ) ##FROM DATA PROCESSING PYTHON SCRIPT
                 
-                if debug:
-                	print(addr, temp, press, humid, volt, dew, rssi)
+                		if debug:
+                			print(addr, temp, press, humid, volt, dew, rssi)
                 
-                if (int(addr) == 9):
-			temp_0 = temp
-		elif (int(addr) == 8):
-			temp_1 = temp
-		elif (int(addr) == 7):
-			temp_2 = temp
-			press_2 = press
-			humid_2 = humid
+                		if (int(addr) == 9):
+					temp_0 = temp
+				elif (int(addr) == 8):
+					temp_1 = temp
+				elif (int(addr) == 7):
+					temp_2 = temp
+					press_2 = press
+					humid_2 = humid
 		
-        except Exception as e:
-        	print("DATA SPLIT ERROR", str(today), now, e)
+        		except Exception as e:
+        			print("DATA SPLIT ERROR", str(today), now, e)
+        		except Exception as e:
+        			print("LOG FILE OPEN ERROR", str(today), now, e)
+        
         		
-        ## Output data to the svg
+        		## Output data to the svg
 	
-	try:
-		output = codecs.open('WX_TEMPLATE.svg', 'r', encoding='utf-8').read()
-		output = output.replace('CURDATE', today.strftime("%m/%d/%Y"))
-		output = output.replace('CURTIME', str(curr_time))
-		output = output.replace('SNRISE', sun_rise)
-		output = output.replace('SNSET', sun_down)
-		if internet:
-			output = output.replace('FORHI', exp_hi)
-			output = output.replace('FORLO', exp_lo)
-			output = output.replace('WSP', str(ch_avg_wind_speed))
-			output = output.replace('WGUS', str(ch_max_wind_speed))
-		output = output.replace('TMPE',str(temp_2))
-		output = output.replace('TMPI',str(temp_0))
-		output = output.replace('TMPG',str(temp))
-		output = output.replace('TMPD',str(temp_1))
-		output = output.replace('PRESS',  str(press_2))
-		output = output.replace('RLHUM',str(humid_2))
-		output = output.replace('DWPNT',"{0:.2f}".format(dew))
-		output = output.replace('TDNTY',str(tide_pre_type))
-		output = output.replace('TDNTM',old.strftime('%H:%M'))
-		output = output.replace('TDNLV',str(tide_pre_mag))
-		output = output.replace('TDFTY',str(tide_next_type))
-		output = output.replace('TDFTM',tide_datetime.strftime('%H:%M'))
-		output = output.replace('TDFLV',str(tide_next_mag))
-	except Exception as e:
-		print("CODECS REPLACE ERROR", str(today), now, e)
+			try:
+				output = codecs.open('WX_TEMPLATE.svg', 'r', encoding='utf-8').read()
+				output = output.replace('CURDATE', today.strftime("%m/%d/%Y"))
+				output = output.replace('CURTIME', str(curr_time))
+				output = output.replace('SNRISE', sun_rise)
+				output = output.replace('SNSET', sun_down)
+				if internet:
+					output = output.replace('FORHI', exp_hi)
+					output = output.replace('FORLO', exp_lo)
+					output = output.replace('WSP', str(ch_avg_wind_speed))
+					output = output.replace('WGUS', str(ch_max_wind_speed))
+				output = output.replace('TMPE',str(temp_2))
+				output = output.replace('TMPI',str(temp_0))
+				output = output.replace('TMPG',str(temp))
+				output = output.replace('TMPD',str(temp_1))
+				output = output.replace('PRESS',  str(press_2))
+				output = output.replace('RLHUM',str(humid_2))
+				output = output.replace('DWPNT',"{0:.2f}".format(dew))
+				output = output.replace('TDNTY',str(tide_pre_type))
+				output = output.replace('TDNTM',old.strftime('%H:%M'))
+				output = output.replace('TDNLV',str(tide_pre_mag))
+				output = output.replace('TDFTY',str(tide_next_type))
+				output = output.replace('TDFTM',tide_datetime.strftime('%H:%M'))
+				output = output.replace('TDFLV',str(tide_next_mag))
+			except Exception as e:
+				print("CODECS REPLACE ERROR", str(today), now, e)
 	
-	try:
-		codecs.open('TEST.svg', 'w', encoding='utf-8').write(output)
-	except Exception as e:
-		print("CODECS WRITE ERROR", str(today), now, e)
+			try:
+				codecs.open('TEST.svg', 'w', encoding='utf-8').write(output)
+			except Exception as e:
+				print("CODECS WRITE ERROR", str(today), now, e)
