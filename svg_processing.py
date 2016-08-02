@@ -285,7 +285,7 @@ while(1):
                 		humid = line.split(',')[5].strip('H')
                 		volt = line.split(',')[6].strip('V')
                 		rssi = line.split(',')[7].strip('\n')
-                		dew = str(float(temp) - ((100 - float(humid)) / 5 )) ##FROM DATA PROCESSING PYTHON SCRIPT
+                		dew = float(temp) - ((100 - float(humid)) / 5 ) ##FROM DATA PROCESSING PYTHON SCRIPT
                 
                 		if debug:
                 			print(addr, temp, press, humid, volt, dew, rssi)
@@ -306,13 +306,13 @@ while(1):
 	
 			try:
 				output = codecs.open('WX_TEMPLATE.svg', 'r', encoding='utf-8').read()
-				output = output.replace('CURDATE',today.strftime("%m/%d/%Y"))
-				output = output.replace('CURTIME', str(curr_time))
-				output = output.replace('SNRISE',sun_rise)
-				output = output.replace('SNSET',sun_down)
+				#output = output.replace('CURDATE',today.strftime("%m/%d/%Y"))
+				#output = output.replace('CURTIME', str(curr_time))
+				#output = output.replace('SNRISE',sun_rise)
+				#output = output.replace('SNSET',sun_down)
 				if internet:
-					output = output.replace('FORHI',exp_hi)
-					output = output.replace('FORLO',exp_lo)
+					#output = output.replace('FORHI',exp_hi)
+					#output = output.replace('FORLO',exp_lo)
 					#output = output.replace('WSP', str(ch_avg_wind_speed))
 					#output = output.replace('WGUS', str(ch_max_wind_speed))
 				output = output.replace('TMPE',str(temp_2))
