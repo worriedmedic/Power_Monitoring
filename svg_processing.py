@@ -266,6 +266,8 @@ while(1):
     		logfile = open('data_log/' + time.strftime("%Y-%m") + '/' + str(today) + '.log',"r")
     		loglines = follow(logfile)
     		for line in loglines:
+        		line.strip('\n')
+        		
         		if debug:
         			print line
         		
@@ -279,7 +281,7 @@ while(1):
                 		press = line.split(',')[4].strip('P')
                 		humid = line.split(',')[5].strip('H')
                 		volt = line.split(',')[6].strip('V')
-                		rssi = line.split(',')[7].strip('\n')
+                		rssi = line.split(',')[7]
                 		dew = float(temp) - ((100 - float(humid)) / 5 ) ##FROM DATA PROCESSING PYTHON SCRIPT
                 
                 		if debug:
