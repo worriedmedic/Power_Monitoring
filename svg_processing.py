@@ -215,7 +215,7 @@ while(1):
             			ch_wind_dir = parsed_json['forecast']['simpleforecast']['forecastday'][0]['avewind']['dir']
             			ch_max_wind_speed = parsed_json['forecast']['simpleforecast']['forecastday'][0]['maxwind']['mph']
             			if debug:
-            				print(ch_wind_speed, ch_wind_dir)
+            				print(ch_avg_wind_speed, ch_wind_dir, ch_max_wind_speed)
             				
 		except Exception as e:
 			print("Wunder JSON Error", str(today), now, e)
@@ -311,11 +311,11 @@ while(1):
 				output = output.replace('CURTIME', str(curr_time))
 				output = output.replace('SNRISE',sun_rise)
 				output = output.replace('SNSET',sun_down)
-				#if internet:
-					#output = output.replace('FORHI',exp_hi)
-					#output = output.replace('FORLO',exp_lo)
-					#output = output.replace('WSP', str(ch_avg_wind_speed))
-					#output = output.replace('WGUS', str(ch_max_wind_speed))
+				if internet:
+					output = output.replace('FORHI',exp_hi)
+					output = output.replace('FORLO',exp_lo)
+					output = output.replace('WSP', str(ch_avg_wind_speed))
+					output = output.replace('WGUS', str(ch_max_wind_speed))
 				output = output.replace('TMPE',str(temp_2))
 				output = output.replace('TMPI',str(temp_0))
 				output = output.replace('TMPG',str(temp))
