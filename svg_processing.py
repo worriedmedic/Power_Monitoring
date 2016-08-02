@@ -310,10 +310,10 @@ while(1):
 	
 			try:
 				output = codecs.open('WX_TEMPLATE.svg', 'r', encoding='utf-8').read()
-				#output = output.replace('CURDATE',today.strftime("%m/%d/%Y"))
-				#output = output.replace('CURTIME', str(curr_time))
-				#output = output.replace('SNRISE',sun_rise)
-				#output = output.replace('SNSET',sun_down)
+				output = output.replace('CURDATE',today.strftime("%m/%d/%Y"))
+				output = output.replace('CURTIME', str(curr_time))
+				output = output.replace('SNRISE',sun_rise)
+				output = output.replace('SNSET',sun_down)
 				#if internet:
 					#output = output.replace('FORHI',exp_hi)
 					#output = output.replace('FORLO',exp_lo)
