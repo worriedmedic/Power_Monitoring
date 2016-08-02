@@ -201,27 +201,18 @@ while(1):
 					localjson = open(str(today)+'_forecast.json','rb')
 					json_string = localjson.read()
 					parsed_json = json.loads(json_string)
-					exp_hi = parsed_json['forecast']['simpleforecast']['forecastday'][0]['high']['fahrenheit']
-					exp_lo = parsed_json['forecast']['simpleforecast']['forecastday'][0]['low']['fahrenheit']
+					exp_hi = parsed_json['forecast']['simpleforecast']['forecastday'][1]['high']['fahrenheit']
+					exp_lo = parsed_json['forecast']['simpleforecast']['forecastday'][1]['low']['fahrenheit']
+					## GET WIND SPEED AND DIRECTION FROM WUNDERGROUND (CHEATING)
+					ch_avg_wind_speed = parsed_json['forecast']['simpleforecast']['forecastday'][1]['avewind']['mph']
+					ch_wind_dir = parsed_json['forecast']['simpleforecast']['forecastday'][1]['avewind']['dir']
+					ch_max_wind_speed = parsed_json['forecast']['simpleforecast']['forecastday'][1]['maxwind']['mph']
 					if debug:
-						print(exp_hi)
-						print(exp_lo)
+						print(exp_hi, exp_low, ch_wind_speed, ch_wind_dir)
 		except requests.exceptions.RequestException as e:
 			print("Wunder JSON Requets Error", str(today), now, e)
 		except Exception as e:
 			print("Wunder JSON Error", str(today), now, e)
-
-			## GET WIND SPEED AND DIRECTION FROM WUNDERGROUND (CHEATING)
-
-		try:
-			ch_avg_wind_speed = parsed_json['forecast']['simpleforecast']['forecastday'][0]['avewind']['mph']
-			ch_wind_dir = parsed_json['forecast']['simpleforecast']['forecastday'][0]['avewind']['dir']
-			ch_max_wind_speed = parsed_json['forecast']['simpleforecast']['forecastday'][0]['maxwind']['mph']
-			if debug:
-				print(ch_wind_speed)
-				print(ch_wind_dir)
-		except Exception as e:
-			print("WIND IMPORT ERROR", str(today), time, e)
 
 		### END OF DAILY TASKS, BEGIN STREAMING DATA
 
