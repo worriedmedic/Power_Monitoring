@@ -8,7 +8,7 @@ import urllib2
 import json
 
 debug     = 'false'
-verbose   = 'false'
+verbose   = 'true'
 
 ## INT: Data that will change every day
 today = [None]
