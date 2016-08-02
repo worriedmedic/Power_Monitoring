@@ -206,7 +206,7 @@ while(1):
 				except requests.exceptions.RequestException as e:
 					print("Wunder JSON Requets Error", today, now, e)
 				except Exception as e:
-				  print("Wunder JSON Error" today, now, e)
+				  print("Wunder JSON Error", today, now, e)
 
 			## GET WIND SPEED AND DIRECTION FROM WUNDERGROUND (CHEATING)
 
