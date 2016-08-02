@@ -277,6 +277,10 @@ while(1):
     		for line in loglines:
         		if debug:
         			print line
+        		
+        		now = time.strftime('%H:%M:%S')
+			curr_time = time.strftime('%H:%M')
+			
         		try:
                 		line.split(',')
                 		addr = line.split(',')[2]
@@ -290,11 +294,11 @@ while(1):
                 		if debug:
                 			print(addr, temp, press, humid, volt, dew, rssi)
                 
-                		if (int(addr) == 9):
+                		if (addr == '09'):
 					temp_0 = temp
-				elif (int(addr) == 8):
+				elif (addr == '08'):
 					temp_1 = temp
-				elif (int(addr) == 7):
+				elif (addr == '07'):
 					temp_2 = temp
 					press_2 = press
 					humid_2 = humid
