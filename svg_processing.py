@@ -7,8 +7,8 @@ import codecs
 import urllib2
 import json
 
-debug     = false
-verbose   = false
+debug     = 'false'
+verbose   = 'false'
 
 ## INT: Data that will change every day
 today = [None]
