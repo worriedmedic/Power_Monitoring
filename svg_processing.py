@@ -172,7 +172,7 @@ while(1):
 				sun_rise = sun_rise[1]+':'+ sun_rise[2:]
 				sun_down = sun_down[0:2] + ':' + sun_down[2:]
 			except Exception as e:
-				print("SUN TIME ERROR, today, now, e)
+				print("SUN TIME ERROR", today, now, e)
 
 		## Update expected Hi and Lo
 		# Assumptions:
