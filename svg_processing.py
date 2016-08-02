@@ -301,9 +301,6 @@ while(1):
 		
         		except Exception as e:
         			print("DATA SPLIT ERROR", str(today), now, e)
-        		except Exception as e:
-        			print("LOG FILE OPEN ERROR", str(today), now, e)
-        
         		
         		## Output data to the svg
 	
@@ -338,3 +335,6 @@ while(1):
 				codecs.open('TEST.svg', 'w', encoding='utf-8').write(output)
 			except Exception as e:
 				print("CODECS WRITE ERROR", str(today), now, e)
+	
+	except Exception as e:
+        	print("LOG FILE OPEN ERROR", str(today), now, e)
