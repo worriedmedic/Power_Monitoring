@@ -197,18 +197,18 @@ while(1):
 					for chunk in onlinejson.iter_content(100000):
 						localjson.write(chunk)
 					onlinejson.close()
-					localjson.close()
 					localjson = open(str(today)+'_forecast.json','rb')
 					json_string = localjson.read()
 					parsed_json = json.loads(json_string)
-					exp_hi = parsed_json['forecast']['simpleforecast']['forecastday']['period'][0]['high']['fahrenheit']
-					exp_lo = parsed_json['forecast']['simpleforecast']['forecastday']['period'][0]['low']['fahrenheit']
+					exp_hi = parsed_json['forecast']['simpleforecast']['forecastday']['period'][1]['high']['fahrenheit']
+					exp_lo = parsed_json['forecast']['simpleforecast']['forecastday']['period'][1]['low']['fahrenheit']
 					## GET WIND SPEED AND DIRECTION FROM WUNDERGROUND (CHEATING)
-					ch_avg_wind_speed = parsed_json['forecast']['simpleforecast']['forecastday']['period'][0]['avewind']['mph']
-					ch_wind_dir = parsed_json['forecast']['simpleforecast']['forecastday']['period'][0]['avewind']['dir']
-					ch_max_wind_speed = parsed_json['forecast']['simpleforecast']['forecastday']['period'][0]['maxwind']['mph']
+					ch_avg_wind_speed = parsed_json['forecast']['simpleforecast']['forecastday']['period'][1]['avewind']['mph']
+					ch_wind_dir = parsed_json['forecast']['simpleforecast']['forecastday']['period'][1]['avewind']['dir']
+					ch_max_wind_speed = parsed_json['forecast']['simpleforecast']['forecastday']['period'][1]['maxwind']['mph']
 					if debug:
 						print(exp_hi, exp_low, ch_wind_speed, ch_wind_dir)
+					localjson.close()
 		except requests.exceptions.RequestException as e:
 			print("Wunder JSON Requets Error", str(today), now, e)
 		except Exception as e:
