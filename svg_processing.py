@@ -236,8 +236,8 @@ while(1):
 	
 	minute = datetime.datetime.now()
 
-	while(minute > tide_datetime):
-		try:
+	try:
+		while(minute > tide_datetime):
 			if len(tide_list)<=1:
 				tide_list = get_tide(tomorrow)
 				tide_pre_time = tide_next_time
@@ -264,8 +264,8 @@ while(1):
 					print(tide_list)
 					print(tide_pre_time)
 					print(tide_next_time)
-		except Exception as e:
-			print("TIDE UPDATE ERROR", today, now, e)
+	except Exception as e:
+		print("TIDE UPDATE ERROR", today, now, e)
 	
 	now = time.strftime('%H:%M:%S')
 	curr_time = time.strftime('%H:%M')
