@@ -138,44 +138,52 @@ while(1):
 		
 		# UPDATE TODAY'S LOGS
 		
-		today = datetime.date.today()
-		yesterday = datetime.date.today() + datetime.timedelta(days=-1)
-		tomorrow = datetime.date.today() + datetime.timedelta(days=1)
-		fname = str(today) + '.log'
-		fdirectory = 'data_log/' + time.strftime("%Y-%m")
+		try:
+			today = datetime.date.today()
+			yesterday = datetime.date.today() + datetime.timedelta(days=-1)
+			tomorrow = datetime.date.today() + datetime.timedelta(days=1)
+			fname = str(today) + '.log'
+			fdirectory = 'data_log/' + time.strftime("%Y-%m")
+		except Exception as e:
+			print("TIME UPDATE ERROR", e)
 
 		## GRABBING TIDES
 		# WILL PULL TIDE DATA FOR THE FOLLOWING 24 HOURS
 		
 		if tide_list == []:
-			tide_list = get_tide(today)
-			tide_next_time = '12:00 AM'
-			tide_datetime = datetime.datetime.strptime(tide_next_time,'%I:%M %p')
-			tide_datetime = tide_datetime.replace(today.year,today.month,today.day)
-		
+			try:
+				tide_list = get_tide(today)
+				tide_next_time = '12:00 AM'
+				tide_datetime = datetime.datetime.strptime(tide_next_time,'%I:%M %p')
+				tide_datetime = tide_datetime.replace(today.year,today.month,today.day)
+			except Exception as e:
+				print("TIDE LIST ERROR", today, now, e)
+				
 		# IMPORT SUNRISE / SUNSET DATA
 		
 		with open('Sun_data.csv', 'rb') as sun_csv:
-			sun_reader = csv.reader(sun_csv, delimiter =',')
-			sun_day = today.strftime("%Y/%m/%d")
-			for row in sun_reader:
-				if (row[0] == sun_day):
-					sun_rise = str(row[1])
-					sun_down = str(row[2])
-		sun_rise = sun_rise[1]+':'+ sun_rise[2:]
-		sun_down = sun_down[0:2] + ':' + sun_down[2:]
-
+			try:
+				sun_reader = csv.reader(sun_csv, delimiter =',')
+				sun_day = today.strftime("%Y/%m/%d")
+				for row in sun_reader:
+					if (row[0] == sun_day):
+						sun_rise = str(row[1])
+						sun_down = str(row[2])
+				sun_rise = sun_rise[1]+':'+ sun_rise[2:]
+				sun_down = sun_down[0:2] + ':' + sun_down[2:]
+			except Exception as e:
+				print("SUN TIME ERROR, today, now, e)
 
 		## Update expected Hi and Lo
 		# Assumptions:
 		# 	Internet is working an never quits
 		#	API calls to Wunderground work
 		#	Wunderground hasnt changed its format on its API
-		
+
 		# Likely will break this out to another if/else that clarifies 
 		# if we have internet or not. If we dont have internet, 
 		# grab data from yesterday and use that as expected hi and lo
-		
+
 		if internet:
 			if not os.path.isfile(str(today)+'_forecast.json'):
 				try:
@@ -187,34 +195,118 @@ while(1):
 						localjson.write(chunk)
 					onlinejson.close()
 					localjson.close()
+					localjson = open(str(today)+'_forecast.json','rb')
+					json_string = localjson.read()
+					parsed_json = json.loads(json_string)
+					exp_hi = parsed_json['forecast']['simpleforecast']['forecastday'][0]['high']['fahrenheit']
+					exp_lo = parsed_json['forecast']['simpleforecast']['forecastday'][0]['low']['fahrenheit']
+					if verbose == 'true':
+						print(exp_hi)
+						print(exp_lo)
 				except requests.exceptions.RequestException as e:
 					print("Wunder JSON Requets Error", today, now, e)
 				except Exception as e:
 				  print("Wunder JSON Error" today, now, e)
-					
-			localjson = open(str(today)+'_forecast.json','rb')
-			json_string = localjson.read()
-			parsed_json = json.loads(json_string)
-			exp_hi = parsed_json['forecast']['simpleforecast']['forecastday'][0]['high']['fahrenheit']
-			exp_lo = parsed_json['forecast']['simpleforecast']['forecastday'][0]['low']['fahrenheit']
-			#print(exp_hi)
-			#print(exp_lo)
-		
 
 			## GET WIND SPEED AND DIRECTION FROM WUNDERGROUND (CHEATING)
-			
-			ch_avg_wind_speed = parsed_json['forecast']['simpleforecast']['forecastday'][0]['avewind']['mph']
-			ch_wind_dir = parsed_json['forecast']['simpleforecast']['forecastday'][0]['avewind']['dir']
-			ch_max_wind_speed = parsed_json['forecast']['simpleforecast']['forecastday'][0]['maxwind']['mph']
-			#print(ch_wind_speed)
-			#print(ch_wind_dir)
-		
+
+			try:
+				ch_avg_wind_speed = parsed_json['forecast']['simpleforecast']['forecastday'][0]['avewind']['mph']
+				ch_wind_dir = parsed_json['forecast']['simpleforecast']['forecastday'][0]['avewind']['dir']
+				ch_max_wind_speed = parsed_json['forecast']['simpleforecast']['forecastday'][0]['maxwind']['mph']
+				#print(ch_wind_speed)
+				#print(ch_wind_dir)
+			except Exception as e:
+				print("WIND IMPORT ERROR", today, time, e)
 
 		### END OF DAILY TASKS, BEGIN STREAMING DATA
 
+
+	# Update the tide
+	# Tide will be output as a list for the day. 
+	# In this list will be smaller lists with the values for 
+	# Time, High or Low, and magnitude of the tide
+	# Should be no more than 5 tides and no fewer than 3.
+	# Avg case is 4.
+	
+	### print (time.strftime('%y:%m:%d:%H:%M:%S')) ### COMMENTED OUT BY LWH 2016/08/01
+	
+	minute = datetime.datetime.now()
+
+	while(minute > tide_datetime):
+		try:
+			if len(tide_list)<=1:
+				tide_list = get_tide(tomorrow)
+				tide_pre_time = tide_next_time
+				tide_pre_type = tide_next_type
+				tide_pre_mag = tide_next_mag
+				tide_next_time = tide_list[0][0]
+				tide_next_type = tide_list[0][1]
+				tide_next_mag = tide_list[0][2]
+				old = tide_datetime
+				dummy = datetime.datetime.strptime(tide_next_time,'%I:%M %p')
+				tide_datetime = tide_datetime.replace(tomorrow.year, tomorrow.month, tomorrow.day, dummy.hour,dummy.minute)
+			else:
+				tide_list = tide_list[1:]
+				tide_pre_time = tide_next_time
+				tide_pre_type = tide_next_type
+				tide_pre_mag = tide_next_mag
+				tide_next_time = tide_list[0][0]
+				tide_next_type = tide_list[0][1]
+				tide_next_mag = tide_list[0][2]
+				old = tide_datetime
+				dummy = datetime.datetime.strptime(tide_next_time,'%I:%M %p')
+				tide_datetime = tide_datetime.replace(today.year, today.month, today.day, dummy.hour,dummy.minute)
+				if verbose == 'true':
+					print(tide_list)
+					print(tide_pre_time)
+					print(tide_next_time)
+		except Exception as e:
+			print("TIDE UPDATE ERROR", today, now, e)
+	
+	now =str(time.strftime('%H:%M:%S'))
+	curr_time = str(time.strftime('%H:%M'))
         
-if __name__ == '__main__':
-    logfile = open("run/foo/access-log","r")
-    loglines = follow(logfile)
-    for line in loglines:
-        print line,
+	if __name__ == '__main__':
+    		try:
+    			logfile = open('data_log/' + time.strftime("%Y-%m"),"r")
+    			loglines = follow(logfile)
+    			for line in loglines:
+        			if verbose == 'true':
+        				print line,
+        	except Exception as e:
+        		print("LOG FILE OPEN ERROR", today, now, e)
+        		
+        ## Output data to the svg
+	
+	try:
+		output = codecs.open('WX_TEMPLATE.svg', 'r', encoding='utf-8').read()
+		output = output.replace('CURDATE', today.strftime("%m/%d/%Y"))
+		output = output.replace('CURTIME', str(curr_time))
+		output = output.replace('SNRISE', sun_rise)
+		output = output.replace('SNSET', sun_down)
+		if internet:
+			output = output.replace('FORHI', exp_hi)
+			output = output.replace('FORLO', exp_lo)
+			output = output.replace('WSP', str(ch_avg_wind_speed))
+			output = output.replace('WGUS', str(ch_max_wind_speed))
+		output = output.replace('TMPE',str(temp_2))
+		output = output.replace('TMPI',str(temp_0))
+		output = output.replace('TMPG',str(temp))
+		output = output.replace('TMPD',str(temp_1))
+		output = output.replace('PRESS',  str(press_2))
+		output = output.replace('RLHUM',str(humid_2))
+		output = output.replace('DWPNT',"{0:.2f}".format(dew))
+		output = output.replace('TDNTY',str(tide_pre_type))
+		output = output.replace('TDNTM',old.strftime('%H:%M'))
+		output = output.replace('TDNLV',str(tide_pre_mag))
+		output = output.replace('TDFTY',str(tide_next_type))
+		output = output.replace('TDFTM',tide_datetime.strftime('%H:%M'))
+		output = output.replace('TDFLV',str(tide_next_mag))
+	except Exception as e:
+		print("CODECS REPLACE ERROR", today, now, e)
+	
+	try:
+		codecs.open('TEST.svg', 'w', encoding='utf-8').write(output)
+	except Exception as e:
+		print("CODECS WRITE ERROR", today, now, e)
