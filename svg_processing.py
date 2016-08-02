@@ -77,7 +77,7 @@ humid_2 = [None]
 
 if (False):
 	tide_text = '8448376_annual.txt'
-	tide_csv = 'cutty_tide.csv'
+	tide_csv = 'resources/cutty_tide.csv'
 	in_txt = csv.reader(open(tide_text,"rb"), delimiter = '\t')
 	temp_csv = csv.writer(open(tide_csv, "wb"))
 	temp_csv.writerows(in_txt)
@@ -101,7 +101,7 @@ def follow(thefile):
 def get_tide(tide_day):
 	## Grab the tide for the day that you input
 	## Requires today or tomorrow as input
-	with open('cutty_tide.csv', 'rb') as tide_csv:
+	with open('resources/cutty_tide.csv', 'rb') as tide_csv:
 		tide_reader = csv.reader(tide_csv, delimiter =',')
 		day = tide_day.strftime("%Y/%m/%d")
 		temp_list = []
@@ -188,29 +188,35 @@ while(1):
 		# grab data from yesterday and use that as expected hi and lo
 
 		try:
-			if internet:
-				if not os.path.isfile(str(today)+'_forecast.json'):
-					onlinejson = requests.get(wunder_site_json)
-					localjson = open(str(today)+'_forecast.json', 'wb')
-					if os.path.isfile(str(yesterday)+'_forecast.json'):
-						os.remove(str(yesterday)+'_forecast.json')
-					for chunk in onlinejson.iter_content(100000):
-						localjson.write(chunk)
-					onlinejson.close()
-					localjson = open(str(today)+'_forecast.json','rb')
-					json_string = localjson.read()
-					parsed_json = json.loads(json_string)
-					exp_hi = parsed_json['forecast']['simpleforecast']['period'][1]['high']['fahrenheit']
-					exp_lo = parsed_json['forecast']['simpleforecast']['period'][1]['low']['fahrenheit']
-					## GET WIND SPEED AND DIRECTION FROM WUNDERGROUND (CHEATING)
-					ch_avg_wind_speed = parsed_json['forecast']['simpleforecast']['period'][1]['avewind']['mph']
-					ch_wind_dir = parsed_json['forecast']['simpleforecast']['period'][1]['avewind']['dir']
-					ch_max_wind_speed = parsed_json['forecast']['simpleforecast']['period'][1]['maxwind']['mph']
-					if debug:
-						print(exp_hi, exp_low, ch_wind_speed, ch_wind_dir)
-					localjson.close()
-		except requests.exceptions.RequestException as e:
-			print("Wunder JSON Requets Error", str(today), now, e)
+        		if internet:
+            			if not os.path.isfile(str(today)+'_forecast.json'):
+                			try:
+                    				onlinejson = requests.get(wunder_site_json)
+                    				localjson = open(str(today)+'_forecast.json', 'wb')
+                    				if os.path.isfile(str(yesterday)+'_forecast.json'):
+                        				os.remove(str(yesterday)+'_forecast.json')
+                    				for chunk in onlinejson.iter_content(100000):
+                        				localjson.write(chunk)
+                    				onlinejson.close()
+                    				localjson.close()
+                			except Exception as e:
+                    				print("WUNDER JSON LOAD ERROR", str(today), now, e)
+                     
+            			localjson = open(str(today)+'_forecast.json','rb')
+            			json_string = localjson.read()
+            			parsed_json = json.loads(json_string)
+            			exp_hi = parsed_json['forecast']['simpleforecast']['forecastday'][0]['high']['fahrenheit']
+            			exp_lo = parsed_json['forecast']['simpleforecast']['forecastday'][0]['low']['fahrenheit']
+            			if debug:
+            				print(exp_hi, exp_lo)
+         
+            			## Cheat and get wind speed / dir
+            			ch_avg_wind_speed = parsed_json['forecast']['simpleforecast']['forecastday'][0]['avewind']['mph']
+            			ch_wind_dir = parsed_json['forecast']['simpleforecast']['forecastday'][0]['avewind']['dir']
+            			ch_max_wind_speed = parsed_json['forecast']['simpleforecast']['forecastday'][0]['maxwind']['mph']
+            			if debug:
+            				print(ch_wind_speed, ch_wind_dir)
+            				
 		except Exception as e:
 			print("Wunder JSON Error", str(today), now, e)
 
@@ -265,7 +271,7 @@ while(1):
     	try:
     		logfile = open('data_log/' + time.strftime("%Y-%m") + '/' + str(today) + '.log',"r")
     		loglines = follow(logfile)
-    		for line in loglines:
+    		if line in loglines:
         		if debug:
         			print line
         		
