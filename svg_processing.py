@@ -165,7 +165,7 @@ while(1):
 		# IMPORT SUNRISE / SUNSET DATA
 		
 		try:
-			with open('Sun_data.csv', 'rb') as sun_csv:
+			with open('resources/Sun_data.csv', 'rb') as sun_csv:
 				sun_reader = csv.reader(sun_csv, delimiter =',')
 				sun_day = today.strftime("%Y/%m/%d")
 				for row in sun_reader:
@@ -189,12 +189,12 @@ while(1):
 
 		try:
         		if internet:
-            			if not os.path.isfile(str(today)+'_forecast.json'):
+            			if not os.path.isfile('resources/' + str(today) + '_forecast.json'):
                 			try:
                     				onlinejson = requests.get(wunder_site_json)
-                    				localjson = open(str(today)+'_forecast.json', 'wb')
-                    				if os.path.isfile(str(yesterday)+'_forecast.json'):
-                        				os.remove(str(yesterday)+'_forecast.json')
+                    				localjson = open('resources/' + str(today) + '_forecast.json', 'wb')
+                    				if os.path.isfile('resources/' + str(yesterday) + '_forecast.json'):
+                        				os.remove('resources/' + str(yesterday) + '_forecast.json')
                     				for chunk in onlinejson.iter_content(100000):
                         				localjson.write(chunk)
                     				onlinejson.close()
@@ -202,7 +202,7 @@ while(1):
                 			except Exception as e:
                     				print("WUNDER JSON LOAD ERROR", str(today), now, e)
                      
-            			localjson = open(str(today)+'_forecast.json','rb')
+            			localjson = open('resources/' + str(today) + '_forecast.json','rb')
             			json_string = localjson.read()
             			parsed_json = json.loads(json_string)
             			exp_hi = parsed_json['forecast']['simpleforecast']['forecastday'][0]['high']['fahrenheit']
@@ -306,7 +306,7 @@ while(1):
         		## Output data to the svg
 	
 			try:
-				output = codecs.open('WX_TEMPLATE.svg', 'r', encoding='utf-8').read()
+				output = codecs.open('resources/WX_TEMPLATE.svg', 'r', encoding='utf-8').read()
 				output = output.replace('CURDATE',today.strftime("%m/%d/%Y"))
 				output = output.replace('CURTIME', str(curr_time))
 				output = output.replace('SNRISE',sun_rise)
