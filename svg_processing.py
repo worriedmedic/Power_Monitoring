@@ -163,8 +163,8 @@ while(1):
 				
 		# IMPORT SUNRISE / SUNSET DATA
 		
-		with open('Sun_data.csv', 'rb') as sun_csv:
-			try:
+		try:
+			with open('Sun_data.csv', 'rb') as sun_csv:
 				sun_reader = csv.reader(sun_csv, delimiter =',')
 				sun_day = today.strftime("%Y/%m/%d")
 				for row in sun_reader:
@@ -173,8 +173,8 @@ while(1):
 						sun_down = str(row[2])
 				sun_rise = sun_rise[1]+':'+ sun_rise[2:]
 				sun_down = sun_down[0:2] + ':' + sun_down[2:]
-			except Exception as e:
-				print("SUN TIME ERROR", today, now, e)
+		except Exception as e:
+			print("SUN TIME ERROR", today, now, e)
 
 		## Update expected Hi and Lo
 		# Assumptions:
@@ -186,9 +186,9 @@ while(1):
 		# if we have internet or not. If we dont have internet, 
 		# grab data from yesterday and use that as expected hi and lo
 
-		if internet:
-			if not os.path.isfile(str(today)+'_forecast.json'):
-				try:
+		try:
+			if internet:
+				if not os.path.isfile(str(today)+'_forecast.json'):
 					onlinejson = requests.get(wunder_site_json)
 					localjson = open(str(today)+'_forecast.json', 'wb')
 					if os.path.isfile(str(yesterday)+'_forecast.json'):
@@ -205,21 +205,22 @@ while(1):
 					if verbose == 'true':
 						print(exp_hi)
 						print(exp_lo)
-				except requests.exceptions.RequestException as e:
-					print("Wunder JSON Requets Error", today, now, e)
-				except Exception as e:
-				  print("Wunder JSON Error", today, now, e)
+		except requests.exceptions.RequestException as e:
+			print("Wunder JSON Requets Error", today, now, e)
+		except Exception as e:
+			print("Wunder JSON Error", today, now, e)
 
 			## GET WIND SPEED AND DIRECTION FROM WUNDERGROUND (CHEATING)
 
-			try:
-				ch_avg_wind_speed = parsed_json['forecast']['simpleforecast']['forecastday'][0]['avewind']['mph']
-				ch_wind_dir = parsed_json['forecast']['simpleforecast']['forecastday'][0]['avewind']['dir']
-				ch_max_wind_speed = parsed_json['forecast']['simpleforecast']['forecastday'][0]['maxwind']['mph']
-				#print(ch_wind_speed)
-				#print(ch_wind_dir)
-			except Exception as e:
-				print("WIND IMPORT ERROR", today, time, e)
+		try:
+			ch_avg_wind_speed = parsed_json['forecast']['simpleforecast']['forecastday'][0]['avewind']['mph']
+			ch_wind_dir = parsed_json['forecast']['simpleforecast']['forecastday'][0]['avewind']['dir']
+			ch_max_wind_speed = parsed_json['forecast']['simpleforecast']['forecastday'][0]['maxwind']['mph']
+			if verbose == 'true':
+				print(ch_wind_speed)
+				print(ch_wind_dir)
+		except Exception as e:
+			print("WIND IMPORT ERROR", today, time, e)
 
 		### END OF DAILY TASKS, BEGIN STREAMING DATA
 
@@ -271,7 +272,7 @@ while(1):
         
 	if __name__ == '__main__':
     		try:
-    			logfile = open('data_log/' + time.strftime("%Y-%m"),"r")
+    			logfile = open('data_log/' + time.strftime("%Y-%m") + '/' + str(today) + '.log',"r")
     			loglines = follow(logfile)
     			for line in loglines:
         			if verbose == 'true':
