@@ -7,7 +7,7 @@ import codecs
 import urllib2
 import json
 
-debug     = False
+debug     = True
 verbose   = True
 internet  = True
 
