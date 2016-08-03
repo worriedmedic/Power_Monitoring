@@ -40,6 +40,7 @@ sun_down = [None]
 ## INT: Expected Hi and Lo
 wunder_site_forcast_json = 'http://api.wunderground.com/api/1f86b1c989ac268c/forecast/q/ma/cuttyhunk.json'
 wunder_site_conditions_json = 'http://api.wunderground.com/api/1f86b1c989ac268c/conditions/q/ma/cuttyhunk.json'
+wunder_update_time = [None]
 onlinejson = [None]
 forecast = [None]
 exp_hi = [None]
