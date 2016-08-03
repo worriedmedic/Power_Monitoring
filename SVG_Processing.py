@@ -41,6 +41,7 @@ sun_down = [None]
 wunder_site_forcast_json = 'http://api.wunderground.com/api/1f86b1c989ac268c/forecast/q/ma/cuttyhunk.json'
 wunder_site_conditions_json = 'http://api.wunderground.com/api/1f86b1c989ac268c/conditions/q/ma/cuttyhunk.json'
 wunder_update_time = [None]
+elapsed = [None]
 onlinejson = [None]
 forecast = [None]
 exp_hi = [None]
@@ -229,12 +230,13 @@ while(1):
 	### print (time.strftime('%y:%m:%d:%H:%M:%S')) ### COMMENTED OUT BY LWH 2016/08/01
 	
 	minute = datetime.datetime.now()
+	elapsed = minute - wunder_update_time
 	
 	try:
         	if internet:
          
             		## Cheat and get wind speed / dir
-            		if (minute - wunder_update_time) >= datetime.timedelta(minute=5) or not os.path.isfile('resources/' + str(today) + '_conditions.json'):
+            		if elapsed > datetime.timedelta(minute=5) or not os.path.isfile('resources/' + str(today) + '_conditions.json'):
                 		try:
                     			wunder_update_time = datetime.datetime.now()
                     			onlinejson = requests.get(wunder_site_conditions_json)
