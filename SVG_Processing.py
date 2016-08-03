@@ -74,6 +74,8 @@ tepm_2 = [None]
 press_2 = [None]
 humid_2 = [None]
 
+i = 0
+
 ## YEARLY SHIT
 ## Shit to get the tides in a csv. Once its done dont touch it.
 ## All we gotta do is grab one each new day. Thats it. Simple shieeeeet
@@ -233,9 +235,9 @@ while(1):
 	try:
         	if internet:
             		## Cheat and get wind speed / dir
-            		if not os.path.isfile('resources/' + str(today) + '_conditions.json'):
+            		if i >= 12 or i == 0:
                 		try:
-                    			wunder_update_time = time.time()
+                    			i = 0
                     			onlinejson = requests.get(wunder_site_conditions_json)
                     			localjson = open('resources/' + str(today) + '_conditions.json', 'wb')
                     			if os.path.isfile('resources/' + str(yesterday) + '_conditions.json'):
@@ -300,7 +302,7 @@ while(1):
     		for line in loglines:
         		if debug:
         			print line
-        		
+        		i += 1
         		now = time.strftime('%H:%M:%S')
 			curr_time = time.strftime('%H:%M')
 			
