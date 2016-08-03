@@ -229,16 +229,13 @@ while(1):
 	
 	### print (time.strftime('%y:%m:%d:%H:%M:%S')) ### COMMENTED OUT BY LWH 2016/08/01
 	
-	minute = datetime.datetime.now()
-	elapsed = minute - wunder_update_time
 	
 	try:
         	if internet:
-         
             		## Cheat and get wind speed / dir
-            		if elapsed > datetime.timedelta(minute=5) or not os.path.isfile('resources/' + str(today) + '_conditions.json'):
+            		if (time.time() > wunder_update_time + 300) or not os.path.isfile('resources/' + str(today) + '_conditions.json'):
                 		try:
-                    			wunder_update_time = datetime.datetime.now()
+                    			wunder_update_time = time.time()
                     			onlinejson = requests.get(wunder_site_conditions_json)
                     			localjson = open('resources/' + str(today) + '_conditions.json', 'wb')
                     			if os.path.isfile('resources/' + str(yesterday) + '_conditions.json'):
@@ -262,6 +259,7 @@ while(1):
 	except Exception as e:
 		print("Wunder JSON Error", str(today), now, e)
 	
+	minute = datetime.datetime.now()
 	try:
 		while(minute > tide_datetime):
 			if len(tide_list)<=1:
