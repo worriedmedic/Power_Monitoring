@@ -251,9 +251,9 @@ while(1):
             		localjson = open('resources/' + str(today) + '_conditions.json','rb')
             		json_string = localjson.read()
             		parsed_json = json.loads(json_string)
-            		ch_avg_wind_speed = parsed_json['conditions']['current_observation']['wind_mph']
-            		ch_wind_dir = parsed_json['conditions']['current_observation']['wind_dir']
-            		ch_max_wind_speed = parsed_json['conditions']['current_observation']['wind_gust_mph']
+            		ch_avg_wind_speed = parsed_json['wind_mph']
+            		ch_wind_dir = parsed_json['wind_dir']
+            		ch_max_wind_speed = parsed_json['wind_gust_mph']
             		if debug:
             			print(ch_avg_wind_speed, ch_wind_dir, ch_max_wind_speed)
             				
