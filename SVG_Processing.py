@@ -228,7 +228,7 @@ while(1):
             			print(exp_hi, exp_lo)
          
             		## Cheat and get wind speed / dir
-            		if (minute == wunder_update_time):
+            		if (minute == wunder_update_time) or not os.path.isfile('resources/' + str(today) + '_forecast.json'):
                 		try:
                     			wunder_update_time = minute + datetime.timedelta(minutes = 5)
                     			onlinejson = requests.get(wunder_site_conditions_json)
