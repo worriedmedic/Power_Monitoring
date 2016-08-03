@@ -234,7 +234,7 @@ while(1):
         	if internet:
          
             		## Cheat and get wind speed / dir
-            		if ((minute - wunder_update_time) >= datetime.timedelta(minute=5) or not os.path.isfile('resources/' + str(today) + '_conditions.json'):
+            		if (minute - wunder_update_time) >= datetime.timedelta(minute=5) or not os.path.isfile('resources/' + str(today) + '_conditions.json'):
                 		try:
                     			wunder_update_time = datetime.datetime.now()
                     			onlinejson = requests.get(wunder_site_conditions_json)
