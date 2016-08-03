@@ -233,6 +233,8 @@ while(1):
 	
 	### print (time.strftime('%y:%m:%d:%H:%M:%S')) ### COMMENTED OUT BY LWH 2016/08/01
 
+	minute = datetime.datetime.now()
+	
 	try:
 		while(minute > tide_datetime):
 			if len(tide_list)<=1:
