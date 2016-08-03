@@ -248,14 +248,14 @@ while(1):
                 		except Exception as e:
                     			print("WUNDER JSON LOAD ERROR", str(today), now, e)
                      
-            		localjson = open('resources/' + str(today) + '_conditions.json','rb')
-            		json_string = localjson.read()
-            		parsed_json = json.loads(json_string)
-            		ch_avg_wind_speed = parsed_json['current_observation']['wind_mph']
-            		ch_wind_dir = parsed_json['current_observation']['wind_dir']
-            		ch_max_wind_speed = parsed_json['current_observation']['wind_gust_mph']
-            		if debug:
-            			print(ch_avg_wind_speed, ch_wind_dir, ch_max_wind_speed)
+            			localjson = open('resources/' + str(today) + '_conditions.json','rb')
+            			json_string = localjson.read()
+            			parsed_json = json.loads(json_string)
+            			ch_avg_wind_speed = parsed_json['current_observation']['wind_mph']
+            			ch_wind_dir = parsed_json['current_observation']['wind_dir']
+            			ch_max_wind_speed = parsed_json['current_observation']['wind_gust_mph']
+            			if debug:
+            				print(ch_avg_wind_speed, ch_wind_dir, ch_max_wind_speed)
             				
 	except Exception as e:
 		print("Wunder JSON Error", str(today), now, e)
