@@ -186,6 +186,32 @@ while(1):
 		#	API calls to Wunderground work
 		#	Wunderground hasnt changed its format on its API
 
+		try:
+        		if internet:
+            			if not os.path.isfile('resources/' + str(today) + '_forecast.json'):
+                			try:
+                    				onlinejson = requests.get(wunder_site_forcast_json)
+                    				localjson = open('resources/' + str(today) + '_forecast.json', 'wb')
+                    				if os.path.isfile('resources/' + str(yesterday) + '_forecast.json'):
+                        				os.remove('resources/' + str(yesterday) + '_forecast.json')
+                    				for chunk in onlinejson.iter_content(100000):
+                        				localjson.write(chunk)
+                    				onlinejson.close()
+                    				localjson.close()
+                			except Exception as e:
+                    				print("WUNDER JSON LOAD ERROR", str(today), now, e)
+                     
+            			localjson = open('resources/' + str(today) + '_forecast.json','rb')
+            			json_string = localjson.read()
+            			parsed_json = json.loads(json_string)
+            			exp_hi = parsed_json['forecast']['simpleforecast']['forecastday'][0]['high']['fahrenheit']
+            			exp_lo = parsed_json['forecast']['simpleforecast']['forecastday'][0]['low']['fahrenheit']
+            			if debug:
+            				print(exp_hi, exp_lo)
+         	
+         	except Exception as e:
+			print("Wunder JSON Error", str(today), now, e)
+			
 		# Likely will break this out to another if/else that clarifies 
 		# if we have internet or not. If we dont have internet, 
 		# grab data from yesterday and use that as expected hi and lo
@@ -206,29 +232,9 @@ while(1):
 	
 	try:
         	if internet:
-            		if not os.path.isfile('resources/' + str(today) + '_forecast.json'):
-                		try:
-                    			onlinejson = requests.get(wunder_site_forcast_json)
-                    			localjson = open('resources/' + str(today) + '_forecast.json', 'wb')
-                    			if os.path.isfile('resources/' + str(yesterday) + '_forecast.json'):
-                        			os.remove('resources/' + str(yesterday) + '_forecast.json')
-                    			for chunk in onlinejson.iter_content(100000):
-                        			localjson.write(chunk)
-                    			onlinejson.close()
-                    			localjson.close()
-                		except Exception as e:
-                    			print("WUNDER JSON LOAD ERROR", str(today), now, e)
-                     
-            		localjson = open('resources/' + str(today) + '_forecast.json','rb')
-            		json_string = localjson.read()
-            		parsed_json = json.loads(json_string)
-            		exp_hi = parsed_json['forecast']['simpleforecast']['forecastday'][0]['high']['fahrenheit']
-            		exp_lo = parsed_json['forecast']['simpleforecast']['forecastday'][0]['low']['fahrenheit']
-            		if debug:
-            			print(exp_hi, exp_lo)
          
             		## Cheat and get wind speed / dir
-            		if (minute == wunder_update_time) or not os.path.isfile('resources/' + str(today) + '_forecast.json'):
+            		if (minute == wunder_update_time) or not os.path.isfile('resources/' + str(today) + '_conditions.json'):
                 		try:
                     			wunder_update_time = minute + datetime.timedelta(minutes = 5)
                     			onlinejson = requests.get(wunder_site_conditions_json)
