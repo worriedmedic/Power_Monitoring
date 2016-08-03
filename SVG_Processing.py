@@ -338,9 +338,7 @@ while(1):
 			except Exception as e:
 				print("CODECS WRITE ERROR", str(today), now, e)
 			
-			if (today != datetime.date.today()):
-				time.sleep(5)
-				break
+			break
 	
 	except Exception as e:
         	print("LOG FILE OPEN ERROR", str(today), now, e)
