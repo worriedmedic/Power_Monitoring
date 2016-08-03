@@ -136,6 +136,7 @@ while(1):
 			Update Date
 			Create new day's log files
 		'''
+		now = time.strftime("%H:%M:%S")
 		
 		# UPDATE TODAY'S LOGS
 		
@@ -148,7 +149,7 @@ while(1):
 			fdirectory = 'data_log/' + time.strftime("%Y-%m")
 			
 		except Exception as e:
-			print("TIME UPDATE ERROR", e)
+			print("TIME UPDATE ERROR", str(today), now, e)
 
 		## GRABBING TIDES
 		# WILL PULL TIDE DATA FOR THE FOLLOWING 24 HOURS
@@ -231,8 +232,6 @@ while(1):
 	# Avg case is 4.
 	
 	### print (time.strftime('%y:%m:%d:%H:%M:%S')) ### COMMENTED OUT BY LWH 2016/08/01
-	
-	minute = datetime.datetime.now()
 
 	try:
 		while(minute > tide_datetime):
@@ -336,6 +335,10 @@ while(1):
 				codecs.open('TEST.svg', 'w', encoding='utf-8').write(output)
 			except Exception as e:
 				print("CODECS WRITE ERROR", str(today), now, e)
+			
+			if (today != datetime.date.today()):
+				time.sleep(5)
+				break
 	
 	except Exception as e:
         	print("LOG FILE OPEN ERROR", str(today), now, e)
