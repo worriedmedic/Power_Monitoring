@@ -7,7 +7,7 @@ import codecs
 import urllib2
 import json
 
-debug     = True
+debug     = False
 verbose   = False
 internet  = True
 
@@ -235,7 +235,7 @@ while(1):
 	try:
         	if internet:
             		## Cheat and get wind speed / dir
-            		if i >= 12 or i == 0:
+            		if i >= 18 or i == 0:
                 		try:
                     			i = 0
                     			onlinejson = requests.get(wunder_site_conditions_json)
