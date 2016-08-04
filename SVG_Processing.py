@@ -344,11 +344,11 @@ while(1):
 					output = output.replace('FORLO',exp_lo)
 					output = output.replace('WSP', str(ch_avg_wind_speed))
 					output = output.replace('WGUS', str(ch_max_wind_speed))
-				output = output.replace('TMPE',str(temp_2))
-				output = output.replace('TMPI',str(temp_0))
-				output = output.replace('TMPG',str(temp))
+				output = output.replace('TMPE',str(temp_0))
+				output = output.replace('TMPI',str(temp_1))
+				output = output.replace('TMPG',str(temp_2))
 				output = output.replace('TMPD',str(temp_1))
-				output = output.replace('PRESS',str(press_2))
+			 	output = output.replace('PRESS',str(press_2))
 				output = output.replace('RLHUM',str(humid_2))
 				output = output.replace('DWPNT',"{0:.2f}".format(dew))
 				output = output.replace('TDNTY',str(tide_pre_type))
@@ -367,5 +367,9 @@ while(1):
 			
 			break
 	
+	except IOError as e:
+		print("LOG FILE IO ERROR", str(today), now, e)
+		time.sleep(20)
+
 	except Exception as e:
         	print("LOG FILE OPEN ERROR", str(today), now, e)
