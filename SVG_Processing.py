@@ -364,7 +364,7 @@ while(1):
                         					if element.get("id") == "b00Bat1":
                         						element.attrib['class'] = ''
                         					if element.get("id") == "b00Bat0":
-                        						element.attrib['class'] = 'st3'
+                        						element.attrib['class'] = ''
                         					print("09 - 25 to 50")
                         		elif (50 <= float(volt) > 75): 
                         			for element in tree.iter():
@@ -378,7 +378,7 @@ while(1):
                         					if element.get("id") == "b00Bat1":
                         						element.attrib['class'] = 'st3'
                         					if element.get("id") == "b00Bat0":
-                        						element.attrib['class'] = 'st3'
+                        						element.attrib['class'] = ''
                         					print("09 - 50 to 75")
                         		elif (75 <= float(volt) > 90): 
                         			for element in tree.iter():
@@ -392,7 +392,7 @@ while(1):
                         					if element.get("id") == "b00Bat1":
                         						element.attrib['class'] = 'st3'
                         					if element.get("id") == "b00Bat0":
-                        						element.attrib['class'] = 'st3'
+                        						element.attrib['class'] = ''
                         					print("09 - 75 to 90")
                         		elif (90 <= float(volt) > 100): 
                         			for element in tree.iter():
@@ -406,7 +406,7 @@ while(1):
                         					if element.get("id") == "b00Bat1":
                         						element.attrib['class'] = 'st3'
                         					if element.get("id") == "b00Bat0":
-                        						element.attrib['class'] = 'st3'
+                        						element.attrib['class'] = ''
                         					print("09 - 09 to 100")
                         						
                         except Exception as e:
