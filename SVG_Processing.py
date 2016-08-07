@@ -338,7 +338,7 @@ while(1):
 				tree = etree.parse(open(filename, 'r'))
         			
         			if (addr == '09'):
-        				if (0 <= float(volt) > 25):
+        				if (0 <= float(volt) < 25):
         					for element in tree.iter():
         						if element.tag.split("}")[1] == "path":
                 						if element.get("id") == "b00Bat4":
@@ -352,7 +352,7 @@ while(1):
                         					if element.get("id") == "b00Bat0":
                         						element.attrib['class'] = ''
                         					print("09 - 0 to 25")
-                        		elif (25 <= float(volt) > 50): 
+                        		elif (25 <= float(volt) < 50): 
                         			for element in tree.iter():
         						if element.tag.split("}")[1] == "path":
                 						if element.get("id") == "b00Bat4":
@@ -366,7 +366,7 @@ while(1):
                         					if element.get("id") == "b00Bat0":
                         						element.attrib['class'] = ''
                         					print("09 - 25 to 50")
-                        		elif (50 <= float(volt) > 75): 
+                        		elif (50 <= float(volt) < 75): 
                         			for element in tree.iter():
         						if element.tag.split("}")[1] == "path":
                 						if element.get("id") == "b00Bat4":
@@ -380,7 +380,7 @@ while(1):
                         					if element.get("id") == "b00Bat0":
                         						element.attrib['class'] = ''
                         					print("09 - 50 to 75")
-                        		elif (75 <= float(volt) > 90): 
+                        		elif (75 <= float(volt) < 90): 
                         			for element in tree.iter():
         						if element.tag.split("}")[1] == "path":
                 						if element.get("id") == "b00Bat4":
@@ -394,7 +394,7 @@ while(1):
                         					if element.get("id") == "b00Bat0":
                         						element.attrib['class'] = ''
                         					print("09 - 75 to 90")
-                        		elif (90 <= float(volt) > 100): 
+                        		elif (90 <= float(volt) < 100): 
                         			for element in tree.iter():
         						if element.tag.split("}")[1] == "path":
                 						if element.get("id") == "b00Bat4":
