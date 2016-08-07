@@ -6,7 +6,7 @@ import csv
 import codecs
 import urllib2
 import json
-from lxml import etree
+#from lxml import etree
 
 debug     = False
 verbose   = False
@@ -66,6 +66,8 @@ wind_dir = [None] * 5
 
 ## INT: Station 0 - Inside the house. Top floor.
 temp_0 = [None]
+press_0 = [None]
+humid_0 = [None]
 
 ## INT: Station 1 - Inside the house. Bottom floor
 temp_1 = [None]
