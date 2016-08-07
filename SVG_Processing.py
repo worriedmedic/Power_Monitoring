@@ -337,7 +337,7 @@ while(1):
         			filename = "resources/WX_TEMPLATE.svg"
 				tree = etree.parse(open(filename, 'r'))
         			
-        			if (addr == '09')
+        			if (addr == '09'):
         				if (0 <= volt > 25):
         					for element in tree.iter():
         						if element.tag.split("}")[1] == "path":
@@ -351,6 +351,7 @@ while(1):
                         						element.attrib['class'] = 'st3'
                         					if element.get("id") == "b00Bat0":
                         						element.attrib['class'] = ''
+                        					print("09 - 0 to 25")
                         		elif (25 <= volt > 50): 
                         			for element in tree.iter():
         						if element.tag.split("}")[1] == "path":
@@ -364,6 +365,7 @@ while(1):
                         						element.attrib['class'] = ''
                         					if element.get("id") == "b00Bat0":
                         						element.attrib['class'] = 'st3'
+                        					print("09 - 25 to 50")
                         		elif (50 <= volt > 75): 
                         			for element in tree.iter():
         						if element.tag.split("}")[1] == "path":
@@ -377,6 +379,7 @@ while(1):
                         						element.attrib['class'] = 'st3'
                         					if element.get("id") == "b00Bat0":
                         						element.attrib['class'] = 'st3'
+                        					print("09 - 50 to 75")
                         		elif (75 <= volt > 90): 
                         			for element in tree.iter():
         						if element.tag.split("}")[1] == "path":
@@ -390,6 +393,7 @@ while(1):
                         						element.attrib['class'] = 'st3'
                         					if element.get("id") == "b00Bat0":
                         						element.attrib['class'] = 'st3'
+                        					print("09 - 75 to 90")
                         		elif (90 <= volt > 100): 
                         			for element in tree.iter():
         						if element.tag.split("}")[1] == "path":
@@ -403,6 +407,7 @@ while(1):
                         						element.attrib['class'] = 'st3'
                         					if element.get("id") == "b00Bat0":
                         						element.attrib['class'] = 'st3'
+                        					print("09 - 09 to 100")
                         						
                         except Exception as e:
                         	print("BATTERY TO SVG ERROR", str(today), now, e)
