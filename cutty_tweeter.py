@@ -26,6 +26,7 @@ dover_sensor = { #Modified for Dover_Wx_St
 cutty_sensor = {
     'Outside'       : '116278'
     'Inside'        : '116348'
+}
 
 def thingspeaktweet(api_key):
     tweet = "Outside: %%channel_116278_field_2%%F, %%channel_116278_field_4%%%, Inside: %%channel_116348_field_2%%F, %%channel_116348_field_4%%%, Press: %%channel_116278_field_3%%mb"
