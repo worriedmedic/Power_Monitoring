@@ -409,7 +409,7 @@ while(1):
                         						element.attrib['class'] = ''
                         					print("09 - 09 to 100")
                         	
-                        	tree.write(TEST.svg)
+                        	tree.write('TEST.svg')
                         	
                         except Exception as e:
                         	print("BATTERY TO SVG ERROR", str(today), now, e)
