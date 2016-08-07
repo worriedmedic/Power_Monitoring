@@ -320,20 +320,19 @@ while(1):
                 		if debug:
                 			print(addr, temp, press, humid, volt, dew, rssi)
                 
-                		if (addr == '09'):
-					temp_0 = temp
-				elif (addr == '08'):
-					temp_1 = temp
-				elif (addr == '07'):
-					temp_2 = temp
-					press_2 = press
-					humid_2 = humid
+                		if (addr == '01'):
+					temp_0 = temp #EXTERIOR
+					press_0 = press
+					humid_0 = humid
+				elif (addr == '00'):
+					temp_1 = temp #INTERIOR
+
 		
         		except Exception as e:
         			print("DATA SPLIT ERROR", str(today), now, e)
         		
         		## UPDATE BATTERY LEVEL ON SVG
-        		try:
+        		'''try:
         			filename = "resources/WX_TEMPLATE.svg"
 				tree = etree.parse(open(filename, 'r'))
         			
@@ -408,11 +407,82 @@ while(1):
                         					if element.get("id") == "b00Bat0":
                         						element.attrib['class'] = ''
                         					print("09 - 09 to 100")
-                        	
+         			
+         			elif (addr == '08'):
+        				if (0 <= float(volt) < 25):
+        					for element in tree.iter():
+        						if element.tag.split("}")[1] == "path":
+                						if element.get("id") == "b01Bat4":
+                        						element.attrib['class'] = 'st3'
+                						if element.get("id") == "b01Bat3":
+                        						element.attrib['class'] = 'st3'
+                        					if element.get("id") == "b01Bat2":
+                        						element.attrib['class'] = 'st3'
+                        					if element.get("id") == "b01Bat1":
+                        						element.attrib['class'] = 'st3'
+                        					if element.get("id") == "b01Bat0":
+                        						element.attrib['class'] = ''
+                        					print("09 - 0 to 25")
+                        		elif (25 <= float(volt) < 50): 
+                        			for element in tree.iter():
+        						if element.tag.split("}")[1] == "path":
+                						if element.get("id") == "b01Bat4":
+                        						element.attrib['class'] = 'st3'
+                						if element.get("id") == "b01Bat3":
+                        						element.attrib['class'] = 'st3'
+                        					if element.get("id") == "b01Bat2":
+                        						element.attrib['class'] = 'st3'
+                        					if element.get("id") == "b01Bat1":
+                        						element.attrib['class'] = ''
+                        					if element.get("id") == "b01Bat0":
+                        						element.attrib['class'] = ''
+                        					print("09 - 25 to 50")
+                        		elif (50 <= float(volt) < 75): 
+                        			for element in tree.iter():
+        						if element.tag.split("}")[1] == "path":
+                						if element.get("id") == "b01Bat4":
+                        						element.attrib['class'] = 'st3'
+                						if element.get("id") == "b01Bat3":
+                        						element.attrib['class'] = 'st3'
+                        					if element.get("id") == "b01Bat2":
+                        						element.attrib['class'] = ''
+                        					if element.get("id") == "b01Bat1":
+                        						element.attrib['class'] = 'st3'
+                        					if element.get("id") == "b01Bat0":
+                        						element.attrib['class'] = ''
+                        					print("09 - 50 to 75")
+                        		elif (75 <= float(volt) < 90): 
+                        			for element in tree.iter():
+        						if element.tag.split("}")[1] == "path":
+                						if element.get("id") == "b01Bat4":
+                        						element.attrib['class'] = 'st3'
+                						if element.get("id") == "b01Bat3":
+                        						element.attrib['class'] = ''
+                        					if element.get("id") == "b01Bat2":
+                        						element.attrib['class'] = 'st3'
+                        					if element.get("id") == "b01Bat1":
+                        						element.attrib['class'] = 'st3'
+                        					if element.get("id") == "b01Bat0":
+                        						element.attrib['class'] = ''
+                        					print("09 - 75 to 90")
+                        		elif (90 <= float(volt) < 100): 
+                        			for element in tree.iter():
+        						if element.tag.split("}")[1] == "path":
+                						if element.get("id") == "b01Bat4":
+                        						element.attrib['class'] = ''
+                						if element.get("id") == "b01Bat3":
+                        						element.attrib['class'] = 'st3'
+                        					if element.get("id") == "b01Bat2":
+                        						element.attrib['class'] = 'st3'
+                        					if element.get("id") == "b01Bat1":
+                        						element.attrib['class'] = 'st3'
+                        					if element.get("id") == "b01Bat0":
+                        						element.attrib['class'] = ''
+                        					print("09 - 09 to 100")                       	
                         	tree.write('TEST.svg')
                         	
                         except Exception as e:
-                        	print("BATTERY TO SVG ERROR", str(today), now, e)
+                        	print("BATTERY TO SVG ERROR", str(today), now, e)'''
                         	
         		## Output data to the svg
 	
@@ -429,10 +499,10 @@ while(1):
 					output = output.replace('WGUS', str(ch_max_wind_speed))
 				output = output.replace('TMPE',str(temp_0))
 				output = output.replace('TMPI',str(temp_1))
-				output = output.replace('TMPG',str(temp_2))
+				output = output.replace('TMPG',str(temp_0))
 				output = output.replace('TMPD',str(temp_1))
-			 	output = output.replace('PRESS',str(press_2))
-				output = output.replace('RLHUM',str(humid_2))
+			 	output = output.replace('PRESS',str(press_0))
+				output = output.replace('RLHUM',str(humid_0))
 				output = output.replace('DWPNT',"{0:.2f}".format(dew))
 				output = output.replace('TDNTY',str(tide_pre_type))
 				output = output.replace('TDNTM',old.strftime('%H:%M'))
