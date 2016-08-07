@@ -6,6 +6,7 @@ import csv
 import codecs
 import urllib2
 import json
+from lxml import etree
 
 debug     = False
 verbose   = False
@@ -331,6 +332,81 @@ while(1):
         		except Exception as e:
         			print("DATA SPLIT ERROR", str(today), now, e)
         		
+        		## UPDATE BATTERY LEVEL ON SVG
+        		try:
+        			filename = "resources/WX_TEMPLATE.svg"
+				tree = etree.parse(open(filename, 'r'))
+        			
+        			if (addr == '09')
+        				if (0 <= volt > 25):
+        					for element in tree.iter():
+        						if element.tag.split("}")[1] == "path":
+                						if element.get("id") == "b00Bat4":
+                        						element.attrib['class'] = 'st3'
+                						if element.get("id") == "b00Bat3":
+                        						element.attrib['class'] = 'st3'
+                        					if element.get("id") == "b00Bat2":
+                        						element.attrib['class'] = 'st3'
+                        					if element.get("id") == "b00Bat1":
+                        						element.attrib['class'] = 'st3'
+                        					if element.get("id") == "b00Bat0":
+                        						element.attrib['class'] = ''
+                        		elif (25 <= volt > 50): 
+                        			for element in tree.iter():
+        						if element.tag.split("}")[1] == "path":
+                						if element.get("id") == "b00Bat4":
+                        						element.attrib['class'] = 'st3'
+                						if element.get("id") == "b00Bat3":
+                        						element.attrib['class'] = 'st3'
+                        					if element.get("id") == "b00Bat2":
+                        						element.attrib['class'] = 'st3'
+                        					if element.get("id") == "b00Bat1":
+                        						element.attrib['class'] = ''
+                        					if element.get("id") == "b00Bat0":
+                        						element.attrib['class'] = 'st3'
+                        		elif (50 <= volt > 75): 
+                        			for element in tree.iter():
+        						if element.tag.split("}")[1] == "path":
+                						if element.get("id") == "b00Bat4":
+                        						element.attrib['class'] = 'st3'
+                						if element.get("id") == "b00Bat3":
+                        						element.attrib['class'] = 'st3'
+                        					if element.get("id") == "b00Bat2":
+                        						element.attrib['class'] = ''
+                        					if element.get("id") == "b00Bat1":
+                        						element.attrib['class'] = 'st3'
+                        					if element.get("id") == "b00Bat0":
+                        						element.attrib['class'] = 'st3'
+                        		elif (75 <= volt > 90): 
+                        			for element in tree.iter():
+        						if element.tag.split("}")[1] == "path":
+                						if element.get("id") == "b00Bat4":
+                        						element.attrib['class'] = 'st3'
+                						if element.get("id") == "b00Bat3":
+                        						element.attrib['class'] = ''
+                        					if element.get("id") == "b00Bat2":
+                        						element.attrib['class'] = 'st3'
+                        					if element.get("id") == "b00Bat1":
+                        						element.attrib['class'] = 'st3'
+                        					if element.get("id") == "b00Bat0":
+                        						element.attrib['class'] = 'st3'
+                        		elif (90 <= volt > 100): 
+                        			for element in tree.iter():
+        						if element.tag.split("}")[1] == "path":
+                						if element.get("id") == "b00Bat4":
+                        						element.attrib['class'] = ''
+                						if element.get("id") == "b00Bat3":
+                        						element.attrib['class'] = 'st3'
+                        					if element.get("id") == "b00Bat2":
+                        						element.attrib['class'] = 'st3'
+                        					if element.get("id") == "b00Bat1":
+                        						element.attrib['class'] = 'st3'
+                        					if element.get("id") == "b00Bat0":
+                        						element.attrib['class'] = 'st3'
+                        						
+                        except Exception as e:
+                        	print("BATTERY TO SVG ERROR", str(today), now, e)
+                        	
         		## Output data to the svg
 	
 			try:
