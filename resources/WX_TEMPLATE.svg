@@ -233,8 +233,8 @@
 	<path id="wdne" class="st3" d="M301.2,391.8v-21.9c0,0,0,0,0-0.1c0-0.8-0.2-1.5-0.6-2.1c0,0,0,0,0-0.1c-0.1-0.2-0.3-0.4-0.5-0.6
 		l0,0l0,0c-0.2-0.2-0.4-0.4-0.6-0.5c0,0,0,0-0.1,0c-0.6-0.4-1.4-0.6-2.1-0.6c0,0,0,0-0.1,0h-21.9c-2.2,0-4,1.8-4,4s1.8,4,4,4h12.3
 		l-19.3,19.3c-1.6,1.6-1.6,4.1,0,5.7s4.1,1.6,5.7,0l19.3-19.3v12.3c0,2.2,1.8,4,4,4C299.4,395.8,301.2,394,301.2,391.8z"/>
-	<text transform="matrix(1 0 0 1 107.8643 463.833)" class="st1 st8">WSP</text>
-	<text transform="matrix(1 0 0 1 75.377 533.8461)" class="st1 st8">WGUS</text>
+	<text transform="matrix(1 0 0 1 131.8643 463.833)" class="st1 st8">WSP</text>
+	<text transform="matrix(1 0 0 1 99.377 533.8461)" class="st1 st8">WGUS</text>
 	<text transform="matrix(1 0 0 1 155.4142 399.9879)" class="st1 st9">Wind (mph)</text>
 	<text transform="matrix(1 0 0 1 156.6021 551.3571)" class="st1 st9">Gust (mph)</text>
 	<line class="st10" x1="112.5" y1="471" x2="284.1" y2="471"/>
