@@ -6,7 +6,7 @@ import csv
 import codecs
 import urllib2
 import json
-#from lxml import etree
+from lxml import etree
 
 debug     = False
 verbose   = False
@@ -422,82 +422,82 @@ while(1):
 									element.attrib['class'] = ''
 								if debug:
 									print("00 - 95 to 100")
-         			elif (addr == '01'):
-        				if (0 <= float(volt) < 50):
-        					for element in tree.iter():
-        						if element.tag.split("}")[1] == "path":
-                						if element.get("id") == "b01Bat4":
-                        						element.attrib['class'] = 'st3'
-                						if element.get("id") == "b01Bat3":
-                        						element.attrib['class'] = 'st3'
-                        					if element.get("id") == "b01Bat2":
-                        						element.attrib['class'] = 'st3'
-                        					if element.get("id") == "b01Bat1":
-                        						element.attrib['class'] = 'st3'
-                        					if element.get("id") == "b01Bat0":
-                        						element.attrib['class'] = ''
-                        					if debug:
-                        						print("01 - 0 to 50")
-                        		elif (50 <= float(volt) < 80): 
-                        			for element in tree.iter():
-        						if element.tag.split("}")[1] == "path":
-                						if element.get("id") == "b01Bat4":
-                        						element.attrib['class'] = 'st3'
-                						if element.get("id") == "b01Bat3":
-                        						element.attrib['class'] = 'st3'
-                        					if element.get("id") == "b01Bat2":
-                        						element.attrib['class'] = 'st3'
-                        					if element.get("id") == "b01Bat1":
-                        						element.attrib['class'] = ''
-                        					if element.get("id") == "b01Bat0":
-                        						element.attrib['class'] = ''
-                        					if debug:
-                        						print("01 - 50 to 80")
-                        		elif (80 <= float(volt) < 90): 
-                        			for element in tree.iter():
-        						if element.tag.split("}")[1] == "path":
-                						if element.get("id") == "b01Bat4":
-                        						element.attrib['class'] = 'st3'
-                						if element.get("id") == "b01Bat3":
-                        						element.attrib['class'] = 'st3'
-                        					if element.get("id") == "b01Bat2":
-                        						element.attrib['class'] = ''
-                        					if element.get("id") == "b01Bat1":
-                        						element.attrib['class'] = 'st3'
-                        					if element.get("id") == "b01Bat0":
-                        						element.attrib['class'] = ''
-                        					if debug:
-                        						print("01 - 80 to 90")
-                        		elif (90 <= float(volt) < 95): 
-                        			for element in tree.iter():
-        						if element.tag.split("}")[1] == "path":
-                						if element.get("id") == "b01Bat4":
-                        						element.attrib['class'] = 'st3'
-                						if element.get("id") == "b01Bat3":
-                        						element.attrib['class'] = ''
-                        					if element.get("id") == "b01Bat2":
-                        						element.attrib['class'] = 'st3'
-                        					if element.get("id") == "b01Bat1":
-                        						element.attrib['class'] = 'st3'
-                        					if element.get("id") == "b01Bat0":
-                        						element.attrib['class'] = ''
-                        					if debug:
-                        						print("01 - 90 to 95")
-                        		elif (95 <= float(volt) < 100): 
-                        			for element in tree.iter():
-        						if element.tag.split("}")[1] == "path":
-                						if element.get("id") == "b01Bat4":
-                        						element.attrib['class'] = ''
-                						if element.get("id") == "b01Bat3":
-                        						element.attrib['class'] = 'st3'
-                        					if element.get("id") == "b01Bat2":
-                        						element.attrib['class'] = 'st3'
-                        					if element.get("id") == "b01Bat1":
-                        						element.attrib['class'] = 'st3'
-                        					if element.get("id") == "b01Bat0":
-                        						element.attrib['class'] = ''
-                        					if debug:
-                        						print("01 - 95 to 100")
+				elif (addr == '01'):
+					if (0 <= float(volt) < 50):
+						for element in tree.iter():
+							if element.tag.split("}")[1] == "path":
+								if element.get("id") == "b01Bat4":
+									element.attrib['class'] = 'st3'
+								if element.get("id") == "b01Bat3":
+									element.attrib['class'] = 'st3'
+								if element.get("id") == "b01Bat2":
+									element.attrib['class'] = 'st3'
+								if element.get("id") == "b01Bat1":
+									element.attrib['class'] = 'st3'
+								if element.get("id") == "b01Bat0":
+									element.attrib['class'] = ''
+								if debug:
+									print("01 - 0 to 50")
+					elif (50 <= float(volt) < 80): 
+						for element in tree.iter():
+							if element.tag.split("}")[1] == "path":
+								if element.get("id") == "b01Bat4":
+									element.attrib['class'] = 'st3'
+								if element.get("id") == "b01Bat3":
+									element.attrib['class'] = 'st3'
+								if element.get("id") == "b01Bat2":
+									element.attrib['class'] = 'st3'
+								if element.get("id") == "b01Bat1":
+									element.attrib['class'] = ''
+								if element.get("id") == "b01Bat0":
+									element.attrib['class'] = ''
+								if debug:
+									print("01 - 50 to 80")
+					elif (80 <= float(volt) < 90): 
+						for element in tree.iter():
+							if element.tag.split("}")[1] == "path":
+								if element.get("id") == "b01Bat4":
+									element.attrib['class'] = 'st3'
+								if element.get("id") == "b01Bat3":
+									element.attrib['class'] = 'st3'
+								if element.get("id") == "b01Bat2":
+									element.attrib['class'] = ''
+								if element.get("id") == "b01Bat1":
+									element.attrib['class'] = 'st3'
+								if element.get("id") == "b01Bat0":
+									element.attrib['class'] = ''
+								if debug:
+									print("01 - 80 to 90")
+					elif (90 <= float(volt) < 95): 
+						for element in tree.iter():
+							if element.tag.split("}")[1] == "path":
+								if element.get("id") == "b01Bat4":
+									element.attrib['class'] = 'st3'
+								if element.get("id") == "b01Bat3":
+									element.attrib['class'] = ''
+								if element.get("id") == "b01Bat2":
+									element.attrib['class'] = 'st3'
+								if element.get("id") == "b01Bat1":
+									element.attrib['class'] = 'st3'
+								if element.get("id") == "b01Bat0":
+									element.attrib['class'] = ''
+								if debug:
+									print("01 - 90 to 95")
+					elif (95 <= float(volt) < 100): 
+						for element in tree.iter():
+							if element.tag.split("}")[1] == "path":
+								if element.get("id") == "b01Bat4":
+									element.attrib['class'] = ''
+								if element.get("id") == "b01Bat3":
+									element.attrib['class'] = 'st3'
+								if element.get("id") == "b01Bat2":
+									element.attrib['class'] = 'st3'
+								if element.get("id") == "b01Bat1":
+									element.attrib['class'] = 'st3'
+								if element.get("id") == "b01Bat0":
+									element.attrib['class'] = ''
+								if debug:
+									print("01 - 95 to 100")
 				elif (addr == '02'):
 					if (0 <= float(volt) < 50):
 						for element in tree.iter():
@@ -514,84 +514,85 @@ while(1):
 									element.attrib['class'] = ''
 								if debug:
 									print("02 - 0 to 50")
-                        		elif (50 <= float(volt) < 80): 
-                        			for element in tree.iter():
-        						if element.tag.split("}")[1] == "path":
-                						if element.get("id") == "b02Bat4":
-                        						element.attrib['class'] = 'st3'
-                						if element.get("id") == "b02Bat3":
-                        						element.attrib['class'] = 'st3'
-                        					if element.get("id") == "b02Bat2":
-                        						element.attrib['class'] = 'st3'
-                        					if element.get("id") == "b02Bat1":
-                        						element.attrib['class'] = ''
-                        					if element.get("id") == "b02Bat0":
-                        						element.attrib['class'] = ''
-                        					if debug:
-                        						print("02 - 50 to 80")
-                        		elif (80 <= float(volt) < 90): 
-                        			for element in tree.iter():
-        						if element.tag.split("}")[1] == "path":
-                						if element.get("id") == "b02Bat4":
-                        						element.attrib['class'] = 'st3'
-                						if element.get("id") == "b02Bat3":
-                        						element.attrib['class'] = 'st3'
-                        					if element.get("id") == "b02Bat2":
-                        						element.attrib['class'] = ''
-                        					if element.get("id") == "b02Bat1":
-                        						element.attrib['class'] = 'st3'
-                        					if element.get("id") == "b02Bat0":
-                        						element.attrib['class'] = ''
-                        					if debug:
-                        						print("02 - 80 to 90")
-                        		elif (90 <= float(volt) < 95): 
-                        			for element in tree.iter():
-        						if element.tag.split("}")[1] == "path":
-                						if element.get("id") == "b02Bat4":
-                        						element.attrib['class'] = 'st3'
-                						if element.get("id") == "b02Bat3":
-                        						element.attrib['class'] = ''
-                        					if element.get("id") == "b02Bat2":
-                        						element.attrib['class'] = 'st3'
-                        					if element.get("id") == "b02Bat1":
-                        						element.attrib['class'] = 'st3'
-                        					if element.get("id") == "b02Bat0":
-                        						element.attrib['class'] = ''
-                        					if debug:
-                        						print("02 - 90 to 95")
-                        		elif (95 <= float(volt) < 100): 
-                        			for element in tree.iter():
-        						if element.tag.split("}")[1] == "path":
-          							if element.get("id") == "b02Bat4":
-                        						element.attrib['class'] = ''
-                						if element.get("id") == "b02Bat3":
-                        						element.attrib['class'] = 'st3'
-                        					if element.get("id") == "b02Bat2":
-                        						element.attrib['class'] = 'st3'
-                        					if element.get("id") == "b02Bat1":
-                        						element.attrib['class'] = 'st3'
-                        					if element.get("id") == "b02Bat0":
-                        						element.attrib['class'] = ''
-                        					if debug:
-                        						print("02 - 95 to 100")
-                        	tree.write('TEST.svg')
-                        	
-                        except Exception as e:
-                        	print("BATTERY TO SVG ERROR", str(today), now, e)
-                        
-                        ## WRITE WIND DATA TO SVG
-                        
-                        try:
-        			filename = "resources/WX_TEMPLATE.svg"
+					elif (50 <= float(volt) < 80): 
+						for element in tree.iter():
+							if element.tag.split("}")[1] == "path":
+								if element.get("id") == "b02Bat4":
+									element.attrib['class'] = 'st3'
+								if element.get("id") == "b02Bat3":
+									element.attrib['class'] = 'st3'
+								if element.get("id") == "b02Bat2":
+									element.attrib['class'] = 'st3'
+								if element.get("id") == "b02Bat1":
+									element.attrib['class'] = ''
+								if element.get("id") == "b02Bat0":
+									element.attrib['class'] = ''
+								if debug:
+									print("02 - 50 to 80")
+					elif (80 <= float(volt) < 90): 
+						for element in tree.iter():
+							if element.tag.split("}")[1] == "path":
+								if element.get("id") == "b02Bat4":
+									element.attrib['class'] = 'st3'
+								if element.get("id") == "b02Bat3":
+									element.attrib['class'] = 'st3'
+								if element.get("id") == "b02Bat2":
+									element.attrib['class'] = ''
+								if element.get("id") == "b02Bat1":
+									element.attrib['class'] = 'st3'
+								if element.get("id") == "b02Bat0":
+									element.attrib['class'] = ''
+								if debug:
+									print("02 - 80 to 90")
+					elif (90 <= float(volt) < 95): 
+						for element in tree.iter():
+							if element.tag.split("}")[1] == "path":
+								if element.get("id") == "b02Bat4":
+									element.attrib['class'] = 'st3'
+								if element.get("id") == "b02Bat3":
+									element.attrib['class'] = ''
+								if element.get("id") == "b02Bat2":
+									element.attrib['class'] = 'st3'
+								if element.get("id") == "b02Bat1":
+									element.attrib['class'] = 'st3'
+								if element.get("id") == "b02Bat0":
+									element.attrib['class'] = ''
+								if debug:
+									print("02 - 90 to 95")
+					elif (95 <= float(volt) < 100): 
+						for element in tree.iter():
+							if element.tag.split("}")[1] == "path":
+								if element.get("id") == "b02Bat4":
+									element.attrib['class'] = ''
+								if element.get("id") == "b02Bat3":
+									element.attrib['class'] = 'st3'
+								if element.get("id") == "b02Bat2":
+									element.attrib['class'] = 'st3'
+								if element.get("id") == "b02Bat1":
+									element.attrib['class'] = 'st3'
+								if element.get("id") == "b02Bat0":
+									element.attrib['class'] = ''
+								if debug:
+									print("02 - 95 to 100")
+
+				tree.write('TEST.svg')
+	
+			except Exception as e:
+			 	print("BATTERY TO SVG ERROR", str(today), now, e)
+
+			## WRITE WIND DATA TO SVG
+
+			try:
+				filename = "resources/WX_TEMPLATE.svg"
 				tree = etree.parse(open(filename, 'r'))
 				
 				
-        			tree.write('TEST.svg')
-                        	
-                        except Exception as e:
-                        	print("BATTERY TO SVG ERROR", str(today), now, e)
-                        	
-        		## Output data to the svg
+				tree.write('TEST.svg')
+
+			except Exception as e:
+				print("BATTERY TO SVG ERROR", str(today), now, e)
+	
+			## Output data to the svg
         		
 			try:
 				output = codecs.open('resources/WX_TEMPLATE.svg', 'r', encoding='utf-8').read()
