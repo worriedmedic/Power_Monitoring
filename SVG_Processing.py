@@ -754,6 +754,175 @@ while(1):
 								if debug:
 									print("02 - 95 to 100")
 
+				if ch_wind_dir in ['NNW', 'N', 'NNE']:
+					for element in tree.iter():
+						if element.tag.split("}")[1] == "path":
+							if element.get("id") == "wdno":
+								element.attrib['class'] = ''
+							elif element.get("id") == "wdne":
+								element.attrib['class'] = 'st3'
+							elif element.get("id") == "wdea":
+								element.attrib['class'] = 'st3'
+							elif element.get("id") == "wdse":
+								element.attrib['class'] = 'st3'
+							elif element.get("id") == "wdso":
+								element.attrib['class'] = 'st3'
+							elif element.get("id") == "wdsw":
+								element.attrib['class'] = 'st3'
+							elif element.get("id") == "wdwe":
+								element.attrib['class'] = 'st3'
+							elif element.get("id") == "wdnw":
+								element.attrib['class'] = 'st3'
+							if debug:
+								print(ch_wind_dir, "NORTH")
+				elif ch_wind_dir in ['NE']:
+					for element in tree.iter():
+						if element.tag.split("}")[1] == "path":
+							if element.get("id") == "wdno":
+								element.attrib['class'] = 'st3'
+							elif element.get("id") == "wdne":
+								element.attrib['class'] = ''
+							elif element.get("id") == "wdea":
+								element.attrib['class'] = 'st3'
+							elif element.get("id") == "wdse":
+								element.attrib['class'] = 'st3'
+							elif element.get("id") == "wdso":
+								element.attrib['class'] = 'st3'
+							elif element.get("id") == "wdsw":
+								element.attrib['class'] = 'st3'
+							elif element.get("id") == "wdwe":
+								element.attrib['class'] = 'st3'
+							elif element.get("id") == "wdnw":
+								element.attrib['class'] = 'st3'
+							if debug:
+								print(ch_wind_dir, "NORTH EAST")
+				elif ch_wind_dir in ['ENE', 'E', 'ESE']:
+					for element in tree.iter():
+						if element.tag.split("}")[1] == "path":
+							if element.get("id") == "wdno":
+								element.attrib['class'] = 'st3'
+							elif element.get("id") == "wdne":
+								element.attrib['class'] = 'st3'
+							elif element.get("id") == "wdea":
+								element.attrib['class'] = ''
+							elif element.get("id") == "wdse":
+								element.attrib['class'] = 'st3'
+							elif element.get("id") == "wdso":
+								element.attrib['class'] = 'st3'
+							elif element.get("id") == "wdsw":
+								element.attrib['class'] = 'st3'
+							elif element.get("id") == "wdwe":
+								element.attrib['class'] = 'st3'
+							elif element.get("id") == "wdnw":
+								element.attrib['class'] = 'st3'
+							if debug:
+								print(ch_wind_dir, "EAST")
+				elif ch_wind_dir in ['SE']:
+					for element in tree.iter():
+						if element.tag.split("}")[1] == "path":
+							if element.get("id") == "wdno":
+								element.attrib['class'] = 'st3'
+							elif element.get("id") == "wdne":
+								element.attrib['class'] = 'st3'
+							elif element.get("id") == "wdea":
+								element.attrib['class'] = 'st3'
+							elif element.get("id") == "wdse":
+								element.attrib['class'] = ''
+							elif element.get("id") == "wdso":
+								element.attrib['class'] = 'st3'
+							elif element.get("id") == "wdsw":
+								element.attrib['class'] = 'st3'
+							elif element.get("id") == "wdwe":
+								element.attrib['class'] = 'st3'
+							elif element.get("id") == "wdnw":
+								element.attrib['class'] = 'st3'
+							if debug:
+								print(ch_wind_dir, "SOUTH EAST")
+				elif ch_wind_dir in ['SSE', 'S', 'SSW']:
+					for element in tree.iter():
+						if element.tag.split("}")[1] == "path":
+							if element.get("id") == "wdno":
+								element.attrib['class'] = 'st3'
+							elif element.get("id") == "wdne":
+								element.attrib['class'] = 'st3'
+							elif element.get("id") == "wdea":
+								element.attrib['class'] = 'st3'
+							elif element.get("id") == "wdse":
+								element.attrib['class'] = 'st3'
+							elif element.get("id") == "wdso":
+								element.attrib['class'] = ''
+							elif element.get("id") == "wdsw":
+								element.attrib['class'] = 'st3'
+							elif element.get("id") == "wdwe":
+								element.attrib['class'] = 'st3'
+							elif element.get("id") == "wdnw":
+								element.attrib['class'] = 'st3'
+							if debug:
+								print(ch_wind_dir, "SOUTH")
+				elif ch_wind_dir in ['SW']:
+					for element in tree.iter():
+						if element.tag.split("}")[1] == "path":
+							if element.get("id") == "wdno":
+								element.attrib['class'] = 'st3'
+							elif element.get("id") == "wdne":
+								element.attrib['class'] = 'st3'
+							elif element.get("id") == "wdea":
+								element.attrib['class'] = 'st3'
+							elif element.get("id") == "wdse":
+								element.attrib['class'] = 'st3'
+							elif element.get("id") == "wdso":
+								element.attrib['class'] = 'st3'
+							elif element.get("id") == "wdsw":
+								element.attrib['class'] = ''
+							elif element.get("id") == "wdwe":
+								element.attrib['class'] = 'st3'
+							elif element.get("id") == "wdnw":
+								element.attrib['class'] = 'st3'
+							if debug:
+								print(ch_wind_dir, "SOUTH WEST")
+				elif ch_wind_dir in ['WSW', 'W', 'WNW']:
+					for element in tree.iter():
+						if element.tag.split("}")[1] == "path":
+							if element.get("id") == "wdno":
+								element.attrib['class'] = 'st3'
+							elif element.get("id") == "wdne":
+								element.attrib['class'] = 'st3'
+							elif element.get("id") == "wdea":
+								element.attrib['class'] = 'st3'
+							elif element.get("id") == "wdse":
+								element.attrib['class'] = 'st3'
+							elif element.get("id") == "wdso":
+								element.attrib['class'] = 'st3'
+							elif element.get("id") == "wdsw":
+								element.attrib['class'] = ''
+							elif element.get("id") == "wdwe":
+								element.attrib['class'] = 'st3'
+							elif element.get("id") == "wdnw":
+								element.attrib['class'] = 'st3'
+							if debug:
+								print(ch_wind_dir, "WEST")
+				elif ch_wind_dir in ['NW']:
+					for element in tree.iter():
+						if element.tag.split("}")[1] == "path":
+							if element.get("id") == "wdno":
+								element.attrib['class'] = 'st3'
+							elif element.get("id") == "wdne":
+								element.attrib['class'] = 'st3'
+							elif element.get("id") == "wdea":
+								element.attrib['class'] = 'st3'
+							elif element.get("id") == "wdse":
+								element.attrib['class'] = 'st3'
+							elif element.get("id") == "wdso":
+								element.attrib['class'] = 'st3'
+							elif element.get("id") == "wdsw":
+								element.attrib['class'] = 'st3'
+							elif element.get("id") == "wdwe":
+								element.attrib['class'] = 'st3'
+							elif element.get("id") == "wdnw":
+								element.attrib['class'] = ''
+							if debug:
+								print(ch_wind_dir, "NORTH WEST")
+
 				tree.write('TEST.svg')
 	
 			except Exception as e:
