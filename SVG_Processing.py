@@ -97,13 +97,13 @@ if (False):
 ## Or not, done manually on 2016
 
 def follow(thefile):
-    thefile.seek(0,2)
-    while True:
-        line = thefile.readline()
-        if not line:
-            time.sleep(0.1)
-            continue
-        yield line
+	thefile.seek(0,2)
+	while True:
+		line = thefile.readline()
+		if not line:
+			time.sleep(0.1)
+			continue
+		yield line
         
 ## FUNCTIONS
 
@@ -125,7 +125,7 @@ def get_tide(tide_day):
 ## MAIN LOOP
 
 while(1):
-	
+
 	'''
 	Executing loop. Code should be running all day.
 	Will have daily goals that need to be updated.
@@ -133,7 +133,7 @@ while(1):
 	Yearly goals are sunset data, and tide data.
 	'''
 	## DAILY TASKS
-	
+
 	if (today != datetime.date.today()):
 		
 		'''
@@ -194,31 +194,31 @@ while(1):
 		#	Wunderground hasnt changed its format on its API
 
 		try:
-        		if internet:
-            			if not os.path.isfile('resources/' + str(today) + '_forecast.json'):
-                			try:
-                    				onlinejson = requests.get(wunder_site_forcast_json)
-                    				localjson = open('resources/' + str(today) + '_forecast.json', 'wb')
-                    				if os.path.isfile('resources/' + str(yesterday) + '_forecast.json'):
-                        				os.remove('resources/' + str(yesterday) + '_forecast.json')
-                    				for chunk in onlinejson.iter_content(100000):
-                        				localjson.write(chunk)
-                    				onlinejson.close()
-                    				localjson.close()
-                			except Exception as e:
-                    				print("WUNDER JSON LOAD ERROR", str(today), now, e)
-                     
-            			localjson = open('resources/' + str(today) + '_forecast.json','rb')
-            			json_string = localjson.read()
-            			parsed_json = json.loads(json_string)
-            			exp_hi = parsed_json['forecast']['simpleforecast']['forecastday'][0]['high']['fahrenheit']
-            			exp_lo = parsed_json['forecast']['simpleforecast']['forecastday'][0]['low']['fahrenheit']
-            			if debug:
-            				print(exp_hi, exp_lo)
+			if internet:
+				if not os.path.isfile('resources/' + str(today) + '_forecast.json'):
+					try:
+						onlinejson = requests.get(wunder_site_forcast_json)
+						localjson = open('resources/' + str(today) + '_forecast.json', 'wb')
+						if os.path.isfile('resources/' + str(yesterday) + '_forecast.json'):
+							os.remove('resources/' + str(yesterday) + '_forecast.json')
+						for chunk in onlinejson.iter_content(100000):
+							localjson.write(chunk)
+						onlinejson.close()
+						localjson.close()
+					except Exception as e:
+						print("WUNDER JSON LOAD ERROR", str(today), now, e)
+
+				localjson = open('resources/' + str(today) + '_forecast.json','rb')
+				json_string = localjson.read()
+				parsed_json = json.loads(json_string)
+				exp_hi = parsed_json['forecast']['simpleforecast']['forecastday'][0]['high']['fahrenheit']
+				exp_lo = parsed_json['forecast']['simpleforecast']['forecastday'][0]['low']['fahrenheit']
+				if debug:
+					print(exp_hi, exp_lo)
          	
          	except Exception as e:
 			print("Wunder JSON Error", str(today), now, e)
-			
+	
 		# Likely will break this out to another if/else that clarifies 
 		# if we have internet or not. If we dont have internet, 
 		# grab data from yesterday and use that as expected hi and lo
@@ -237,31 +237,31 @@ while(1):
 	
 	
 	try:
-        	if internet:
-            		## Cheat and get wind speed / dir
-            		if i >= 18 or i == 0:
-                		try:
-                    			i = 0
-                    			onlinejson = requests.get(wunder_site_conditions_json)
-                    			localjson = open('resources/' + str(today) + '_conditions.json', 'wb')
-                    			if os.path.isfile('resources/' + str(yesterday) + '_conditions.json'):
-                        			os.remove('resources/' + str(yesterday) + '_conditions.json')
-                    			for chunk in onlinejson.iter_content(100000):
-                        			localjson.write(chunk)
-                    			onlinejson.close()
-                    			localjson.close()
-                		except Exception as e:
-                    			print("WUNDER JSON LOAD ERROR", str(today), now, e)
-                     
-            			localjson = open('resources/' + str(today) + '_conditions.json','rb')
-            			json_string = localjson.read()
-            			parsed_json = json.loads(json_string)
-            			ch_avg_wind_speed = parsed_json['current_observation']['wind_mph']
-            			ch_wind_dir = parsed_json['current_observation']['wind_dir']
-            			ch_max_wind_speed = parsed_json['current_observation']['wind_gust_mph']
-            			if debug:
-            				print(ch_avg_wind_speed, ch_wind_dir, ch_max_wind_speed)
-            				
+		if internet:
+			## Cheat and get wind speed / dir
+			if i >= 18 or i == 0:
+				try:
+					i = 0
+					onlinejson = requests.get(wunder_site_conditions_json)
+					localjson = open('resources/' + str(today) + '_conditions.json', 'wb')
+					if os.path.isfile('resources/' + str(yesterday) + '_conditions.json'):
+						os.remove('resources/' + str(yesterday) + '_conditions.json')
+					for chunk in onlinejson.iter_content(100000):
+						localjson.write(chunk)
+					onlinejson.close()
+					localjson.close()
+				except Exception as e:
+					print("WUNDER JSON LOAD ERROR", str(today), now, e)
+
+				localjson = open('resources/' + str(today) + '_conditions.json','rb')
+				json_string = localjson.read()
+				parsed_json = json.loads(json_string)
+				ch_avg_wind_speed = parsed_json['current_observation']['wind_mph']
+				ch_wind_dir = parsed_json['current_observation']['wind_dir']
+				ch_max_wind_speed = parsed_json['current_observation']['wind_gust_mph']
+				if debug:
+					print(ch_avg_wind_speed, ch_wind_dir, ch_max_wind_speed)
+			
 	except Exception as e:
 		print("Wunder JSON Error", str(today), now, e)
 	
@@ -300,31 +300,31 @@ while(1):
 	now = time.strftime('%H:%M:%S')
 	curr_time = time.strftime('%H:%M')
         
-    	try:
-    		logfile = open('data_log/' + time.strftime("%Y-%m") + '/' + str(today) + '.log',"r")
-    		loglines = follow(logfile)
-    		for line in loglines:
-        		if debug:
-        			print line
-        		i += 1
-        		now = time.strftime('%H:%M:%S')
+	try:
+		logfile = open('data_log/' + time.strftime("%Y-%m") + '/' + str(today) + '.log',"r")
+		loglines = follow(logfile)
+		for line in loglines:
+			if debug:
+				print line
+			i += 1
+			now = time.strftime('%H:%M:%S')
 			curr_time = time.strftime('%H:%M')
-			
-        		try:
-                		line.split(',')
-                		addr = line.split(',')[2]
-                		temp = line.split(',')[3].strip('T')
-                		press = line.split(',')[4].strip('P')
-                		humid = line.split(',')[5].strip('H')
-                		volt = line.split(',')[6].strip('V')
-                		rssi = line.split(',')[7].strip('\n')
-                		dew = float(temp) - ((100 - float(humid)) / 5 ) ##FROM DATA PROCESSING PYTHON SCRIPT
-                
-                		if debug:
-                			print(addr, temp, press, humid, volt, dew, rssi)
-                
-                		if location == 'cuttyhunk':
-                			if (addr == '01'):
+
+			try:
+				line.split(',')
+				addr = line.split(',')[2]
+				temp = line.split(',')[3].strip('T')
+				press = line.split(',')[4].strip('P')
+				humid = line.split(',')[5].strip('H')
+				volt = line.split(',')[6].strip('V')
+				rssi = line.split(',')[7].strip('\n')
+				dew = float(temp) - ((100 - float(humid)) / 5 ) ##FROM DATA PROCESSING PYTHON SCRIPT
+
+				if debug:
+					print(addr, temp, press, humid, volt, dew, rssi)
+
+				if location == 'cuttyhunk':
+					if (addr == '01'):
 						temp_0 = temp #EXTERIOR
 						press_0 = press
 						humid_0 = humid
@@ -338,91 +338,90 @@ while(1):
 					elif (addr == '08'):
 						temp_1 = temp #INTERIOR
 
-        		except Exception as e:
-        			print("DATA SPLIT ERROR", str(today), now, e)
+			except Exception as e:
+				print("DATA SPLIT ERROR", str(today), now, e)
         		
-        		## UPDATE BATTERY LEVEL ON SVG
-        		try:
-        			filename = "resources/WX_TEMPLATE.svg"
+			## UPDATE BATTERY LEVEL ON SVG
+			try:
+				filename = "resources/WX_TEMPLATE.svg"
 				tree = etree.parse(open(filename, 'r'))
         			
-        			if (addr == '00'):
-        				if (0 <= float(volt) < 50):
-        					for element in tree.iter():
-        						if element.tag.split("}")[1] == "path":
-                						if element.get("id") == "b00Bat4":
-                        						element.attrib['class'] = 'st3'
-                						if element.get("id") == "b00Bat3":
-                        						element.attrib['class'] = 'st3'
-                        					if element.get("id") == "b00Bat2":
-                        						element.attrib['class'] = 'st3'
-                        					if element.get("id") == "b00Bat1":
-                        						element.attrib['class'] = 'st3'
-                        					if element.get("id") == "b00Bat0":
-                        						element.attrib['class'] = ''
-                        					if debug:
-                        						print("00 - 0 to 50")
-                        		elif (50 <= float(volt) < 80): 
-                        			for element in tree.iter():
-        						if element.tag.split("}")[1] == "path":
-                						if element.get("id") == "b00Bat4":
-                        						element.attrib['class'] = 'st3'
-                						if element.get("id") == "b00Bat3":
-                        						element.attrib['class'] = 'st3'
-                        					if element.get("id") == "b00Bat2":
-                        						element.attrib['class'] = 'st3'
-                        					if element.get("id") == "b00Bat1":
-                        						element.attrib['class'] = ''
-                        					if element.get("id") == "b00Bat0":
-                        						element.attrib['class'] = ''
-                        					if debug:
-                        						print("00 - 50 to 80")
-                        		elif (80 <= float(volt) < 90): 
-                        			for element in tree.iter():
-        						if element.tag.split("}")[1] == "path":
-                						if element.get("id") == "b00Bat4":
-                        						element.attrib['class'] = 'st3'
-                						if element.get("id") == "b00Bat3":
-                        						element.attrib['class'] = 'st3'
-                        					if element.get("id") == "b00Bat2":
-                        						element.attrib['class'] = ''
-                        					if element.get("id") == "b00Bat1":
-                        						element.attrib['class'] = 'st3'
-                        					if element.get("id") == "b00Bat0":
-                        						element.attrib['class'] = ''
-                        					if debug:
-                        						print("00 - 80 to 90")
-                        		elif (90 <= float(volt) < 95): 
-                        			for element in tree.iter():
-        						if element.tag.split("}")[1] == "path":
-                						if element.get("id") == "b00Bat4":
-                        						element.attrib['class'] = 'st3'
-                						if element.get("id") == "b00Bat3":
-                        						element.attrib['class'] = ''
-                        					if element.get("id") == "b00Bat2":
-                        						element.attrib['class'] = 'st3'
-                        					if element.get("id") == "b00Bat1":
-                        						element.attrib['class'] = 'st3'
-                        					if element.get("id") == "b00Bat0":
-                        						element.attrib['class'] = ''
-                        					if debug:
-                        						print("00 - 90 to 95")
-                        		elif (95 <= float(volt) < 100): 
-                        			for element in tree.iter():
-        						if element.tag.split("}")[1] == "path":
-                						if element.get("id") == "b00Bat4":
-                        						element.attrib['class'] = ''
-                						if element.get("id") == "b00Bat3":
-                        						element.attrib['class'] = 'st3'
-                        					if element.get("id") == "b00Bat2":
-                        						element.attrib['class'] = 'st3'
-                        					if element.get("id") == "b00Bat1":
-                        						element.attrib['class'] = 'st3'
-                        					if element.get("id") == "b00Bat0":
-                        						element.attrib['class'] = ''
-                        					if debug:
-                        						print("00 - 95 to 100")
-         			
+				if (addr == '00'):
+					if (0 <= float(volt) < 50):
+						for element in tree.iter():
+							if element.tag.split("}")[1] == "path":
+								if element.get("id") == "b00Bat4":
+									element.attrib['class'] = 'st3'
+								if element.get("id") == "b00Bat3":
+									element.attrib['class'] = 'st3'
+								if element.get("id") == "b00Bat2":
+									element.attrib['class'] = 'st3'
+								if element.get("id") == "b00Bat1":
+									element.attrib['class'] = 'st3'
+								if element.get("id") == "b00Bat0":
+									element.attrib['class'] = ''
+								if debug:
+									print("00 - 0 to 50")
+					elif (50 <= float(volt) < 80): 
+						for element in tree.iter():
+							if element.tag.split("}")[1] == "path":
+								if element.get("id") == "b00Bat4":
+									element.attrib['class'] = 'st3'
+								if element.get("id") == "b00Bat3":
+									element.attrib['class'] = 'st3'
+								if element.get("id") == "b00Bat2":
+								element.attrib['class'] = 'st3'
+								if element.get("id") == "b00Bat1":
+								element.attrib['class'] = ''
+								if element.get("id") == "b00Bat0":
+									element.attrib['class'] = ''
+								if debug:
+									print("00 - 50 to 80")
+					elif (80 <= float(volt) < 90): 
+						for element in tree.iter():
+							if element.tag.split("}")[1] == "path":
+								if element.get("id") == "b00Bat4":
+									element.attrib['class'] = 'st3'
+								if element.get("id") == "b00Bat3":
+									element.attrib['class'] = 'st3'
+								if element.get("id") == "b00Bat2":
+									element.attrib['class'] = ''
+								if element.get("id") == "b00Bat1":
+									element.attrib['class'] = 'st3'
+								if element.get("id") == "b00Bat0":
+									element.attrib['class'] = ''
+								if debug:
+									print("00 - 80 to 90")
+					elif (90 <= float(volt) < 95): 
+						for element in tree.iter():
+							if element.tag.split("}")[1] == "path":
+								if element.get("id") == "b00Bat4":
+									element.attrib['class'] = 'st3'
+								if element.get("id") == "b00Bat3":
+									element.attrib['class'] = ''
+								if element.get("id") == "b00Bat2":
+									element.attrib['class'] = 'st3'
+								if element.get("id") == "b00Bat1":
+									element.attrib['class'] = 'st3'
+								if element.get("id") == "b00Bat0":
+									element.attrib['class'] = ''
+								if debug:
+									print("00 - 90 to 95")
+					elif (95 <= float(volt) < 100): 
+						for element in tree.iter():
+							if element.tag.split("}")[1] == "path":
+								if element.get("id") == "b00Bat4":
+									element.attrib['class'] = ''
+								if element.get("id") == "b00Bat3":
+									element.attrib['class'] = 'st3'
+								if element.get("id") == "b00Bat2":
+									element.attrib['class'] = 'st3'
+								if element.get("id") == "b00Bat1":
+									element.attrib['class'] = 'st3'
+								if element.get("id") == "b00Bat0":
+									element.attrib['class'] = ''
+								if debug:
+									print("00 - 95 to 100")
          			elif (addr == '01'):
         				if (0 <= float(volt) < 50):
         					for element in tree.iter():
@@ -499,22 +498,22 @@ while(1):
                         						element.attrib['class'] = ''
                         					if debug:
                         						print("01 - 95 to 100")
-                        	elif (addr == '02'):
-        				if (0 <= float(volt) < 50):
-        					for element in tree.iter():
-        						if element.tag.split("}")[1] == "path":
-                						if element.get("id") == "b02Bat4":
-                        						element.attrib['class'] = 'st3'
-                						if element.get("id") == "b02Bat3":
-                        						element.attrib['class'] = 'st3'
-                        					if element.get("id") == "b02Bat2":
-                        						element.attrib['class'] = 'st3'
-                        					if element.get("id") == "b02Bat1":
-                        						element.attrib['class'] = 'st3'
-                        					if element.get("id") == "b02Bat0":
-                        						element.attrib['class'] = ''
-                        					if debug:
-                        						print("02 - 0 to 50")
+				elif (addr == '02'):
+					if (0 <= float(volt) < 50):
+						for element in tree.iter():
+							if element.tag.split("}")[1] == "path":
+								if element.get("id") == "b02Bat4":
+									element.attrib['class'] = 'st3'
+								if element.get("id") == "b02Bat3":
+									element.attrib['class'] = 'st3'
+								if element.get("id") == "b02Bat2":
+									element.attrib['class'] = 'st3'
+								if element.get("id") == "b02Bat1":
+									element.attrib['class'] = 'st3'
+								if element.get("id") == "b02Bat0":
+									element.attrib['class'] = ''
+								if debug:
+									print("02 - 0 to 50")
                         		elif (50 <= float(volt) < 80): 
                         			for element in tree.iter():
         						if element.tag.split("}")[1] == "path":
@@ -563,7 +562,7 @@ while(1):
                         		elif (95 <= float(volt) < 100): 
                         			for element in tree.iter():
         						if element.tag.split("}")[1] == "path":
-                						if element.get("id") == "b02Bat4":
+          							if element.get("id") == "b02Bat4":
                         						element.attrib['class'] = ''
                 						if element.get("id") == "b02Bat3":
                         						element.attrib['class'] = 'st3'
@@ -579,9 +578,21 @@ while(1):
                         	
                         except Exception as e:
                         	print("BATTERY TO SVG ERROR", str(today), now, e)
+                        
+                        ## WRITE WIND DATA TO SVG
+                        
+                        try:
+        			filename = "resources/WX_TEMPLATE.svg"
+				tree = etree.parse(open(filename, 'r'))
+				
+				
+        			tree.write('TEST.svg')
+                        	
+                        except Exception as e:
+                        	print("BATTERY TO SVG ERROR", str(today), now, e)
                         	
         		## Output data to the svg
-	
+        		
 			try:
 				output = codecs.open('resources/WX_TEMPLATE.svg', 'r', encoding='utf-8').read()
 				output = output.replace('CURDATE',today.strftime("%m/%d/%Y"))
