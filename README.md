@@ -2,8 +2,11 @@
 ABOVE REPO BUILT ON THE CONDITION THAT IT IS PLACED IN THE HOME DIRECTORY OF USER "PI" (/home/pi/Power_Monitoring/). Any deviation requires extensive editing of SH scripts and configuration files.
 
 SVG_Processing.py REQUIRES "python-lxml", "libxml2-dev" & "libxslt-dev"
+
 sudo apt-get install python-lxml
+
 sudo apt-get install libxml2-dev libxslt-dev python-dev
+
 
 Homebrew home monitoring project. Includes multiple weather sensors and Open Power Monitoring EmonTX v3 sensor for power usage.
 
