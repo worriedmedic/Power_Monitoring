@@ -343,8 +343,7 @@ while(1):
         		
 			## UPDATE BATTERY LEVEL ON SVG
 			try:
-				filename = "resources/WX_TEMPLATE.svg"
-				tree = etree.parse(open(filename, 'r'))
+				tree = etree.parse(open('resources/WX_TEMPLATE.svg', 'r'))
         			
 				if (addr == '00'):
 					if (0 <= float(volt) < 50):
@@ -574,7 +573,15 @@ while(1):
 									element.attrib['class'] = ''
 								if debug:
 									print("02 - 95 to 100")
-
+				
+				tree.write('TEST.svg')
+			
+			except Exception as e:
+				print("BATTERY SVG UPDATE ERROR", str(today), now, e)
+			
+			try:
+				tree = etree.parse(open('TEST.svg', 'r'))
+				
 				if ch_wind_dir in ['NNW', 'N', 'NNE']:
 					for element in tree.iter():
 						if element.tag.split("}")[1] == "path":
