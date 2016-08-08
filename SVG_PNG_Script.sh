@@ -12,5 +12,5 @@ do
 	sudo chmod 755 /var/www/html/weather-script-output.png
 	/home/pi/Power_Monitoring/Dropbox-Uploader/dropbox_uploader.sh upload weather-script-output.png /Programming/
 	/home/pi/Power_Monitoring/Dropbox-Uploader/dropbox_uploader.sh upload TEST.svg /Programming/
-	sleep 20
+	sleep 10
 done
