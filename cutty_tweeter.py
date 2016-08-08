@@ -1,6 +1,7 @@
 # !/bin/python
 # Created from https://www.mathworks.com/help/thingspeak/thingtweet-app.html
 # Using requests
+# FOR USE WITH CUTTYHUNK WX ST DATA (API KEY IS SPECIFIC)
 
 import os
 import time
