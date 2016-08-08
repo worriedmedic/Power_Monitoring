@@ -370,9 +370,9 @@ while(1):
 								if element.get("id") == "b00Bat3":
 									element.attrib['class'] = 'st3'
 								if element.get("id") == "b00Bat2":
-								element.attrib['class'] = 'st3'
+									element.attrib['class'] = 'st3'
 								if element.get("id") == "b00Bat1":
-								element.attrib['class'] = ''
+									element.attrib['class'] = ''
 								if element.get("id") == "b00Bat0":
 									element.attrib['class'] = ''
 								if debug:
@@ -586,11 +586,16 @@ while(1):
 				filename = "resources/WX_TEMPLATE.svg"
 				tree = etree.parse(open(filename, 'r'))
 				
+				if ch_wind_dir in ['NNW', 'N', 'NNE']:
+					for element in tree.iter():
+						if element.tag.split("}")[1] == "path":
+							if element.get("id") == "":
+								element.attrib['class'] = 'st3'
 				
 				tree.write('TEST.svg')
 
 			except Exception as e:
-				print("BATTERY TO SVG ERROR", str(today), now, e)
+				print("WIND TO SVG ERROR", str(today), now, e)
 	
 			## Output data to the svg
         		
