@@ -11,7 +11,7 @@ from lxml import etree
 debug     = False
 verbose   = False
 internet  = True
-location  = 'Cuttyhunk'
+location  = 'cuttyhunk' #cuttyhunk or dover - case sensitive
 
 ## INT: Data that will change every day
 today = [None]
@@ -261,6 +261,185 @@ while(1):
 				ch_max_wind_speed = parsed_json['current_observation']['wind_gust_mph']
 				if debug:
 					print(ch_avg_wind_speed, ch_wind_dir, ch_max_wind_speed)
+				
+				## WRITE WIND DATA TO SVG
+				try:
+					filename = "resources/WX_TEMPLATE.svg"
+					tree = etree.parse(open(filename, 'r'))
+				
+					if ch_wind_dir in ['NNW', 'N', 'NNE']:
+						for element in tree.iter():
+							if element.tag.split("}")[1] == "path":
+								if element.get("id") == "wdno":
+									element.attrib['class'] = ''
+								elif element.get("id") == "wdne":
+									element.attrib['class'] = 'st3'
+								elif element.get("id") == "wdea":
+									element.attrib['class'] = 'st3'
+								elif element.get("id") == "wdse":
+									element.attrib['class'] = 'st3'
+								elif element.get("id") == "wdso":
+									element.attrib['class'] = 'st3'
+								elif element.get("id") == "wdsw":
+									element.attrib['class'] = 'st3'
+								elif element.get("id") == "wdwe":
+									element.attrib['class'] = 'st3'
+								elif element.get("id") == "wdnw":
+									element.attrib['class'] = 'st3'
+								if debug:
+									print(ch_wind_dir, "NORTH")
+					elif ch_wind_dir in ['NE']:
+						for element in tree.iter():
+							if element.tag.split("}")[1] == "path":
+								if element.get("id") == "wdno":
+									element.attrib['class'] = 'st3'
+								elif element.get("id") == "wdne":
+									element.attrib['class'] = ''
+								elif element.get("id") == "wdea":
+									element.attrib['class'] = 'st3'
+								elif element.get("id") == "wdse":
+									element.attrib['class'] = 'st3'
+								elif element.get("id") == "wdso":
+									element.attrib['class'] = 'st3'
+								elif element.get("id") == "wdsw":
+									element.attrib['class'] = 'st3'
+								elif element.get("id") == "wdwe":
+									element.attrib['class'] = 'st3'
+								elif element.get("id") == "wdnw":
+									element.attrib['class'] = 'st3'
+								if debug:
+									print(ch_wind_dir, "NORTH EAST")
+					elif ch_wind_dir in ['ENE', 'E', 'ESE']:
+						for element in tree.iter():
+							if element.tag.split("}")[1] == "path":
+								if element.get("id") == "wdno":
+									element.attrib['class'] = 'st3'
+								elif element.get("id") == "wdne":
+									element.attrib['class'] = 'st3'
+								elif element.get("id") == "wdea":
+									element.attrib['class'] = ''
+								elif element.get("id") == "wdse":
+									element.attrib['class'] = 'st3'
+								elif element.get("id") == "wdso":
+									element.attrib['class'] = 'st3'
+								elif element.get("id") == "wdsw":
+									element.attrib['class'] = 'st3'
+								elif element.get("id") == "wdwe":
+									element.attrib['class'] = 'st3'
+								elif element.get("id") == "wdnw":
+									element.attrib['class'] = 'st3'
+								if debug:
+									print(ch_wind_dir, "EAST")
+					elif ch_wind_dir in ['SE']:
+						for element in tree.iter():
+							if element.tag.split("}")[1] == "path":
+								if element.get("id") == "wdno":
+									element.attrib['class'] = 'st3'
+								elif element.get("id") == "wdne":
+									element.attrib['class'] = 'st3'
+								elif element.get("id") == "wdea":
+									element.attrib['class'] = 'st3'
+								elif element.get("id") == "wdse":
+									element.attrib['class'] = ''
+								elif element.get("id") == "wdso":
+									element.attrib['class'] = 'st3'
+								elif element.get("id") == "wdsw":
+									element.attrib['class'] = 'st3'
+								elif element.get("id") == "wdwe":
+									element.attrib['class'] = 'st3'
+								elif element.get("id") == "wdnw":
+									element.attrib['class'] = 'st3'
+								if debug:
+									print(ch_wind_dir, "SOUTH EAST")
+					elif ch_wind_dir in ['SSE', 'S', 'SSW']:
+						for element in tree.iter():
+							if element.tag.split("}")[1] == "path":
+								if element.get("id") == "wdno":
+									element.attrib['class'] = 'st3'
+								elif element.get("id") == "wdne":
+									element.attrib['class'] = 'st3'
+								elif element.get("id") == "wdea":
+									element.attrib['class'] = 'st3'
+								elif element.get("id") == "wdse":
+									element.attrib['class'] = 'st3'
+								elif element.get("id") == "wdso":
+									element.attrib['class'] = ''
+								elif element.get("id") == "wdsw":
+									element.attrib['class'] = 'st3'
+								elif element.get("id") == "wdwe":
+									element.attrib['class'] = 'st3'
+								elif element.get("id") == "wdnw":
+									element.attrib['class'] = 'st3'
+								if debug:
+									print(ch_wind_dir, "SOUTH")
+					elif ch_wind_dir in ['SW']:
+						for element in tree.iter():
+							if element.tag.split("}")[1] == "path":
+								if element.get("id") == "wdno":
+									element.attrib['class'] = 'st3'
+								elif element.get("id") == "wdne":
+									element.attrib['class'] = 'st3'
+								elif element.get("id") == "wdea":
+									element.attrib['class'] = 'st3'
+								elif element.get("id") == "wdse":
+									element.attrib['class'] = 'st3'
+								elif element.get("id") == "wdso":
+									element.attrib['class'] = 'st3'
+								elif element.get("id") == "wdsw":
+									element.attrib['class'] = ''
+								elif element.get("id") == "wdwe":
+									element.attrib['class'] = 'st3'
+								elif element.get("id") == "wdnw":
+									element.attrib['class'] = 'st3'
+								if debug:
+									print(ch_wind_dir, "SOUTH WEST")
+					elif ch_wind_dir in ['WSW', 'W', 'WNW']:
+						for element in tree.iter():
+							if element.tag.split("}")[1] == "path":
+								if element.get("id") == "wdno":
+									element.attrib['class'] = 'st3'
+								elif element.get("id") == "wdne":
+									element.attrib['class'] = 'st3'
+								elif element.get("id") == "wdea":
+									element.attrib['class'] = 'st3'
+								elif element.get("id") == "wdse":
+									element.attrib['class'] = 'st3'
+								elif element.get("id") == "wdso":
+									element.attrib['class'] = 'st3'
+								elif element.get("id") == "wdsw":
+									element.attrib['class'] = ''
+								elif element.get("id") == "wdwe":
+									element.attrib['class'] = 'st3'
+								elif element.get("id") == "wdnw":
+									element.attrib['class'] = 'st3'
+								if debug:
+									print(ch_wind_dir, "WEST")
+					elif ch_wind_dir in ['NW']:
+						for element in tree.iter():
+							if element.tag.split("}")[1] == "path":
+								if element.get("id") == "wdno":
+									element.attrib['class'] = 'st3'
+								elif element.get("id") == "wdne":
+									element.attrib['class'] = 'st3'
+								elif element.get("id") == "wdea":
+									element.attrib['class'] = 'st3'
+								elif element.get("id") == "wdse":
+									element.attrib['class'] = 'st3'
+								elif element.get("id") == "wdso":
+									element.attrib['class'] = 'st3'
+								elif element.get("id") == "wdsw":
+									element.attrib['class'] = 'st3'
+								elif element.get("id") == "wdwe":
+									element.attrib['class'] = 'st3'
+								elif element.get("id") == "wdnw":
+									element.attrib['class'] = ''
+								if debug:
+									print(ch_wind_dir, "NORTH WEST")
+					
+					tree.write('resources/WX_TEMPLATE.svg')
+
+				except Exception as e:
+					print("WIND TO SVG ERROR", str(today), now, e)
 			
 	except Exception as e:
 		print("Wunder JSON Error", str(today), now, e)
@@ -575,27 +754,10 @@ while(1):
 								if debug:
 									print("02 - 95 to 100")
 
-				tree.write('TEST.svg')
+				tree.write('resources/WX_TEMPLATE.svg')
 	
 			except Exception as e:
 			 	print("BATTERY TO SVG ERROR", str(today), now, e)
-
-			## WRITE WIND DATA TO SVG
-
-			try:
-				filename = "resources/WX_TEMPLATE.svg"
-				tree = etree.parse(open(filename, 'r'))
-				
-				if ch_wind_dir in ['NNW', 'N', 'NNE']:
-					for element in tree.iter():
-						if element.tag.split("}")[1] == "path":
-							if element.get("id") == "":
-								element.attrib['class'] = 'st3'
-				
-				tree.write('TEST.svg')
-
-			except Exception as e:
-				print("WIND TO SVG ERROR", str(today), now, e)
 	
 			## Output data to the svg
         		
