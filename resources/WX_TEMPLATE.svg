@@ -254,21 +254,21 @@
 		l0,0l0,0c0.3,0,0.5,0,0.8-0.1c0,0,0,0,0.1,0c0.7-0.2,1.4-0.5,2-1.1c0,0,0,0,0-0.1l15.5-15.5c1.6-1.6,1.6-4.1,0-5.7
 		c-1.6-1.6-4.1-1.6-5.7,0l-8.7,8.7V575c0-2.2-1.8-4-4-4s-4,1.8-4,4v27.3l-8.7-8.7c-1.6-1.6-4.1-1.6-5.7,0
 		C398.8,595.2,398.8,597.7,400.4,599.3z"/>
-	<text transform="matrix(1 0 0 1 396 189.4258)" class="st1 st9">Grayboat Temp (°F)</text>
-	<text transform="matrix(1 0 0 1 8 205.4259)" class="st1 st9">Interior Temp (°F)</text>
+	<text transform="matrix(1 0 0 1 396 189.4258)" class="st1 st9">Grayboat Temp (F)</text>
+	<text transform="matrix(1 0 0 1 8 205.4259)" class="st1 st9">Interior Temp (F)</text>
 	<text transform="matrix(1 0 0 1 396 258.6137)" class="st1 st11">TMPG</text>
-	<text transform="matrix(1 0 0 1 396 278.426)" class="st1 st9">Downstairs Temp (°F)</text>
+	<text transform="matrix(1 0 0 1 396 278.426)" class="st1 st9">Downstairs Temp (F)</text>
 	<text transform="matrix(1 0 0 1 396 347.614)" class="st1 st11">TMPD</text>
-	<text transform="matrix(1 0 0 1 396 367.4258)" class="st1 st9">Dew Point (°F)</text>
+	<text transform="matrix(1 0 0 1 396 367.4258)" class="st1 st9">Dew Point (F)</text>
 	<text transform="matrix(1 0 0 1 396 436.6137)" class="st1 st11">DWPNT</text>
-	<text transform="matrix(1 0 0 1 396 458.4256)" class="st1 st9">Relitative Humidity (%)</text>
+	<text transform="matrix(1 0 0 1 396 458.4256)" class="st1 st9">Rel Humid (%)</text>
 	<text transform="matrix(1 0 0 1 395.1501 529.6135)" class="st1 st11">RLHUM</text>
 	<text transform="matrix(1 0 0 1 396 548.9193)" class="st1 st9">Pressure (hPa)</text>
 	<text transform="matrix(1 0 0 1 447.474 617.8477)" class="st1 st12">PRESS</text>
 	<text transform="matrix(1 0 0 1 396 75.4262)" class="st1 st9">Forecasted Hi &amp; Low</text>
 	<text transform="matrix(1 0 0 1 396.15 135.5298)" class="st1 st13">FORHI</text>
 	<text transform="matrix(1 0 0 1 499.2084 167.6878)" class="st1 st13">FORLO</text>
-	<text transform="matrix(1 0 0 1 8 73.4258)" class="st1 st9">Exterior Temp (°F)</text>
+	<text transform="matrix(1 0 0 1 8 73.4258)" class="st1 st9">Exterior Temp (F)</text>
 	<text transform="matrix(1 0 0 1 -1 186.9874)" class="st1 st14">TMPE</text>
 	<text transform="matrix(1 0 0 1 -1 305.2676)" class="st1 st15">TMPI</text>
 	<g>
