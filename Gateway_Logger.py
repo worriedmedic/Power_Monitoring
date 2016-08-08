@@ -131,6 +131,23 @@ with serial.Serial(addr,9600) as pt:
                 except Exception as e:
                     print("THINGSPEAK GENERAL ERROR", today, now, e, "::", buffer)
 
+            elif addr == '02':
+                try:
+                    api_key = 'GVWSJ8V12MIPJBLY'
+                    temp_payload = {'api_key': api_key, 'field1': addr, 'field2': temp, 'field3': press, 'field4': humid, 'field5': dew, 'field6': volt, 'field7': rssi}
+                    r = requests.post(url, data=temp_payload)
+                    if verbose == 'true':
+                        print(r.text)
+                        if r.text == "0":
+                            print("Thingspeak Update FAILED")
+                        else:
+                            print("Thingspeak Update OK")
+                            
+                except requests.exceptions.RequestException as e:
+                    print("THINGSPEAK REQUESTS ERROR", today, now, e, "::", buffer)
+                except Exception as e:
+                    print("THINGSPEAK GENERAL ERROR", today, now, e, "::", buffer)
+                    
             elif addr == '05':
                 try:
                     api_key = '89NM6222ST0UW15H'
