@@ -939,8 +939,8 @@ while(1):
 				if internet:
 					output = output.replace('FORHI',exp_hi)
 					output = output.replace('FORLO',exp_lo)
-					output = output.replace('WSP',ch_avg_wind_speed)
-					output = output.replace('WGUS',ch_max_wind_speed)
+					output = output.replace('WSP',str(ch_avg_wind_speed))
+					output = output.replace('WGUS',str(ch_max_wind_speed))
 				output = output.replace('TMPE',str(temp_0))
 				output = output.replace('TMPI',str(temp_1))
 				output = output.replace('TMPG',str(temp_0))
