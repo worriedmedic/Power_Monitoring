@@ -436,7 +436,7 @@ while(1):
 								if debug:
 									print(ch_wind_dir, "NORTH WEST")
 					
-					tree.write('resources/WX_TEMPLATE.svg')
+					tree.write('TEST.svg')
 
 				except Exception as e:
 					print("WIND TO SVG ERROR", str(today), now, e)
@@ -754,7 +754,7 @@ while(1):
 								if debug:
 									print("02 - 95 to 100")
 
-				tree.write('resources/WX_TEMPLATE.svg')
+				tree.write('TEST.svg')
 	
 			except Exception as e:
 			 	print("BATTERY TO SVG ERROR", str(today), now, e)
