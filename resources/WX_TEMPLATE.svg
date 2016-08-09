@@ -256,7 +256,7 @@
 		C398.8,595.2,398.8,597.7,400.4,599.3z"/>
 	<text transform="matrix(1 0 0 1 396 189.4258)" class="st1 st9">Grayboat Temp (F)</text>
 	<text transform="matrix(1 0 0 1 8 205.4259)" class="st1 st9">Interior Temp (F)</text>
-	<text id="TMPG" transform="matrix(1 0 0 1 396 258.6137)" class="st1 st11">TMPG</text>
+	<text transform="matrix(1 0 0 1 396 258.6137)" class="st1 st11">TMPG</text>
 	<text transform="matrix(1 0 0 1 396 278.426)" class="st1 st9">Downstairs Temp (F)</text>
 	<text transform="matrix(1 0 0 1 396 347.614)" class="st1 st11">TMPD</text>
 	<text transform="matrix(1 0 0 1 396 367.4258)" class="st1 st9">Dew Point (F)</text>
