@@ -40,8 +40,13 @@ sun_rise = [None]
 sun_down = [None]
 
 ## INT: Expected Hi and Lo
-wunder_site_forcast_json = 'http://api.wunderground.com/api/1f86b1c989ac268c/forecast/q/ma/cuttyhunk.json'
-wunder_site_conditions_json = 'http://api.wunderground.com/api/1f86b1c989ac268c/conditions/q/ma/cuttyhunk.json'
+if location == 'cuttyhunk':
+	wunder_site_forcast_json = 'http://api.wunderground.com/api/1f86b1c989ac268c/forecast/q/ma/cuttyhunk.json'
+	wunder_site_conditions_json = 'http://api.wunderground.com/api/1f86b1c989ac268c/conditions/q/ma/cuttyhunk.json'
+elif location == 'dover':
+	wunder_site_forcast_json = 'http://api.wunderground.com/api/1f86b1c989ac268c/forecast/q/ny/carmel.json'
+	wunder_site_conditions_json = 'http://api.wunderground.com/api/1f86b1c989ac268c/conditions/q/ny/carmel.json'
+	
 wunder_update_time = [None]
 elapsed = [None]
 onlinejson = [None]
@@ -50,9 +55,9 @@ exp_hi = [None]
 exp_lo = [None]
 
 ## INT: Cheating the wind data
-ch_avg_wind_speed = [None]
-ch_wind_dir = [None]
-ch_max_wind_speed = [None]
+avg_wind_speed = [None]
+wind_dir = [None]
+max_wind_speed = [None]
 
 ## INT: Data that will change on every packet
 buff = [None] * 50
@@ -256,11 +261,11 @@ while(1):
 				localjson = open('resources/' + str(today) + '_conditions.json','rb')
 				json_string = localjson.read()
 				parsed_json = json.loads(json_string)
-				ch_avg_wind_speed = parsed_json['current_observation']['wind_mph']
-				ch_wind_dir = parsed_json['current_observation']['wind_dir']
-				ch_max_wind_speed = parsed_json['current_observation']['wind_gust_mph']
+				avg_wind_speed = parsed_json['current_observation']['wind_mph']
+				wind_dir = parsed_json['current_observation']['wind_dir']
+				max_wind_speed = parsed_json['current_observation']['wind_gust_mph']
 				if debug:
-					print(ch_avg_wind_speed, ch_wind_dir, ch_max_wind_speed)
+					print(avg_wind_speed, wind_dir, max_wind_speed)
 				
 	except Exception as e:
 		print("Wunder JSON Error", str(today), now, e)
@@ -326,10 +331,12 @@ while(1):
 				if location == 'cuttyhunk':
 					if (addr == '01'):
 						temp_0 = temp #EXTERIOR
+						temp_2 = temp
 						press_0 = press
 						humid_0 = humid
 					elif (addr == '00'):
 						temp_1 = temp #INTERIOR
+						temp_3 = temp
 				elif location == 'dover':
 					if (addr == '09'):
 						temp_0 = temp #EXTERIOR
@@ -337,6 +344,10 @@ while(1):
 						humid_0 = humid
 					elif (addr == '08'):
 						temp_1 = temp #INTERIOR
+					elif (addr == '05'):
+						temp_2 = temp
+					elif (addr == '07'):
+						temp_3 = temp
 
 			except Exception as e:
 				print("DATA SPLIT ERROR", str(today), now, e)
@@ -582,7 +593,7 @@ while(1):
 			try:
 				tree = etree.parse(open('TEST.svg', 'r'))
 				
-				if ch_wind_dir in ['NNW', 'N', 'NNE', 'North']:
+				if wind_dir in ['NNW', 'N', 'NNE', 'North']:
 					for element in tree.iter():
 						if element.tag.split("}")[1] == "path":
 							if element.get("id") == "wdno":
@@ -603,7 +614,7 @@ while(1):
 								element.attrib['class'] = 'st3'
 							if debug:
 								print(ch_wind_dir, "NORTH")
-				elif ch_wind_dir in ['NE']:
+				elif wind_dir in ['NE']:
 					for element in tree.iter():
 						if element.tag.split("}")[1] == "path":
 							if element.get("id") == "wdno":
@@ -624,7 +635,7 @@ while(1):
 								element.attrib['class'] = 'st3'
 							if debug:
 								print(ch_wind_dir, "NORTH EAST")
-				elif ch_wind_dir in ['ENE', 'E', 'ESE', 'East']:
+				elif wind_dir in ['ENE', 'E', 'ESE', 'East']:
 					for element in tree.iter():
 						if element.tag.split("}")[1] == "path":
 							if element.get("id") == "wdno":
@@ -645,7 +656,7 @@ while(1):
 								element.attrib['class'] = 'st3'
 							if debug:
 								print(ch_wind_dir, "EAST")
-				elif ch_wind_dir in ['SE']:
+				elif wind_dir in ['SE']:
 					for element in tree.iter():
 						if element.tag.split("}")[1] == "path":
 							if element.get("id") == "wdno":
@@ -666,7 +677,7 @@ while(1):
 								element.attrib['class'] = 'st3'
 							if debug:
 								print(ch_wind_dir, "SOUTH EAST")
-				elif ch_wind_dir in ['SSE', 'S', 'SSW', 'South']:
+				elif wind_dir in ['SSE', 'S', 'SSW', 'South']:
 					for element in tree.iter():
 						if element.tag.split("}")[1] == "path":
 							if element.get("id") == "wdno":
@@ -687,7 +698,7 @@ while(1):
 								element.attrib['class'] = 'st3'
 							if debug:
 								print(ch_wind_dir, "SOUTH")
-				elif ch_wind_dir in ['SW']:
+				elif wind_dir in ['SW']:
 					for element in tree.iter():
 						if element.tag.split("}")[1] == "path":
 							if element.get("id") == "wdno":
@@ -708,7 +719,7 @@ while(1):
 								element.attrib['class'] = 'st3'
 							if debug:
 								print(ch_wind_dir, "SOUTH WEST")
-				elif ch_wind_dir in ['WSW', 'W', 'WNW', 'West']:
+				elif wind_dir in ['WSW', 'W', 'WNW', 'West']:
 					for element in tree.iter():
 						if element.tag.split("}")[1] == "path":
 							if element.get("id") == "wdno":
@@ -729,7 +740,7 @@ while(1):
 								element.attrib['class'] = 'st3'
 							if debug:
 								print(ch_wind_dir, "WEST")
-				elif ch_wind_dir in ['NW']:
+				elif wind_dir in ['NW']:
 					for element in tree.iter():
 						if element.tag.split("}")[1] == "path":
 							if element.get("id") == "wdno":
@@ -766,12 +777,12 @@ while(1):
 				if internet:
 					output = output.replace('FORHI',exp_hi)
 					output = output.replace('FORLO',exp_lo)
-					output = output.replace('WSP',str(ch_avg_wind_speed))
-					output = output.replace('WGUS',str(ch_max_wind_speed))
+					output = output.replace('WSP',str(avg_wind_speed))
+					output = output.replace('WGUS',str(max_wind_speed))
 				output = output.replace('TMPE',str(temp_0))
 				output = output.replace('TMPI',str(temp_1))
-				output = output.replace('TMPG',str(temp_0))
-				output = output.replace('TMPD',str(temp_1))
+				output = output.replace('TMPG',str(temp_2))
+				output = output.replace('TMPD',str(temp_3))
 			 	output = output.replace('PRESS',str(press_0))
 				output = output.replace('RLHUM',str(humid_0))
 				output = output.replace('DWPNT',"{0:.2f}".format(dew))
