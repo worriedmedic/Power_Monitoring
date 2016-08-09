@@ -582,7 +582,7 @@ while(1):
 			try:
 				tree = etree.parse(open('TEST.svg', 'r'))
 				
-				if ch_wind_dir in ['NNW', 'N', 'NNE']:
+				if ch_wind_dir in ['NNW', 'N', 'NNE', 'North']:
 					for element in tree.iter():
 						if element.tag.split("}")[1] == "path":
 							if element.get("id") == "wdno":
@@ -624,7 +624,7 @@ while(1):
 								element.attrib['class'] = 'st3'
 							if debug:
 								print(ch_wind_dir, "NORTH EAST")
-				elif ch_wind_dir in ['ENE', 'E', 'ESE']:
+				elif ch_wind_dir in ['ENE', 'E', 'ESE', 'East']:
 					for element in tree.iter():
 						if element.tag.split("}")[1] == "path":
 							if element.get("id") == "wdno":
@@ -666,7 +666,7 @@ while(1):
 								element.attrib['class'] = 'st3'
 							if debug:
 								print(ch_wind_dir, "SOUTH EAST")
-				elif ch_wind_dir in ['SSE', 'S', 'SSW']:
+				elif ch_wind_dir in ['SSE', 'S', 'SSW', 'South']:
 					for element in tree.iter():
 						if element.tag.split("}")[1] == "path":
 							if element.get("id") == "wdno":
@@ -708,7 +708,7 @@ while(1):
 								element.attrib['class'] = 'st3'
 							if debug:
 								print(ch_wind_dir, "SOUTH WEST")
-				elif ch_wind_dir in ['WSW', 'W', 'WNW']:
+				elif ch_wind_dir in ['WSW', 'W', 'WNW', 'West']:
 					for element in tree.iter():
 						if element.tag.split("}")[1] == "path":
 							if element.get("id") == "wdno":
