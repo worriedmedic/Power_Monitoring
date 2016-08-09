@@ -74,6 +74,7 @@ wind_dir = [None] * 5
 temp_0 = [None]
 press_0 = [None]
 humid_0 = [None]
+dew_0 = [None]
 
 ## INT: Station 1 - Inside the house. Bottom floor
 temp_1 = [None]
@@ -82,6 +83,9 @@ temp_1 = [None]
 tepm_2 = [None]
 press_2 = [None]
 humid_2 = [None]
+
+## INT: Station 3
+temp_3 = [None]
 
 i = 0
 
@@ -334,6 +338,7 @@ while(1):
 						temp_2 = temp
 						press_0 = press
 						humid_0 = humid
+						dew_0 = dew
 					elif (addr == '00'):
 						temp_1 = temp #INTERIOR
 						temp_3 = temp
@@ -342,6 +347,7 @@ while(1):
 						temp_0 = temp #EXTERIOR
 						press_0 = press
 						humid_0 = humid
+						dew_0 = dew
 					elif (addr == '08'):
 						temp_1 = temp #INTERIOR
 					elif (addr == '05'):
@@ -785,7 +791,7 @@ while(1):
 				output = output.replace('TMPD',str(temp_3))
 			 	output = output.replace('PRESS',str(press_0))
 				output = output.replace('RLHUM',str(humid_0))
-				output = output.replace('DWPNT',"{0:.2f}".format(dew))
+				output = output.replace('DWPNT',"{0:.2f}".format(dew_0))
 				output = output.replace('TDNTY',str(tide_pre_type))
 				output = output.replace('TDNTM',old.strftime('%H:%M'))
 				output = output.replace('TDNLV',str(tide_pre_mag))
