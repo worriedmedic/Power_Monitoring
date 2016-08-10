@@ -394,7 +394,7 @@ while(1):
         		
 			## UPDATE BATTERY LEVEL ON SVG
 			try:
-				tree = etree.parse(open('resources/WX_TEMPLATE.svg', 'r'))
+				tree = etree.parse(open(template_svg_filename, 'r'))
         			
 				if (addr == bat1):
 					if (0 <= float(volt) < 50):
@@ -700,7 +700,83 @@ while(1):
 									element.attrib['class'] = ''
 								if debug:
 									print("02 - 95 to 100")
-				
+				elif (addr == bat5):
+					if (0 <= float(volt) < 50):
+						for element in tree.iter():
+							if element.tag.split("}")[1] == "path":
+								if element.get("id") == "b04Bat4":
+									element.attrib['class'] = 'st3'
+								if element.get("id") == "b04Bat3":
+									element.attrib['class'] = 'st3'
+								if element.get("id") == "b04Bat2":
+									element.attrib['class'] = 'st3'
+								if element.get("id") == "b04Bat1":
+									element.attrib['class'] = 'st3'
+								if element.get("id") == "b04Bat0":
+									element.attrib['class'] = ''
+								if debug:
+									print("02 - 0 to 50")
+					elif (50 <= float(volt) < 80): 
+						for element in tree.iter():
+							if element.tag.split("}")[1] == "path":
+								if element.get("id") == "b04Bat4":
+									element.attrib['class'] = 'st3'
+								if element.get("id") == "b04Bat3":
+									element.attrib['class'] = 'st3'
+								if element.get("id") == "b04Bat2":
+									element.attrib['class'] = 'st3'
+								if element.get("id") == "b04Bat1":
+									element.attrib['class'] = ''
+								if element.get("id") == "b04Bat0":
+									element.attrib['class'] = ''
+								if debug:
+									print("02 - 50 to 80")
+					elif (80 <= float(volt) < 90): 
+						for element in tree.iter():
+							if element.tag.split("}")[1] == "path":
+								if element.get("id") == "b04Bat4":
+									element.attrib['class'] = 'st3'
+								if element.get("id") == "b04Bat3":
+									element.attrib['class'] = 'st3'
+								if element.get("id") == "b04Bat2":
+									element.attrib['class'] = ''
+								if element.get("id") == "b04Bat1":
+									element.attrib['class'] = 'st3'
+								if element.get("id") == "b04Bat0":
+									element.attrib['class'] = ''
+								if debug:
+									print("02 - 80 to 90")
+					elif (90 <= float(volt) < 95): 
+						for element in tree.iter():
+							if element.tag.split("}")[1] == "path":
+								if element.get("id") == "b04Bat4":
+									element.attrib['class'] = 'st3'
+								if element.get("id") == "b04Bat3":
+									element.attrib['class'] = ''
+								if element.get("id") == "b04Bat2":
+									element.attrib['class'] = 'st3'
+								if element.get("id") == "b04Bat1":
+									element.attrib['class'] = 'st3'
+								if element.get("id") == "b04Bat0":
+									element.attrib['class'] = ''
+								if debug:
+									print("02 - 90 to 95")
+					elif (95 <= float(volt) < 100): 
+						for element in tree.iter():
+							if element.tag.split("}")[1] == "path":
+								if element.get("id") == "b04Bat4":
+									element.attrib['class'] = ''
+								if element.get("id") == "b04Bat3":
+									element.attrib['class'] = 'st3'
+								if element.get("id") == "b04Bat2":
+									element.attrib['class'] = 'st3'
+								if element.get("id") == "b04Bat1":
+									element.attrib['class'] = 'st3'
+								if element.get("id") == "b04Bat0":
+									element.attrib['class'] = ''
+								if debug:
+									print("02 - 95 to 100")
+									
 				tree.write('TEST.svg')
 			
 			except Exception as e:
