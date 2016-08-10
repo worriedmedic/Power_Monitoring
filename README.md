@@ -7,6 +7,7 @@ sudo apt-get install python-lxml
 
 sudo apt-get install libxml2-dev libxslt-dev python-dev
 
+$LOCATION.location - keep file that represents current location. Sets the proper location varibles and paths for dropbox-uploader.
 
 Homebrew home monitoring project. Includes multiple weather sensors and Open Power Monitoring EmonTX v3 sensor for power usage.
 
