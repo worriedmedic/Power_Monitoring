@@ -11,7 +11,13 @@ from lxml import etree
 debug     = False
 verbose   = False
 internet  = True
-location  = 'dover' # 'cuttyhunk' or 'dover' - case sensitive
+
+if os.path.isfile('dover.location'):
+	location = 'dover'
+elif os.path.isfile('cuttyhunk.location'):
+	location = 'cuttyhunk'
+else:
+	location = 'cuttyhunk' # DEFAULT
 
 ## INT: Data that will change every day
 today = [None]
