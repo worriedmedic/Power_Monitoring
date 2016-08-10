@@ -10,37 +10,32 @@ import requests
 import os.path
 
 url     = 'https://api.thingspeak.com/apps/thingtweet/1/statuses/update'
-#delay   = 600 #In Seconds ### REDUNDANT - NOW USING CRONTAB
-api_key = 'UERV67G8O01HXYVV' #Key for the ThingSpeak Tweeter API
-logging = 'false'
-verbose = 'false'
+logging = False
+debug   = False
 
-dover_sensor = { #Modified for Dover_Wx_St
-    'Inside'        : '123799',
-    'Outside'       : '123694',
-    'Downstairs'    : '124921',
-    'Garage'        : '125305',
-    'Attic'         : '130195'
-    
-}
+if os.path.isfile('dover.location'):
+    api_key = 'UERV67G8O01HXYVV' #Key for the ThingSpeak Tweeter API
+    tweet = "Outside: %%channel_123694_field_2%%F, %%channel_123694_field_4%%%, Inside: %%channel_123799_field_2%%F, %%channel_123799_field_4%%%, Downstairs: %%channel_124921_field_2%%F, %%channel_124921_field_4%%%, Garage: %%channel_125305_field_2%%F, %%channel_125305_field_4%%%, Attic: %%channel_130195_field_2%%F, %%channel_130195_field_4%%%, Press: %%channel_123694_field_3%%mb"
+elif os.path.isfile('cuttyhunk.location'):
+    api_key = 'EC7AV1MRRERF7GAG' #Key for the ThingSpeak Tweeter API
+    tweet = "Outside: %%channel_116278_field_2%%F, %%channel_116278_field_4%%%, Inside: %%channel_116348_field_2%%F, %%channel_116348_field_4%%%, Press: %%channel_116278_field_3%%mb"
 
 def thingspeaktweet(api_key):
-    tweet = "Outside: %%channel_123694_field_2%%F, %%channel_123694_field_4%%%, Inside: %%channel_123799_field_2%%F, %%channel_123799_field_4%%%, Downstairs: %%channel_124921_field_2%%F, %%channel_124921_field_4%%%, Garage: %%channel_125305_field_2%%F, %%channel_125305_field_4%%%, Attic: %%channel_130195_field_2%%F, %%channel_130195_field_4%%%, Press: %%channel_123694_field_3%%mb"
-    if verbose == 'true':
+    if debug:
         print(tweet)
     payload = {'api_key': api_key, 'status': tweet}
     try:
         r = requests.post(url, data=payload)
-        time.sleep(1)
-        if verbose == 'true':
-            print(str(today), str(now), r.text)
+        #time.sleep(1)
+        if debug:
+            print(str(today), now, r.text)
             
     except requests.exceptions.RequestException as e:
-        print("TWEETAPI REQUESTS ERROR", today, now, e)
+        print("TWEETAPI REQUESTS ERROR", str(today), now, e)
     except Exception as e:
-        print("TWEETAPI GENERIC ERROR", today, now, e)
+        print("TWEETAPI GENERIC ERROR", str(today), now, e)
         
-    if logging == 'true':
+    if logging:
         try:
             fname = str(today) + '.log'
             fdirectory = 'data_log'
