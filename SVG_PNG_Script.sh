@@ -13,7 +13,7 @@ do
 	if [ -f 'dover.location' ]; then
 		/home/pi/Power_Monitoring/Dropbox-Uploader/dropbox_uploader.sh upload weather-script-output.png /Programming/dover/
 		/home/pi/Power_Monitoring/Dropbox-Uploader/dropbox_uploader.sh upload TEST.svg /Programming/dover/
-	elif [ -f 'cuttyhunk.location' ]
+	elif [ -f 'cuttyhunk.location' ]; then
 		/home/pi/Power_Monitoring/Dropbox-Uploader/dropbox_uploader.sh upload weather-script-output.png /Programming/
 		/home/pi/Power_Monitoring/Dropbox-Uploader/dropbox_uploader.sh upload TEST.svg /Programming/
 	fi
