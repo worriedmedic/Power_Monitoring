@@ -10,10 +10,10 @@ do
 	pngcrush -c 0 -ow weather-script-output.png
 	sudo cp -f weather-script-output.png /var/www/html/
 	sudo chmod 755 /var/www/html/weather-script-output.png
-	if [ -f dover.location ]; then
+	if [ -f 'dover.location' ]; then
 		/home/pi/Power_Monitoring/Dropbox-Uploader/dropbox_uploader.sh upload weather-script-output.png /Programming/dover/
 		/home/pi/Power_Monitoring/Dropbox-Uploader/dropbox_uploader.sh upload TEST.svg /Programming/dover/
-	elif [ -f cuttyhunk.location ]
+	elif [ -f 'cuttyhunk.location' ]
 		/home/pi/Power_Monitoring/Dropbox-Uploader/dropbox_uploader.sh upload weather-script-output.png /Programming/
 		/home/pi/Power_Monitoring/Dropbox-Uploader/dropbox_uploader.sh upload TEST.svg /Programming/
 	fi
