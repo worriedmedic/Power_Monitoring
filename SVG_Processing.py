@@ -11,7 +11,7 @@ from lxml import etree
 debug     = False
 verbose   = False
 internet  = True
-location  = 'cuttyhunk' # 'cuttyhunk' or 'dover' - case sensitive
+location  = 'dover' # 'cuttyhunk' or 'dover' - case sensitive
 
 ## INT: Data that will change every day
 today = [None]
