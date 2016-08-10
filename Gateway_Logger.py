@@ -9,12 +9,16 @@ import datetime
 import requests
 import os.path
 
-addr                = '/dev/ttyUSB0'  # serial port to read data from
 baud                = 9600   # baud rate for serial port
-thingspeak_update   = 'true' # Turn on/off updating to ThingSpeak
-emoncms_update      = 'true' # Turn on/off updating to Emoncms
-txt_logging         = 'true' # Enable/Disable logging to TXT file
-verbose             = 'false'
+thingspeak_update   = True # Turn on/off updating to ThingSpeak
+emoncms_update      = True # Turn on/off updating to Emoncms
+txt_logging         = True # Enable/Disable logging to TXT file
+verbose             = False
+
+if os.path.isfile('dover.location'):
+    addr = '/dev/ttyUSB0'
+elif os.path.isfile('cuttyhunk.location'):
+    addr = '/dev/AMAUSBSomething_Or_Another'
 
 with serial.Serial(addr,9600) as pt:
     try:
@@ -38,7 +42,7 @@ with serial.Serial(addr,9600) as pt:
 
         x = str(today) + ',' + str(now) + ',' + str(buffer) + '\n'
 
-        if verbose == 'true':
+        if verbose:
             print (x,end='')    # echo line of text on-screen
 
         try:
@@ -61,7 +65,7 @@ with serial.Serial(addr,9600) as pt:
             except Exception as e:
                 print("DATA SPLIT ERROR", today, now, e, "::", buffer)
             
-        if txt_logging == 'true':
+        if txt_logging:
             try:
                 if not os.path.exists('data_log'):
                     os.makedirs('data_log')
@@ -79,11 +83,11 @@ with serial.Serial(addr,9600) as pt:
             except Exception as e:
                 print("DATA LOG ERROR", today, now, e, "::", buffer)
 
-        if emoncms_update == 'true':
+        if emoncms_update:
             try:
                 url = 'https://emoncms.org/input/post.json?node=%s&json={T:%s,P:%s,H:%s,V:%s,R:%s,D:%s}&apikey=4e6eff5d047580696f0e2a7ae9323983' % (addr, temp, press, humid, volt, rssi, dew)
                 r = requests.post(url)
-                if verbose == 'true':
+                if verbose:
                     print(r.text)
                     if "ok" in r:
                         print("EMONCMS Update OK")
@@ -95,14 +99,14 @@ with serial.Serial(addr,9600) as pt:
             except Exception as e:
                 print("EMONCMS GENERAL ERROR", today, now, e, "::", buffer)
         
-        if thingspeak_update == 'true':
+        if thingspeak_update:
             url = 'https://api.thingspeak.com/update.json'
             if addr == '00':
                 try:
                     api_key = 'TFGVV0YYM18ALONJ'
                     temp_payload = {'api_key': api_key, 'field1': addr, 'field2': temp, 'field3': press, 'field4': humid, 'field5': dew, 'field6': volt, 'field7': rssi}
                     r = requests.post(url,data=temp_payload)
-                    if verbose == 'true':
+                    if verbose:
                         print(r.text)
                         if r.text == "0":
                             print("Thingspeak Update FAILED")
@@ -119,7 +123,7 @@ with serial.Serial(addr,9600) as pt:
                     api_key = 'ARPQ7GWOHTQSYWYW'
                     temp_payload = {'api_key': api_key, 'field1': addr, 'field2': temp, 'field3': press, 'field4': humid, 'field5': dew, 'field6': volt, 'field7': rssi}
                     r = requests.post(url, data=temp_payload)
-                    if verbose == 'true':
+                    if verbose:
                         print(r.text)
                         if r.text == "0":
                             print("Thingspeak Update FAILED")
@@ -136,7 +140,7 @@ with serial.Serial(addr,9600) as pt:
                     api_key = 'GVWSJ8V12MIPJBLY'
                     temp_payload = {'api_key': api_key, 'field1': addr, 'field2': temp, 'field3': press, 'field4': humid, 'field5': dew, 'field6': volt, 'field7': rssi}
                     r = requests.post(url, data=temp_payload)
-                    if verbose == 'true':
+                    if verbose:
                         print(r.text)
                         if r.text == "0":
                             print("Thingspeak Update FAILED")
@@ -153,7 +157,7 @@ with serial.Serial(addr,9600) as pt:
                     api_key = '89NM6222ST0UW15H'
                     temp_payload = {'api_key': api_key, 'field1': addr, 'field2': temp, 'field3': press, 'field4': humid, 'field5': dew, 'field6': volt, 'field7': rssi}
                     r = requests.post(url, data=temp_payload)
-                    if verbose == 'true':
+                    if verbose:
                         print(r.text)
                         if r.text == "0":
                             print("Thingspeak Update FAILED")
@@ -170,7 +174,7 @@ with serial.Serial(addr,9600) as pt:
                     api_key = 'LZAFORDCZ4UT75GU'
                     temp_payload = {'api_key': api_key, 'field1': addr, 'field2': temp, 'field3': press, 'field4': humid, 'field5': dew, 'field6': volt, 'field7': rssi}
                     r = requests.post(url, data=temp_payload)
-                    if verbose == 'true':
+                    if verbose:
                         print(r.text)
                         if r.text == "0":
                             print("Thingspeak Update FAILED")
@@ -187,7 +191,7 @@ with serial.Serial(addr,9600) as pt:
                     api_key = 'NQQZE8CL8ZC445DN'
                     temp_payload = {'api_key': api_key, 'field1': addr, 'field2': temp, 'field3': press, 'field4': humid, 'field5': dew, 'field6': volt, 'field7': rssi}
                     r = requests.post(url, data=temp_payload)
-                    if verbose == 'true':
+                    if verbose:
                         print(r.text)
                         if r.text == "0":
                             print("Thingspeak Update FAILED")
@@ -204,7 +208,7 @@ with serial.Serial(addr,9600) as pt:
                     api_key = '8SHTGBFETA4XVN5P'
                     temp_payload = {'api_key': api_key, 'field1': addr, 'field2': temp, 'field3': press, 'field4': humid, 'field5': dew, 'field6': volt, 'field7': rssi}
                     r = requests.post(url, data=temp_payload)
-                    if verbose == 'true':
+                    if verbose:
                         print(r.text)
                         if r.text == "0":
                             print("Thingspeak Update FAILED")
@@ -221,7 +225,7 @@ with serial.Serial(addr,9600) as pt:
                     api_key = 'TUFQWU8SA1HL1B4O'
                     temp_payload = {'api_key': api_key, 'field1': addr, 'field2': temp, 'field3': press, 'field4': humid, 'field5': dew, 'field6': volt, 'field7': rssi}
                     r = requests.post(url, data=temp_payload)
-                    if verbose == 'true':
+                    if verbose:
                         print(r.text)
                         if r.text == "0":
                             print("Thingspeak Update FAILED")
