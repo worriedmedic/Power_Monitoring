@@ -815,7 +815,7 @@ while(1):
 	
 				tree.write('TEST.svg')
 			except Exception as e:
-				print("PRESSURE ARROW ERROR", str(today), now, e):
+				print("PRESSURE ARROW ERROR", str(today), now, e)
 					
 			try:
 				tree = etree.parse(open('TEST.svg', 'r'))
