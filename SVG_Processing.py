@@ -39,7 +39,7 @@ else:
 	location = 'cuttyhunk' # DEFAULT
 	template_svg_filename = 'resources/WX_TEMPLATE.svg'
 	update_freq = 18
-		bat1 = '00'
+	bat1 = '00'
 	bat2 = '01'
 	bat3 = '02'
 	bat4 = '03'
