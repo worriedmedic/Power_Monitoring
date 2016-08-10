@@ -777,13 +777,13 @@ while(1):
 								if debug:
 									print("02 - 95 to 100")
 									
-				tree.write('TEST.svg')
+				tree.write(template_svg_filename)
 			
 			except Exception as e:
 				print("BATTERY SVG UPDATE ERROR", str(today), now, e)
 			
 			try:
-				tree = etree.parse(open('TEST.svg', 'r'))
+				tree = etree.parse(open(template_svg_filename, 'r'))
 				
 				if wind_dir in ['NNW', 'N', 'NNE', 'North']:
 					for element in tree.iter():
