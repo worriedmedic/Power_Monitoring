@@ -23,7 +23,6 @@ if os.path.isfile('dover.location'):
 	bat5 = '05'
 	if debug:
 		print(location)
-	
 elif os.path.isfile('cuttyhunk.location'):
 	location = 'cuttyhunk'
 	template_svg_filename = 'resources/WX_TEMPLATE.svg'
@@ -302,8 +301,9 @@ while(1):
 				avg_wind_speed = parsed_json['current_observation']['wind_mph']
 				wind_dir = parsed_json['current_observation']['wind_dir']
 				max_wind_speed = parsed_json['current_observation']['wind_gust_mph']
+				pressure_trend = parsed_json['current_observation']['pressure_trend']
 				if debug:
-					print(avg_wind_speed, wind_dir, max_wind_speed)
+					print(avg_wind_speed, wind_dir, max_wind_speed, pressure_trend)
 				
 	except Exception as e:
 		print("Wunder JSON Error", str(today), now, e)
@@ -784,6 +784,41 @@ while(1):
 			
 			try:
 				tree = etree.parse(open(template_svg_filename, 'r'))
+				
+				if pressure_trend in ['+']:
+					for element in tree.iter():
+						if element.tag.split("}")[1] == "path":
+							if element.get("id") == "ple":
+								element.attrib['class'] = 'st3'
+							if element.get("id") == "pup":
+								element.attrib['class'] = ''
+							if element.get("id") == "pdn":
+								element.attrib['class'] = 'st3'
+				elif pressure_trend in ['0']:
+					for element in tree.iter():
+						if element.tag.split("}")[1] == "path":
+							if element.get("id") == "ple":
+								element.attrib['class'] = ''
+							if element.get("id") == "pup":
+								element.attrib['class'] = 'st3'
+							if element.get("id") == "pdn":
+								element.attrib['class'] = 'st3'
+				elif pressure_trend in ['-']:
+					for element in tree.iter():
+						if element.tag.split("}")[1] == "path":
+							if element.get("id") == "ple":
+								element.attrib['class'] = 'st3'
+							if element.get("id") == "pup":
+								element.attrib['class'] = 'st3'
+							if element.get("id") == "pdn":
+								element.attrib['class'] = ''
+	
+				tree.write('TEST.svg')
+			except Exception as e:
+				print("PRESSURE ARROW ERROR", str(today), now, e):
+					
+			try:
+				tree = etree.parse(open('TEST.svg', 'r'))
 				
 				if wind_dir in ['NNW', 'N', 'NNE', 'North']:
 					for element in tree.iter():
