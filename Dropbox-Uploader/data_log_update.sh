@@ -1,10 +1,10 @@
 #!/bin/sh
 #Script to update log files to dropbox
 
-if [ -f 'dover.location' ]; then
+if [ -f '~/Power_Monitoring/dover.location' ]; then
   /home/pi/Power_Monitoring/Dropbox-Uploader/dropbox_uploader.sh -p upload ~/Power_Monitoring/data_log/ /Programming/dover/
   /home/pi/Power_Monitoring/Dropbox-Uploader/dropbox_uploader.sh -p upload /var/log/network_restart.log /Programming/dover/data_log/
-elif [ -f 'cuttyhunk.location' ]
+elif [ -f '~/Power_Monitoring/cuttyhunk.location' ]
   /home/pi/Power_Monitoring/Dropbox-Uploader/dropbox_uploader.sh -p upload ~/Power_Monitoring/data_log/ /Programming/
   /home/pi/Power_Monitoring/Dropbox-Uploader/dropbox_uploader.sh -p upload /var/log/network_restart.log /Programming/data_log/
 fi
