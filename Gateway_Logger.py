@@ -18,7 +18,7 @@ verbose             = False
 if os.path.isfile('dover.location'):
     addr = '/dev/ttyUSB0'
 elif os.path.isfile('cuttyhunk.location'):
-    addr = '/dev/AMAUSBSomething_Or_Another'
+    addr = '/dev/ttyACM0'
 
 with serial.Serial(addr,9600) as pt:
     try:
