@@ -16,7 +16,7 @@ CT1 and CT2 are added together to get the total power usage in watts.
 All data is uploaded to Thingspeak.com (https://thingspeak.com/users/lantz) and EmonCMS.org (https://emoncms.org/)
 
 #Install Notes
-ABOVE REPO BUILT ON THE CONDITION THAT IT IS PLACED IN THE HOME DIRECTORY OF USER **PI** (/home/pi/Power_Monitoring/). Any deviation requires extensive editing of SH scripts and configuration files.
+ABOVE REPO BUILT ON THE CONDITION THAT IT IS PLACED IN THE HOME DIRECTORY OF USER **PI** (`/home/pi/Power_Monitoring/`). Any deviation requires extensive editing of SH scripts and configuration files.
 
 SVG_Processing.py REQUIRES `python-lxml`, `libxml2-dev` & `libxslt-dev`
 
