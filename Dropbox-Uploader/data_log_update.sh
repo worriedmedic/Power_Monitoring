@@ -15,3 +15,4 @@ fi
 
 find /home/pi/Power_Monitoring/data_log/* -mtime +7 -exec cp {} /home/pi/Power_Monitoring/data_archive/  \; #Copies any files older than 7 days old to an archive location
 find /home/pi/Power_Monitoring/data_log/* -mtime +7 -delete #Deletes files older than 7 days to prevent extensive dropbox uploads
+find /home/pi/Power_Monitoring/data_log/* -type d -empty -delete #Deletes empty directories left over
