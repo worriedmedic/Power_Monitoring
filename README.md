@@ -38,7 +38,7 @@ Add the following to `/etc/crontab`:
 ```
 */5 * 	* * *	root	/usr/local/bin/network_restart.sh >> /var/log/network_restart.log 2>&1
 ```
-Add the following to the *PI* user's crontab with `crontab -e`:
+Add the following to the *PI* user's crontab with `crontab -e` **OR** `./crontab_install.sh`
 ```
 @reboot /home/pi/Power_Monitoring/Gateway_Logger.sh
 @reboot /home/pi/Power_Monitoring/Power_Monitor.sh
