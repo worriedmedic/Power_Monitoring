@@ -14,7 +14,7 @@ internet  = True
 
 if os.path.isfile('dover.location'):
 	location = 'dover'
-	template_svg_filename = 'resources/WX_TEMPLATE.svg'
+	template_svg_filename = 'resources/DOVER_WX_TEMPLATE.svg'
 	update_freq = 100
 	bat1 = '09'
 	bat2 = '08'
@@ -25,7 +25,7 @@ if os.path.isfile('dover.location'):
 		print(location)
 elif os.path.isfile('cuttyhunk.location'):
 	location = 'cuttyhunk'
-	template_svg_filename = 'resources/WX_TEMPLATE.svg'
+	template_svg_filename = 'resources/CUTTY_WX_TEMPLATE.svg'
 	update_freq = 18
 	bat1 = '00'
 	bat2 = '01'
@@ -36,7 +36,7 @@ elif os.path.isfile('cuttyhunk.location'):
 		print(location)
 else:
 	location = 'cuttyhunk' # DEFAULT
-	template_svg_filename = 'resources/WX_TEMPLATE.svg'
+	template_svg_filename = 'resources/CUTTY_WX_TEMPLATE.svg'
 	update_freq = 18
 	bat1 = '00'
 	bat2 = '01'
@@ -813,12 +813,12 @@ while(1):
 							if element.get("id") == "pdn":
 								element.attrib['class'] = ''
 	
-				tree.write('TEST.svg')
+				tree.write('output/weather-script-output.svg')
 			except Exception as e:
 				print("PRESSURE ARROW ERROR", str(today), now, e)
 					
 			try:
-				tree = etree.parse(open('TEST.svg', 'r'))
+				tree = etree.parse(open('output/weather-script-output.svg', 'r'))
 				
 				if wind_dir in ['NNW', 'N', 'NNE', 'North']:
 					for element in tree.iter():
@@ -989,7 +989,7 @@ while(1):
 							if debug:
 								print(ch_wind_dir, "NORTH WEST")
 
-				tree.write('TEST.svg')
+				tree.write('output/weather-script-output.svg')
 			except Exception as e:
 			 	print("INFO TO SVG ERROR", str(today), now, e)
 	
@@ -1023,7 +1023,7 @@ while(1):
 				print("CODECS REPLACE ERROR", str(today), now, e)
 	
 			try:
-				codecs.open('TEST.svg', 'w', encoding='utf-8').write(output)
+				codecs.open('output/weather-script-output.svg', 'w', encoding='utf-8').write(output)
 			except Exception as e:
 				print("CODECS WRITE ERROR", str(today), now, e)
 			
