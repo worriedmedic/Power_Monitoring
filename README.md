@@ -18,7 +18,7 @@ All data is uploaded to Thingspeak.com (https://thingspeak.com/users/lantz) and 
 #Install Notes
 ABOVE REPO BUILT ON THE CONDITION THAT IT IS PLACED IN THE HOME DIRECTORY OF USER **PI** (`/home/pi/Power_Monitoring/`). Any deviation requires extensive editing of SH scripts and configuration files.
 
-SVG_Processing.py REQUIRES `python-lxml`, `libxml2-dev` & `libxslt-dev`
+SVG_Processing.py **REQUIRES** `python-lxml`, `libxml2-dev` & `libxslt-dev`
 
 ```bash 
 sudo apt-get install python-lxml
@@ -29,3 +29,13 @@ sudo apt-get install libxml2-dev libxslt-dev python-dev
 ```
 
 `$LOCATION.location` keep file that represents *current* location. Sets the proper location varibles and paths for dropbox-uploader.
+
+RaspberryPi 3 does not allow ping to be run outside of SU. `network_restart.sh` placed in crontab bin folder and run as root.
+```bash
+sudo cp ./network_restart.sh /usr/local/bin/
+```
+Add the following to `/etc/crontab`:
+```
+*/5 * 	* * *	root	/usr/local/bin/network_restart.sh >> /var/log/network_restart.log 2>&1
+```
+
