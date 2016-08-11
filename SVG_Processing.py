@@ -996,7 +996,7 @@ while(1):
 			## Output data to the svg
         		
 			try:
-				output = codecs.open('TEST.svg', 'r', encoding='utf-8').read()
+				output = codecs.open('output/weather-script-output.svg', 'r', encoding='utf-8').read()
 				output = output.replace('CURDATE',today.strftime("%m/%d/%Y"))
 				output = output.replace('CURTIME', str(curr_time))
 				output = output.replace('SNRISE',sun_rise)
