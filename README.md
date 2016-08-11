@@ -1,4 +1,4 @@
-# Power Monitoring
+#Power Monitoring
 Homebrew home monitoring project. Includes multiple custom made weather sensors and Open Power Monitoring EmonTX v3 sensor for power usage.
 
 Samelessly borrowing code from andreafabrizi Dropbox-Uploader (https://github.com/andreafabrizi/Dropbox-Uploader/), dweeber WiFi-Check (https://github.com/dweeber/WiFi_Check), thanks!
@@ -30,7 +30,7 @@ sudo apt-get install libxml2-dev libxslt-dev python-dev
 
 `$LOCATION.location` keep file that represents *current* location. Sets the proper location varibles and paths for dropbox-uploader.
 
-RaspberryPi 3 does not allow ping to be run outside of SU. `network_restart.sh` placed in crontab bin folder and run as root.
+RaspberryPi 3 (NOOBS) does not allow ping to be run outside of SU. `network_restart.sh` placed in crontab bin folder and run as root.
 ```bash
 sudo cp ./network_restart.sh /usr/local/bin/
 ```
@@ -38,4 +38,13 @@ Add the following to `/etc/crontab`:
 ```
 */5 * 	* * *	root	/usr/local/bin/network_restart.sh >> /var/log/network_restart.log 2>&1
 ```
-
+Add the following to the *PI* user's crontab with `crontab -e`:
+```
+@reboot /home/pi/Power_Monitoring/Gateway_Logger.sh
+@reboot /home/pi/Power_Monitoring/Power_Monitor.sh
+@reboot /home/pi/Power_Monitoring/SVG_Processing.sh
+@reboot /home/pi/Power_Monitoring/SVG_PNG_Script.sh
+*/10 * * * * /home/pi/Power_Monitoring/tweeter.sh
+*/15 * * * * /home/pi/Power_Monitoring/Dropbox-Uploader/data_log_update.sh
+```
+Pushing to Kindle requires `apache2`
