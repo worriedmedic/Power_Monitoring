@@ -361,7 +361,7 @@ while(1):
 				humid = line.split(',')[5].strip('H')
 				volt = line.split(',')[6].strip('V')
 				rssi = line.split(',')[7].strip('\n')
-				dew = float(temp) - (float(9/25) * (100 - float(humid))) ##FROM DATA PROCESSING PYTHON SCRIPT
+				dew = float(temp) - (0.36 * (100 - float(humid))) ##FROM DATA PROCESSING PYTHON SCRIPT
 
 				if debug:
 					print(addr, temp, press, humid, volt, dew, rssi)
