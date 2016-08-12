@@ -384,8 +384,8 @@ while(1):
 						dew_0 = dew
 					elif (addr == '08'):
 						temp_1 = temp #INTERIOR
-					elif (addr == '05'):
-						temp_2 = temp
+					elif (addr == '05'): 
+						temp_2 = float(temp) #ATTIC
 					elif (addr == '07'):
 						temp_3 = temp
 
@@ -1008,7 +1008,10 @@ while(1):
 					output = output.replace('WGUS',str(max_wind_speed))
 				output = output.replace('TMPE',str(temp_0))
 				output = output.replace('TMPI',str(temp_1))
-				output = output.replace('TMPG',str(temp_2))
+				if temp_2 >= 100:
+					output = output.replace('TMPG',"{0:.1f}".format(temp_2))
+				elif temp_2 < 100:
+					output = output.replace('TMPG',"{0:.2f}".format(temp_2))
 				output = output.replace('TMPD',str(temp_3))
 			 	output = output.replace('PRESS',str(press_0))
 				output = output.replace('RLHUM',str(humid_0))
