@@ -368,26 +368,26 @@ while(1):
 
 				if location == 'cuttyhunk':
 					if (addr == '01'):
-						temp_0 = temp #EXTERIOR
-						temp_2 = temp
-						press_0 = press
-						humid_0 = humid
-						dew_0 = dew
+						temp_0 = float(temp) #EXTERIOR
+						temp_2 = float(temp)
+						press_0 = float(press)
+						humid_0 = float(humid)
+						dew_0 = float(dew)
 					elif (addr == '00'):
-						temp_1 = temp #INTERIOR
-						temp_3 = temp
+						temp_1 = float(temp) #INTERIOR
+						temp_3 = float(temp)
 				elif location == 'dover':
 					if (addr == '09'):
-						temp_0 = temp #EXTERIOR
-						press_0 = press
-						humid_0 = humid
-						dew_0 = dew
+						temp_0 = float(temp) #EXTERIOR
+						press_0 = float(press)
+						humid_0 = float(humid)
+						dew_0 = float(dew)
 					elif (addr == '08'):
-						temp_1 = temp #INTERIOR
+						temp_1 = float(temp) #INTERIOR
 					elif (addr == '05'): 
 						temp_2 = float(temp) #ATTIC
 					elif (addr == '07'):
-						temp_3 = temp
+						temp_3 = float(temp)
 
 			except Exception as e:
 				print("DATA SPLIT ERROR", str(today), now, e)
@@ -1006,15 +1006,33 @@ while(1):
 					output = output.replace('FORLO',str(exp_lo))
 					output = output.replace('WSP',str(avg_wind_speed))
 					output = output.replace('WGUS',str(max_wind_speed))
-				output = output.replace('TMPE',str(temp_0))
-				output = output.replace('TMPI',str(temp_1))
+
+				if temp_0 >= 100:
+					output = output.replace('TMPE',"{0:.1f}".format(temp_0))
+				elif temp_0 < 100:
+					output = output.replace('TMPE',"{0:.2f}".format(temp_0))
+
+				if temp_1 >= 100:
+					output = output.replace('TMPI',"{0:.1f}".format(temp_1))
+				elif temp_1 < 100:
+					output = output.replace('TMPI',"{0:.2f}".format(temp_1))
+
 				if temp_2 >= 100:
 					output = output.replace('TMPG',"{0:.1f}".format(temp_2))
 				elif temp_2 < 100:
 					output = output.replace('TMPG',"{0:.2f}".format(temp_2))
-				output = output.replace('TMPD',str(temp_3))
-			 	output = output.replace('PRESS',str(press_0))
-				output = output.replace('RLHUM',str(humid_0))
+
+				if temp_3 >= 100:
+					output = output.replace('TMPD',"{0:.1f}".format(temp_3))
+				elif temp_3 < 100:
+					output = output.replace('TMPD',"{0:.2f}".format(temp_3))
+
+				if press_0 >= 1000:
+					output = output.replace('PRESS',"{0:.0f}".format(press_0))
+				elif press_0 < 1000:
+					output = output.replace('PRESS',"{0:.1f}".format(press_0))
+
+				output = output.replace('RLHUM',"{0:.2f}".format(humid_0))
 				output = output.replace('DWPNT',"{0:.2f}".format(dew_0))
 				output = output.replace('TDNTY',str(tide_pre_type))
 				output = output.replace('TDNTM',old.strftime('%H:%M'))
