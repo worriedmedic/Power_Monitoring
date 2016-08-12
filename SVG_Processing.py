@@ -1012,7 +1012,7 @@ while(1):
 				output = output.replace('TMPD',str(temp_3))
 			 	output = output.replace('PRESS',str(press_0))
 				output = output.replace('RLHUM',str(humid_0))
-				output = output.replace('DWPNT',"{0:.2f}".format(dew))
+				output = output.replace('DWPNT',"{0:.2f}".format(dew_0))
 				output = output.replace('TDNTY',str(tide_pre_type))
 				output = output.replace('TDNTM',old.strftime('%H:%M'))
 				output = output.replace('TDNLV',str(tide_pre_mag))
