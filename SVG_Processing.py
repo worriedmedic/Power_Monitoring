@@ -113,7 +113,7 @@ dew_0 = [None]
 temp_1 = [None]
 
 ## INT: Station 2 - Outside, near the barn.
-tepm_2 = [None]
+temp_2 = [None]
 press_2 = [None]
 humid_2 = [None]
 
