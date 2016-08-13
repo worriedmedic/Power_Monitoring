@@ -105,21 +105,21 @@ wind_speed = [None] * 5
 wind_dir = [None] * 5
 
 ## INT: Station 0 - Inside the house. Top floor.
-temp_0 = [None]
-press_0 = [None]
-humid_0 = [None]
-dew_0 = [None]
+temp_0 = 0
+press_0 = 0
+humid_0 = 0
+dew_0 = 0
 
 ## INT: Station 1 - Inside the house. Bottom floor
-temp_1 = [None]
+temp_1 = 0
 
 ## INT: Station 2 - Outside, near the barn.
-temp_2 = [None]
-press_2 = [None]
-humid_2 = [None]
+temp_2 = 0
+press_2 = 0
+humid_2 = 0
 
 ## INT: Station 3
-temp_3 = [None]
+temp_3 = 0
 
 i = 0
 
