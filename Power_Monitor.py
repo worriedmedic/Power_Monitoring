@@ -34,8 +34,7 @@ with serial.Serial(addr,9600) as pt:
             buffer = spb.readline()  # read one line of text from serial port
             buffer = buffer.strip("\n")
         except Exception as e:
-            print("SERIAL READ ERROR", today, now, e)
-            traceback.print_exc()
+            print("SERIAL READ ERROR", today, now, e, traceback.extract_stack())
 
         x = str(today) + ',' + str(now) + ',' + str(buffer) + '\n'
 
@@ -56,16 +55,14 @@ with serial.Serial(addr,9600) as pt:
             cttotal = int(ct1p) + int(ct2p)
             
         except Exception as e:
-            print("DATA SPLIT ERROR", today, now, e, "::", buffer)
-            traceback.print_exc()
+            print("DATA SPLIT ERROR", today, now, e, buffer, traceback.extract_stack())
 
             ### Check output of above split ###
         if verbose == 'true':
             try:
                 print(cttotal,ct1p,ct2p,ct3p,ct4p,volt) 
             except Exception as e:
-                print("VERBOSE PRINT ERROR", today, now, e, "::", buffer)
-                traceback.print_exc()
+                print("VERBOSE PRINT ERROR", today, now, e, buffer, traceback.extract_stack())
         
         if txt_logging == 'true':
             try:
@@ -83,8 +80,7 @@ with serial.Serial(addr,9600) as pt:
                 outf.write(x)  # write line of text to file
                 outf.flush()  # make sure it actually gets written out
             except Exception as e:
-                print("DATA LOG ERROR", today, now, e, "::", buffer)
-                traceback.print_exc()
+                print("DATA LOG ERROR", today, now, e, buffer, traceback.extract_stack())
 
         if emoncms_update == 'true':
             try:
@@ -98,11 +94,9 @@ with serial.Serial(addr,9600) as pt:
                         print("EMCONMS Update FAILED", r)
 
             except requests.exceptions.RequestException as e:
-                print("EMONCMS REQUESTS ERROR", today, now, e, "::", buffer)
-                traceback.print_exc()
+                print("EMONCMS REQUESTS ERROR", today, now, e, buffer, traceback.extract_stack())
             except Exception as e:
-                print("EMONCMS GENERAL ERROR", today, now, e, "::", buffer)
-                traceback.print_exc()
+                print("EMONCMS GENERAL ERROR", today, now, e, buffer, traceback.extract_stack())
                 
         if thingspeak_update == 'true':
             url = 'https://api.thingspeak.com/update.json'
@@ -120,11 +114,9 @@ with serial.Serial(addr,9600) as pt:
                             print("Thingspeak Update OK")
 
                 except requests.exceptions.RequestException as e:
-                    print("THINGSPEAK REQUESTS ERROR", today, now, e, "::", buffer)
-                    traceback.print_exc()
+                    print("THINGSPEAK REQUESTS ERROR", today, now, e, buffer, traceback.extract_stack())
                 except Exception as e:
-                    print("THINGSPEAK GENERAL ERROR", today, now, e, "::", buffer)
-                    traceback.print_exc()
+                    print("THINGSPEAK GENERAL ERROR", today, now, e, buffer, traceback.extract_stack())
             
             else:
                 print("NOT PUSHED TO THINGSPEAK :: SENSOR ID NOT FOUND", buffer)
