@@ -45,7 +45,7 @@ else
     sleep 5
     ifup --force $wlan
     sleep 5
-    ifconfig $wlan | grep 'inet addr:' | tr -d '\n' | tr -d ' '
+    ifconfig $wlan | grep 'inet addr:' | tr -d ' '
 fi
 
 # echo "Pining $SERVER"
@@ -58,7 +58,7 @@ if [ $? != 0 ] ; then
     sleep 5
     ifup --force $wlan
     sleep 5
-    ifconfig $wlan | grep 'inet addr:' | tr -d '\n' | tr -d ' '
+    ifconfig $wlan | grep 'inet addr:' | tr -d ' '
 else
     echo " WAN up"
     
