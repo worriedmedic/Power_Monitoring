@@ -7,6 +7,7 @@ import codecs
 import urllib2
 import json
 from lxml import etree
+import traceback
 
 debug     = False
 verbose   = False
@@ -201,6 +202,7 @@ while(1):
 			
 		except Exception as e:
 			print("TIME UPDATE ERROR", str(today), now, e)
+			traceback.print_exc()
 
 		## GRABBING TIDES
 		# WILL PULL TIDE DATA FOR THE FOLLOWING 24 HOURS
@@ -213,6 +215,7 @@ while(1):
 				tide_datetime = tide_datetime.replace(today.year,today.month,today.day)
 			except Exception as e:
 				print("TIDE LIST ERROR", str(today), now, e)
+				traceback.print_exc()
 				
 		# IMPORT SUNRISE / SUNSET DATA
 		
@@ -228,6 +231,7 @@ while(1):
 				sun_down = sun_down[0:2] + ':' + sun_down[2:]
 		except Exception as e:
 			print("SUN TIME ERROR", str(today), now, e)
+			traceback.print_exc()
 
 		## Update expected Hi and Lo
 		# Assumptions:
@@ -249,6 +253,7 @@ while(1):
 						localjson.close()
 					except Exception as e:
 						print("WUNDER JSON LOAD ERROR", str(today), now, e)
+						traceback.print_exc()
 
 				localjson = open('resources/' + str(today) + '_forecast.json','rb')
 				json_string = localjson.read()
@@ -260,6 +265,7 @@ while(1):
          	
          	except Exception as e:
 			print("Wunder JSON Error", str(today), now, e)
+			traceback.print_exc()
 	
 		# Likely will break this out to another if/else that clarifies 
 		# if we have internet or not. If we dont have internet, 
@@ -307,6 +313,7 @@ while(1):
 				
 	except Exception as e:
 		print("Wunder JSON Error", str(today), now, e)
+		traceback.print_exc()
 	
 	minute = datetime.datetime.now()
 	try:
@@ -339,6 +346,7 @@ while(1):
 					print(tide_next_time)
 	except Exception as e:
 		print("TIDE UPDATE ERROR", str(today), now, e)
+		traceback.print_exc()
 	
 	now = time.strftime('%H:%M:%S')
 	curr_time = time.strftime('%H:%M')
@@ -391,6 +399,7 @@ while(1):
 
 			except Exception as e:
 				print("DATA SPLIT ERROR", str(today), now, e)
+				traceback.print_exc()
         		
 			## UPDATE BATTERY LEVEL ON SVG
 			try:
@@ -781,6 +790,7 @@ while(1):
 			
 			except Exception as e:
 				print("BATTERY SVG UPDATE ERROR", str(today), now, e)
+				traceback.print_exc()
 			
 			try:
 				tree = etree.parse(open(template_svg_filename, 'r'))
@@ -816,6 +826,7 @@ while(1):
 				tree.write('output/weather-script-output.svg')
 			except Exception as e:
 				print("PRESSURE ARROW ERROR", str(today), now, e)
+				traceback.print_exc()
 					
 			try:
 				tree = etree.parse(open('output/weather-script-output.svg', 'r'))
@@ -992,6 +1003,7 @@ while(1):
 				tree.write('output/weather-script-output.svg')
 			except Exception as e:
 			 	print("INFO TO SVG ERROR", str(today), now, e)
+			 	traceback.print_exc()
 	
 			## Output data to the svg
         		
@@ -1047,12 +1059,15 @@ while(1):
 				codecs.open('output/weather-script-output.svg', 'w', encoding='utf-8').write(output)
 			except Exception as e:
 				print("CODECS WRITE ERROR", str(today), now, e)
+				traceback.print_exc()
 			
 			break
 	
 	except IOError as e:
 		print("LOG FILE IO ERROR", str(today), now, e)
+		traceback.print_exc()
 		time.sleep(20)
 
 	except Exception as e:
         	print("LOG FILE OPEN ERROR", str(today), now, e)
+        	traceback.print_exc()
