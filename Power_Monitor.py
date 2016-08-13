@@ -8,6 +8,7 @@ import time
 import datetime
 import requests
 import os.path
+import traceback
 
 addr                = '/dev/ttyUSB1'  # serial port to read data from
 baud                = 9600   # baud rate for serial port
@@ -34,6 +35,7 @@ with serial.Serial(addr,9600) as pt:
             buffer = buffer.strip("\n")
         except Exception as e:
             print("SERIAL READ ERROR", today, now, e)
+            traceback.print_exc()
 
         x = str(today) + ',' + str(now) + ',' + str(buffer) + '\n'
 
@@ -55,13 +57,15 @@ with serial.Serial(addr,9600) as pt:
             
         except Exception as e:
             print("DATA SPLIT ERROR", today, now, e, "::", buffer)
-            
+            traceback.print_exc()
+
             ### Check output of above split ###
         if verbose == 'true':
             try:
                 print(cttotal,ct1p,ct2p,ct3p,ct4p,volt) 
             except Exception as e:
                 print("VERBOSE PRINT ERROR", today, now, e, "::", buffer)
+                traceback.print_exc()
         
         if txt_logging == 'true':
             try:
@@ -80,6 +84,7 @@ with serial.Serial(addr,9600) as pt:
                 outf.flush()  # make sure it actually gets written out
             except Exception as e:
                 print("DATA LOG ERROR", today, now, e, "::", buffer)
+                traceback.print_exc()
 
         if emoncms_update == 'true':
             try:
@@ -94,8 +99,10 @@ with serial.Serial(addr,9600) as pt:
 
             except requests.exceptions.RequestException as e:
                 print("EMONCMS REQUESTS ERROR", today, now, e, "::", buffer)
+                traceback.print_exc()
             except Exception as e:
                 print("EMONCMS GENERAL ERROR", today, now, e, "::", buffer)
+                traceback.print_exc()
                 
         if thingspeak_update == 'true':
             url = 'https://api.thingspeak.com/update.json'
@@ -114,8 +121,10 @@ with serial.Serial(addr,9600) as pt:
 
                 except requests.exceptions.RequestException as e:
                     print("THINGSPEAK REQUESTS ERROR", today, now, e, "::", buffer)
+                    traceback.print_exc()
                 except Exception as e:
                     print("THINGSPEAK GENERAL ERROR", today, now, e, "::", buffer)
+                    traceback.print_exc()
             
             else:
-                print("NOT PUSHED TO THINGSPEAK :: SENSOR ID NOT FOUND")
+                print("NOT PUSHED TO THINGSPEAK :: SENSOR ID NOT FOUND", buffer)
