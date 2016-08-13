@@ -1054,6 +1054,7 @@ while(1):
 				output = output.replace('TDFLV',str(tide_next_mag))
 			except Exception as e:
 				print("CODECS REPLACE ERROR", str(today), now, e)
+				traceback.print_exc()
 	
 			try:
 				codecs.open('output/weather-script-output.svg', 'w', encoding='utf-8').write(output)
