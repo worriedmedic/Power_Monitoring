@@ -61,7 +61,7 @@ with serial.Serial(addr,9600) as pt:
                 volt = buffer.split(',')[4].strip('V')
                 rssi = buffer.split(',')[5]
                 
-                dew = float(temp) - ((100 - float(humid)) / 5 ) ##FROM DATA PROCESSING PYTHON SCRIPT
+                dew = float(temp) - (0.36 * (100 - float(humid))) ##FROM DATA PROCESSING PYTHON SCRIPT
                 
             except Exception as e:
                 print("DATA SPLIT ERROR", today, now, e, traceback.extract_stack())
