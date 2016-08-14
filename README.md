@@ -6,6 +6,7 @@ Samelessly borrowing code from andreafabrizi Dropbox-Uploader (https://github.co
 Weather sensors baised on Arduino Pro Mini (8mhz, 3.3v) with BME280 atmospheric sensor (Temp, Press, Humidity) and Hope RFM95x trancever. Blindly transmits data (q96 sec) with unique ID. Data packets are read by a Arduino Pro Mini (8mhx, 3.3v) and Hope RFM95x transcever, passed on to a RaspberryPi 3 (NOOBS) via USB serial connection where front end processing is handeled in python (Gateway_Logger.py). 
 
 Weather Sensor Data Structure: `00(Address),T99.99(Temp-F),P1000.00(Pressure-hPa),H99.99(Humidity),V99.99(Voltage-%),099(RSSI)`
+Sensors seem to stop transmitting when voltage reaches ~81%.
 
 Open Power Monitoring EmonTXv3 modified for US use (Native to UK Grid). Ultility service 220V single phase AC, 200A. Requires two non-standard current transformers (CT) YHCD SCT019 0-200A 33mA (http://www.yhdc.com/en/product/347/). Data sent from EmonTXv3 (q10 sec) via serial USB to the RaspberryPi 3 where front end processing is handeled in python (Power_Logger.py). 
 
