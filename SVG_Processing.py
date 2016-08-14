@@ -9,7 +9,7 @@ import json
 from lxml import etree
 import traceback
 
-debug     = False
+debug     = True
 verbose   = False
 internet  = True
 
@@ -303,6 +303,10 @@ while(1):
 				wind_dir = parsed_json['current_observation']['wind_dir']
 				max_wind_speed = parsed_json['current_observation']['wind_gust_mph']
 				pressure_trend = parsed_json['current_observation']['pressure_trend']
+				
+				avg_wind_speed = float(avg_wind_speed)
+				max_wind_speed = float(max_wind_speed)
+				
 				if debug:
 					print(avg_wind_speed, wind_dir, max_wind_speed, pressure_trend)
 				
@@ -1005,8 +1009,8 @@ while(1):
 				if internet:
 					output = output.replace('FORHI',str(exp_hi))
 					output = output.replace('FORLO',str(exp_lo))
-					output = output.replace('WSP',str(avg_wind_speed))
-					output = output.replace('WGUS',str(max_wind_speed))
+					output = output.replace('WSP',avg_wind_speed)
+					output = output.replace('WGUS',"{0:.2f}".format(max_wind_speed))
 
 				if temp_0 >= 100:
 					output = output.replace('TMPE',"{0:.1f}".format(temp_0))
