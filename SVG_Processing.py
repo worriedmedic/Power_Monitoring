@@ -303,10 +303,6 @@ while(1):
 				wind_dir = parsed_json['current_observation']['wind_dir']
 				max_wind_speed = parsed_json['current_observation']['wind_gust_mph']
 				pressure_trend = parsed_json['current_observation']['pressure_trend']
-				
-				avg_wind_speed = float(avg_wind_speed)
-				max_wind_speed = float(max_wind_speed)
-				
 				if debug:
 					print(avg_wind_speed, wind_dir, max_wind_speed, pressure_trend)
 				
@@ -1002,49 +998,49 @@ while(1):
         		
 			try:
 				output = codecs.open('output/weather-script-output.svg', 'r', encoding='utf-8').read()
-				output = output.replace('CURDATE',today.strftime("%m/%d/%Y"))
+				output = output.replace('CURDATE', today.strftime("%m/%d/%Y"))
 				output = output.replace('CURTIME', str(curr_time))
-				output = output.replace('SNRISE',sun_rise)
-				output = output.replace('SNSET',sun_down)
+				output = output.replace('SNRISE', sun_rise)
+				output = output.replace('SNSET', sun_down)
 				if internet:
-					output = output.replace('FORHI',str(exp_hi))
-					output = output.replace('FORLO',str(exp_lo))
-					output = output.replace('WSP',avg_wind_speed)
-					output = output.replace('WGUS',"{0:.2f}".format(max_wind_speed))
+					output = output.replace('FORHI', str(exp_hi))
+					output = output.replace('FORLO', str(exp_lo))
+					output = output.replace('WSP', str(avg_wind_speed))
+					output = output.replace('WGUS', str(max_wind_speed))
 
 				if temp_0 >= 100:
-					output = output.replace('TMPE',"{0:.1f}".format(temp_0))
+					output = output.replace('TMPE', "{0:.1f}".format(temp_0))
 				elif temp_0 < 100:
-					output = output.replace('TMPE',"{0:.2f}".format(temp_0))
+					output = output.replace('TMPE', "{0:.2f}".format(temp_0))
 
 				if temp_1 >= 100:
-					output = output.replace('TMPI',"{0:.1f}".format(temp_1))
+					output = output.replace('TMPI', "{0:.1f}".format(temp_1))
 				elif temp_1 < 100:
-					output = output.replace('TMPI',"{0:.2f}".format(temp_1))
+					output = output.replace('TMPI', "{0:.2f}".format(temp_1))
 
 				if temp_2 >= 100:
-					output = output.replace('TMPG',"{0:.1f}".format(temp_2))
+					output = output.replace('TMPG', "{0:.1f}".format(temp_2))
 				elif temp_2 < 100:
-					output = output.replace('TMPG',"{0:.2f}".format(temp_2))
+					output = output.replace('TMPG', "{0:.2f}".format(temp_2))
 
 				if temp_3 >= 100:
-					output = output.replace('TMPD',"{0:.1f}".format(temp_3))
+					output = output.replace('TMPD', "{0:.1f}".format(temp_3))
 				elif temp_3 < 100:
-					output = output.replace('TMPD',"{0:.2f}".format(temp_3))
+					output = output.replace('TMPD', "{0:.2f}".format(temp_3))
 
 				if press_0 >= 1000:
-					output = output.replace('PRESS',"{0:.0f}".format(press_0))
+					output = output.replace('PRESS', "{0:.0f}".format(press_0))
 				elif press_0 < 1000:
-					output = output.replace('PRESS',"{0:.1f}".format(press_0))
+					output = output.replace('PRESS', "{0:.1f}".format(press_0))
 
-				output = output.replace('RLHUM',"{0:.2f}".format(humid_0))
-				output = output.replace('DWPNT',"{0:.2f}".format(dew_0))
-				output = output.replace('TDNTY',str(tide_pre_type))
-				output = output.replace('TDNTM',old.strftime('%H:%M'))
-				output = output.replace('TDNLV',str(tide_pre_mag))
-				output = output.replace('TDFTY',str(tide_next_type))
-				output = output.replace('TDFTM',tide_datetime.strftime('%H:%M'))
-				output = output.replace('TDFLV',str(tide_next_mag))
+				output = output.replace('RLHUM', "{0:.2f}".format(humid_0))
+				output = output.replace('DWPNT', "{0:.2f}".format(dew_0))
+				output = output.replace('TDNTY', str(tide_pre_type))
+				output = output.replace('TDNTM', old.strftime('%H:%M'))
+				output = output.replace('TDNLV', str(tide_pre_mag))
+				output = output.replace('TDFTY', str(tide_next_type))
+				output = output.replace('TDFTM', tide_datetime.strftime('%H:%M'))
+				output = output.replace('TDFLV', str(tide_next_mag))
 			except Exception as e:
 				print("CODECS REPLACE ERROR", str(today), now, e, traceback.extract_stack())
 	
