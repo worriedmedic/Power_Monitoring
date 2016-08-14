@@ -3,7 +3,7 @@ Homebrew home monitoring project. Includes multiple custom made weather sensors 
 
 Samelessly borrowing code from andreafabrizi Dropbox-Uploader (https://github.com/andreafabrizi/Dropbox-Uploader/), dweeber WiFi-Check (https://github.com/dweeber/WiFi_Check), thanks!
 
-Weather sensors baised on Arduino Pro Mini (8mhz, 3.3v) with BME280 atmospheric sensor (Temp, Press, Humidity) and Hope RFM95x trancever. Blindly transmits data (q96 sec) with unique ID. Data packets are read by a Arduino Pro Mini (8mhx, 3.3v) and Hope RFM95x transcever, passed on to a RaspberryPi 3 (NOOBS) via USB serial connection where front end processing is handeled in python (Gateway_Logger.py). 
+Weather sensors baised on Arduino Pro Mini (8mhz, 3.3v) with BME280 atmospheric sensor (Temp, Press, Humidity) and Hope RFM95x trancever, powered by x2 AA batteries. Blindly transmits data (q96 sec) with unique ID. Data packets are read by a Arduino Pro Mini (8mhx, 3.3v) and Hope RFM95x transcever, passed on to a RaspberryPi 3 (NOOBS) via USB serial connection where front end processing is handeled in python (Gateway_Logger.py). 
 
 Weather Sensor Data Structure: `00(Address),T99.99(Temp-F),P1000.00(Pressure-hPa),H99.99(Humidity),V99.99(Voltage-%),099(RSSI)`
 Sensors seem to stop transmitting when voltage reaches ~81%.
