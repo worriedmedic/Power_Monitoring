@@ -845,7 +845,7 @@ while(1):
 							elif element.get("id") == "wdnw":
 								element.attrib['class'] = 'st3'
 							if debug:
-								print(ch_wind_dir, "NORTH")
+								print(wind_dir, "NORTH")
 				elif wind_dir in ['NE']:
 					for element in tree.iter():
 						if element.tag.split("}")[1] == "path":
@@ -866,7 +866,7 @@ while(1):
 							elif element.get("id") == "wdnw":
 								element.attrib['class'] = 'st3'
 							if debug:
-								print(ch_wind_dir, "NORTH EAST")
+								print(wind_dir, "NORTH EAST")
 				elif wind_dir in ['ENE', 'E', 'ESE', 'East']:
 					for element in tree.iter():
 						if element.tag.split("}")[1] == "path":
@@ -887,7 +887,7 @@ while(1):
 							elif element.get("id") == "wdnw":
 								element.attrib['class'] = 'st3'
 							if debug:
-								print(ch_wind_dir, "EAST")
+								print(wind_dir, "EAST")
 				elif wind_dir in ['SE']:
 					for element in tree.iter():
 						if element.tag.split("}")[1] == "path":
@@ -908,7 +908,7 @@ while(1):
 							elif element.get("id") == "wdnw":
 								element.attrib['class'] = 'st3'
 							if debug:
-								print(ch_wind_dir, "SOUTH EAST")
+								print(wind_dir, "SOUTH EAST")
 				elif wind_dir in ['SSE', 'S', 'SSW', 'South']:
 					for element in tree.iter():
 						if element.tag.split("}")[1] == "path":
@@ -929,7 +929,7 @@ while(1):
 							elif element.get("id") == "wdnw":
 								element.attrib['class'] = 'st3'
 							if debug:
-								print(ch_wind_dir, "SOUTH")
+								print(wind_dir, "SOUTH")
 				elif wind_dir in ['SW']:
 					for element in tree.iter():
 						if element.tag.split("}")[1] == "path":
@@ -950,7 +950,7 @@ while(1):
 							elif element.get("id") == "wdnw":
 								element.attrib['class'] = 'st3'
 							if debug:
-								print(ch_wind_dir, "SOUTH WEST")
+								print(wind_dir, "SOUTH WEST")
 				elif wind_dir in ['WSW', 'W', 'WNW', 'West']:
 					for element in tree.iter():
 						if element.tag.split("}")[1] == "path":
@@ -971,7 +971,7 @@ while(1):
 							elif element.get("id") == "wdnw":
 								element.attrib['class'] = 'st3'
 							if debug:
-								print(ch_wind_dir, "WEST")
+								print(wind_dir, "WEST")
 				elif wind_dir in ['NW']:
 					for element in tree.iter():
 						if element.tag.split("}")[1] == "path":
@@ -992,7 +992,7 @@ while(1):
 							elif element.get("id") == "wdnw":
 								element.attrib['class'] = ''
 							if debug:
-								print(ch_wind_dir, "NORTH WEST")
+								print(wind_dir, "NORTH WEST")
 
 				tree.write('output/weather-script-output.svg')
 			except Exception as e:
