@@ -9,7 +9,7 @@ import json
 from lxml import etree
 import traceback
 
-debug     = True
+debug     = False
 verbose   = False
 internet  = True
 
