@@ -201,7 +201,7 @@ while(1):
 			fdirectory = 'data_log/' + time.strftime("%Y-%m")
 			
 		except Exception as e:
-			print("TIME UPDATE ERROR", str(today), now, e, traceback.extract_stack())
+			print("TIME UPD ERR", str(today), now, e, traceback.extract_stack())
 
 		## GRABBING TIDES
 		# WILL PULL TIDE DATA FOR THE FOLLOWING 24 HOURS
@@ -213,7 +213,7 @@ while(1):
 				tide_datetime = datetime.datetime.strptime(tide_next_time,'%I:%M %p')
 				tide_datetime = tide_datetime.replace(today.year,today.month,today.day)
 			except Exception as e:
-				print("TIDE LIST ERROR", str(today), now, e, traceback.extract_stack())
+				print("TIDE LST ERR", str(today), now, e, traceback.extract_stack())
 				
 		# IMPORT SUNRISE / SUNSET DATA
 		
@@ -228,7 +228,7 @@ while(1):
 				sun_rise = sun_rise[1]+':'+ sun_rise[2:]
 				sun_down = sun_down[0:2] + ':' + sun_down[2:]
 		except Exception as e:
-			print("SUN TIME ERROR", str(today), now, e, traceback.extract_stack())
+			print("SUN TIME ERR", str(today), now, e, traceback.extract_stack())
 
 		## Update expected Hi and Lo
 		# Assumptions:
@@ -249,7 +249,7 @@ while(1):
 						onlinejson.close()
 						localjson.close()
 					except Exception as e:
-						print("WUNDER JSON LOAD ERROR", str(today), now, e, traceback.extract_stack())
+						print("WUND FOR JSN LOAD ERR", str(today), now, e, traceback.extract_stack())
 
 				localjson = open('resources/' + str(today) + '_forecast.json','rb')
 				json_string = localjson.read()
@@ -260,7 +260,7 @@ while(1):
 					print(exp_hi, exp_lo)
          	
          	except Exception as e:
-			print("Wunder JSON Error", str(today), now, e, traceback.extract_stack())
+			print("WUND FOR JSN READ ERR", str(today), now, e, traceback.extract_stack())
 	
 		# Likely will break this out to another if/else that clarifies 
 		# if we have internet or not. If we dont have internet, 
@@ -294,7 +294,7 @@ while(1):
 					onlinejson.close()
 					localjson.close()
 				except Exception as e:
-					print("WUNDER JSON LOAD ERROR", str(today), now, e, traceback.extract_stack())
+					print("WUND CUR JSN LOAD ERR", str(today), now, e, traceback.extract_stack())
 
 				localjson = open('resources/' + str(today) + '_conditions.json','rb')
 				json_string = localjson.read()
@@ -307,7 +307,7 @@ while(1):
 					print(avg_wind_speed, wind_dir, max_wind_speed, pressure_trend)
 				
 	except Exception as e:
-		print("Wunder JSON Error", str(today), now, e, traceback.extract_stack())
+		print("WUND CON JSN READ ERR", str(today), now, e, traceback.extract_stack())
 	
 	minute = datetime.datetime.now()
 	try:
@@ -339,7 +339,7 @@ while(1):
 					print(tide_pre_time)
 					print(tide_next_time)
 	except Exception as e:
-		print("TIDE UPDATE ERROR", str(today), now, e, traceback.extract_stack())
+		print("TIDE UPD ERR", str(today), now, e, traceback.extract_stack())
 	
 	now = time.strftime('%H:%M:%S')
 	curr_time = time.strftime('%H:%M')
@@ -391,14 +391,14 @@ while(1):
 						temp_3 = float(temp)
 
 			except Exception as e:
-				print("DATA SPLIT ERROR", str(today), now, e, traceback.extract_stack())
+				print("DATA SPLIT ERR", str(today), now, e, traceback.extract_stack())
         		
 			## UPDATE BATTERY LEVEL ON SVG
 			try:
 				tree = etree.parse(open(template_svg_filename, 'r'))
         			
 				if (addr == bat1):
-					if (0 <= float(volt) < 50):
+					if (0 <= float(volt) < 80):
 						for element in tree.iter():
 							if element.tag.split("}")[1] == "path":
 								if element.get("id") == "b00Bat4":
@@ -412,8 +412,8 @@ while(1):
 								if element.get("id") == "b00Bat0":
 									element.attrib['class'] = ''
 								if debug:
-									print("00 - 0 to 50")
-					elif (50 <= float(volt) < 80): 
+									print(bat1, " - 0 to 80")
+					elif (80 <= float(volt) < 85): 
 						for element in tree.iter():
 							if element.tag.split("}")[1] == "path":
 								if element.get("id") == "b00Bat4":
@@ -427,8 +427,8 @@ while(1):
 								if element.get("id") == "b00Bat0":
 									element.attrib['class'] = ''
 								if debug:
-									print("00 - 50 to 80")
-					elif (80 <= float(volt) < 90): 
+									print(bat1, " - 80 to 85")
+					elif (85 <= float(volt) < 90): 
 						for element in tree.iter():
 							if element.tag.split("}")[1] == "path":
 								if element.get("id") == "b00Bat4":
@@ -442,7 +442,7 @@ while(1):
 								if element.get("id") == "b00Bat0":
 									element.attrib['class'] = ''
 								if debug:
-									print("00 - 80 to 90")
+									print(bat1, " - 80 to 90")
 					elif (90 <= float(volt) < 95): 
 						for element in tree.iter():
 							if element.tag.split("}")[1] == "path":
@@ -457,7 +457,7 @@ while(1):
 								if element.get("id") == "b00Bat0":
 									element.attrib['class'] = ''
 								if debug:
-									print("00 - 90 to 95")
+									print(bat1, " - 90 to 95")
 					elif (95 <= float(volt) < 100): 
 						for element in tree.iter():
 							if element.tag.split("}")[1] == "path":
@@ -472,9 +472,9 @@ while(1):
 								if element.get("id") == "b00Bat0":
 									element.attrib['class'] = ''
 								if debug:
-									print("00 - 95 to 100")
+									print(bat1, " - 95 to 100")
 				elif (addr == bat2):
-					if (0 <= float(volt) < 50):
+					if (0 <= float(volt) < 80):
 						for element in tree.iter():
 							if element.tag.split("}")[1] == "path":
 								if element.get("id") == "b01Bat4":
@@ -488,8 +488,8 @@ while(1):
 								if element.get("id") == "b01Bat0":
 									element.attrib['class'] = ''
 								if debug:
-									print("01 - 0 to 50")
-					elif (50 <= float(volt) < 80): 
+									print(bat2, " - 0 to 80")
+					elif (80 <= float(volt) < 85): 
 						for element in tree.iter():
 							if element.tag.split("}")[1] == "path":
 								if element.get("id") == "b01Bat4":
@@ -503,7 +503,7 @@ while(1):
 								if element.get("id") == "b01Bat0":
 									element.attrib['class'] = ''
 								if debug:
-									print("01 - 50 to 80")
+									print(bat2 + " - 80 to 50")
 					elif (80 <= float(volt) < 90): 
 						for element in tree.iter():
 							if element.tag.split("}")[1] == "path":
@@ -518,7 +518,7 @@ while(1):
 								if element.get("id") == "b01Bat0":
 									element.attrib['class'] = ''
 								if debug:
-									print("01 - 80 to 90")
+									print(bat2, " - 80 to 90")
 					elif (90 <= float(volt) < 95): 
 						for element in tree.iter():
 							if element.tag.split("}")[1] == "path":
@@ -533,7 +533,7 @@ while(1):
 								if element.get("id") == "b01Bat0":
 									element.attrib['class'] = ''
 								if debug:
-									print("01 - 90 to 95")
+									print(bat2, " - 90 to 95")
 					elif (95 <= float(volt) < 100): 
 						for element in tree.iter():
 							if element.tag.split("}")[1] == "path":
@@ -548,9 +548,9 @@ while(1):
 								if element.get("id") == "b01Bat0":
 									element.attrib['class'] = ''
 								if debug:
-									print("01 - 95 to 100")
+									print(bat2, " - 95 to 100")
 				elif (addr == bat3):
-					if (0 <= float(volt) < 50):
+					if (0 <= float(volt) < 80):
 						for element in tree.iter():
 							if element.tag.split("}")[1] == "path":
 								if element.get("id") == "b02Bat4":
@@ -564,8 +564,8 @@ while(1):
 								if element.get("id") == "b02Bat0":
 									element.attrib['class'] = ''
 								if debug:
-									print("02 - 0 to 50")
-					elif (50 <= float(volt) < 80): 
+									print(bat3, " - 0 to 80")
+					elif (80 <= float(volt) < 85): 
 						for element in tree.iter():
 							if element.tag.split("}")[1] == "path":
 								if element.get("id") == "b02Bat4":
@@ -579,8 +579,8 @@ while(1):
 								if element.get("id") == "b02Bat0":
 									element.attrib['class'] = ''
 								if debug:
-									print("02 - 50 to 80")
-					elif (80 <= float(volt) < 90): 
+									print(bat3, " - 80 to 85")
+					elif (85 <= float(volt) < 90): 
 						for element in tree.iter():
 							if element.tag.split("}")[1] == "path":
 								if element.get("id") == "b02Bat4":
@@ -594,7 +594,7 @@ while(1):
 								if element.get("id") == "b02Bat0":
 									element.attrib['class'] = ''
 								if debug:
-									print("02 - 80 to 90")
+									print(bat3, " - 85 to 90")
 					elif (90 <= float(volt) < 95): 
 						for element in tree.iter():
 							if element.tag.split("}")[1] == "path":
@@ -609,7 +609,7 @@ while(1):
 								if element.get("id") == "b02Bat0":
 									element.attrib['class'] = ''
 								if debug:
-									print("02 - 90 to 95")
+									print(bat3, " - 90 to 95")
 					elif (95 <= float(volt) < 100): 
 						for element in tree.iter():
 							if element.tag.split("}")[1] == "path":
@@ -624,9 +624,9 @@ while(1):
 								if element.get("id") == "b02Bat0":
 									element.attrib['class'] = ''
 								if debug:
-									print("02 - 95 to 100")
+									print(bat3, " - 95 to 100")
 				elif (addr == bat4):
-					if (0 <= float(volt) < 50):
+					if (0 <= float(volt) < 80):
 						for element in tree.iter():
 							if element.tag.split("}")[1] == "path":
 								if element.get("id") == "b03Bat4":
@@ -640,8 +640,8 @@ while(1):
 								if element.get("id") == "b03Bat0":
 									element.attrib['class'] = ''
 								if debug:
-									print("02 - 0 to 50")
-					elif (50 <= float(volt) < 80): 
+									print(bat4, " - 0 to 80")
+					elif (80 <= float(volt) < 85): 
 						for element in tree.iter():
 							if element.tag.split("}")[1] == "path":
 								if element.get("id") == "b03Bat4":
@@ -655,8 +655,8 @@ while(1):
 								if element.get("id") == "b03Bat0":
 									element.attrib['class'] = ''
 								if debug:
-									print("02 - 50 to 80")
-					elif (80 <= float(volt) < 90): 
+									print(bat4, " - 80 to 85")
+					elif (85 <= float(volt) < 90): 
 						for element in tree.iter():
 							if element.tag.split("}")[1] == "path":
 								if element.get("id") == "b03Bat4":
@@ -670,7 +670,7 @@ while(1):
 								if element.get("id") == "b03Bat0":
 									element.attrib['class'] = ''
 								if debug:
-									print("02 - 80 to 90")
+									print(bat4, " - 85 to 90")
 					elif (90 <= float(volt) < 95): 
 						for element in tree.iter():
 							if element.tag.split("}")[1] == "path":
@@ -685,7 +685,7 @@ while(1):
 								if element.get("id") == "b03Bat0":
 									element.attrib['class'] = ''
 								if debug:
-									print("02 - 90 to 95")
+									print(bat4, " - 90 to 95")
 					elif (95 <= float(volt) < 100): 
 						for element in tree.iter():
 							if element.tag.split("}")[1] == "path":
@@ -700,9 +700,9 @@ while(1):
 								if element.get("id") == "b03Bat0":
 									element.attrib['class'] = ''
 								if debug:
-									print("02 - 95 to 100")
+									print(bat4, " - 95 to 100")
 				elif (addr == bat5):
-					if (0 <= float(volt) < 50):
+					if (0 <= float(volt) < 80):
 						for element in tree.iter():
 							if element.tag.split("}")[1] == "path":
 								if element.get("id") == "b04Bat4":
@@ -716,8 +716,8 @@ while(1):
 								if element.get("id") == "b04Bat0":
 									element.attrib['class'] = ''
 								if debug:
-									print("02 - 0 to 50")
-					elif (50 <= float(volt) < 80): 
+									print(bat5, " - 0 to 80")
+					elif (80 <= float(volt) < 85): 
 						for element in tree.iter():
 							if element.tag.split("}")[1] == "path":
 								if element.get("id") == "b04Bat4":
@@ -731,8 +731,8 @@ while(1):
 								if element.get("id") == "b04Bat0":
 									element.attrib['class'] = ''
 								if debug:
-									print("02 - 50 to 80")
-					elif (80 <= float(volt) < 90): 
+									print(bat5, " - 80 to 85")
+					elif (85 <= float(volt) < 90): 
 						for element in tree.iter():
 							if element.tag.split("}")[1] == "path":
 								if element.get("id") == "b04Bat4":
@@ -746,7 +746,7 @@ while(1):
 								if element.get("id") == "b04Bat0":
 									element.attrib['class'] = ''
 								if debug:
-									print("02 - 80 to 90")
+									print(bat5, " - 80 to 90")
 					elif (90 <= float(volt) < 95): 
 						for element in tree.iter():
 							if element.tag.split("}")[1] == "path":
@@ -761,7 +761,7 @@ while(1):
 								if element.get("id") == "b04Bat0":
 									element.attrib['class'] = ''
 								if debug:
-									print("02 - 90 to 95")
+									print(bat5, " - 90 to 95")
 					elif (95 <= float(volt) < 100): 
 						for element in tree.iter():
 							if element.tag.split("}")[1] == "path":
@@ -776,12 +776,12 @@ while(1):
 								if element.get("id") == "b04Bat0":
 									element.attrib['class'] = ''
 								if debug:
-									print("02 - 95 to 100")
+									print(bat5, " - 95 to 100")
 									
 				tree.write(template_svg_filename)
 			
 			except Exception as e:
-				print("BATTERY SVG UPDATE ERROR", str(today), now, e, traceback.extract_stack())
+				print("BAT SVG UPD ERR", str(today), now, e, traceback.extract_stack())
 			
 			try:
 				tree = etree.parse(open(template_svg_filename, 'r'))
@@ -816,7 +816,7 @@ while(1):
 	
 				tree.write('output/weather-script-output.svg')
 			except Exception as e:
-				print("PRESSURE ARROW ERROR", str(today), now, e, traceback.extract_stack())
+				print("PRES TND SVG UPD ERR", str(today), now, e, traceback.extract_stack())
 					
 			try:
 				tree = etree.parse(open('output/weather-script-output.svg', 'r'))
@@ -992,7 +992,7 @@ while(1):
 
 				tree.write('output/weather-script-output.svg')
 			except Exception as e:
-			 	print("INFO TO SVG ERROR", str(today), now, e, traceback.extract_stack())
+			 	print("WIND SVG UPD ERR", str(today), now, e, traceback.extract_stack())
 	
 			## Output data to the svg
         		
@@ -1042,18 +1042,18 @@ while(1):
 				output = output.replace('TDFTM', tide_datetime.strftime('%H:%M'))
 				output = output.replace('TDFLV', str(tide_next_mag))
 			except Exception as e:
-				print("CODECS REPLACE ERROR", str(today), now, e, traceback.extract_stack())
+				print("CODEC REPLACE ERR", str(today), now, e, traceback.extract_stack())
 	
 			try:
 				codecs.open('output/weather-script-output.svg', 'w', encoding='utf-8').write(output)
 			except Exception as e:
-				print("CODECS WRITE ERROR", str(today), now, e, traceback.extract_stack())
+				print("SVG WRITE ERR", str(today), now, e, traceback.extract_stack())
 			
 			break
 	
 	except IOError as e:
-		print("LOG FILE IO ERROR", str(today), now, e, traceback.extract_stack())
+		print("LOG FILE IO ERR", str(today), now, e, traceback.extract_stack())
 		time.sleep(20)
 
 	except Exception as e:
-        	print("LOG FILE OPEN ERROR", str(today), now, e, traceback.extract_stack())
+        	print("GENERIC LOG FILE ERR", str(today), now, e, traceback.extract_stack())
