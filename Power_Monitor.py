@@ -9,6 +9,7 @@ import datetime
 import requests
 import os.path
 import traceback
+import sys
 
 addr                = '/dev/ttyUSB1'  # serial port to read data from
 baud                = 9600   # baud rate for serial port
@@ -25,8 +26,7 @@ with serial.Serial(addr,9600) as pt:
         spb.readline()
     except Exception as e:
         print("SERIAL READ ERROR")
-        time.sleep(0.1)
-        traceback.print_exc()
+        traceback.print_exc(file=sys.stdout)
 
     while (1):
         now = time.strftime("%H:%M:%S") # Call time of serial read
@@ -37,8 +37,7 @@ with serial.Serial(addr,9600) as pt:
             buffer = buffer.strip("\n")
         except Exception as e:
             print("SERIAL READ ERROR", today, now)
-            time.sleep(0.1)
-            traceback.print_exc()
+            traceback.print_exc(file=sys.stdout)
 
         x = str(today) + ',' + str(now) + ',' + str(buffer) + '\n'
 
@@ -60,8 +59,7 @@ with serial.Serial(addr,9600) as pt:
             
         except Exception as e:
             print("DATA SPLIT ERROR", today, now, buffer)
-            time.sleep(0.1)
-            traceback.print_exc()
+            traceback.print_exc(file=sys.stdout)
 
             ### Check output of above split ###
         if verbose:
@@ -69,8 +67,7 @@ with serial.Serial(addr,9600) as pt:
                 print(cttotal,ct1p,ct2p,ct3p,ct4p,volt) 
             except Exception as e:
                 print("VERBOSE PRINT ERROR", today, now, buffer)
-                time.sleep(0.1)
-                traceback.print_exc()
+                traceback.print_exc(file=sys.stdout)
         
         if txt_logging:
             try:
@@ -89,8 +86,7 @@ with serial.Serial(addr,9600) as pt:
                 outf.flush()  # make sure it actually gets written out
             except Exception as e:
                 print("DATA LOG ERROR", today, now, buffer)
-                time.sleep(0.1)
-                traceback.print_exc()
+                traceback.print_exc(file=sys.stdout)
 
         if emoncms_update:
             try:
@@ -105,12 +101,10 @@ with serial.Serial(addr,9600) as pt:
 
             except requests.exceptions.RequestException as e:
                 print("EMONCMS REQUESTS ERROR", today, now, buffer)
-                time.sleep(0.1)
-                traceback.print_exc()
+                traceback.print_exc(file=sys.stdout)
             except Exception as e:
                 print("EMONCMS GENERAL ERROR", today, now, buffer)
-                time.sleep(0.1)
-                traceback.print_exc()
+                traceback.print_exc(file=sys.stdout)
                 
         if thingspeak_update:
             url = 'https://api.thingspeak.com/update.json'
@@ -129,12 +123,10 @@ with serial.Serial(addr,9600) as pt:
 
                 except requests.exceptions.RequestException as e:
                     print("THINGSPEAK REQUESTS ERROR", today, now, buffer)
-                    time.sleep(0.1)
-                    traceback.print_exc()
+                    traceback.print_exc(file=sys.stdout)
                 except Exception as e:
                     print("THINGSPEAK GENERAL ERROR", today, now, buffer)
-                    time.sleep(0.1)
-                    traceback.print_exc()
+                    traceback.print_exc(file=sys.stdout)
             
             else:
                 print("NOT PUSHED TO THINGSPEAK :: SENSOR ID NOT FOUND", buffer)
