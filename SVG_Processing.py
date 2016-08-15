@@ -303,9 +303,10 @@ while(1):
 						localjson.write(chunk)
 					onlinejson.close()
 					localjson.close()
-				except Exception as e:
+				except Exception:
 					print("WUND CUR JSN LOAD ERR", str(today), now)
-					traceback.print_exc()
+					traceback.print_exc(file=sys.stdout)
+					print('-' * 60)
 
 				localjson = open('resources/' + str(today) + '_conditions.json','rb')
 				json_string = localjson.read()
@@ -317,9 +318,10 @@ while(1):
 				if debug:
 					print(avg_wind_speed, wind_dir, max_wind_speed, pressure_trend)
 				
-	except Exception as e:
+	except Exception:
 		print("WUND CON JSN READ ERR", str(today), now)
-		traceback.print_exc()
+		traceback.print_exc(file=sys.stdout)
+		print('-' * 60)
 	
 	minute = datetime.datetime.now()
 	try:
@@ -350,9 +352,10 @@ while(1):
 					print(tide_list)
 					print(tide_pre_time)
 					print(tide_next_time)
-	except Exception as e:
+	except Exception:
 		print("TIDE UPD ERR", str(today), now)
-		traceback.print_exc()
+		traceback.print_exc(file=sys.stdout)
+		print('-' * 60)
 	
 	now = time.strftime('%H:%M:%S')
 	curr_time = time.strftime('%H:%M')
@@ -403,9 +406,10 @@ while(1):
 					elif (addr == '07'):
 						temp_3 = float(temp)
 
-			except Exception as e:
+			except Exception:
 				print("DATA SPLIT ERR", str(today), now)
-				traceback.print_exc()
+				traceback.print_exc(file=sys.stdout)
+				print('-' * 60)
         		
 			## UPDATE BATTERY LEVEL ON SVG
 			try:
@@ -794,9 +798,10 @@ while(1):
 									
 				tree.write(template_svg_filename)
 			
-			except Exception as e:
+			except Exception:
 				print("BAT SVG UPD ERR", str(today), now)
-				traceback.print_exc()
+				traceback.print_exc(file=sys.stdout)
+				print('-' * 60)
 			
 			try:
 				tree = etree.parse(open(template_svg_filename, 'r'))
@@ -830,8 +835,11 @@ while(1):
 								element.attrib['class'] = ''
 	
 				tree.write('output/weather-script-output.svg')
-			except Exception as e:
-				print("PRES TND SVG UPD ERR", str(today), now, e, traceback.extract_stack())
+				
+			except Exception:
+				print("PRES TND SVG UPD ERR", str(today), now)
+				traceback.print_exc(file=sys.stdout)
+				print('-' * 60)
 					
 			try:
 				tree = etree.parse(open('output/weather-script-output.svg', 'r'))
@@ -1006,9 +1014,11 @@ while(1):
 								print(wind_dir, "NORTH WEST")
 
 				tree.write('output/weather-script-output.svg')
-			except Exception as e:
+
+			except Exception:
 			 	print("WIND SVG UPD ERR", str(today), now)
-			 	traceback.print_exc()
+				traceback.print_exc(file=sys.stdout)
+				print('-' * 60)
 	
 			## Output data to the svg
         		
@@ -1057,21 +1067,29 @@ while(1):
 				output = output.replace('TDFTY', str(tide_next_type))
 				output = output.replace('TDFTM', tide_datetime.strftime('%H:%M'))
 				output = output.replace('TDFLV', str(tide_next_mag))
-			except Exception as e:
-				print("CODEC REPLACE ERR", str(today), now, e, traceback.extract_stack())
+
+			except Exception:
+				print("CODEC REPLACE ERR", str(today), now)
+				traceback.print_exc(file=sys.stdout)
+				print('-' * 60)
 	
 			try:
 				codecs.open('output/weather-script-output.svg', 'w', encoding='utf-8').write(output)
-			except Exception as e:
-				print("SVG WRITE ERR", str(today), now, e, traceback.extract_stack())
+
+			except Exception:
+				print("SVG WRITE ERR", str(today), now)
+				traceback.print_exc(file=sys.stdout)
+				print('-' * 60)
 			
 			break
 	
-	except IOError as e:
+	except IOError:
 		print("LOG FILE IO ERR", str(today), now)
-		traceback.print_exc()
+		traceback.print_exc(file=sys.stdout)
+		print('-' * 60)
 		time.sleep(20)
 
-	except Exception as e:
+	except Exception:
         	print("GENERIC LOG FILE ERR", str(today), now)
-        	traceback.print_exc()
+        	traceback.print_exc(file=sys.stdout)
+		print('-' * 60)
