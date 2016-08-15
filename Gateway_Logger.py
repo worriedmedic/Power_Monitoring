@@ -50,7 +50,7 @@ with serial.Serial(addr,9600) as pt:
         try:
             addr  = buffer[0:2]
         except Exception as e:
-            print "ADDRESS ERROR", today, now
+            print("ADDRESS ERROR", today, now)
             raise
 
 
@@ -66,7 +66,7 @@ with serial.Serial(addr,9600) as pt:
                 dew = float(temp) - (0.36 * (100 - float(humid))) ##FROM DATA PROCESSING PYTHON SCRIPT
                 
             except Exception as e:
-                print "DATA SPLIT ERROR", today, now
+                print("DATA SPLIT ERROR", today, now)
                 raise
             
         if txt_logging:
@@ -85,7 +85,7 @@ with serial.Serial(addr,9600) as pt:
                 outf.write(x)  # write line of text to file
                 outf.flush()  # make sure it actually gets written out
             except Exception as e:
-                print "DATA LOG ERROR", today, now
+                print("DATA LOG ERROR", today, now)
                 raise
 
         if emoncms_update:
@@ -95,15 +95,15 @@ with serial.Serial(addr,9600) as pt:
                 if verbose:
                     print(r.text)
                     if "ok" in r:
-                        print "EMONCMS Update OK"
+                        print("EMONCMS Update OK")
                     else:
-                        print "EMCONMS Update FAILED"
+                        print("EMCONMS Update FAILED")
                         
             except requests.exceptions.RequestException as e:
-                print "EMONCMS REQUESTS ERROR", today, now
+                print("EMONCMS REQUESTS ERROR", today, now)
                 raise
             except Exception as e:
-                print "EMONCMS GENERAL ERROR", today, now
+                print("EMONCMS GENERAL ERROR", today, now)
                 raise
         
         if thingspeak_update:
@@ -116,15 +116,15 @@ with serial.Serial(addr,9600) as pt:
                     if verbose:
                         print(r.text)
                         if r.text == "0":
-                            print "Thingspeak Update FAILED"
+                            print("Thingspeak Update FAILED")
                         else:
-                            print "Thingspeak Update OK"
+                            print("Thingspeak Update OK")
                             
                 except requests.exceptions.RequestException as e:
-                    print "THINGSPEAK REQUESTS ERROR", today, now
+                    print("THINGSPEAK REQUESTS ERROR", today, now)
                     raise
                 except Exception as e:
-                    print "THINGSPEAK GENERAL ERROR", today, now
+                    print("THINGSPEAK GENERAL ERROR", today, now)
                     raise
             
             elif addr == '01':
@@ -135,15 +135,15 @@ with serial.Serial(addr,9600) as pt:
                     if verbose:
                         print(r.text)
                         if r.text == "0":
-                            print "Thingspeak Update FAILED"
+                            print("Thingspeak Update FAILED")
                         else:
-                            print "Thingspeak Update OK"
+                            print("Thingspeak Update OK")
                             
                 except requests.exceptions.RequestException as e:
-                    print "THINGSPEAK REQUESTS ERROR", today, now
+                    print("THINGSPEAK REQUESTS ERROR", today, now)
                     raise
                 except Exception as e:
-                    print "THINGSPEAK GENERAL ERROR", today, now
+                    print("THINGSPEAK GENERAL ERROR", today, now)
                     raise
 
             elif addr == '02':
@@ -154,15 +154,15 @@ with serial.Serial(addr,9600) as pt:
                     if verbose:
                         print(r.text)
                         if r.text == "0":
-                            print "Thingspeak Update FAILED"
+                            print("Thingspeak Update FAILED")
                         else:
-                            print "Thingspeak Update OK"
+                            print("Thingspeak Update OK")
                             
                 except requests.exceptions.RequestException as e:
-                    print "THINGSPEAK REQUESTS ERROR", today, now
+                    print("THINGSPEAK REQUESTS ERROR", today, now)
                     raise
                 except Exception as e:
-                    print "THINGSPEAK GENERAL ERROR", today, now
+                    print("THINGSPEAK GENERAL ERROR", today, now)
                     raise
                     
             elif addr == '05':
@@ -173,15 +173,15 @@ with serial.Serial(addr,9600) as pt:
                     if verbose:
                         print(r.text)
                         if r.text == "0":
-                            print "Thingspeak Update FAILED"
+                            print("Thingspeak Update FAILED")
                         else:
-                            print "Thingspeak Update OK"
+                            print("Thingspeak Update OK")
                             
                 except requests.exceptions.RequestException as e:
-                    print "THINGSPEAK REQUESTS ERROR", today, now
+                    print("THINGSPEAK REQUESTS ERROR", today, now)
                     raise
                 except Exception as e:
-                    print "THINGSPEAK GENERAL ERROR", today, now
+                    print("THINGSPEAK GENERAL ERROR", today, now)
                     raise
                         
             elif addr == '06':
@@ -192,15 +192,15 @@ with serial.Serial(addr,9600) as pt:
                     if verbose:
                         print(r.text)
                         if r.text == "0":
-                            print "Thingspeak Update FAILED"
+                            print("Thingspeak Update FAILED")
                         else:
                             print("Thingspeak Update OK")
                             
                 except requests.exceptions.RequestException as e:
-                    print "THINGSPEAK REQUESTS ERROR", today, now
+                    print("THINGSPEAK REQUESTS ERROR", today, now)
                     raise
                 except Exception as e:
-                    print "THINGSPEAK GENERAL ERROR", today, now
+                    print("THINGSPEAK GENERAL ERROR", today, now)
                     raise
             
             elif addr == '07':
@@ -211,15 +211,15 @@ with serial.Serial(addr,9600) as pt:
                     if verbose:
                         print(r.text)
                         if r.text == "0":
-                            print "Thingspeak Update FAILED"
+                            print("Thingspeak Update FAILED")
                         else:
-                            print "Thingspeak Update OK"
+                            print("Thingspeak Update OK")
                             
                 except requests.exceptions.RequestException as e:
-                    print "THINGSPEAK REQUESTS ERROR", today, now
+                    print("THINGSPEAK REQUESTS ERROR", today, now)
                     raise
                 except Exception as e:
-                    print "THINGSPEAK GENERAL ERROR", today, now
+                    print("THINGSPEAK GENERAL ERROR", today, now)
                     raise
             
             elif addr == '08':
@@ -230,15 +230,15 @@ with serial.Serial(addr,9600) as pt:
                     if verbose:
                         print(r.text)
                         if r.text == "0":
-                            print "Thingspeak Update FAILED"
+                            print("Thingspeak Update FAILED")
                         else:
-                            print "Thingspeak Update OK"
+                            print("Thingspeak Update OK")
                             
                 except requests.exceptions.RequestException as e:
-                    print "THINGSPEAK REQUESTS ERROR", today, now
+                    print("THINGSPEAK REQUESTS ERROR", today, now)
                     raise
                 except Exception as e:
-                    print "THINGSPEAK GENERAL ERROR", today, now
+                    print("THINGSPEAK GENERAL ERROR", today, now)
                     raise
             
             elif addr == '09':
@@ -249,16 +249,16 @@ with serial.Serial(addr,9600) as pt:
                     if verbose:
                         print(r.text)
                         if r.text == "0":
-                            print "Thingspeak Update FAILED"
+                            print("Thingspeak Update FAILED")
                         else:
-                            print "Thingspeak Update OK"
+                            print("Thingspeak Update OK")
                             
                 except requests.exceptions.RequestException as e:
-                    print "THINGSPEAK REQUESTS ERROR", today, now
+                    print("THINGSPEAK REQUESTS ERROR", today, now)
                     raise
                 except Exception as e:
-                    print "THINGSPEAK GENERAL ERROR", today, now
+                    print("THINGSPEAK GENERAL ERROR", today, now)
                     raise
             
             else:
-                print "NOT PUSHED TO THINGSPEAK :: SENSOR ID NOT FOUND", buffer
+                print("NOT PUSHED TO THINGSPEAK :: SENSOR ID NOT FOUND", buffer)
