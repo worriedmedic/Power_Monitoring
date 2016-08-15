@@ -39,7 +39,7 @@ with serial.Serial(addr,9600) as pt:
             buffer = buffer.strip("\n")
             
         except Exception as e:
-            print "SERIAL READ ERROR" + today + now
+            print 'SERIAL READ ERROR', today, now
             raise
 
         x = str(today) + ',' + str(now) + ',' + str(buffer) + '\n'
