@@ -9,6 +9,7 @@ import datetime
 import requests
 import os.path
 import traceback
+import sys
 
 url     = 'https://api.thingspeak.com/apps/thingtweet/1/statuses/update'
 logging = False
@@ -31,12 +32,14 @@ def thingspeaktweet(api_key):
         if debug:
             print(str(today), now, r.text)
             
-    except requests.exceptions.RequestException as e:
+    except requests.exceptions.RequestException:
         print("TWEETAPI REQUESTS ERROR", str(today), now)
-        traceback.print_exc()
-    except Exception as e:
+		traceback.print_exc(file=sys.stdout)
+		print('-' * 60)
+    except Exception:
         print("TWEETAPI GENERIC ERROR", str(today), now)
-        traceback.print_exc()
+		traceback.print_exc(file=sys.stdout)
+		print('-' * 60)
         
     if logging:
         try:
@@ -52,14 +55,16 @@ def thingspeaktweet(api_key):
             outf = open(os.path.join(fdirectory, fname), fmode)
             outf.write(log)
             outf.flush()
-        except Exception as e:
+        except Exception:
             print("DATA LOG ERROR", today, now)
-            traceback.print_exc()
+			traceback.print_exc(file=sys.stdout)
+			print('-' * 60)
 
 try:
     now = time.strftime("%H:%M:%S")
     today = str(datetime.date.today())
     thingspeaktweet(api_key)
-except Exception as e:
+except Exception:
     print("GENERIC ERROR", today, now)
-    traceback.print_exc()
+	traceback.print_exc(file=sys.stdout)
+	print('-' * 60)
