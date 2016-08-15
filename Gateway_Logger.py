@@ -9,6 +9,7 @@ import datetime
 import requests
 import os.path
 import traceback
+import sys
 
 baud                = 9600   # baud rate for serial port
 thingspeak_update   = True # Turn on/off updating to ThingSpeak
@@ -27,9 +28,10 @@ with serial.Serial(addr,9600) as pt:
         spb.readline()  # throw away first 3 lines; likely to start mid-sentence (incomplete)
         spb.readline()
         spb.readline()
-    except Exception as e:
+    except Exception:
         print("SERIAL READ ERROR")
-        traceback.print_exc()
+        traceback.print_exc(file=sys.stdout)
+        print('-' * 60)
 
     while (1):
         now = time.strftime("%H:%M:%S") # Call time of serial read
@@ -39,9 +41,10 @@ with serial.Serial(addr,9600) as pt:
             buffer = spb.readline()  # read one line of text from serial port
             buffer = buffer.strip("\n")
             
-        except Exception as e:
+        except Exception:
             print("SERIAL READ ERROR", today, now)
-            traceback.print_exc()
+            traceback.print_exc(file=sys.stdout)
+            print('-' * 60)
 
         x = str(today) + ',' + str(now) + ',' + str(buffer) + '\n'
 
@@ -50,9 +53,10 @@ with serial.Serial(addr,9600) as pt:
 
         try:
             addr  = buffer[0:2]
-        except Exception as e:
+        except Exception:
             print("ADDRESS ERROR", today, now)
-            traceback.print_exc()
+            traceback.print_exc(file=sys.stdout)
+            print('-' * 60)
 
 
         if addr.startswith('0'):
@@ -66,9 +70,10 @@ with serial.Serial(addr,9600) as pt:
                 
                 dew = float(temp) - (0.36 * (100 - float(humid))) ##FROM DATA PROCESSING PYTHON SCRIPT
                 
-            except Exception as e:
+            except Exception:
                 print("DATA SPLIT ERROR", today, now)
-                traceback.print_exc()
+                traceback.print_exc(file=sys.stdout)
+                print('-' * 60)
             
         if txt_logging:
             try:
@@ -85,9 +90,10 @@ with serial.Serial(addr,9600) as pt:
                 outf = open(os.path.join(fdirectory, fname), fmode)
                 outf.write(x)  # write line of text to file
                 outf.flush()  # make sure it actually gets written out
-            except Exception as e:
+            except Exception:
                 print("DATA LOG ERROR", today, now)
-                traceback.print_exc()
+                traceback.print_exc(file=sys.stdout)
+                print('-' * 60)
 
         if emoncms_update:
             try:
@@ -100,12 +106,14 @@ with serial.Serial(addr,9600) as pt:
                     else:
                         print("EMCONMS Update FAILED")
                         
-            except requests.exceptions.RequestException as e:
+            except requests.exceptions.RequestException:
                 print("EMONCMS REQUESTS ERROR", today, now)
-                traceback.print_exc()
-            except Exception as e:
+                traceback.print_exc(file=sys.stdout)
+                print('-' * 60)
+            except Exception:
                 print("EMONCMS GENERAL ERROR", today, now)
-                traceback.print_exc()
+                traceback.print_exc(file=sys.stdout)
+                print('-' * 60)
         
         if thingspeak_update:
             url = 'https://api.thingspeak.com/update.json'
@@ -121,12 +129,14 @@ with serial.Serial(addr,9600) as pt:
                         else:
                             print("Thingspeak Update OK")
                             
-                except requests.exceptions.RequestException as e:
+                except requests.exceptions.RequestException:
                     print("THINGSPEAK REQUESTS ERROR", today, now)
-                    traceback.print_exc()
-                except Exception as e:
+                    traceback.print_exc(file=sys.stdout)
+                    print('-' * 60)
+                except Exception:
                     print("THINGSPEAK GENERAL ERROR", today, now)
-                    traceback.print_exc()
+                    traceback.print_exc(file=sys.stdout)
+                    print('-' * 60)
             
             elif addr == '01':
                 try:
@@ -140,12 +150,14 @@ with serial.Serial(addr,9600) as pt:
                         else:
                             print("Thingspeak Update OK")
                             
-                except requests.exceptions.RequestException as e:
+                except requests.exceptions.RequestException:
                     print("THINGSPEAK REQUESTS ERROR", today, now)
-                    traceback.print_exc()
-                except Exception as e:
+                    traceback.print_exc(file=sys.stdout)
+                    print('-' * 60)
+                except Exception:
                     print("THINGSPEAK GENERAL ERROR", today, now)
-                    traceback.print_exc()
+                    traceback.print_exc(file=sys.stdout)
+                    print('-' * 60)
 
             elif addr == '02':
                 try:
@@ -159,12 +171,14 @@ with serial.Serial(addr,9600) as pt:
                         else:
                             print("Thingspeak Update OK")
                             
-                except requests.exceptions.RequestException as e:
+                except requests.exceptions.RequestException:
                     print("THINGSPEAK REQUESTS ERROR", today, now)
-                    traceback.print_exc()
-                except Exception as e:
+                    traceback.print_exc(file=sys.stdout)
+                    print('-' * 60)
+                except Exception:
                     print("THINGSPEAK GENERAL ERROR", today, now)
-                    traceback.print_exc()
+                    traceback.print_exc(file=sys.stdout)
+                    print('-' * 60)
                     
             elif addr == '05':
                 try:
@@ -178,12 +192,14 @@ with serial.Serial(addr,9600) as pt:
                         else:
                             print("Thingspeak Update OK")
                             
-                except requests.exceptions.RequestException as e:
+                except requests.exceptions.RequestException:
                     print("THINGSPEAK REQUESTS ERROR", today, now)
-                    traceback.print_exc()
-                except Exception as e:
+                    traceback.print_exc(file=sys.stdout)
+                    print('-' * 60)
+                except Exception:
                     print("THINGSPEAK GENERAL ERROR", today, now)
-                    traceback.print_exc()
+                    traceback.print_exc(file=sys.stdout)
+                    print('-' * 60)
                         
             elif addr == '06':
                 try:
@@ -197,12 +213,14 @@ with serial.Serial(addr,9600) as pt:
                         else:
                             print("Thingspeak Update OK")
                             
-                except requests.exceptions.RequestException as e:
+                except requests.exceptions.RequestException:
                     print("THINGSPEAK REQUESTS ERROR", today, now)
-                    traceback.print_exc()
-                except Exception as e:
+                    traceback.print_exc(file=sys.stdout)
+                    print('-' * 60)
+                except Exception:
                     print("THINGSPEAK GENERAL ERROR", today, now)
-                    traceback.print_exc()
+                    traceback.print_exc(file=sys.stdout)
+                    print('-' * 60)
             
             elif addr == '07':
                 try:
@@ -216,12 +234,14 @@ with serial.Serial(addr,9600) as pt:
                         else:
                             print("Thingspeak Update OK")
                             
-                except requests.exceptions.RequestException as e:
+                except requests.exceptions.RequestException:
                     print("THINGSPEAK REQUESTS ERROR", today, now)
-                    traceback.print_exc()
-                except Exception as e:
+                    traceback.print_exc(file=sys.stdout)
+                    print('-' * 60)
+                except Exception:
                     print("THINGSPEAK GENERAL ERROR", today, now)
-                    traceback.print_exc()
+                    traceback.print_exc(file=sys.stdout)
+                    print('-' * 60)
             
             elif addr == '08':
                 try:
@@ -235,12 +255,14 @@ with serial.Serial(addr,9600) as pt:
                         else:
                             print("Thingspeak Update OK")
                             
-                except requests.exceptions.RequestException as e:
+                except requests.exceptions.RequestException:
                     print("THINGSPEAK REQUESTS ERROR", today, now)
-                    traceback.print_exc()
-                except Exception as e:
+                    traceback.print_exc(file=sys.stdout)
+                    print('-' * 60)
+                except Exception:
                     print("THINGSPEAK GENERAL ERROR", today, now)
-                    traceback.print_exc()
+                    traceback.print_exc(file=sys.stdout)
+                    print('-' * 60)
             
             elif addr == '09':
                 try:
@@ -254,12 +276,14 @@ with serial.Serial(addr,9600) as pt:
                         else:
                             print("Thingspeak Update OK")
                             
-                except requests.exceptions.RequestException as e:
+                except requests.exceptions.RequestException:
                     print("THINGSPEAK REQUESTS ERROR", today, now)
-                    traceback.print_exc()
-                except Exception as e:
+                    traceback.print_exc(file=sys.stdout)
+                    print('-' * 60)
+                except Exception:
                     print("THINGSPEAK GENERAL ERROR", today, now)
-                    traceback.print_exc()
+                    traceback.print_exc(file=sys.stdout)
+                    print('-' * 60)
             
             else:
                 print("NOT PUSHED TO THINGSPEAK :: SENSOR ID NOT FOUND", buffer)
