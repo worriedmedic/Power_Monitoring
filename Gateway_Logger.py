@@ -8,7 +8,6 @@ import time
 import datetime
 import requests
 import os.path
-import traceback
 
 baud                = 9600   # baud rate for serial port
 thingspeak_update   = True # Turn on/off updating to ThingSpeak
@@ -28,7 +27,8 @@ with serial.Serial(addr,9600) as pt:
         spb.readline()
         spb.readline()
     except Exception as e:
-        print("SERIAL READ ERROR", e, traceback.extract_stack())
+        print("SERIAL READ ERROR")
+        raise
 
     while (1):
         now = time.strftime("%H:%M:%S") # Call time of serial read
@@ -39,7 +39,8 @@ with serial.Serial(addr,9600) as pt:
             buffer = buffer.strip("\n")
             
         except Exception as e:
-            print("SERIAL READ ERROR", today, now, e, traceback.extract_stack())
+            print("SERIAL READ ERROR", today, now)
+            raise
 
         x = str(today) + ',' + str(now) + ',' + str(buffer) + '\n'
 
@@ -49,7 +50,8 @@ with serial.Serial(addr,9600) as pt:
         try:
             addr  = buffer[0:2]
         except Exception as e:
-            print("ADDRESS ERROR", today, now, e, traceback.extract_stack())
+            print("ADDRESS ERROR", today, now)
+            raise
 
 
         if addr.startswith('0'):
@@ -64,7 +66,8 @@ with serial.Serial(addr,9600) as pt:
                 dew = float(temp) - (0.36 * (100 - float(humid))) ##FROM DATA PROCESSING PYTHON SCRIPT
                 
             except Exception as e:
-                print("DATA SPLIT ERROR", today, now, e, traceback.extract_stack())
+                print("DATA SPLIT ERROR", today, now)
+                raise
             
         if txt_logging:
             try:
@@ -82,7 +85,8 @@ with serial.Serial(addr,9600) as pt:
                 outf.write(x)  # write line of text to file
                 outf.flush()  # make sure it actually gets written out
             except Exception as e:
-                print("DATA LOG ERROR", today, now, e, traceback.extract_stack())
+                print("DATA LOG ERROR", today, now)
+                raise
 
         if emoncms_update:
             try:
@@ -96,9 +100,11 @@ with serial.Serial(addr,9600) as pt:
                         print("EMCONMS Update FAILED")
                         
             except requests.exceptions.RequestException as e:
-                print("EMONCMS REQUESTS ERROR", today, now, e, traceback.extract_stack())
+                print("EMONCMS REQUESTS ERROR", today, now)
+                raise
             except Exception as e:
-                print("EMONCMS GENERAL ERROR", today, now, e, traceback.extract_stack())
+                print("EMONCMS GENERAL ERROR", today, now)
+                raise
         
         if thingspeak_update:
             url = 'https://api.thingspeak.com/update.json'
@@ -115,9 +121,11 @@ with serial.Serial(addr,9600) as pt:
                             print("Thingspeak Update OK")
                             
                 except requests.exceptions.RequestException as e:
-                    print("THINGSPEAK REQUESTS ERROR", today, now, e, traceback.extract_stack())
+                    print("THINGSPEAK REQUESTS ERROR", today, now)
+                    raise
                 except Exception as e:
-                    print("THINGSPEAK GENERAL ERROR", today, now, e, traceback.extract_stack())
+                    print("THINGSPEAK GENERAL ERROR", today, now)
+                    raise
             
             elif addr == '01':
                 try:
@@ -132,9 +140,11 @@ with serial.Serial(addr,9600) as pt:
                             print("Thingspeak Update OK")
                             
                 except requests.exceptions.RequestException as e:
-                    print("THINGSPEAK REQUESTS ERROR", today, now, e, traceback.extract_stack())
+                    print("THINGSPEAK REQUESTS ERROR", today, now)
+                    raise
                 except Exception as e:
-                    print("THINGSPEAK GENERAL ERROR", today, now, e, traceback.extract_stack())
+                    print("THINGSPEAK GENERAL ERROR", today, now)
+                    raise
 
             elif addr == '02':
                 try:
@@ -149,9 +159,11 @@ with serial.Serial(addr,9600) as pt:
                             print("Thingspeak Update OK")
                             
                 except requests.exceptions.RequestException as e:
-                    print("THINGSPEAK REQUESTS ERROR", today, now, e, traceback.extract_stack())
+                    print("THINGSPEAK REQUESTS ERROR", today, now)
+                    raise
                 except Exception as e:
-                    print("THINGSPEAK GENERAL ERROR", today, now, e, traceback.extract_stack())
+                    print("THINGSPEAK GENERAL ERROR", today, now)
+                    raise
                     
             elif addr == '05':
                 try:
@@ -166,9 +178,11 @@ with serial.Serial(addr,9600) as pt:
                             print("Thingspeak Update OK")
                             
                 except requests.exceptions.RequestException as e:
-                    print("THINGSPEAK REQUESTS ERROR", today, now, e, traceback.extract_stack())
+                    print("THINGSPEAK REQUESTS ERROR", today, now)
+                    raise
                 except Exception as e:
-                    print("THINGSPEAK GENERAL ERROR", today, now, e, traceback.extract_stack())
+                    print("THINGSPEAK GENERAL ERROR", today, now)
+                    raise
                         
             elif addr == '06':
                 try:
@@ -183,9 +197,11 @@ with serial.Serial(addr,9600) as pt:
                             print("Thingspeak Update OK")
                             
                 except requests.exceptions.RequestException as e:
-                    print("THINGSPEAK REQUESTS ERROR", today, now, e, traceback.extract_stack())
+                    print("THINGSPEAK REQUESTS ERROR", today, now)
+                    raise
                 except Exception as e:
-                    print("THINGSPEAK GENERAL ERROR", today, now, e, traceback.extract_stack())
+                    print("THINGSPEAK GENERAL ERROR", today, now)
+                    raise
             
             elif addr == '07':
                 try:
@@ -200,9 +216,11 @@ with serial.Serial(addr,9600) as pt:
                             print("Thingspeak Update OK")
                             
                 except requests.exceptions.RequestException as e:
-                    print("THINGSPEAK REQUESTS ERROR", today, now, e, traceback.extract_stack())
+                    print("THINGSPEAK REQUESTS ERROR", today, now)
+                    raise
                 except Exception as e:
-                    print("THINGSPEAK GENERAL ERROR", today, now, e, traceback.extract_stack())
+                    print("THINGSPEAK GENERAL ERROR", today, now)
+                    raise
             
             elif addr == '08':
                 try:
@@ -217,9 +235,11 @@ with serial.Serial(addr,9600) as pt:
                             print("Thingspeak Update OK")
                             
                 except requests.exceptions.RequestException as e:
-                    print("THINGSPEAK REQUESTS ERROR", today, now, e, traceback.extract_stack())
+                    print("THINGSPEAK REQUESTS ERROR", today, now)
+                    raise
                 except Exception as e:
-                    print("THINGSPEAK GENERAL ERROR", today, now, e, traceback.extract_stack())
+                    print("THINGSPEAK GENERAL ERROR", today, now)
+                    raise
             
             elif addr == '09':
                 try:
@@ -234,9 +254,11 @@ with serial.Serial(addr,9600) as pt:
                             print("Thingspeak Update OK")
                             
                 except requests.exceptions.RequestException as e:
-                    print("THINGSPEAK REQUESTS ERROR", today, now, e, traceback.extract_stack())
+                    print("THINGSPEAK REQUESTS ERROR", today, now)
+                    raise
                 except Exception as e:
-                    print("THINGSPEAK GENERAL ERROR", today, now, e, traceback.extract_stack())
+                    print("THINGSPEAK GENERAL ERROR", today, now)
+                    raise
             
             else:
                 print("NOT PUSHED TO THINGSPEAK :: SENSOR ID NOT FOUND", buffer)
