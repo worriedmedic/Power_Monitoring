@@ -8,6 +8,7 @@ import urllib2
 import json
 from lxml import etree
 import traceback
+import sys
 
 debug     = False
 verbose   = False
@@ -200,9 +201,10 @@ while(1):
 			fname = str(today) + '.log'
 			fdirectory = 'data_log/' + time.strftime("%Y-%m")
 			
-		except Exception as e:
+		except Exception:
 			print("TIME UPD ERR", str(today), now)
-			traceback.print_exc()
+			traceback.print_exc(file=sys.stdout)
+			print('-' * 60)
 
 		## GRABBING TIDES
 		# WILL PULL TIDE DATA FOR THE FOLLOWING 24 HOURS
@@ -213,9 +215,10 @@ while(1):
 				tide_next_time = '12:00 AM'
 				tide_datetime = datetime.datetime.strptime(tide_next_time,'%I:%M %p')
 				tide_datetime = tide_datetime.replace(today.year,today.month,today.day)
-			except Exception as e:
+			except Exception:
 				print("TIDE LST ERR", str(today), now)
-				traceback.print_exc()
+				traceback.print_exc(file=sys.stdout)
+				print('-' * 60)
 				
 		# IMPORT SUNRISE / SUNSET DATA
 		
@@ -229,9 +232,10 @@ while(1):
 						sun_down = str(row[2])
 				sun_rise = sun_rise[1]+':'+ sun_rise[2:]
 				sun_down = sun_down[0:2] + ':' + sun_down[2:]
-		except Exception as e:
+		except Exception:
 			print("SUN TIME ERR", str(today), now)
-			traceback.print_exc()
+			traceback.print_exc(file=sys.stdout)
+			print('-' * 60)
 
 		## Update expected Hi and Lo
 		# Assumptions:
@@ -263,9 +267,10 @@ while(1):
 				if debug:
 					print(exp_hi, exp_lo)
          	
-         	except Exception as e:
+         	except Exception:
 			print("WUND FOR JSN READ ERR", str(today), now)
-			traceback.print_exc()
+			traceback.print_exc(file=sys.stdout)
+			print('-' * 60)
 	
 		# Likely will break this out to another if/else that clarifies 
 		# if we have internet or not. If we dont have internet, 
