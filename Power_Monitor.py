@@ -25,6 +25,7 @@ with serial.Serial(addr,9600) as pt:
         spb.readline()
     except Exception as e:
         print("SERIAL READ ERROR")
+        time.sleep(0.1)
         traceback.print_exc()
 
     while (1):
@@ -36,6 +37,7 @@ with serial.Serial(addr,9600) as pt:
             buffer = buffer.strip("\n")
         except Exception as e:
             print("SERIAL READ ERROR", today, now)
+            time.sleep(0.1)
             traceback.print_exc()
 
         x = str(today) + ',' + str(now) + ',' + str(buffer) + '\n'
@@ -58,6 +60,7 @@ with serial.Serial(addr,9600) as pt:
             
         except Exception as e:
             print("DATA SPLIT ERROR", today, now, buffer)
+            time.sleep(0.1)
             traceback.print_exc()
 
             ### Check output of above split ###
@@ -66,6 +69,7 @@ with serial.Serial(addr,9600) as pt:
                 print(cttotal,ct1p,ct2p,ct3p,ct4p,volt) 
             except Exception as e:
                 print("VERBOSE PRINT ERROR", today, now, buffer)
+                time.sleep(0.1)
                 traceback.print_exc()
         
         if txt_logging:
@@ -85,6 +89,7 @@ with serial.Serial(addr,9600) as pt:
                 outf.flush()  # make sure it actually gets written out
             except Exception as e:
                 print("DATA LOG ERROR", today, now, buffer)
+                time.sleep(0.1)
                 traceback.print_exc()
 
         if emoncms_update:
@@ -100,9 +105,11 @@ with serial.Serial(addr,9600) as pt:
 
             except requests.exceptions.RequestException as e:
                 print("EMONCMS REQUESTS ERROR", today, now, buffer)
+                time.sleep(0.1)
                 traceback.print_exc()
             except Exception as e:
                 print("EMONCMS GENERAL ERROR", today, now, buffer)
+                time.sleep(0.1)
                 traceback.print_exc()
                 
         if thingspeak_update:
@@ -122,9 +129,11 @@ with serial.Serial(addr,9600) as pt:
 
                 except requests.exceptions.RequestException as e:
                     print("THINGSPEAK REQUESTS ERROR", today, now, buffer)
+                    time.sleep(0.1)
                     traceback.print_exc()
                 except Exception as e:
                     print("THINGSPEAK GENERAL ERROR", today, now, buffer)
+                    time.sleep(0.1)
                     traceback.print_exc()
             
             else:
