@@ -27,6 +27,7 @@ with serial.Serial(addr,9600) as pt:
     except Exception as e:
         print("SERIAL READ ERROR")
         traceback.print_exc(file=sys.stdout)
+        print('-' * 60)
 
     while (1):
         now = time.strftime("%H:%M:%S") # Call time of serial read
@@ -38,6 +39,7 @@ with serial.Serial(addr,9600) as pt:
         except Exception as e:
             print("SERIAL READ ERROR", today, now)
             traceback.print_exc(file=sys.stdout)
+            print('-' * 60)
 
         x = str(today) + ',' + str(now) + ',' + str(buffer) + '\n'
 
@@ -60,6 +62,7 @@ with serial.Serial(addr,9600) as pt:
         except Exception as e:
             print("DATA SPLIT ERROR", today, now, buffer)
             traceback.print_exc(file=sys.stdout)
+            print('-' * 60)
 
             ### Check output of above split ###
         if verbose:
@@ -68,6 +71,7 @@ with serial.Serial(addr,9600) as pt:
             except Exception as e:
                 print("VERBOSE PRINT ERROR", today, now, buffer)
                 traceback.print_exc(file=sys.stdout)
+                print('-' * 60)
         
         if txt_logging:
             try:
@@ -87,6 +91,7 @@ with serial.Serial(addr,9600) as pt:
             except Exception as e:
                 print("DATA LOG ERROR", today, now, buffer)
                 traceback.print_exc(file=sys.stdout)
+                print('-' * 60)
 
         if emoncms_update:
             try:
@@ -102,9 +107,11 @@ with serial.Serial(addr,9600) as pt:
             except requests.exceptions.RequestException as e:
                 print("EMONCMS REQUESTS ERROR", today, now, buffer)
                 traceback.print_exc(file=sys.stdout)
+                print('-' * 60)
             except Exception as e:
                 print("EMONCMS GENERAL ERROR", today, now, buffer)
                 traceback.print_exc(file=sys.stdout)
+                print('-' * 60)
                 
         if thingspeak_update:
             url = 'https://api.thingspeak.com/update.json'
@@ -124,9 +131,11 @@ with serial.Serial(addr,9600) as pt:
                 except requests.exceptions.RequestException as e:
                     print("THINGSPEAK REQUESTS ERROR", today, now, buffer)
                     traceback.print_exc(file=sys.stdout)
+                    print('-' * 60)
                 except Exception as e:
                     print("THINGSPEAK GENERAL ERROR", today, now, buffer)
                     traceback.print_exc(file=sys.stdout)
+                    print('-' * 60)
             
             else:
                 print("NOT PUSHED TO THINGSPEAK :: SENSOR ID NOT FOUND", buffer)
