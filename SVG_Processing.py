@@ -201,7 +201,8 @@ while(1):
 			fdirectory = 'data_log/' + time.strftime("%Y-%m")
 			
 		except Exception as e:
-			print("TIME UPD ERR", str(today), now, e, traceback.extract_stack())
+			print("TIME UPD ERR", str(today), now)
+			traceback.print_exc()
 
 		## GRABBING TIDES
 		# WILL PULL TIDE DATA FOR THE FOLLOWING 24 HOURS
@@ -213,7 +214,8 @@ while(1):
 				tide_datetime = datetime.datetime.strptime(tide_next_time,'%I:%M %p')
 				tide_datetime = tide_datetime.replace(today.year,today.month,today.day)
 			except Exception as e:
-				print("TIDE LST ERR", str(today), now, e, traceback.extract_stack())
+				print("TIDE LST ERR", str(today), now)
+				traceback.print_exc()
 				
 		# IMPORT SUNRISE / SUNSET DATA
 		
@@ -228,7 +230,8 @@ while(1):
 				sun_rise = sun_rise[1]+':'+ sun_rise[2:]
 				sun_down = sun_down[0:2] + ':' + sun_down[2:]
 		except Exception as e:
-			print("SUN TIME ERR", str(today), now, e, traceback.extract_stack())
+			print("SUN TIME ERR", str(today), now)
+			traceback.print_exc()
 
 		## Update expected Hi and Lo
 		# Assumptions:
@@ -249,7 +252,8 @@ while(1):
 						onlinejson.close()
 						localjson.close()
 					except Exception as e:
-						print("WUND FOR JSN LOAD ERR", str(today), now, e, traceback.extract_stack())
+						print("WUND FOR JSN LOAD ERR", str(today), now)
+						traceback.print_exc()
 
 				localjson = open('resources/' + str(today) + '_forecast.json','rb')
 				json_string = localjson.read()
@@ -260,7 +264,8 @@ while(1):
 					print(exp_hi, exp_lo)
          	
          	except Exception as e:
-			print("WUND FOR JSN READ ERR", str(today), now, e, traceback.extract_stack())
+			print("WUND FOR JSN READ ERR", str(today), now)
+			traceback.print_exc()
 	
 		# Likely will break this out to another if/else that clarifies 
 		# if we have internet or not. If we dont have internet, 
@@ -294,7 +299,8 @@ while(1):
 					onlinejson.close()
 					localjson.close()
 				except Exception as e:
-					print("WUND CUR JSN LOAD ERR", str(today), now, e, traceback.extract_stack())
+					print("WUND CUR JSN LOAD ERR", str(today), now)
+					traceback.print_exc()
 
 				localjson = open('resources/' + str(today) + '_conditions.json','rb')
 				json_string = localjson.read()
@@ -307,7 +313,8 @@ while(1):
 					print(avg_wind_speed, wind_dir, max_wind_speed, pressure_trend)
 				
 	except Exception as e:
-		print("WUND CON JSN READ ERR", str(today), now, e, traceback.extract_stack())
+		print("WUND CON JSN READ ERR", str(today), now)
+		traceback.print_exc()
 	
 	minute = datetime.datetime.now()
 	try:
@@ -339,7 +346,8 @@ while(1):
 					print(tide_pre_time)
 					print(tide_next_time)
 	except Exception as e:
-		print("TIDE UPD ERR", str(today), now, e, traceback.extract_stack())
+		print("TIDE UPD ERR", str(today), now)
+		traceback.print_exc()
 	
 	now = time.strftime('%H:%M:%S')
 	curr_time = time.strftime('%H:%M')
@@ -391,7 +399,8 @@ while(1):
 						temp_3 = float(temp)
 
 			except Exception as e:
-				print("DATA SPLIT ERR", str(today), now, e, traceback.extract_stack())
+				print("DATA SPLIT ERR", str(today), now)
+				traceback.print_exc()
         		
 			## UPDATE BATTERY LEVEL ON SVG
 			try:
@@ -781,7 +790,8 @@ while(1):
 				tree.write(template_svg_filename)
 			
 			except Exception as e:
-				print("BAT SVG UPD ERR", str(today), now, e, traceback.extract_stack())
+				print("BAT SVG UPD ERR", str(today), now)
+				traceback.print_exc()
 			
 			try:
 				tree = etree.parse(open(template_svg_filename, 'r'))
@@ -992,7 +1002,8 @@ while(1):
 
 				tree.write('output/weather-script-output.svg')
 			except Exception as e:
-			 	print("WIND SVG UPD ERR", str(today), now, e, traceback.extract_stack())
+			 	print("WIND SVG UPD ERR", str(today), now)
+			 	traceback.print_exc()
 	
 			## Output data to the svg
         		
@@ -1052,8 +1063,10 @@ while(1):
 			break
 	
 	except IOError as e:
-		print("LOG FILE IO ERR", str(today), now, e, traceback.extract_stack())
+		print("LOG FILE IO ERR", str(today), now)
+		traceback.print_exc()
 		time.sleep(20)
 
 	except Exception as e:
-        	print("GENERIC LOG FILE ERR", str(today), now, e, traceback.extract_stack())
+        	print("GENERIC LOG FILE ERR", str(today), now)
+        	traceback.print_exc()
