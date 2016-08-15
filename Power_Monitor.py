@@ -12,10 +12,10 @@ import traceback
 
 addr                = '/dev/ttyUSB1'  # serial port to read data from
 baud                = 9600   # baud rate for serial port
-thingspeak_update   = 'true' # Turn on/off updating to ThingSpeak
-emoncms_update      = 'true' # Turn on/off updating to Emoncms
-txt_logging         = 'true' # Enable/Disable logging to TXT file
-verbose             = 'false'
+thingspeak_update   = True # Turn on/off updating to ThingSpeak
+emoncms_update      = True # Turn on/off updating to Emoncms
+txt_logging         = True # Enable/Disable logging to TXT file
+verbose             = False
 
 with serial.Serial(addr,9600) as pt:
     try:
@@ -24,7 +24,8 @@ with serial.Serial(addr,9600) as pt:
         spb.readline()
         spb.readline()
     except Exception as e:
-        print(e)
+        print("SERIAL READ ERROR")
+        traceback.print_exc()
 
     while (1):
         now = time.strftime("%H:%M:%S") # Call time of serial read
@@ -34,11 +35,12 @@ with serial.Serial(addr,9600) as pt:
             buffer = spb.readline()  # read one line of text from serial port
             buffer = buffer.strip("\n")
         except Exception as e:
-            print("SERIAL READ ERROR", today, now, e, traceback.extract_stack())
+            print("SERIAL READ ERROR", today, now)
+            traceback.print_exc()
 
         x = str(today) + ',' + str(now) + ',' + str(buffer) + '\n'
 
-        if verbose == 'true':
+        if verbose:
             print (x,end='')    # echo line of text on-screen
 
         addr = '10'
@@ -55,16 +57,18 @@ with serial.Serial(addr,9600) as pt:
             cttotal = int(ct1p) + int(ct2p)
             
         except Exception as e:
-            print("DATA SPLIT ERROR", today, now, e, buffer, traceback.extract_stack())
+            print("DATA SPLIT ERROR", today, now, buffer)
+            traceback.print_exc()
 
             ### Check output of above split ###
-        if verbose == 'true':
+        if verbose:
             try:
                 print(cttotal,ct1p,ct2p,ct3p,ct4p,volt) 
             except Exception as e:
-                print("VERBOSE PRINT ERROR", today, now, e, buffer, traceback.extract_stack())
+                print("VERBOSE PRINT ERROR", today, now, buffer)
+                traceback.print_exc()
         
-        if txt_logging == 'true':
+        if txt_logging:
             try:
                 if not os.path.exists('data_log'):
                     os.makedirs('data_log')
@@ -80,9 +84,10 @@ with serial.Serial(addr,9600) as pt:
                 outf.write(x)  # write line of text to file
                 outf.flush()  # make sure it actually gets written out
             except Exception as e:
-                print("DATA LOG ERROR", today, now, e, buffer, traceback.extract_stack())
+                print("DATA LOG ERROR", today, now, buffer)
+                traceback.print_exc()
 
-        if emoncms_update == 'true':
+        if emoncms_update:
             try:
                 url = 'https://emoncms.org/input/post.json?node=%s&json={CTT:%s,CT1:%s,CT2:%s,CT3:%s,CT4:%s,VOLT:%s}&apikey=4e6eff5d047580696f0e2a7ae9323983' % (addr, cttotal, ct1p, ct2p, ct3p, ct4p, volt)
                 r = requests.post(url)
@@ -94,11 +99,13 @@ with serial.Serial(addr,9600) as pt:
                         print("EMCONMS Update FAILED", r)
 
             except requests.exceptions.RequestException as e:
-                print("EMONCMS REQUESTS ERROR", today, now, e, buffer, traceback.extract_stack())
+                print("EMONCMS REQUESTS ERROR", today, now, buffer)
+                traceback.print_exc()
             except Exception as e:
-                print("EMONCMS GENERAL ERROR", today, now, e, buffer, traceback.extract_stack())
+                print("EMONCMS GENERAL ERROR", today, now, buffer)
+                traceback.print_exc()
                 
-        if thingspeak_update == 'true':
+        if thingspeak_update:
             url = 'https://api.thingspeak.com/update.json'
 
             if addr == '10':
@@ -114,9 +121,11 @@ with serial.Serial(addr,9600) as pt:
                             print("Thingspeak Update OK")
 
                 except requests.exceptions.RequestException as e:
-                    print("THINGSPEAK REQUESTS ERROR", today, now, e, buffer, traceback.extract_stack())
+                    print("THINGSPEAK REQUESTS ERROR", today, now, buffer)
+                    traceback.print_exc()
                 except Exception as e:
-                    print("THINGSPEAK GENERAL ERROR", today, now, e, buffer, traceback.extract_stack())
+                    print("THINGSPEAK GENERAL ERROR", today, now, buffer)
+                    traceback.print_exc()
             
             else:
                 print("NOT PUSHED TO THINGSPEAK :: SENSOR ID NOT FOUND", buffer)
