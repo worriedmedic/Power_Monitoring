@@ -54,7 +54,7 @@ with serial.Serial(addr,9600) as pt:
         try:
             addr  = buffer[0:2]
         except Exception:
-            print("ADDRESS ERROR", today, now)
+            print("ADDRESS ERROR", today, now, buffer)
             traceback.print_exc(file=sys.stdout)
             print('-' * 60)
 
@@ -71,7 +71,7 @@ with serial.Serial(addr,9600) as pt:
                 dew = float(temp) - (0.36 * (100 - float(humid))) ##FROM DATA PROCESSING PYTHON SCRIPT
                 
             except Exception:
-                print("DATA SPLIT ERROR", today, now)
+                print("DATA SPLIT ERROR", today, now, buffer)
                 traceback.print_exc(file=sys.stdout)
                 print('-' * 60)
             
@@ -91,7 +91,7 @@ with serial.Serial(addr,9600) as pt:
                 outf.write(x)  # write line of text to file
                 outf.flush()  # make sure it actually gets written out
             except Exception:
-                print("DATA LOG ERROR", today, now)
+                print("DATA LOG ERROR", today, now, buffer)
                 traceback.print_exc(file=sys.stdout)
                 print('-' * 60)
 
@@ -107,11 +107,11 @@ with serial.Serial(addr,9600) as pt:
                         print("EMCONMS Update FAILED")
                         
             except requests.exceptions.RequestException:
-                print("EMONCMS REQUESTS ERROR", today, now)
+                print("EMONCMS REQUESTS ERROR", today, now, buffer)
                 traceback.print_exc(file=sys.stdout)
                 print('-' * 60)
             except Exception:
-                print("EMONCMS GENERAL ERROR", today, now)
+                print("EMONCMS GENERAL ERROR", today, now, buffer)
                 traceback.print_exc(file=sys.stdout)
                 print('-' * 60)
         
@@ -130,11 +130,11 @@ with serial.Serial(addr,9600) as pt:
                             print("Thingspeak Update OK")
                             
                 except requests.exceptions.RequestException:
-                    print("THINGSPEAK REQUESTS ERROR", today, now)
+                    print("THINGSPEAK REQUESTS ERROR", today, now, buffer)
                     traceback.print_exc(file=sys.stdout)
                     print('-' * 60)
                 except Exception:
-                    print("THINGSPEAK GENERAL ERROR", today, now)
+                    print("THINGSPEAK GENERAL ERROR", today, now, buffer)
                     traceback.print_exc(file=sys.stdout)
                     print('-' * 60)
             
@@ -151,11 +151,11 @@ with serial.Serial(addr,9600) as pt:
                             print("Thingspeak Update OK")
                             
                 except requests.exceptions.RequestException:
-                    print("THINGSPEAK REQUESTS ERROR", today, now)
+                    print("THINGSPEAK REQUESTS ERROR", today, now, buffer)
                     traceback.print_exc(file=sys.stdout)
                     print('-' * 60)
                 except Exception:
-                    print("THINGSPEAK GENERAL ERROR", today, now)
+                    print("THINGSPEAK GENERAL ERROR", today, now, buffer)
                     traceback.print_exc(file=sys.stdout)
                     print('-' * 60)
 
@@ -172,11 +172,11 @@ with serial.Serial(addr,9600) as pt:
                             print("Thingspeak Update OK")
                             
                 except requests.exceptions.RequestException:
-                    print("THINGSPEAK REQUESTS ERROR", today, now)
+                    print("THINGSPEAK REQUESTS ERROR", today, now, buffer)
                     traceback.print_exc(file=sys.stdout)
                     print('-' * 60)
                 except Exception:
-                    print("THINGSPEAK GENERAL ERROR", today, now)
+                    print("THINGSPEAK GENERAL ERROR", today, now, buffer)
                     traceback.print_exc(file=sys.stdout)
                     print('-' * 60)
                     
@@ -193,11 +193,11 @@ with serial.Serial(addr,9600) as pt:
                             print("Thingspeak Update OK")
                             
                 except requests.exceptions.RequestException:
-                    print("THINGSPEAK REQUESTS ERROR", today, now)
+                    print("THINGSPEAK REQUESTS ERROR", today, now, buffer)
                     traceback.print_exc(file=sys.stdout)
                     print('-' * 60)
                 except Exception:
-                    print("THINGSPEAK GENERAL ERROR", today, now)
+                    print("THINGSPEAK GENERAL ERROR", today, now, buffer)
                     traceback.print_exc(file=sys.stdout)
                     print('-' * 60)
                         
@@ -214,11 +214,11 @@ with serial.Serial(addr,9600) as pt:
                             print("Thingspeak Update OK")
                             
                 except requests.exceptions.RequestException:
-                    print("THINGSPEAK REQUESTS ERROR", today, now)
+                    print("THINGSPEAK REQUESTS ERROR", today, now, buffer)
                     traceback.print_exc(file=sys.stdout)
                     print('-' * 60)
                 except Exception:
-                    print("THINGSPEAK GENERAL ERROR", today, now)
+                    print("THINGSPEAK GENERAL ERROR", today, now, buffer)
                     traceback.print_exc(file=sys.stdout)
                     print('-' * 60)
             
@@ -235,11 +235,11 @@ with serial.Serial(addr,9600) as pt:
                             print("Thingspeak Update OK")
                             
                 except requests.exceptions.RequestException:
-                    print("THINGSPEAK REQUESTS ERROR", today, now)
+                    print("THINGSPEAK REQUESTS ERROR", today, now, buffer)
                     traceback.print_exc(file=sys.stdout)
                     print('-' * 60)
                 except Exception:
-                    print("THINGSPEAK GENERAL ERROR", today, now)
+                    print("THINGSPEAK GENERAL ERROR", today, now, buffer)
                     traceback.print_exc(file=sys.stdout)
                     print('-' * 60)
             
@@ -256,11 +256,11 @@ with serial.Serial(addr,9600) as pt:
                             print("Thingspeak Update OK")
                             
                 except requests.exceptions.RequestException:
-                    print("THINGSPEAK REQUESTS ERROR", today, now)
+                    print("THINGSPEAK REQUESTS ERROR", today, now, buffer)
                     traceback.print_exc(file=sys.stdout)
                     print('-' * 60)
                 except Exception:
-                    print("THINGSPEAK GENERAL ERROR", today, now)
+                    print("THINGSPEAK GENERAL ERROR", today, now, buffer)
                     traceback.print_exc(file=sys.stdout)
                     print('-' * 60)
             
@@ -277,11 +277,11 @@ with serial.Serial(addr,9600) as pt:
                             print("Thingspeak Update OK")
                             
                 except requests.exceptions.RequestException:
-                    print("THINGSPEAK REQUESTS ERROR", today, now)
+                    print("THINGSPEAK REQUESTS ERROR", today, now, buffer)
                     traceback.print_exc(file=sys.stdout)
                     print('-' * 60)
                 except Exception:
-                    print("THINGSPEAK GENERAL ERROR", today, now)
+                    print("THINGSPEAK GENERAL ERROR", today, now, buffer)
                     traceback.print_exc(file=sys.stdout)
                     print('-' * 60)
             
