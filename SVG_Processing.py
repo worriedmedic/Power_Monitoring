@@ -303,8 +303,6 @@ while(1):
 				wind_dir = parsed_json['current_observation']['wind_dir']
 				max_wind_speed = parsed_json['current_observation']['wind_gust_mph']
 				pressure_trend = parsed_json['current_observation']['pressure_trend']
-				if max_wind_speed == '0':
-					max_wind_speed = '0.0'
 				if debug:
 					print(avg_wind_speed, wind_dir, max_wind_speed, pressure_trend)
 				
