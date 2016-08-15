@@ -43,22 +43,24 @@ def thingspeaktweet(api_key):
         
 	if logging:
 		try:
-        	fname = str(today) + '.log'
-        	fdirectory = 'data_log'
-        	fmode = 'a' #Append
+        		fname = str(today) + '.log'
+        		fdirectory = 'data_log'
+        		fmode = 'a' #Append
 
-        	if not os.path.exists(fdirectory):
-        		os.makedirs(fdirectory)
+        		if not os.path.exists(fdirectory):
+        			os.makedirs(fdirectory)
    
-		log = today + ',' + now + ',' + r + '\n'
+			log = today + ',' + now + ',' + r + '\n'
         
-		outf = open(os.path.join(fdirectory, fname), fmode)
-		outf.write(log)
-		outf.flush()
-        except Exception:
-        	print("DATA LOG ERROR", today, now)
-		traceback.print_exc(file=sys.stdout)
-		print('-' * 60)
+			outf = open(os.path.join(fdirectory, fname), fmode)
+			outf.write(log)
+			outf.flush()
+        	except Exception:
+        		print("DATA LOG ERROR", today, now)
+			traceback.print_exc(file=sys.stdout)
+			print('-' * 60)
+
+### MAIN CALL
 
 try:
 	now = time.strftime("%H:%M:%S")
