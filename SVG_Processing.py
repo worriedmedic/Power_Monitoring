@@ -17,7 +17,7 @@ internet  = True
 if os.path.isfile('dover.location'):
 	location = 'dover'
 	template_svg_filename = 'resources/DOVER_WX_TEMPLATE.svg'
-	update_freq = 100
+	update_freq = 200
 	bat1 = '09'
 	bat2 = '08'
 	bat3 = '07'
@@ -28,7 +28,7 @@ if os.path.isfile('dover.location'):
 elif os.path.isfile('cuttyhunk.location'):
 	location = 'cuttyhunk'
 	template_svg_filename = 'resources/CUTTY_WX_TEMPLATE.svg'
-	update_freq = 18
+	update_freq = 50
 	bat1 = '00'
 	bat2 = '01'
 	bat3 = '02'
