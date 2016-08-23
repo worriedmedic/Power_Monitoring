@@ -17,29 +17,20 @@ CT1 and CT2 are added together to get the total power usage in watts.
 All data is uploaded to Thingspeak.com (https://thingspeak.com/users/lantz) and EmonCMS.org (https://emoncms.org/)
 
 #Install Notes
-ABOVE REPO BUILT ON THE CONDITION THAT IT IS PLACED IN THE HOME DIRECTORY OF USER **PI** (`/home/pi/Power_Monitoring/`). Any deviation requires extensive editing of SH scripts and configuration files.
-
-SVG_Processing.py **REQUIRES** `python-lxml`, `libxml2-dev` & `libxslt-dev`
-
-```bash 
-sudo apt-get install python-lxml
+ABOVE REPO BUILT ON THE CONDITION THAT IT IS PLACED IN THE HOME DIRECTORY OF USER **PI** (`/home/pi/Power_Monitoring/`). Any deviation requires extensive editing of SH scripts and configuration files. From the ~/ directory, run:
+```
+git clone http://github.com/worriedmedic/Power_Monitoring
 ```
 
-```bash
-sudo apt-get install libxml2-dev libxslt-dev python-dev
-```
+`$LOCATION.location` keep file that represents *current* location and `rm` the file that does not. Sets the proper location varibles and paths for dropbox-uploader.
 
-`$LOCATION.location` keep file that represents *current* location. Sets the proper location varibles and paths for dropbox-uploader.
+run `install_script.sh` found in `/home/pi/Power_Monitoring`
 
-RaspberryPi 3 (NOOBS) does not allow ping to be run outside of SU. `network_restart.sh` placed in crontab bin folder and run as root.
-```bash
-sudo cp ./network_restart.sh /usr/local/bin/
-```
-Add the following to `/etc/crontab`:
-```
-*/5 * 	* * *	root	/usr/local/bin/network_restart.sh >> /var/log/network_restart.log 2>&1
-```
-Add the following to the *PI* user's crontab with `crontab -e` **OR** `./crontab_install.sh`
+Will automatically install the following dependencies: `apache2`, `tightvncserver`, `fail2ban`, `ngrok`, `pngcrush`, `librsvg2-bin`, `python-lxml`, `libxml2-dev` & `libxslt-dev`. Will also install NGROK, copy the `network_restart.sh` to `/usr/local/bin/`, and add the necessary entries to the user's crontab. THE SCRIPT WILL NOT COMPLETELY SETUP *NGROK*, *DROPBOX_UPLOADER*, or the `/etc/crontab`.
+
+VNC: https://www.raspberrypi.org/documentation/remote-access/vnc/
+
+User Crontab:
 ```
 @reboot /home/pi/Power_Monitoring/Gateway_Logger.sh
 @reboot /home/pi/Power_Monitoring/Power_Monitor.sh
@@ -48,6 +39,9 @@ Add the following to the *PI* user's crontab with `crontab -e` **OR** `./crontab
 */10 * * * * /home/pi/Power_Monitoring/tweeter.sh
 */15 * * * * /home/pi/Power_Monitoring/Dropbox-Uploader/data_log_update.sh
 ```
-Also requires `apache2`, `tightvncserver`, `fail2ban`, `ngrok`, `pngcrush`, `librsvg2-bin`
+`/etc/crontab`:
+```
+*/5 *   * * *   root    /usr/local/bin/network_restart.sh >> /var/log/network_restart.log 2>&1
+@reboot		pi	ngrok start -all > /dev/null
+```
 
-VNC: https://www.raspberrypi.org/documentation/remote-access/vnc/
