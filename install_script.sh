@@ -6,10 +6,8 @@ echo "##########################################################################
 echo "Do you wish to install dependencies? (apt-get)"
 select yn in "Yes" "No"; do
     case $yn in
-        Yes ) sudo apt-get update;
-        sudo apt-get install apache2 python-lxml libxml2-dev libxslt-dev python-dev pngcrush librsvg2-bin fail2ban tightvncserver -y;
-        ;;
-        No ) echo "Not Installing Dependencies";;
+        Yes ) sudo apt-get update; sudo apt-get install apache2 python-lxml libxml2-dev libxslt-dev python-dev pngcrush librsvg2-bin fail2ban tightvncserver -y; return;;
+        No ) echo "Not Installing Dependencies"; return;;
     esac
 done
 
