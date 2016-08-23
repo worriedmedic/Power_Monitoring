@@ -11,7 +11,7 @@ import os.path
 import traceback
 import sys
 
-addr                = '/dev/ttyUSB1'  # serial port to read data from
+addr                = '/dev/ttyUSB0'  # serial port to read data from
 baud                = 9600   # baud rate for serial port
 thingspeak_update   = True # Turn on/off updating to ThingSpeak
 emoncms_update      = True # Turn on/off updating to Emoncms
