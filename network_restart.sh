@@ -13,7 +13,7 @@ lockfile='/var/run/WiFi_Check.pid'
 wlan='wlan0'
 SERVER='8.8.8.8'
 ##################################################################
-echo '###########################################'
+echo "###########################################"
 date
 
 # Check to see if there is a lock file
@@ -38,10 +38,12 @@ echo $$ > $lockfile
 # echo "Performing Network check for $wlan"
 
 if ifconfig $wlan | grep -q 'inet addr:'; then
-    echo " ifconfig up"
+    echo "RaspberryPi Network UP"
     ifconfig $wlan | grep 'inet addr:'
 else
-    echo " ifconfig dow "
+    echo "*******************************************"
+    echo "RaspberryPi Network DOWN, forcing new connection..."
+    echo "*******************************************"
     ifdown $wlan
     sleep 5
     ifup --force $wlan
@@ -54,9 +56,9 @@ ping -c2 $SERVER > /dev/null
 
 if [ $? != 0 ] ; then
     # Restart the wireless interface
-    echo "*******************************************"
-    echo "Internet DOWN"
-    echo "*******************************************"    
+    echo "^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^"
+    echo "Internet DOWN, forcing new connection..."
+    echo "^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^"    
     ifdown --force $wlan
     sleep 5
     ifup --force $wlan
