@@ -1,18 +1,26 @@
 #!/bin/sh
+echo "######################################################################################"
+echo "Power_Monitoring install by lwh"
+echo "######################################################################################"
 
-echo "INSTALLING Power_Monitoring Dependencies: apache2 python-lxml libxml2-dev libxslt-dev python-dev pngcrush librsvg2-bin fail2ban tightvncserver..."
-
-sudo apt-get update
-sudo apt-get install apache2 python-lxml libxml2-dev libxslt-dev python-dev pngcrush librsvg2-bin fail2ban tightvncserver -y
-
-sleep 2
+echo "Do you wish to install dependencies? (apt-get)"
+select yn in "Yes" "No"; do
+    case $yn in
+        Yes ) sudo apt-get update;
+        sudo apt-get install apache2 python-lxml libxml2-dev libxslt-dev python-dev pngcrush librsvg2-bin fail2ban tightvncserver -y;
+        ;;
+        No ) echo "Not Installing Dependencies";;
+    esac
+done
 
 echo "Checking for NGROK..."
-if [ ! -d "/usr/local/bin/ngrok" ]; then
+if [ ! -f "/usr/local/bin/ngrok" ]; then
   echo "No copy of NGROK found, installing NGROK"
   wget https://bin.equinox.io/c/4VmDzA7iaHb/ngrok-stable-linux-arm.zip
   unzip ngrok-stable-linux-arm.zip
   sudo cp ngrok /usr/local/bin/
+  rm ngrok
+  rm ngrok-stable-linux-arm.zip
   echo "NEED TO ADD AUTHORIZATION KEY AND ADD SERVICES TO ~/.ngrok2/ngrok.yml"
   echo "authtoken: <AUTHTOKEN>"
   echo "log_level: info"
