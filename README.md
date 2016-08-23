@@ -48,6 +48,6 @@ Add the following to the *PI* user's crontab with `crontab -e` **OR** `./crontab
 */10 * * * * /home/pi/Power_Monitoring/tweeter.sh
 */15 * * * * /home/pi/Power_Monitoring/Dropbox-Uploader/data_log_update.sh
 ```
-Also requires `apache2`, `tightvncserver`, `fail2ban`, `ngrok`
+Also requires `apache2`, `tightvncserver`, `fail2ban`, `ngrok`, `pngcrush`, `librsvg2-bin`
 
 VNC: https://www.raspberrypi.org/documentation/remote-access/vnc/
