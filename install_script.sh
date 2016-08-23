@@ -5,8 +5,7 @@ echo "##########################################################################
 
 echo "Do you wish to install dependencies? (apt-get)"
 read -p "Do you wish to install dependencies (apt-get) " -n 1 -r
-if [[ ! $REPLY =~ ^[Yy]$ ]]
-then
+if [ ! $REPLY =~ ^[Yy]$ ]; then
   sudo apt-get update
   sudo apt-get install apache2 python-lxml libxml2-dev libxslt-dev python-dev pngcrush librsvg2-bin fail2ban tightvncserver -y
 else
