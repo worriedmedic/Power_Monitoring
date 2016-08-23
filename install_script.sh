@@ -22,7 +22,7 @@ if [ ! -d "/usr/local/bin/ngrok" ]; then
   echo "  ssh:"
   echo "    proto: tcp"
   echo "    addr: 22"
-else;
+else
   echo "Copy of NGROK found in /usr/local/bin/ - moving on..."
 fi
 
