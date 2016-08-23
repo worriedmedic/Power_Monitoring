@@ -13,7 +13,8 @@ lockfile='/var/run/WiFi_Check.pid'
 wlan='wlan0'
 SERVER='8.8.8.8'
 ##################################################################
-date | tr -d '\n'
+echo '###########################################'
+date
 
 # Check to see if there is a lock file
 if [ -e $lockfile ]; then
@@ -21,7 +22,7 @@ if [ -e $lockfile ]; then
     pid=`cat $lockfile`
     if kill -0 &>1 > /dev/null $pid; then
         # Still Valid... lets let it be...
-        echo -n " Process still running, Lockfile valid"
+        echo " Process still running, Lockfile valid"
         exit 1
     else
         # Old Lockfile, Remove it
@@ -36,16 +37,16 @@ echo $$ > $lockfile
 # We can perform check
 # echo "Performing Network check for $wlan"
 
-if ifconfig $wlan | grep -q "inet addr:"; then
-    echo -n " ifconfig up, "
-    ifconfig $wlan | grep 'inet addr:' | tr -d '\n' | tr -d ' '
+if ifconfig $wlan | grep -q 'inet addr:'; then
+    echo " ifconfig up"
+    ifconfig $wlan | grep 'inet addr:'
 else
-    echo -n " ifconfig down, "
+    echo " ifconfig dow "
     ifdown $wlan
     sleep 5
     ifup --force $wlan
     sleep 5
-    ifconfig $wlan | grep 'inet addr:' | tr -d ' '
+    ifconfig $wlan | grep 'inet addr:'
 fi
 
 # echo "Pining $SERVER"
@@ -53,14 +54,16 @@ ping -c2 $SERVER > /dev/null
 
 if [ $? != 0 ] ; then
     # Restart the wireless interface
-    echo -n " WAN down, "
+    echo "*******************************************"
+    echo "Internet DOWN"
+    echo "*******************************************"    
     ifdown --force $wlan
     sleep 5
     ifup --force $wlan
     sleep 5
-    ifconfig $wlan | grep 'inet addr:' | tr -d ' '
+    ifconfig $wlan | grep 'inet addr:'
 else
-    echo " WAN up"
+    echo "Internet UP"
     
 fi
 
