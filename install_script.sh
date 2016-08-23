@@ -4,12 +4,15 @@ echo "Power_Monitoring install by lwh"
 echo "######################################################################################"
 
 echo "Do you wish to install dependencies? (apt-get)"
-select yn in "Yes" "No"; do
-    case $yn in
-        Yes ) sudo apt-get update; sudo apt-get install apache2 python-lxml libxml2-dev libxslt-dev python-dev pngcrush librsvg2-bin fail2ban tightvncserver -y; return;;
-        No ) echo "Not Installing Dependencies"; return;;
-    esac
-done
+read -p "Do you wish to install dependencies (apt-get) " -n 1 -r
+if [[ ! $REPLY =~ ^[Yy]$ ]]
+then
+  sudo apt-get update
+  sudo apt-get install apache2 python-lxml libxml2-dev libxslt-dev python-dev pngcrush librsvg2-bin fail2ban tightvncserver -y
+else
+  echo "Not Installing Dependencies"
+fi
+
 
 echo "Checking for NGROK..."
 if [ ! -f "/usr/local/bin/ngrok" ]; then
