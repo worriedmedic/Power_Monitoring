@@ -2,17 +2,11 @@
 echo "######################################################################################"
 echo "Power_Monitoring install by lwh"
 echo "######################################################################################"
-
-echo "Do you wish to install dependencies? (apt-get)"
-read -p "Do you wish to install dependencies (apt-get) " -n 1 -r
-if [ ! $REPLY =~ ^[Yy]$ ]; then
-  sudo apt-get update
-  sudo apt-get install apache2 python-lxml libxml2-dev libxslt-dev python-dev pngcrush librsvg2-bin fail2ban tightvncserver -y
-else
-  echo "Not Installing Dependencies"
-fi
-
-
+echo 
+echo "Installing Dependencies..."
+sudo apt-get update
+sudo apt-get install apache2 python-lxml libxml2-dev libxslt-dev python-dev pngcrush librsvg2-bin fail2ban tightvncserver -y
+echo 
 echo "Checking for NGROK..."
 if [ ! -f "/usr/local/bin/ngrok" ]; then
   echo "No copy of NGROK found, installing NGROK"
@@ -30,14 +24,18 @@ if [ ! -f "/usr/local/bin/ngrok" ]; then
   echo "  ssh:"
   echo "    proto: tcp"
   echo "    addr: 22"
+  echo
 else
   echo "Copy of NGROK found in /usr/local/bin/ - moving on..."
+  echo
 fi
 
 echo "Copying 'network_restart.sh' to /usr/local/bin/"
 sudo cp network_restart.sh /usr/local/bin
+echo
 
 echo "INSTALLING CRONTAB ENTRIES... Will add necessary entries to existing crontab"
+echo
 
 crontab -l > mycron #OUTPUT EXISTING CRONTAB TO FILE
 echo "@reboot /home/pi/Power_Monitoring/Gateway_Logger.sh" >> mycron
@@ -48,6 +46,7 @@ echo "*/10 * * * * /home/pi/Power_Monitoring/tweeter.sh" >> mycron
 echo "*/15 * * * * /home/pi/Power_Monitoring/Dropbox-Uploader/data_log_update.sh" >> mycron
 crontab mycron #WRITE ADDITIONS TO CRONTAB
 rm mycron #CLEAN UP
+echo
 
 echo "PLEASE ADD THE FOLLOWING LINES TO /etc/crontab as no good scripted way to add them exists..."
 echo "*/5 *   * * *   root    /usr/local/bin/network_restart.sh >> /var/log/network_restart.log 2>&1"
