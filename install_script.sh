@@ -3,21 +3,24 @@ echo "##########################################################################
 echo "Power_Monitoring install by lwh"
 echo "######################################################################################"
 echo 
-read -p "Install Dependencies? (y/n) " -n 1 -r
-if [[ $REPLY =~ ^[Yy]$ ]]
-then
-    sudo reboot
-elif [[ $REPLY =~ ^[Nn]$ ]]
-then
-    echo
-    echo "Please reboot manually for changes to take effect..."
-    echo "Thank you, come again."
-else
-fi
-echo "Installing Dependencies..."
-sudo apt-get update
-sudo apt-get install apache2 python-lxml libxml2-dev libxslt-dev python-dev pngcrush librsvg2-bin fail2ban tightvncserver -y
-echo 
+while true: do;
+    read -p "Install Dependencies? (y/n) " -n 1 -r
+    if [[ $REPLY =~ ^[Yy]$ ]]
+    then
+        echo "Installing Dependencies..."
+        sudo apt-get update
+        sudo apt-get install apache2 python-lxml libxml2-dev libxslt-dev python-dev pngcrush librsvg2-bin fail2ban tightvncserver -y
+        echo
+        break
+    elif [[ $REPLY =~ ^[Nn]$ ]]
+    then
+        echo
+        echo "Dependencies NOT installed"
+        echo 
+        break
+    fi
+done
+
 echo "Checking for NGROK..."
 if [ ! -f "/usr/local/bin/ngrok" ]; then
   echo "No copy of NGROK found, installing NGROK"
