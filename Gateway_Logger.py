@@ -18,7 +18,7 @@ txt_logging         = True # Enable/Disable logging to TXT file
 verbose             = False
 
 if os.path.isfile('dover.location'):
-    addr = '/dev/ttyUSB1'
+    addr = '/dev/ttyUSB0'
 elif os.path.isfile('cuttyhunk.location'):
     addr = '/dev/ttyACM0'
 
