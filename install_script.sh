@@ -5,21 +5,34 @@ echo "##########################################################################
 echo 
 ### APT-GET INSTALL DEPENDENCIES
 while true; do
-    read -p "Which location is this? " -n 5 -r
+    read -p "Which location is this? (dover/cutty) " -n 5 -r
     echo
     case $REPLY in
         [Cu][Uu][Tt][Tt][Yy])
             echo "Setting location as CUTTYHUNK"
-            rm dover.location
+            if [ -f 'dover.location' ]; then
+                rm dover.location
+            else
+                echo "'dover.location' not found..."
+                echo "Moving on..."
+                echo
+            fi
             break
             ;;
         [Dd][Oo][Vv][Ee][Rr])
             echo "Setting location as DOVER"
-            rm cuttyhunk.location
+            if [ -f 'cuttyhunk.location' ]; then
+                rm cuttyhunk.location
+            else
+                echo "'cuttyhunk.location' not found..."
+                echo "Moving on..."
+                echo
+            fi
             break
             ;;
         *)
             echo "'cutty' or 'dover' please..."
+            echo
             ;;
     esac
 done
