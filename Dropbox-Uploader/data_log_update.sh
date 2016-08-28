@@ -1,7 +1,7 @@
-#!/bin/sh
+#!/bin/bash
 #Script to update log files to dropbox
 
-if [ ! -d "/home/pi/Power_Monitoring/data_archive" ]; then
+if [ ! -d '/home/pi/Power_Monitoring/data_archive' ]; then
   mkdir /home/pi/Power_Monitoring/data_archive
 fi
 
