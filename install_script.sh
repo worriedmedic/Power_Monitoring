@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 echo "######################################################################################"
 echo "Power_Monitoring install by lwh"
 echo "######################################################################################"
@@ -6,7 +6,7 @@ echo
 
 ### APT-GET INSTALL DEPENDENCIES
 while true; do
-    read -p "Install dependencies (y/n)? " -N 1 -r
+    read -p "Install dependencies (y/n)? " -n 1 -r
     echo
     if [[ $REPLY =~ ^[Yy]$ ]]
     then
