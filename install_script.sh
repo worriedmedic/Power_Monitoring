@@ -18,7 +18,7 @@ while true; do
     elif [[ $REPLY =~ ^[Nn]$ ]]
     then
         echo
-        echo "Dependencies NOT installed"
+        echo "Dependencies NOT installed..."
         echo 
         break
     fi
@@ -66,6 +66,7 @@ done
 ### NETWORK_RESTART.SH
 while true; do
     read -p "Install network_restart.sh? (y/n) " -n 1 -r
+    echo
     if [[ $REPLY =~ ^[Yy]$ ]]
     then
         echo "Copying 'network_restart.sh' to /usr/local/bin/"
@@ -83,6 +84,7 @@ done
 ### DROPBOX-UPLOADER.SH
 while true; do
     read -p "Install dropbox-uploader.sh? (y/n) " -n 1 -r
+    echo
     if [[ $REPLY =~ ^[Yy]$ ]]
     then
         echo "Copying 'Dropbox-Uploader.sh' to /usr/local/bin/"
@@ -100,6 +102,7 @@ done
 ### CRONTAB ENTRIES
 while true; do
     read -p "Install CRONTAB entries? (y/n) " -n 1 -r
+    echo
     if [[ $REPLY =~ ^[Yy]$ ]]
     then
         echo
