@@ -3,6 +3,26 @@ echo "##########################################################################
 echo "Power_Monitoring install by lwh"
 echo "######################################################################################"
 echo 
+### APT-GET INSTALL DEPENDENCIES
+while true; do
+    read -p "Which location is this? " -n 5 -r
+    echo
+    case $REPLY in
+        [Cu][Uu][Tt][Tt][Yy])
+            echo "Setting location as CUTTYHUNK"
+            rm dover.location
+            break
+            ;;
+        [Dd][Oo][Vv][Ee][Rr])
+            echo "Setting location as DOVER"
+            rm cuttyhunk.location
+            break
+            ;;
+        *)
+            echo "'cutty' or 'dover' please..."
+            ;;
+    esac
+done
 
 ### APT-GET INSTALL DEPENDENCIES
 while true; do
