@@ -6,7 +6,7 @@ echo
 
 ### APT-GET INSTALL DEPENDENCIES
 while true; do
-    read -p "Install Dependencies? (y/n) " -n 1 -r
+    read -p "Are you sure? " -n 1 -r
     if [[ $REPLY =~ ^[Yy]$ ]]
     then
         echo "Installing Dependencies..."
