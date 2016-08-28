@@ -13,7 +13,7 @@ while true; do
             if [ -f 'dover.location' ]; then
                 rm dover.location
             else
-                echo "'dover.location' not found..."
+                echo "'dover.location' not found, possibly already removed..."
                 echo "Moving on..."
                 echo
             fi
@@ -24,7 +24,7 @@ while true; do
             if [ -f 'cuttyhunk.location' ]; then
                 rm cuttyhunk.location
             else
-                echo "'cuttyhunk.location' not found..."
+                echo "'cuttyhunk.location' not found, possibly already removed..."
                 echo "Moving on..."
                 echo
             fi
