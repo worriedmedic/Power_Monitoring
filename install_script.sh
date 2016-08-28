@@ -88,7 +88,7 @@ while true; do
     if [[ $REPLY =~ ^[Yy]$ ]]
     then
         echo "Copying 'Dropbox-Uploader.sh' to /usr/local/bin/"
-        sudo cp sudo cp Dropbox-Uploader/dropbox_uploader.sh /usr/local/bin/
+        sudo cp Dropbox-Uploader/dropbox_uploader.sh /usr/local/bin/
         echo
         break
     elif [[ $REPLY =~ ^[Nn]$ ]]
