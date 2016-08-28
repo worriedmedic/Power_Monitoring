@@ -34,6 +34,12 @@ echo "Copying 'network_restart.sh' to /usr/local/bin/"
 sudo cp network_restart.sh /usr/local/bin
 echo
 
+echo
+echo "Copying 'Dropbox-Uploader.sh' to /usr/local/bin/"
+sudo cp sudo cp Dropbox-Uploader/dropbox_uploader.sh /usr/local/bin/
+echo 
+
+echo
 echo "INSTALLING CRONTAB ENTRIES... Will add necessary entries to existing crontab"
 echo
 
