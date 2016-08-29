@@ -140,20 +140,29 @@ while true; do
     then
         echo
         echo "INSTALLING CRONTAB ENTRIES... Will add necessary entries to existing crontab"
-        echo "Even if they're already there..."
         crontab -l > mycron #OUTPUT EXISTING CRONTAB TO FILE
-        echo "@reboot /home/pi/Power_Monitoring/Gateway_Logger.sh" >> mycron
-        echo "@reboot /home/pi/Power_Monitoring/Power_Monitor.sh" >> mycron
-        echo "@reboot /home/pi/Power_Monitoring/SVG_Processing.sh" >> mycron
-        echo "@reboot /home/pi/Power_Monitoring/SVG_PNG_Script.sh" >> mycron
-        echo "*/10 * * * * /home/pi/Power_Monitoring/tweeter.sh" >> mycron
-        echo "*/15 * * * * /home/pi/Power_Monitoring/Dropbox-Uploader/data_log_update.sh" >> mycron
-        crontab mycron #WRITE ADDITIONS TO CRONTAB
+        if grep -q '/home/pi/Power_Monitoring/' mycron; then
+            echo
+            echo "USER CRONTAB ENTRIES EXIST..."
+            echo
+        else
+            echo "@reboot /home/pi/Power_Monitoring/Gateway_Logger.sh" >> mycron
+            echo "@reboot /home/pi/Power_Monitoring/Power_Monitor.sh" >> mycron
+            echo "@reboot /home/pi/Power_Monitoring/SVG_Processing.sh" >> mycron
+            echo "@reboot /home/pi/Power_Monitoring/SVG_PNG_Script.sh" >> mycron
+            echo "*/10 * * * * /home/pi/Power_Monitoring/tweeter.sh" >> mycron
+            echo "*/15 * * * * /home/pi/Power_Monitoring/Dropbox-Uploader/data_log_update.sh" >> mycron
+            crontab mycron #WRITE ADDITIONS TO CRONTAB
+        fi
         rm mycron #CLEAN UP
-        echo
-        echo "PLEASE ADD THE FOLLOWING LINES TO /etc/crontab as no good scripted way to add them exists..."
-        echo "*/5 *   * * *   root    /usr/local/bin/network_restart.sh >> /var/log/network_restart.log 2>&1"
-        echo "@reboot         pi      ngrok start -all > /dev/null"
+        if grep -q '/usr/local/bin/network_restart.sh' /etc/crontab; then
+            echo 
+            echo "/etc/crontab ENTRIES EXIST..."
+            echo
+        else
+            sudo echo "*/5 *   * * *   root    /usr/local/bin/network_restart.sh >> /var/log/network_restart.log 2>&1" >> /etc/crontab
+            sudo echo "@reboot         pi      ngrok start -all > /dev/null"
+        fi
         break
     elif [[ $REPLY =~ ^[Nn]$ ]]
     then
