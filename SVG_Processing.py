@@ -247,10 +247,10 @@ while(1):
 			if internet:
 				if not os.path.isfile('resources/' + str(today) + '_forecast.json'):
 					try:
-						onlinejson = requests.get(wunder_site_forcast_json)
-						localjson = open('resources/' + str(today) + '_forecast.json', 'wb')
 						if os.path.isfile('resources/' + str(yesterday) + '_forecast.json'):
 							os.remove('resources/' + str(yesterday) + '_forecast.json')
+						onlinejson = requests.get(wunder_site_forcast_json)
+						localjson = open('resources/' + str(today) + '_forecast.json', 'wb')
 						for chunk in onlinejson.iter_content(100000):
 							localjson.write(chunk)
 						onlinejson.close()
@@ -295,10 +295,10 @@ while(1):
 			if i >= update_freq or i == 0:
 				try:
 					i = 0
-					onlinejson = requests.get(wunder_site_conditions_json)
-					localjson = open('resources/' + str(today) + '_conditions.json', 'wb')
 					if os.path.isfile('resources/' + str(yesterday) + '_conditions.json'):
 						os.remove('resources/' + str(yesterday) + '_conditions.json')
+					onlinejson = requests.get(wunder_site_conditions_json)
+					localjson = open('resources/' + str(today) + '_conditions.json', 'wb')
 					for chunk in onlinejson.iter_content(100000):
 						localjson.write(chunk)
 					onlinejson.close()
