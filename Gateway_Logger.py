@@ -179,6 +179,27 @@ with serial.Serial(addr,9600) as pt:
                     print("THINGSPEAK GENERAL ERROR", today, now, buffer)
                     traceback.print_exc(file=sys.stdout)
                     print('-' * 60)
+            
+            elif addr == '03':
+                try:
+                    api_key = 'DOXY1Q9I6C6I88DA'
+                    temp_payload = {'api_key': api_key, 'field1': addr, 'field2': temp, 'field3': press, 'field4': humid, 'field5': dew, 'field6': volt, 'field7': rssi}
+                    r = requests.post(url, data=temp_payload)
+                    if verbose:
+                        print(r.text)
+                        if r.text == "0":
+                            print("Thingspeak Update FAILED")
+                        else:
+                            print("Thingspeak Update OK")
+                            
+                except requests.exceptions.RequestException:
+                    print("THINGSPEAK REQUESTS ERROR", today, now, buffer)
+                    traceback.print_exc(file=sys.stdout)
+                    print('-' * 60)
+                except Exception:
+                    print("THINGSPEAK GENERAL ERROR", today, now, buffer)
+                    traceback.print_exc(file=sys.stdout)
+                    print('-' * 60)
                     
             elif addr == '05':
                 try:
