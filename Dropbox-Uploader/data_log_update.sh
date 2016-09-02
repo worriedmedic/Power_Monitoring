@@ -9,6 +9,8 @@ if [ -f '/home/pi/Power_Monitoring/dover.location' ]; then
   /usr/local/bin/dropbox_uploader.sh -p upload ~/Power_Monitoring/data_log/ /Programming/logs/dover/
   /usr/local/bin/dropbox_uploader.sh -p upload /var/log/network_restart.log /Programming/logs/dover/data_log/sys_log/
   /usr/local/bin/dropbox_uploader.sh -p upload /var/log/fail2ban.log /Programming/logs/dover/data_log/sys_log/
+  /usr/local/bin/dropbox_uploader.sh -p upload /var/log/syslog /Programming/logs/dover/data_log/sys_log/
+  /usr/local/bin/dropbox_uploader.sh -p upload /var/log/dmesg /Programming/logs/dover/data_log/sys_log/
   /usr/local/bin/dropbox_uploader.sh -p upload ~/.ngrok2/_ngrok.log /Programming/logs/dover/data_log/sys_log/
   /usr/local/bin/dropbox_uploader.sh -p upload ~/.vnc/raspberrypi\:1.log /Programming/logs/dover/data_log/sys_log/
   
@@ -17,9 +19,11 @@ if [ -f '/home/pi/Power_Monitoring/dover.location' ]; then
   find /home/pi/Power_Monitoring/data_log/* -type d -empty -delete #Deletes empty directories left over
   
 elif [ -f '/home/pi/Power_Monitoring/cuttyhunk.location' ]; then
-  /usr/local/bin/dropbox_uploader.sh -p upload ~/Power_Monitoring/logs/cuttyhunk/data_log/ /Programming/logs/cuttyhunk/
+  /usr/local/bin/dropbox_uploader.sh -p upload ~/Power_Monitoring/data_log/ /Programming/logs/cuttyhunk/
   /usr/local/bin/dropbox_uploader.sh -p upload /var/log/network_restart.log /Programming/logs/cuttyhunk/data_log/sys_log/
   /usr/local/bin/dropbox_uploader.sh -p upload /var/log/fail2ban.log /Programming/logs/cuttyhunk/data_log/sys_log/
+  /usr/local/bin/dropbox_uploader.sh -p upload /var/log/syslog /Programming/logs/cuttyhunk/data_log/sys_log/
+  /usr/local/bin/dropbox_uploader.sh -p upload /var/log/dmesg /Programming/logs/cuttyhunk/data_log/sys_log/
   /usr/local/bin/dropbox_uploader.sh -p upload ~/.ngrok2/_ngrok.log /Programming/logs/cuttyhunk/data_log/
   /usr/local/bin/dropbox_uploader.sh -p upload ~/.vnc/raspberrypi\:1.log /Programming/logs/cuttyhunk/data_log/sys_log/
   
