@@ -8,7 +8,7 @@ while true; do
     read -p "Which location is this? (dover/cutty) " -n 5 -r
     echo
     case $REPLY in
-        [Cu][Uu][Tt][Tt][Yy])
+        [Cc][Uu][Tt][Tt][Yy])
             echo "Setting location as CUTTYHUNK"
             if [ -f 'dover.location' ]; then
                 rm dover.location
