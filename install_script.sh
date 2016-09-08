@@ -78,7 +78,7 @@ while true; do
             rm ngrok-stable-linux-arm.zip
             while [ ! -f "~/.ngrok2/ngrok.yml" ]; do
                 read -p "Paste Authorization Token: " -r
-                authtoken = $REPLY
+                authtoken=$REPLY
                 echo $authtoken
                 read -p "Are you sure? " -n 1 -r
                 sleep 1
