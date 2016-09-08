@@ -24,7 +24,7 @@ elif [ -f '/home/pi/Power_Monitoring/cuttyhunk.location' ]; then
   /usr/local/bin/dropbox_uploader.sh -p upload /var/log/fail2ban.log /Programming/logs/cuttyhunk/data_log/sys_log/
   #/usr/local/bin/dropbox_uploader.sh -p upload /var/log/syslog /Programming/logs/cuttyhunk/data_log/sys_log/
   #/usr/local/bin/dropbox_uploader.sh -p upload /var/log/dmesg /Programming/logs/cuttyhunk/data_log/sys_log/
-  /usr/local/bin/dropbox_uploader.sh -p upload ~/.ngrok2/_ngrok.log /Programming/logs/cuttyhunk/data_log/
+  /usr/local/bin/dropbox_uploader.sh -p upload ~/.ngrok2/ngrok.log /Programming/logs/cuttyhunk/data_log/
   /usr/local/bin/dropbox_uploader.sh -p upload ~/.vnc/raspberrypi\:1.log /Programming/logs/cuttyhunk/data_log/sys_log/
   
   find /home/pi/Power_Monitoring/data_log/* -mtime +7 -exec cp {} /home/pi/Power_Monitoring/data_archive/  \; #Copies any files older than 7 days old to an archive location
