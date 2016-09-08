@@ -83,6 +83,7 @@ while true; do
                 read -p "Are you sure? " -n 1 -r
                 sleep 1
                 if [[ $REPLY =~ ^[Yy]$ ]]; then
+                    mkdir ~/.ngrok2/
                     echo "authtoken: $authtoken" >> ~/.ngrok2/ngrok.yml
                     echo "log_level: info" >> ~/.ngrok2/ngrok.yml
                     echo "log_format: term" >> ~/.ngrok2/ngrok.yml
