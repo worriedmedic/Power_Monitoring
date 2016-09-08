@@ -153,14 +153,14 @@ while true; do
             echo "USER CRONTAB ENTRIES EXIST..."
             echo
         else
-            if [ location=cuttyhunk ]; then
+            if [ $location=cuttyhunk ]; then
                 echo "@reboot /home/pi/Power_Monitoring/Gateway_Logger.sh" >> mycron
                 echo "@reboot /home/pi/Power_Monitoring/Power_Monitor.sh" >> mycron
                 echo "@reboot /home/pi/Power_Monitoring/SVG_Processing.sh" >> mycron
                 echo "@reboot /home/pi/Power_Monitoring/SVG_PNG_Script.sh" >> mycron
                 echo "*/30 * * * * /home/pi/Power_Monitoring/tweeter.sh" >> mycron
                 echo "*/15 * * * * /home/pi/Power_Monitoring/Dropbox-Uploader/data_log_update.sh" >> mycron
-            elif [ location=dover ]; then
+            elif [ $location=dover ]; then
                 echo "@reboot /home/pi/Power_Monitoring/Gateway_Logger.sh" >> mycron
                 echo "@reboot /home/pi/Power_Monitoring/Power_Monitor.sh" >> mycron
                 echo "@reboot /home/pi/Power_Monitoring/SVG_Processing.sh" >> mycron
