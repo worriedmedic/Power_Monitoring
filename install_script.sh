@@ -76,29 +76,30 @@ while true; do
             sudo cp ngrok /usr/local/bin/
             rm ngrok
             rm ngrok-stable-linux-arm.zip
-            while [ ! -f "~/.ngrok2/ngrok.yml" ]; do
-                read -p "Paste Authorization Token: " -r
-                authtoken=$REPLY
-                echo $authtoken
-                read -p "Are you sure? " -n 1 -r
-                sleep 1
-                if [[ $REPLY =~ ^[Yy]$ ]]; then
-                    mkdir ~/.ngrok2/
-                    echo "authtoken: $authtoken" >> ~/.ngrok2/ngrok.yml
-                    echo "log_level: info" >> ~/.ngrok2/ngrok.yml
-                    echo "log_format: term" >> ~/.ngrok2/ngrok.yml
-                    echo "log: /home/pi/.ngrok2/ngrok.log" >> ~/.ngrok2/ngrok.yml 
-                    echo "tunnels:" >> ~/.ngrok2/ngrok.yml
-                    echo "  ssh:" >> ~/.ngrok2/ngrok.yml
-                    echo "    proto: tcp" >> ~/.ngrok2/ngrok.yml
-                    echo "    addr: 22" >> ~/.ngrok2/ngrok.yml
-                fi
-            done
         else
-            echo "Copy of NGROK found in /usr/local/bin/ - moving on..."
+            echo "Copy of NGROK found in /usr/local/bin/"
             echo
-            break
         fi
+        if [ ! -f "~/.ngrok2/ngrok.yml" ]; then
+            echo "Setting up ~/.ngrok2/ngrok.yml configuration file..."
+            read -p "Paste Authorization Token: " -r
+            authtoken=$REPLY
+            echo $authtoken
+            read -p "Are you sure? " -n 1 -r
+            sleep 1
+            if [[ $REPLY =~ ^[Yy]$ ]]; then
+                mkdir ~/.ngrok2/
+                echo "authtoken: $authtoken" >> ~/.ngrok2/ngrok.yml
+                echo "log_level: info" >> ~/.ngrok2/ngrok.yml
+                echo "log_format: term" >> ~/.ngrok2/ngrok.yml
+                echo "log: /home/pi/.ngrok2/ngrok.log" >> ~/.ngrok2/ngrok.yml 
+                echo "tunnels:" >> ~/.ngrok2/ngrok.yml
+                echo "  ssh:" >> ~/.ngrok2/ngrok.yml
+                echo "    proto: tcp" >> ~/.ngrok2/ngrok.yml
+                echo "    addr: 22" >> ~/.ngrok2/ngrok.yml
+            fi
+        fi
+        break
     elif [[ $REPLY =~ ^[Nn]$ ]]
     then
         echo
