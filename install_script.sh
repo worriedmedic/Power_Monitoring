@@ -10,6 +10,7 @@ while true; do
     case $REPLY in
         [Cc][Uu][Tt][Tt][Yy])
             echo "Setting location as CUTTYHUNK"
+            location = "cuttyhunk"
             if [ -f 'dover.location' ]; then
                 rm dover.location
             else
@@ -21,6 +22,7 @@ while true; do
             ;;
         [Dd][Oo][Vv][Ee][Rr])
             echo "Setting location as DOVER"
+            location = "dover"
             if [ -f 'cuttyhunk.location' ]; then
                 rm cuttyhunk.location
             else
@@ -71,17 +73,22 @@ while true; do
             sudo cp ngrok /usr/local/bin/
             rm ngrok
             rm ngrok-stable-linux-arm.zip
-            echo "NEED TO ADD AUTHORIZATION KEY AND ADD SERVICES TO ~/.ngrok2/ngrok.yml"
-            echo "authtoken: <AUTHTOKEN>"
-            echo "log_level: info"
-            echo "log_format: term"
-            echo "log: /home/pi/.ngrok2/_ngrok.log"
-            echo "tunnels:"
-            echo "  ssh:"
-            echo "    proto: tcp"
-            echo "    addr: 22"
-            echo
-            break
+            while [ ! -f "~/.ngrok2/ngrok.yml" ]; do
+                read -p "Paste Authorization Token: " -r
+                authtoken = $REPLY
+                echo $authtoken
+                read -p "Are you sure? " -n 1 -r
+                if [[ $REPLY =~ ^[Yy]$ ]]; then
+                    echo "authtoken: $authtoken" >> ~/.ngrok2/ngrok.yml
+                    echo "log_level: info" >> ~/.ngrok2/ngrok.yml
+                    echo "log_format: term" >> ~/.ngrok2/ngrok.yml
+                    echo "log: /home/pi/.ngrok2/ngrok.log" >> ~/.ngrok2/ngrok.yml 
+                    echo "tunnels:" >> ~/.ngrok2/ngrok.yml
+                    echo "  ssh:" >> ~/.ngrok2/ngrok.yml
+                    echo "    proto: tcp" >> ~/.ngrok2/ngrok.yml
+                    echo "    addr: 22" >> ~/.ngrok2/ngrok.yml
+                fi
+            done
         else
             echo "Copy of NGROK found in /usr/local/bin/ - moving on..."
             echo
@@ -150,7 +157,7 @@ while true; do
             echo "@reboot /home/pi/Power_Monitoring/Power_Monitor.sh" >> mycron
             echo "@reboot /home/pi/Power_Monitoring/SVG_Processing.sh" >> mycron
             echo "@reboot /home/pi/Power_Monitoring/SVG_PNG_Script.sh" >> mycron
-            echo "*/10 * * * * /home/pi/Power_Monitoring/tweeter.sh" >> mycron
+            echo "*/30 * * * * /home/pi/Power_Monitoring/tweeter.sh" >> mycron
             echo "*/15 * * * * /home/pi/Power_Monitoring/Dropbox-Uploader/data_log_update.sh" >> mycron
             crontab mycron #WRITE ADDITIONS TO CRONTAB
         fi
@@ -161,7 +168,7 @@ while true; do
             echo
         else
             sudo echo "*/5 *   * * *   root    /usr/local/bin/network_restart.sh >> /var/log/network_restart.log 2>&1" >> /etc/crontab
-            sudo echo "@reboot         pi      ngrok start -all > /dev/null"
+            sudo echo "@reboot         pi      ngrok start -all > /dev/null" >> /etc/crontab
         fi
         break
     elif [[ $REPLY =~ ^[Nn]$ ]]
