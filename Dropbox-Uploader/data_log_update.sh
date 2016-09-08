@@ -22,8 +22,8 @@ elif [ -f '/home/pi/Power_Monitoring/cuttyhunk.location' ]; then
   /usr/local/bin/dropbox_uploader.sh -p upload ~/Power_Monitoring/data_log/ /Programming/logs/cuttyhunk/
   /usr/local/bin/dropbox_uploader.sh -p upload /var/log/network_restart.log /Programming/logs/cuttyhunk/data_log/sys_log/
   /usr/local/bin/dropbox_uploader.sh -p upload /var/log/fail2ban.log /Programming/logs/cuttyhunk/data_log/sys_log/
-  /usr/local/bin/dropbox_uploader.sh -p upload /var/log/syslog /Programming/logs/cuttyhunk/data_log/sys_log/
-  /usr/local/bin/dropbox_uploader.sh -p upload /var/log/dmesg /Programming/logs/cuttyhunk/data_log/sys_log/
+  #/usr/local/bin/dropbox_uploader.sh -p upload /var/log/syslog /Programming/logs/cuttyhunk/data_log/sys_log/
+  #/usr/local/bin/dropbox_uploader.sh -p upload /var/log/dmesg /Programming/logs/cuttyhunk/data_log/sys_log/
   /usr/local/bin/dropbox_uploader.sh -p upload ~/.ngrok2/_ngrok.log /Programming/logs/cuttyhunk/data_log/
   /usr/local/bin/dropbox_uploader.sh -p upload ~/.vnc/raspberrypi\:1.log /Programming/logs/cuttyhunk/data_log/sys_log/
   
