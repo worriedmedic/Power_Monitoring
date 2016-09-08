@@ -186,8 +186,10 @@ while true; do
             echo "/etc/crontab ENTRIES EXIST..."
             echo
         else
-            sudo echo "*/5 *   * * *   root    /usr/local/bin/network_restart.sh >> /var/log/network_restart.log 2>&1" >> /etc/crontab
-            sudo echo "@reboot         pi      ngrok start -all > /dev/null" >> /etc/crontab
+            sudo su
+            echo "*/5 *   * * *   root    /usr/local/bin/network_restart.sh >> /var/log/network_restart.log 2>&1" >> /etc/crontab
+            echo "@reboot         pi      ngrok start -all > /dev/null" >> /etc/crontab
+            exit
         fi
         break
     elif [[ $REPLY =~ ^[Nn]$ ]]
