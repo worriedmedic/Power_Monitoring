@@ -103,7 +103,6 @@ while true; do
                 break
             fi
         done
-        break
     elif [[ $REPLY =~ ^[Nn]$ ]]
     then
         echo
