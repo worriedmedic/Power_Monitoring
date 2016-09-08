@@ -6,6 +6,7 @@ echo
 ### APT-GET INSTALL DEPENDENCIES
 while true; do
     read -p "Which location is this? (dover/cutty) " -n 5 -r
+    sleep 1
     echo
     case $REPLY in
         [Cc][Uu][Tt][Tt][Yy])
@@ -42,6 +43,7 @@ done
 ### APT-GET INSTALL DEPENDENCIES
 while true; do
     read -p "Install dependencies (y/n)? " -n 1 -r
+    sleep 1
     echo
     if [[ $REPLY =~ ^[Yy]$ ]]
     then
@@ -62,6 +64,7 @@ done
 ### NGROK
 while true; do
     read -p "Install ngrok? (y/n) " -n 1 -r
+    sleep 1
     echo
     if [[ $REPLY =~ ^[Yy]$ ]]
     then
@@ -78,6 +81,7 @@ while true; do
                 authtoken = $REPLY
                 echo $authtoken
                 read -p "Are you sure? " -n 1 -r
+                sleep 1
                 if [[ $REPLY =~ ^[Yy]$ ]]; then
                     echo "authtoken: $authtoken" >> ~/.ngrok2/ngrok.yml
                     echo "log_level: info" >> ~/.ngrok2/ngrok.yml
