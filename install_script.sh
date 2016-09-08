@@ -10,7 +10,7 @@ while true; do
     case $REPLY in
         [Cc][Uu][Tt][Tt][Yy])
             echo "Setting location as CUTTYHUNK"
-            location = "cuttyhunk"
+            location=cuttyhunk
             if [ -f 'dover.location' ]; then
                 rm dover.location
             else
@@ -22,7 +22,7 @@ while true; do
             ;;
         [Dd][Oo][Vv][Ee][Rr])
             echo "Setting location as DOVER"
-            location = "dover"
+            location=dover
             if [ -f 'cuttyhunk.location' ]; then
                 rm cuttyhunk.location
             else
@@ -153,14 +153,23 @@ while true; do
             echo "USER CRONTAB ENTRIES EXIST..."
             echo
         else
-            echo "@reboot /home/pi/Power_Monitoring/Gateway_Logger.sh" >> mycron
-            echo "@reboot /home/pi/Power_Monitoring/Power_Monitor.sh" >> mycron
-            echo "@reboot /home/pi/Power_Monitoring/SVG_Processing.sh" >> mycron
-            echo "@reboot /home/pi/Power_Monitoring/SVG_PNG_Script.sh" >> mycron
-            echo "*/30 * * * * /home/pi/Power_Monitoring/tweeter.sh" >> mycron
-            echo "*/15 * * * * /home/pi/Power_Monitoring/Dropbox-Uploader/data_log_update.sh" >> mycron
-            crontab mycron #WRITE ADDITIONS TO CRONTAB
+            if [ location=cuttyhunk ]; then
+                echo "@reboot /home/pi/Power_Monitoring/Gateway_Logger.sh" >> mycron
+                echo "@reboot /home/pi/Power_Monitoring/Power_Monitor.sh" >> mycron
+                echo "@reboot /home/pi/Power_Monitoring/SVG_Processing.sh" >> mycron
+                echo "@reboot /home/pi/Power_Monitoring/SVG_PNG_Script.sh" >> mycron
+                echo "*/30 * * * * /home/pi/Power_Monitoring/tweeter.sh" >> mycron
+                echo "*/15 * * * * /home/pi/Power_Monitoring/Dropbox-Uploader/data_log_update.sh" >> mycron
+            elif [ location=dover ]; then
+                echo "@reboot /home/pi/Power_Monitoring/Gateway_Logger.sh" >> mycron
+                echo "@reboot /home/pi/Power_Monitoring/Power_Monitor.sh" >> mycron
+                echo "@reboot /home/pi/Power_Monitoring/SVG_Processing.sh" >> mycron
+                echo "@reboot /home/pi/Power_Monitoring/SVG_PNG_Script.sh" >> mycron
+                echo "*/15 * * * * /home/pi/Power_Monitoring/tweeter.sh" >> mycron
+                echo "*/15 * * * * /home/pi/Power_Monitoring/Dropbox-Uploader/data_log_update.sh" >> mycron
+            fi
         fi
+        crontab mycron #WRITE ADDITIONS TO CRONTAB
         rm mycron #CLEAN UP
         if grep -q '/usr/local/bin/network_restart.sh' /etc/crontab; then
             echo 
