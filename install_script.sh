@@ -6,7 +6,7 @@ echo
 ### APT-GET INSTALL DEPENDENCIES
 while true; do
     read -p "Which location is this? (dover/cutty) " -n 5 -r
-    sleep 1
+    sleep .25
     echo
     case $REPLY in
         [Cc][Uu][Tt][Tt][Yy])
@@ -43,7 +43,7 @@ done
 ### APT-GET INSTALL DEPENDENCIES
 while true; do
     read -p "Install dependencies (y/n)? " -n 1 -r
-    sleep 1
+    sleep .25
     echo
     if [[ $REPLY =~ ^[Yy]$ ]]
     then
@@ -64,7 +64,7 @@ done
 ### NGROK
 while true; do
     read -p "Install ngrok? (y/n) " -n 1 -r
-    sleep 1
+    sleep .25
     echo
     if [[ $REPLY =~ ^[Yy]$ ]]
     then
@@ -80,13 +80,14 @@ while true; do
             echo "Copy of NGROK found in /usr/local/bin/"
             echo
         fi
-        if [ ! -f "~/.ngrok2/ngrok.yml" ]; then
+        while [ ! -f "~/.ngrok2/ngrok.yml" ]; do
             echo "Setting up ~/.ngrok2/ngrok.yml configuration file..."
             read -p "Paste Authorization Token: " -r
             authtoken=$REPLY
             echo $authtoken
-            read -p "Are you sure? " -n 1 -r
-            sleep 1
+            read -p "Are you sure? (y/n/exit)" -n 1 -r
+            sleep .25
+            echo 
             if [[ $REPLY =~ ^[Yy]$ ]]; then
                 mkdir ~/.ngrok2/
                 echo "authtoken: $authtoken" >> ~/.ngrok2/ngrok.yml
@@ -97,8 +98,11 @@ while true; do
                 echo "  ssh:" >> ~/.ngrok2/ngrok.yml
                 echo "    proto: tcp" >> ~/.ngrok2/ngrok.yml
                 echo "    addr: 22" >> ~/.ngrok2/ngrok.yml
+                break
+            elif [[ $REPLY =~ ^[Ex]$ ]]; then
+                break
             fi
-        fi
+        done
         break
     elif [[ $REPLY =~ ^[Nn]$ ]]
     then
