@@ -452,7 +452,7 @@ while(1):
         			
 				if (addr == bat1):
 					if (0 <= float(volt) < 80):
-						for element in tree.iter():
+						if tree.iter():
 							if element.tag.split("}")[1] == "path":
 								if element.get("id") == "b00Bat4":
 									element.attrib['class'] = 'st3'
