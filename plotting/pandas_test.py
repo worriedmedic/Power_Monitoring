@@ -9,7 +9,7 @@ s['Pressure'] = s['Pressure'].map(lambda x: x.lstrip('P'))
 s['Humidity'] = s['Humidity'].map(lambda x: x.lstrip('H'))
 s['Voltage'] = s['Voltage'].map(lambda x: x.lstrip('V'))
 
-s.drop('Date', 1)
+s = s.drop('Date', 1)
 s['Time'] = pd.to_datetime(s['Time'])
 
 s0 = s.loc[s['Address'] == 0]
@@ -24,7 +24,7 @@ plt.figure()
 #plot_date(dates, values)
 
 fig, ax1 = plt.subplot(211)
-ax1 = plot_dates(s0['Time'], s0['Temperature'].values.astype(float))
+ax1 = plt.plot_date(s0['Time'], s0['Temperature'].values.astype(float))
 ax1.setp(ax1, color='r', linewidth=2.0)
 ax1.title('Ext Sensor: Temp')
 ax1.xlabel('Time')
