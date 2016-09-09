@@ -45,3 +45,4 @@ User Crontab:
 @reboot		pi	ngrok start -all > /dev/null
 ```
 
+Plotting Software Installed: `python-matplotlib`, `python-pandas`
