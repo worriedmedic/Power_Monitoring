@@ -16,9 +16,9 @@ verbose   = False
 internet  = True
 
 # Read command line args
-myopts, args = getopt.getopt(sys.argv[1:],"d:v:")
+myopts = getopt.getopt(sys.argv())
 
-for o, a in myopts:
+for o in myopts:
 	if o == '-d':
 		debug = True
 	elif o == '-v':
