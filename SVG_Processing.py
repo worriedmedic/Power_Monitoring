@@ -15,10 +15,13 @@ debug     = False
 verbose   = False
 internet  = True
 
-for opt, arg in opts:
-	if opt == 'debug':
+# Read command line args
+myopts, args = getopt.getopt(sys.argv[1:],"d:v:")
+
+for o, a in myopts:
+	if o == '-d':
 		debug = True
-	elif opt == 'verbose':
+	elif o == '-v':
 		verbose = True
 
 if os.path.isfile('dover.location'):
