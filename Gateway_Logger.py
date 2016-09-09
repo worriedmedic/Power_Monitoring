@@ -33,7 +33,7 @@ for arg in sys.argv:
 	elif arg == '-h':
 		print("Gateway_Logger.py script - LWH & NHH")
 		print("Backend processing of data collected by Arduino based sensors for output to SVG/PNG file")
-		print("Options:  [-e EMONCMS UPDATING ON (default)] [-l LOGGING TO FILE (default)] 
+		print("Options:  [-e EMONCMS UPDATING ON (default)] [-l LOGGING TO FILE (default)]")
 		print("[-t THINGSPEAK UPDATING ON (default)] [-v VERBOSE] [-h HELP]")
 		sys.exit()
 	
