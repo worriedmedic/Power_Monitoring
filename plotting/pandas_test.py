@@ -9,4 +9,3 @@ s['Humidity'] = s['Humidity'].map(lambda x: x.lstrip('H'))
 s['Voltage'] = s['Voltage'].map(lambda x: x.lstrip('V'))
 
 s.plot()
-s.show()
