@@ -9,19 +9,15 @@ import json
 from lxml import etree
 import traceback
 import sys
-import getopt
 
 debug     = False
 verbose   = False
 internet  = True
 
-# Read command line args
-myopts = getopt.getopt(str(sys.argv))
-
-for o in myopts:
-	if o == '-d':
+for arg in sys.argv:
+	if arg == '-d':
 		debug = True
-	elif o == '-v':
+	elif arg == '-v':
 		verbose = True
 
 if os.path.isfile('dover.location'):
