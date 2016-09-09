@@ -24,7 +24,7 @@ for arg in sys.argv:
 	elif arg is '-h' or '--help':
 		print("SVG_Processing.py script - LWH & NHH")
 		print("Backend processing of data collected by Arduino based sensors for output to SVG/PNG file")
-		print("Options:  [-d DEBUG] [-v VERBOSE] [-h --help HELP]
+		print("Options:  [-d DEBUG] [-v VERBOSE] [-h --help HELP]")
 		sys.exit()
 
 if os.path.isfile('dover.location'):
