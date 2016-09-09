@@ -17,6 +17,26 @@ emoncms_update      = True # Turn on/off updating to Emoncms
 txt_logging         = True # Enable/Disable logging to TXT file
 verbose             = False
 
+for arg in sys.argv:
+    if arg == '-e':
+        emoncms_update = True
+        print("EMONCMS Updating is ON")
+    elif arg == '-l':
+        txt_logging = True
+        print("Logging to file is ON")
+    elif arg == '-t':
+        thingspeak_update = True
+        print("THINGSPEAK Updating is ON")
+	elif arg == '-v':
+		verbose = True
+		print("VERBOSE is ON")
+	elif arg == '-h':
+		print("Gateway_Logger.py script - LWH & NHH")
+		print("Backend processing of data collected by Arduino based sensors for output to SVG/PNG file")
+		print("Options:  [-e EMONCMS UPDATING ON (default)] [-l LOGGING TO FILE (default)] 
+		print("[-t THINGSPEAK UPDATING ON (default)] [-v VERBOSE] [-h HELP]")
+		sys.exit()
+	
 if os.path.isfile('dover.location'):
     addr = '/dev/ttyUSB1'
 elif os.path.isfile('cuttyhunk.location'):
@@ -183,6 +203,27 @@ with serial.Serial(addr,9600) as pt:
             elif addr == '03':
                 try:
                     api_key = 'DOXY1Q9I6C6I88DA'
+                    temp_payload = {'api_key': api_key, 'field1': addr, 'field2': temp, 'field3': press, 'field4': humid, 'field5': dew, 'field6': volt, 'field7': rssi}
+                    r = requests.post(url, data=temp_payload)
+                    if verbose:
+                        print(r.text)
+                        if r.text == "0":
+                            print("Thingspeak Update FAILED")
+                        else:
+                            print("Thingspeak Update OK")
+                            
+                except requests.exceptions.RequestException:
+                    print("THINGSPEAK REQUESTS ERROR", today, now, buffer)
+                    traceback.print_exc(file=sys.stdout)
+                    print('-' * 60)
+                except Exception:
+                    print("THINGSPEAK GENERAL ERROR", today, now, buffer)
+                    traceback.print_exc(file=sys.stdout)
+                    print('-' * 60)
+
+            elif addr == '04':
+                try:
+                    api_key = 'MJEV3AA82GKVMP4V'
                     temp_payload = {'api_key': api_key, 'field1': addr, 'field2': temp, 'field3': press, 'field4': humid, 'field5': dew, 'field6': volt, 'field7': rssi}
                     r = requests.post(url, data=temp_payload)
                     if verbose:
