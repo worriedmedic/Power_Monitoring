@@ -9,10 +9,17 @@ import json
 from lxml import etree
 import traceback
 import sys
+import getopt
 
 debug     = False
 verbose   = False
 internet  = True
+
+for opt, arg in opts:
+	if opt == 'debug':
+		debug = True
+	elif opt == 'verbose':
+		verbose = True
 
 if os.path.isfile('dover.location'):
 	location = 'dover'
