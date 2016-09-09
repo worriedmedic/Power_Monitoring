@@ -1,5 +1,6 @@
 import pandas as pd
 import numpy as np
+import matplotlib
 import matplotlib.pyplot as plt
 
 s = pd.read_csv('/home/pi/Power_Monitoring/data_log/2016-09/2016-09-09.log', names = ["Date", "Time", "Address", "Temperature", "Pressure", "Humidity", "Voltage", "RSSI"])
@@ -18,8 +19,8 @@ s4 = s.loc[s['Address'] == 4]
 
 plt.figure()
 
-dates = matplotlib.dates.date2num(s0['Time'])
-plot_date(dates, values)
+#dates = matplotlib.dates.date2num(s0['Time'])
+#plot_date(dates, values)
 
 plt.subplot(211)
 s0temp = plt.plot(pd.to_datetime(s0['Time']), s0['Temperature'].values.astype(float))
