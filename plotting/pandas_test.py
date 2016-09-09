@@ -16,6 +16,6 @@ s2 = s.loc[s['Address'] == 2]
 s3 = s.loc[s['Address'] == 3]
 s4 = s.loc[s['Address'] == 4]
 
-plot = plt.plot([s0['Time'], s0['Temperature']])
+plot = plt.plot(s0['Time'].values, s0['Temperature'].values)
 fig = plot.get_figure()
 fig.savefig("output.png")
