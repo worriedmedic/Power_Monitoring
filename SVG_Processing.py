@@ -384,15 +384,42 @@ while(1):
 					print(addr, temp, press, humid, volt, dew, rssi)
 
 				if location == 'cuttyhunk':
-					if (addr == '01'):
+					if (addr == '00'):
 						temp_0 = float(temp) #EXTERIOR
-						temp_2 = float(temp)
 						press_0 = float(press)
 						humid_0 = float(humid)
 						dew_0 = float(dew)
-					elif (addr == '00'):
+						volt_0 = float(volt)
+						rssi_0 = float(rssi)
+					if (addr == '01'):
 						temp_1 = float(temp) #INTERIOR
-						temp_3 = float(temp)
+						press_1 = float(press)
+						humid_1 = float(humid)
+						dew_1 = float(dew)
+						volt_1 = float(volt)
+						rssi_1 = float(rssi)
+					elif (addr == '02):
+						temp_2 = float(temp) #INTERIOR_DOWNSTAIRS
+						press_2 = float(press)
+						humid_2 = float(humid)
+						dew_2 = float(dew)
+						volt_2 = float(volt)
+						rssi_2 = float(rssi)
+					elif (addr == '03'):
+						temp_3 = float(temp) #INTERIOR
+						press_3 = float(press)
+						humid_3 = float(humid)
+						dew_3 = float(dew)
+						volt_3 = float(volt)
+						rssi_3 = float(rssi)
+					elif (addr == '04'):
+						temp_4 = float(temp) #INTERIOR
+						press_4 = float(press)
+						humid_4 = float(humid)
+						dew_4 = float(dew)
+						volt_4 = float(volt)
+						rssi_4 = float(rssi)
+						
 				elif location == 'dover':
 					if (addr == '09'):
 						temp_0 = float(temp) #EXTERIOR
