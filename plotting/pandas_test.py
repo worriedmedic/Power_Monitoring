@@ -16,6 +16,16 @@ s2 = s.loc[s['Address'] == 2]
 s3 = s.loc[s['Address'] == 3]
 s4 = s.loc[s['Address'] == 4]
 
-plot = plt.plot([s0['Time'], s0['Temperature']])
-fig = plot.get_figure()
-fig.savefig("output.png")
+plt.figure(1)
+plt.subplot(221)
+plt.plot(pd.to_datetime(s0['Time']), s0['Temperature'].values.astype(float), 'bo')
+plt.title('External Sensor: Temperature over time')
+plt.xlabel('Time')
+plt.ylabel('Temperature')
+#plt.axis([0,12,60,100])
+plt.subplot(222)
+plt.plot(pd.to_datetime(s0['Time']), s0['Pressure'].values.astype(float), 'ro')
+
+
+plt.savefig("output.png")
+plt.show()
