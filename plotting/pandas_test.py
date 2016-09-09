@@ -8,4 +8,8 @@ s['Pressure'] = s['Pressure'].map(lambda x: x.lstrip('P'))
 s['Humidity'] = s['Humidity'].map(lambda x: x.lstrip('H'))
 s['Voltage'] = s['Voltage'].map(lambda x: x.lstrip('V'))
 
-s.sort(["Address","Time"])
+x = s.groupby("Address")
+y = s.groupby("Temperature")
+
+plt.plot(x,y)
+plt.show()
