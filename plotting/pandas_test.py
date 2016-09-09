@@ -27,7 +27,7 @@ plt.ylabel('Temp')
 plt.axis('scaled')
 
 ax2 = plt.subplot(212, sharex=ax1, sharey=ax1)
-sopress = plt.plot(pd.to_datetime(s0['Time']), s0['Pressure'].values.astype(float))
+s0press = plt.plot(pd.to_datetime(s0['Time']), s0['Pressure'].values.astype(float))
 plt.setp(s0press, color='r', linewidth=2.0)
 plt.xlabel('Time')
 plt.ylabel('Press')
