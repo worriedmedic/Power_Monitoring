@@ -452,7 +452,7 @@ while(1):
         			
 				if (addr == bat1):
 					if (0 <= float(volt) < 80):
-						if element in tree.iter():
+						for element in tree.iter():
 							if element.tag.split("}")[1] == "path":
 								if element.get("id") == "b00Bat4":
 									element.attrib['class'] = 'st3'
@@ -467,7 +467,7 @@ while(1):
 								if debug:
 									print(bat1, " - 0 to 80")
 					elif (80 <= float(volt) < 85): 
-						if element in tree.iter():
+						for element in tree.iter():
 							if element.tag.split("}")[1] == "path":
 								if element.get("id") == "b00Bat4":
 									element.attrib['class'] = 'st3'
@@ -482,7 +482,7 @@ while(1):
 								if debug:
 									print(bat1, " - 80 to 85")
 					elif (85 <= float(volt) < 90): 
-						if element in tree.iter():
+						for element in tree.iter():
 							if element.tag.split("}")[1] == "path":
 								if element.get("id") == "b00Bat4":
 									element.attrib['class'] = 'st3'
@@ -497,7 +497,7 @@ while(1):
 								if debug:
 									print(bat1, " - 80 to 90")
 					elif (90 <= float(volt) < 95): 
-						if element in tree.iter():
+						for element in tree.iter():
 							if element.tag.split("}")[1] == "path":
 								if element.get("id") == "b00Bat4":
 									element.attrib['class'] = 'st3'
@@ -512,7 +512,7 @@ while(1):
 								if debug:
 									print(bat1, " - 90 to 95")
 					elif (95 <= float(volt) < 100): 
-						if element in tree.iter():
+						for element in tree.iter():
 							if element.tag.split("}")[1] == "path":
 								if element.get("id") == "b00Bat4":
 									element.attrib['class'] = ''
@@ -528,7 +528,7 @@ while(1):
 									print(bat1, " - 95 to 100")
 				elif (addr == bat2):
 					if (0 <= float(volt) < 80):
-						if element in tree.iter():
+						for element in tree.iter():
 							if element.tag.split("}")[1] == "path":
 								if element.get("id") == "b01Bat4":
 									element.attrib['class'] = 'st3'
@@ -543,7 +543,7 @@ while(1):
 								if debug:
 									print(bat2, " - 0 to 80")
 					elif (80 <= float(volt) < 85): 
-						if element in tree.iter():
+						for element in tree.iter():
 							if element.tag.split("}")[1] == "path":
 								if element.get("id") == "b01Bat4":
 									element.attrib['class'] = 'st3'
@@ -558,7 +558,7 @@ while(1):
 								if debug:
 									print(bat2 + " - 80 to 50")
 					elif (80 <= float(volt) < 90): 
-						if element in tree.iter():
+						for element in tree.iter():
 							if element.tag.split("}")[1] == "path":
 								if element.get("id") == "b01Bat4":
 									element.attrib['class'] = 'st3'
@@ -573,7 +573,7 @@ while(1):
 								if debug:
 									print(bat2, " - 80 to 90")
 					elif (90 <= float(volt) < 95): 
-						if element in tree.iter():
+						for element in tree.iter():
 							if element.tag.split("}")[1] == "path":
 								if element.get("id") == "b01Bat4":
 									element.attrib['class'] = 'st3'
@@ -588,7 +588,7 @@ while(1):
 								if debug:
 									print(bat2, " - 90 to 95")
 					elif (95 <= float(volt) < 100): 
-						if element in tree.iter():
+						for element in tree.iter():
 							if element.tag.split("}")[1] == "path":
 								if element.get("id") == "b01Bat4":
 									element.attrib['class'] = ''
@@ -604,7 +604,7 @@ while(1):
 									print(bat2, " - 95 to 100")
 				elif (addr == bat3):
 					if (0 <= float(volt) < 80):
-						if element in tree.iter():
+						for element in tree.iter():
 							if element.tag.split("}")[1] == "path":
 								if element.get("id") == "b02Bat4":
 									element.attrib['class'] = 'st3'
@@ -619,7 +619,7 @@ while(1):
 								if debug:
 									print(bat3, " - 0 to 80")
 					elif (80 <= float(volt) < 85): 
-						if element in tree.iter():
+						for element in tree.iter():
 							if element.tag.split("}")[1] == "path":
 								if element.get("id") == "b02Bat4":
 									element.attrib['class'] = 'st3'
@@ -634,7 +634,7 @@ while(1):
 								if debug:
 									print(bat3, " - 80 to 85")
 					elif (85 <= float(volt) < 90): 
-						if element in tree.iter():
+						for element in tree.iter():
 							if element.tag.split("}")[1] == "path":
 								if element.get("id") == "b02Bat4":
 									element.attrib['class'] = 'st3'
@@ -649,7 +649,7 @@ while(1):
 								if debug:
 									print(bat3, " - 85 to 90")
 					elif (90 <= float(volt) < 95): 
-						if element in tree.iter():
+						for element in tree.iter():
 							if element.tag.split("}")[1] == "path":
 								if element.get("id") == "b02Bat4":
 									element.attrib['class'] = 'st3'
@@ -664,7 +664,7 @@ while(1):
 								if debug:
 									print(bat3, " - 90 to 95")
 					elif (95 <= float(volt) < 100): 
-						if element in tree.iter():
+						for element in tree.iter():
 							if element.tag.split("}")[1] == "path":
 								if element.get("id") == "b02Bat4":
 									element.attrib['class'] = ''
@@ -680,7 +680,7 @@ while(1):
 									print(bat3, " - 95 to 100")
 				elif (addr == bat4):
 					if (0 <= float(volt) < 80):
-						if element in tree.iter():
+						for element in tree.iter():
 							if element.tag.split("}")[1] == "path":
 								if element.get("id") == "b03Bat4":
 									element.attrib['class'] = 'st3'
@@ -695,7 +695,7 @@ while(1):
 								if debug:
 									print(bat4, " - 0 to 80")
 					elif (80 <= float(volt) < 85): 
-						if element in tree.iter():
+						for element in tree.iter():
 							if element.tag.split("}")[1] == "path":
 								if element.get("id") == "b03Bat4":
 									element.attrib['class'] = 'st3'
@@ -710,7 +710,7 @@ while(1):
 								if debug:
 									print(bat4, " - 80 to 85")
 					elif (85 <= float(volt) < 90): 
-						if element in tree.iter():
+						for element in tree.iter():
 							if element.tag.split("}")[1] == "path":
 								if element.get("id") == "b03Bat4":
 									element.attrib['class'] = 'st3'
@@ -725,7 +725,7 @@ while(1):
 								if debug:
 									print(bat4, " - 85 to 90")
 					elif (90 <= float(volt) < 95): 
-						if element in tree.iter():
+						for element in tree.iter():
 							if element.tag.split("}")[1] == "path":
 								if element.get("id") == "b03Bat4":
 									element.attrib['class'] = 'st3'
@@ -740,7 +740,7 @@ while(1):
 								if debug:
 									print(bat4, " - 90 to 95")
 					elif (95 <= float(volt) < 100): 
-						if element in tree.iter():
+						for element in tree.iter():
 							if element.tag.split("}")[1] == "path":
 								if element.get("id") == "b03Bat4":
 									element.attrib['class'] = ''
@@ -756,7 +756,7 @@ while(1):
 									print(bat4, " - 95 to 100")
 				elif (addr == bat5):
 					if (0 <= float(volt) < 80):
-						if element in tree.iter():
+						for element in tree.iter():
 							if element.tag.split("}")[1] == "path":
 								if element.get("id") == "b04Bat4":
 									element.attrib['class'] = 'st3'
@@ -771,7 +771,7 @@ while(1):
 								if debug:
 									print(bat5, " - 0 to 80")
 					elif (80 <= float(volt) < 85): 
-						if element in tree.iter():
+						for element in tree.iter():
 							if element.tag.split("}")[1] == "path":
 								if element.get("id") == "b04Bat4":
 									element.attrib['class'] = 'st3'
@@ -786,7 +786,7 @@ while(1):
 								if debug:
 									print(bat5, " - 80 to 85")
 					elif (85 <= float(volt) < 90): 
-						if element in tree.iter():
+						for element in tree.iter():
 							if element.tag.split("}")[1] == "path":
 								if element.get("id") == "b04Bat4":
 									element.attrib['class'] = 'st3'
@@ -801,7 +801,7 @@ while(1):
 								if debug:
 									print(bat5, " - 80 to 90")
 					elif (90 <= float(volt) < 95): 
-						if element in tree.iter():
+						for element in tree.iter():
 							if element.tag.split("}")[1] == "path":
 								if element.get("id") == "b04Bat4":
 									element.attrib['class'] = 'st3'
@@ -816,7 +816,7 @@ while(1):
 								if debug:
 									print(bat5, " - 90 to 95")
 					elif (95 <= float(volt) < 100): 
-						if element in tree.iter():
+						for element in tree.iter():
 							if element.tag.split("}")[1] == "path":
 								if element.get("id") == "b04Bat4":
 									element.attrib['class'] = ''
