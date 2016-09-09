@@ -8,4 +8,14 @@ s['Pressure'] = s['Pressure'].map(lambda x: x.lstrip('P'))
 s['Humidity'] = s['Humidity'].map(lambda x: x.lstrip('H'))
 s['Voltage'] = s['Voltage'].map(lambda x: x.lstrip('V'))
 
-s.plot()
+#s = s.drop('Date', 1)
+
+s0 = s.loc[s['Address'] == 0]
+s1 = s.loc[s['Address'] == 1]
+s2 = s.loc[s['Address'] == 2]
+s3 = s.loc[s['Address'] == 3]
+s4 = s.loc[s['Address'] == 4]
+
+plot = plt.plot(x=s0['Time'], y=s0['Temperature'])
+fig = plot.get_figure()
+fig.savefig("output.png")
