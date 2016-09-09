@@ -16,9 +16,9 @@ s2 = s.loc[s['Address'] == 2]
 s3 = s.loc[s['Address'] == 3]
 s4 = s.loc[s['Address'] == 4]
 
-fig = plt.figure()
+plt.figure()
 
-ax1 = fig.add_subplot(211)
+plt.add_subplot(211)
 plt.plot(pd.to_datetime(s0['Time']), s0['Temperature'].values.astype(float))
 plt.setp(lines, color='r', linewidth=2.0)
 plt.title('Ext Sensor: Temp')
@@ -26,14 +26,11 @@ plt.xlabel('Time')
 plt.ylabel('Temp')
 plt.axis('scaled')
 
-ax2 = fig.add_subplot(212, sharex=ax1, sharey=ax1)
-
-#plt.axis([0,12,60,100])
-plt.subplot(222, sharex=ax1, sharey=ax1)
+plt.subplot(212, sharex=ax1, sharey=ax1)
 plt.plot(pd.to_datetime(s0['Time']), s0['Pressure'].values.astype(float))
 plt.setp(lines, color='r', linewidth=2.0)
 plt.xlabel('Time')
-plt.ylabel('Temp')
+plt.ylabel('Press')
 plt.axis('scaled')
 
 
