@@ -18,20 +18,25 @@ s4 = s.loc[s['Address'] == 4]
 
 plt.figure()
 
+dates = matplotlib.dates.date2num(s0['Time'])
+plot_date(dates, values)
+
 plt.subplot(211)
 s0temp = plt.plot(pd.to_datetime(s0['Time']), s0['Temperature'].values.astype(float))
+plt.gcf().autofmt_xdate()
+#s0temp = plt.plot_date(dates, s0['Temperature'].values.astype(float))
 plt.setp(s0temp, color='r', linewidth=2.0)
 plt.title('Ext Sensor: Temp')
 plt.xlabel('Time')
 plt.ylabel('Temp')
-plt.axis('scaled')
 
 plt.subplot(212)
 s0press = plt.plot(pd.to_datetime(s0['Time']), s0['Pressure'].values.astype(float))
+plt.gcf().autofmt_xdate()
+#s0press = plt.plot_date(dates, s0['Pressure'].values.astype(float))
 plt.setp(s0press, color='r', linewidth=2.0)
 plt.xlabel('Time')
 plt.ylabel('Press')
-plt.axis('scaled')
 
 
 plt.savefig("output.png")
