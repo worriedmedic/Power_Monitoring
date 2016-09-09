@@ -398,7 +398,7 @@ while(1):
 						dew_1 = float(dew)
 						volt_1 = float(volt)
 						rssi_1 = float(rssi)
-					elif (addr == '02):
+					elif (addr == '02'):
 						temp_2 = float(temp) #INTERIOR_DOWNSTAIRS
 						press_2 = float(press)
 						humid_2 = float(humid)
