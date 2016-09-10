@@ -6,10 +6,10 @@ import time, datetime
 import traceback
 
 if (1):
-  if (today != datetime.date.today()):
-    today = datetime.date.today()
-    yesterday = datetime.date.today() + datetime.timedelta(days=-1)
-    fname = str(today) + '.log'
+	if (today != datetime.date.today()):
+		today = datetime.date.today()
+		yesterday = datetime.date.today() + datetime.timedelta(days=-1)
+		fname = str(today) + '.log'
     fdirectory = 'data_log/' + time.strftime("%Y-%m")
 
     try:
@@ -53,7 +53,7 @@ if (1):
       data_today2
       data_today3
       data_today4
-    except Exception:
-      print("READ CSV ERROR")
-			traceback.print_exc(file=sys.stdout)
-			print('-' * 60) 
+	except Exception:
+		print("READ CSV ERROR")
+		traceback.print_exc(file=sys.stdout)
+		print('-' * 60) 
