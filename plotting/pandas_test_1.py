@@ -9,11 +9,9 @@ import sys
 if (1):
 	today = datetime.date.today()
 	yesterday = datetime.date.today() + datetime.timedelta(days=-1)
-	fname = str(today) + '.log'
-	fdirectory = 'data_log/' + time.strftime("%Y-%m")
       
 	try:
-		data_today = pd.read_csv('/home/pi/Power_Monitoring/data_log/' + time.strftime("%Y-%m") + '/' + str(today) + '.log', names = ["Date", "Time", "Address", "Temperature", "Pressure", "Humidity", "Voltage", "RSSI"])
+		data_today = pd.read_csv('/home/pi/Power_Monitoring/data_log/' + time.strftime("%Y-%m") + '/' + str(today) + '.log', names = ["Date", "Time", "Address", "Temperature", "Pressure", "Humidity", "Voltage", "RSSI"], dtype=str)
 		data_today['Temperature'] = data_today['Temperature'].str.replace('T', '')
 		data_today['Pressure'] = data_today['Pressure'].str.replace('P', '')
 		data_today['Humidity'] = data_today['Humidity'].str.replace('H', '')
@@ -30,12 +28,12 @@ if (1):
 		data_today4 = data_today.loc[data_today['Address'] == '04']
       
 	except Exception:
-		print("READ CSV ERROR")
+		print("TODAY READ CSV ERROR")
 		traceback.print_exc(file=sys.stdout)
 		print('-' * 60)
 	
 	try:
-		data_yest = pd.read_csv('/home/pi/Power_Monitoring/data_log/' + time.strftime("%Y-%m") + '/' + str(yesterday) + '.log', names = ["Date", "Time", "Address", "Temperature", "Pressure", "Humidity", "Voltage", "RSSI"])
+		data_yest = pd.read_csv('/home/pi/Power_Monitoring/data_log/' + time.strftime("%Y-%m") + '/' + str(yesterday) + '.log', names = ["Date", "Time", "Address", "Temperature", "Pressure", "Humidity", "Voltage", "RSSI"], dtype=str)
 		data_yest['Temperature'] = data_yest['Temperature'].str.replace('T', '')
 		data_yest['Pressure'] = data_yest['Pressure'].str.replace('P', '')
 		data_yest['Humidity'] = data_yest['Humidity'].str.replace('H', '')
@@ -52,15 +50,36 @@ if (1):
 		data_yest4 = data_today.loc[data_yest['Address'] == '04']
       
 	except Exception:
-		print("READ CSV ERROR")
+		print("YESTERDAY READ CSV ERROR")
 		traceback.print_exc(file=sys.stdout)
 		print('-' * 60)
 
 	try:
-		print(data_today0.between_time('00:00','08:59'))
-		print(data_yest4.between_time('12:00','23:59'))
+		#print(data_today0.between_time('00:00','08:59'))
+		#print(data_yest4.between_time('12:00','23:59'))
 		
 	except Exception:
-		print("READ CSV ERROR")
+		print("PRINT DATA ERROR")
+		traceback.print_exc(file=sys.stdout)
+		print('-' * 60) 
+		
+	try
+		fig = plt.figure(figsize=(6, 8))
+	
+		plt.style.use('fivethirtyeight')
+		
+		plt.plot_date(data_today0.between_time('00:00','08:00').index, data_today0['Temperature'].between_time('00:00','08:00').values, linestyle="solid", marker='.', label="Sensor 00")
+		plt.plot_date(data_today1.between_time('00:00','08:00').index, data_today1['Temperature'].between_time('00:00','08:00').values, linestyle="solid", marker='.', label="Sensor 01")
+		plt.legend(bbox_to_anchor=(0., 1.02, 1., .102), loc=3, ncol=2, mode="expand", borderaxespad=0.)
+		plt.title('Ext Sensor: Temp')
+		plt.xlabel('Time')
+		plt.ylabel('Temp')
+		plt.grid()
+		plt.tight_layout()
+		fig.autofmt_xdate()
+		savefig('foo.png', bbox_inches='tight')
+		#plt.show()
+	except Exception:
+		print("MATPLOTLIB ERROR")
 		traceback.print_exc(file=sys.stdout)
 		print('-' * 60) 
