@@ -55,8 +55,8 @@ if (1):
 		print('-' * 60)
 
 	try:
-		#print(data_today0.between_time('00:00','08:59'))
-		#print(data_yest4.between_time('12:00','23:59'))
+		print(data_today0.between_time('00:00','08:59'))
+		print(data_yest4.between_time('12:00','23:59'))
 
 	except Exception:
 		print("PRINT DATA ERROR")
