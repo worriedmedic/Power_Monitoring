@@ -9,6 +9,8 @@ import sys
 if (1):
 	today = datetime.date.today()
 	yesterday = datetime.date.today() + datetime.timedelta(days=-1)
+	now = time.strftime("%H:%M")
+	now_minus_eight = '{:%H:%M}'.format(datetime.datetime.now() + datetime.timedelta(hours=-8))
 	
 	try:
 		data_today = pd.read_csv('/home/pi/Power_Monitoring/data_log/' + time.strftime("%Y-%m") + '/' + str(today) + '.log', names = ["Date", "Time", "Address", "Temperature", "Pressure", "Humidity", "Voltage", "RSSI"], dtype=str)
@@ -55,7 +57,7 @@ if (1):
 		print('-' * 60)
 
 	try:
-		print(data_today0.between_time('00:00','08:59'))
+		print(data_today0.between_time('',now))
 		print(data_yest4.between_time('12:00','23:59'))
 
 	except Exception:
@@ -68,9 +70,9 @@ if (1):
 
 		plt.style.use('fivethirtyeight')
 
-		plt.plot_date(data_today0.between_time('00:00','08:00').index, data_today0['Temperature'].between_time('00:00','08:00').values, linestyle="solid", marker='.', label="Sensor 00")
-		plt.plot_date(data_today1.between_time('00:00','08:00').index, data_today1['Temperature'].between_time('00:00','08:00').values, linestyle="solid", marker='.', label="Sensor 01")
-		plt.legend(bbox_to_anchor=(0., 1.02, 1., .102), loc=3, ncol=2, mode="expand", borderaxespad=0.)
+		plt.plot_date(data_today0.between_time(now_minus_eight, now).index, data_today0['Temperature'].between_time(now_minus_eight, now).values, linestyle="solid", marker='.', label="Sensor 00")
+		plt.plot_date(data_today1.between_time(now_minus_eight, now).index, data_today1['Temperature'].between_time(now_minus_eight, now).values, linestyle="solid", marker='.', label="Sensor 01")
+		plt.legend(loc=4)
 		plt.title('Ext Sensor: Temp')
 		plt.xlabel('Time')
 		plt.ylabel('Temp')
