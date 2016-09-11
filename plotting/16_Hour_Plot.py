@@ -53,8 +53,8 @@ if (1):
 			plt.style.use('grayscale')
 
 			plt.plot_date(data0.last('16H').index, data0['Temperature'].last('16H').values, linestyle="solid", linewidth=line_width, marker='None', color='0', label="Sensor 00")
-			plt.plot_date(data1.last('16H').index, data1['Temperature'].last('16H').values, linestyle="dashed", linewidth=line_width, marker='None', color='0.45', label="Sensor 01")
-			plt.plot_date(data2.last('16H').index, data2['Temperature'].last('16H').values, linestyle="solid", linewidth=line_width, marker='None', color='0.3', label="Sensor 02")
+			plt.plot_date(data1.last('16H').index, data1['Temperature'].last('16H').values, linestyle="dashed", linewidth=line_width, marker='None', color='0.25', label="Sensor 01")
+			plt.plot_date(data2.last('16H').index, data2['Temperature'].last('16H').values, linestyle="solid", linewidth=line_width, marker='None', color='0.5', label="Sensor 02")
 			plt.plot_date(data4.last('16H').index, data4['Temperature'].last('16H').values, linestyle="dotted", linewidth=line_width, marker='None', color='0', label="Sensor 04")
 			plt.legend(loc=0)
 			plt.title('Temperature Plot: Past 16 Hours')
@@ -71,8 +71,8 @@ if (1):
 			plt.style.use('grayscale')
 
 			plt.plot_date(data0.last('16H').index, data0['Pressure'].last('16H').values, linestyle="solid", linewidth=line_width, marker='None', color='0', label="Sensor 00")
-			plt.plot_date(data1.last('16H').index, data1['Pressure'].last('16H').values, linestyle="dashed", linewidth=line_width, marker='None', color='0.45', label="Sensor 01")
-			plt.plot_date(data2.last('16H').index, data2['Pressure'].last('16H').values, linestyle="solid", linewidth=line_width, marker='None', color='0.3', label="Sensor 02")
+			plt.plot_date(data1.last('16H').index, data1['Pressure'].last('16H').values, linestyle="dashed", linewidth=line_width, marker='None', color='0.25', label="Sensor 01")
+			plt.plot_date(data2.last('16H').index, data2['Pressure'].last('16H').values, linestyle="solid", linewidth=line_width, marker='None', color='0.5', label="Sensor 02")
 			plt.plot_date(data4.last('16H').index, data4['Pressure'].last('16H').values, linestyle="dotted", linewidth=line_width, marker='None', color='0', label="Sensor 04")
 			plt.legend(loc=0)
 			plt.title('Pressure Plot: Past 16 Hours')
@@ -89,8 +89,8 @@ if (1):
 			plt.style.use('grayscale')
 
 			plt.plot_date(data0.last('16H').index, data0['Humidity'].last('16H').values, linestyle="solid", linewidth=line_width, marker='None', color='0', label="Sensor 00")
-			plt.plot_date(data1.last('16H').index, data1['Humidity'].last('16H').values, linestyle="dashed", linewidth=line_width, marker='None', color='0.45', label="Sensor 01")
-			plt.plot_date(data2.last('16H').index, data2['Humidity'].last('16H').values, linestyle="solid", linewidth=line_width, marker='None', color='0.3', label="Sensor 02")
+			plt.plot_date(data1.last('16H').index, data1['Humidity'].last('16H').values, linestyle="dashed", linewidth=line_width, marker='None', color='0.25', label="Sensor 01")
+			plt.plot_date(data2.last('16H').index, data2['Humidity'].last('16H').values, linestyle="solid", linewidth=line_width, marker='None', color='0.5', label="Sensor 02")
 			plt.plot_date(data4.last('16H').index, data4['Humidity'].last('16H').values, linestyle="dotted", linewidth=line_width, marker='None', color='0', label="Sensor 04")
 			plt.legend(loc=0)
 			plt.title('Humidity Plot: Past 16 Hours')
