@@ -16,6 +16,7 @@ thingspeak_update   = True # Turn on/off updating to ThingSpeak
 emoncms_update      = True # Turn on/off updating to Emoncms
 txt_logging         = True # Enable/Disable logging to TXT file
 verbose             = False
+req_timeout         = 5
 
 for arg in sys.argv:
 	if arg == '-e':
@@ -118,7 +119,7 @@ with serial.Serial(addr,9600,timeout=192) as pt:
         if emoncms_update:
             try:
                 url = 'https://emoncms.org/input/post.json?node=%s&json={T:%s,P:%s,H:%s,V:%s,R:%s,D:%s}&apikey=4e6eff5d047580696f0e2a7ae9323983' % (addr, temp, press, humid, volt, rssi, dew)
-                r = requests.post(url, timeout=3)
+                r = requests.post(url, timeout=req_timeout)
                 if verbose:
                     print(r.text)
                     if "ok" in r:
@@ -141,7 +142,7 @@ with serial.Serial(addr,9600,timeout=192) as pt:
                 try:
                     api_key = 'TFGVV0YYM18ALONJ'
                     temp_payload = {'api_key': api_key, 'field1': addr, 'field2': temp, 'field3': press, 'field4': humid, 'field5': dew, 'field6': volt, 'field7': rssi}
-                    r = requests.post(url,data=temp_payload, timeout=3)
+                    r = requests.post(url,data=temp_payload, timeout=req_timeout)
                     if verbose:
                         print(r.text)
                         if r.text == "0":
@@ -162,7 +163,7 @@ with serial.Serial(addr,9600,timeout=192) as pt:
                 try:
                     api_key = 'ARPQ7GWOHTQSYWYW'
                     temp_payload = {'api_key': api_key, 'field1': addr, 'field2': temp, 'field3': press, 'field4': humid, 'field5': dew, 'field6': volt, 'field7': rssi}
-                    r = requests.post(url, data=temp_payload, timeout=3)
+                    r = requests.post(url, data=temp_payload, timeout=req_timeout)
                     if verbose:
                         print(r.text)
                         if r.text == "0":
@@ -183,7 +184,7 @@ with serial.Serial(addr,9600,timeout=192) as pt:
                 try:
                     api_key = 'GVWSJ8V12MIPJBLY'
                     temp_payload = {'api_key': api_key, 'field1': addr, 'field2': temp, 'field3': press, 'field4': humid, 'field5': dew, 'field6': volt, 'field7': rssi}
-                    r = requests.post(url, data=temp_payload, timeout=3)
+                    r = requests.post(url, data=temp_payload, timeout=req_timeout)
                     if verbose:
                         print(r.text)
                         if r.text == "0":
@@ -204,7 +205,7 @@ with serial.Serial(addr,9600,timeout=192) as pt:
                 try:
                     api_key = 'DOXY1Q9I6C6I88DA'
                     temp_payload = {'api_key': api_key, 'field1': addr, 'field2': temp, 'field3': press, 'field4': humid, 'field5': dew, 'field6': volt, 'field7': rssi}
-                    r = requests.post(url, data=temp_payload, timeout=3)
+                    r = requests.post(url, data=temp_payload, timeout=req_timeout)
                     if verbose:
                         print(r.text)
                         if r.text == "0":
@@ -225,7 +226,7 @@ with serial.Serial(addr,9600,timeout=192) as pt:
                 try:
                     api_key = 'MJEV3AA82GKVMP4V'
                     temp_payload = {'api_key': api_key, 'field1': addr, 'field2': temp, 'field3': press, 'field4': humid, 'field5': dew, 'field6': volt, 'field7': rssi}
-                    r = requests.post(url, data=temp_payload, timeout=3)
+                    r = requests.post(url, data=temp_payload, timeout=req_timeout)
                     if verbose:
                         print(r.text)
                         if r.text == "0":
@@ -246,7 +247,7 @@ with serial.Serial(addr,9600,timeout=192) as pt:
                 try:
                     api_key = '89NM6222ST0UW15H'
                     temp_payload = {'api_key': api_key, 'field1': addr, 'field2': temp, 'field3': press, 'field4': humid, 'field5': dew, 'field6': volt, 'field7': rssi}
-                    r = requests.post(url, data=temp_payload, timeout=3)
+                    r = requests.post(url, data=temp_payload, timeout=req_timeout)
                     if verbose:
                         print(r.text)
                         if r.text == "0":
@@ -267,7 +268,7 @@ with serial.Serial(addr,9600,timeout=192) as pt:
                 try:
                     api_key = 'LZAFORDCZ4UT75GU'
                     temp_payload = {'api_key': api_key, 'field1': addr, 'field2': temp, 'field3': press, 'field4': humid, 'field5': dew, 'field6': volt, 'field7': rssi}
-                    r = requests.post(url, data=temp_payload, timeout=3)
+                    r = requests.post(url, data=temp_payload, timeout=req_timeout)
                     if verbose:
                         print(r.text)
                         if r.text == "0":
@@ -288,7 +289,7 @@ with serial.Serial(addr,9600,timeout=192) as pt:
                 try:
                     api_key = 'NQQZE8CL8ZC445DN'
                     temp_payload = {'api_key': api_key, 'field1': addr, 'field2': temp, 'field3': press, 'field4': humid, 'field5': dew, 'field6': volt, 'field7': rssi}
-                    r = requests.post(url, data=temp_payload, timeout=3)
+                    r = requests.post(url, data=temp_payload, timeout=req_timeout)
                     if verbose:
                         print(r.text)
                         if r.text == "0":
@@ -309,7 +310,7 @@ with serial.Serial(addr,9600,timeout=192) as pt:
                 try:
                     api_key = '8SHTGBFETA4XVN5P'
                     temp_payload = {'api_key': api_key, 'field1': addr, 'field2': temp, 'field3': press, 'field4': humid, 'field5': dew, 'field6': volt, 'field7': rssi}
-                    r = requests.post(url, data=temp_payload, timeout=3)
+                    r = requests.post(url, data=temp_payload, timeout=req_timeout)
                     if verbose:
                         print(r.text)
                         if r.text == "0":
@@ -330,7 +331,7 @@ with serial.Serial(addr,9600,timeout=192) as pt:
                 try:
                     api_key = 'TUFQWU8SA1HL1B4O'
                     temp_payload = {'api_key': api_key, 'field1': addr, 'field2': temp, 'field3': press, 'field4': humid, 'field5': dew, 'field6': volt, 'field7': rssi}
-                    r = requests.post(url, data=temp_payload, timeout=3)
+                    r = requests.post(url, data=temp_payload, timeout=req_timeout)
                     if verbose:
                         print(r.text)
                         if r.text == "0":
@@ -348,4 +349,4 @@ with serial.Serial(addr,9600,timeout=192) as pt:
                     print('-' * 60)
             
             else:
-                print("NOT PUSHED TO THINGSPEAK :: SENSOR ID NOT FOUND", buffer)
+                print("NOT PUSHED TO THINGSPEAK :: SENSOR ID NOT FOUND", today, now, buffer)
