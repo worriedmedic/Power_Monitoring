@@ -45,7 +45,7 @@ if (1):
 
 	try:
 		if temp_plot:
-			fig = plt.figure(figsize=(6.8, 9.1), dpi=84)
+			fig = plt.figure(figsize=(6.6, 9), dpi=84)
 
 			plt.style.use('grayscale')
 
@@ -63,7 +63,7 @@ if (1):
 			fig.savefig('/home/pi/Power_Monitoring/output/plot_temp.png', bbox_inches='tight')
 		
 		if press_plot:
-			fig = plt.figure(figsize=(6.8, 9.1), dpi=84)
+			fig = plt.figure(figsize=(6.6, 9), dpi=84)
 
 			plt.style.use('grayscale')
 
@@ -81,7 +81,7 @@ if (1):
 			fig.savefig('/home/pi/Power_Monitoring/output/plot_press.png', bbox_inches='tight')
 			
 		if humid_plot:
-			fig = plt.figure(figsize=(6.8, 9.1), dpi=84)
+			fig = plt.figure(figsize=(6.6, 9), dpi=84)
 
 			plt.style.use('grayscale')
 
