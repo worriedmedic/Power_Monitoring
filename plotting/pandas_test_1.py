@@ -60,7 +60,7 @@ if (1):
 			plt.grid()
 			plt.tight_layout()
 			fig.autofmt_xdate()
-			fig.savefig('/home/pi/Power_Monitoring/output/plot_temp.png', facecolor=fig.get_facecolor(), edgecolor='none', bbox_inches='tight')
+			fig.savefig('/home/pi/Power_Monitoring/output/plot_temp.png', bbox_inches='tight')
 		
 		if press_plot:
 			fig = plt.figure(figsize=(6, 8))
@@ -78,7 +78,7 @@ if (1):
 			plt.grid()
 			plt.tight_layout()
 			fig.autofmt_xdate()
-			fig.savefig('/home/pi/Power_Monitoring/output/plot_press.png', facecolor=fig.get_facecolor(), edgecolor='none', bbox_inches='tight')
+			fig.savefig('/home/pi/Power_Monitoring/output/plot_press.png', bbox_inches='tight')
 			
 		if humid_plot:
 			fig = plt.figure(figsize=(6, 8))
@@ -96,7 +96,7 @@ if (1):
 			plt.grid()
 			plt.tight_layout()
 			fig.autofmt_xdate()
-			fig.savefig('/home/pi/Power_Monitoring/output/plot_humid.png', facecolor=fig.get_facecolor(), edgecolor='none', bbox_inches='tight')
+			fig.savefig('/home/pi/Power_Monitoring/output/plot_humid.png', bbox_inches='tight')
 			
 	except Exception:
 		print("MATPLOTLIB ERROR")
