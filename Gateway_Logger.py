@@ -45,10 +45,10 @@ elif os.path.isfile('cuttyhunk.location'):
 
 with serial.Serial(addr,9600) as pt:
     try:
-        spb = io.TextIOWrapper(io.BufferedRWPair(pt,pt,1), encoding='ascii', errors='ignore',line_buffering=True)
-        spb.readline()  # throw away first 3 lines; likely to start mid-sentence (incomplete)
-        spb.readline()
-        spb.readline()
+        spb = io.TextIOWrapper(io.BufferedRWPair(pt,pt), encoding='ascii', errors='strict',line_buffering=True)
+        #spb.readline()
+        #spb.readline()
+        #spb.readline()
     except Exception:
         print("SERIAL READ ERROR")
         traceback.print_exc(file=sys.stdout)
