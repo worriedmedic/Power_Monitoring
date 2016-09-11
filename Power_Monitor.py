@@ -17,6 +17,7 @@ thingspeak_update   = True # Turn on/off updating to ThingSpeak
 emoncms_update      = True # Turn on/off updating to Emoncms
 txt_logging         = True # Enable/Disable logging to TXT file
 verbose             = False
+req_timeout         = 5
 
 with serial.Serial(addr,9600) as pt:
     try:
@@ -96,7 +97,7 @@ with serial.Serial(addr,9600) as pt:
         if emoncms_update:
             try:
                 url = 'https://emoncms.org/input/post.json?node=%s&json={CTT:%s,CT1:%s,CT2:%s,CT3:%s,CT4:%s,VOLT:%s}&apikey=4e6eff5d047580696f0e2a7ae9323983' % (addr, cttotal, ct1p, ct2p, ct3p, ct4p, volt)
-                r = requests.post(url)
+                r = requests.post(url, timeout=req_timeout)
                 if verbose == 'true':
                     print(r.text)
                     if "ok" in r:
@@ -120,7 +121,7 @@ with serial.Serial(addr,9600) as pt:
                 try:
                     api_key = '2I106Q4EPCT9228E'
                     power_payload = {'api_key': api_key, 'field1': cttotal, 'field2': ct1p, 'field3': ct2p, 'field4': ct3p, 'field5': ct4p, 'field6': volt}
-                    r = requests.post(url, data=power_payload)
+                    r = requests.post(url, data=power_payload, timeout=req_timeout)
                     if verbose == 'true':
                         print(r.text)
                         if r.text == "0":
