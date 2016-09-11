@@ -79,7 +79,7 @@ if (1):
 		plt.grid()
 		plt.tight_layout()
 		fig.autofmt_xdate()
-		fig.savefig('00_01_Temp.png', bbox_inches='tight')
+		fig.savefig('/home/pi/Power_Monitoring/output/00_01_Temp.png', bbox_inches='tight')
 		#plt.show()
 	except Exception:
 		print("MATPLOTLIB ERROR")
