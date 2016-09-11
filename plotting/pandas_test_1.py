@@ -76,8 +76,8 @@ if (1):
 			plt.xlabel('Time')
 			plt.ylabel('Pressure (hPa)')
 			plt.grid()
-			plt.set_xticklabels(tick_labels.astype(int))
 			plt.tight_layout()
+			fig.set_xticklabels(tick_labels.astype(int))
 			fig.autofmt_xdate()
 			fig.savefig('/home/pi/Power_Monitoring/output/plot_press.png', bbox_inches='tight')
 			
