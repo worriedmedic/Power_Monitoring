@@ -42,7 +42,7 @@ if os.path.isfile('dover.location'):
 elif os.path.isfile('cuttyhunk.location'):
     addr = '/dev/ttyACM0'
 
-with serial.Serial(addr,9600,timeout=3) as pt:
+with serial.Serial(addr,9600,timeout=192) as pt:
     try:
         spb = io.TextIOWrapper(io.BufferedRWPair(pt,pt,1), encoding='ascii', errors='ignore',line_buffering=True)
         spb.readline()  # throw away first 3 lines; likely to start mid-sentence (incomplete)
