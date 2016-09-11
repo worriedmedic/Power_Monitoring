@@ -45,7 +45,7 @@ elif os.path.isfile('cuttyhunk.location'):
 
 with serial.Serial(addr,9600) as pt:
     try:
-        spb = io.TextIOWrapper(io.BufferedRWPair(pt,pt), encoding='ascii', errors='strict',line_buffering=True)
+        spb = io.TextIOWrapper(io.BufferedRWPair(pt,pt,1), encoding='ascii', errors='strict',line_buffering=True)
         #spb.readline()
         #spb.readline()
         #spb.readline()
