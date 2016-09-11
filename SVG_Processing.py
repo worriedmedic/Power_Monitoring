@@ -13,6 +13,7 @@ import sys
 debug     = False
 verbose   = False
 internet  = True
+req_timeout = 5
 
 for arg in sys.argv:
 	if arg == '-d':
@@ -262,7 +263,7 @@ while(1):
 					try:
 						if os.path.isfile('resources/' + str(yesterday) + '_forecast.json'):
 							os.remove('resources/' + str(yesterday) + '_forecast.json')
-						onlinejson = requests.get(wunder_site_forcast_json)
+						onlinejson = requests.get(wunder_site_forcast_json, timeout=req_timeout)
 						localjson = open('resources/' + str(today) + '_forecast.json', 'wb')
 						for chunk in onlinejson.iter_content(100000):
 							localjson.write(chunk)
@@ -310,7 +311,7 @@ while(1):
 					i = 0
 					if os.path.isfile('resources/' + str(yesterday) + '_conditions.json'):
 						os.remove('resources/' + str(yesterday) + '_conditions.json')
-					onlinejson = requests.get(wunder_site_conditions_json)
+					onlinejson = requests.get(wunder_site_conditions_json, timeout=req_timeout)
 					localjson = open('resources/' + str(today) + '_conditions.json', 'wb')
 					for chunk in onlinejson.iter_content(100000):
 						localjson.write(chunk)
