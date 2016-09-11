@@ -14,6 +14,7 @@ import sys
 url     = 'https://api.thingspeak.com/apps/thingtweet/1/statuses/update'
 logging = False
 debug   = False
+req_timeout = 5
 
 if os.path.isfile('dover.location'):
 	api_key = 'UERV67G8O01HXYVV' #Key for the ThingSpeak Tweeter API
@@ -27,7 +28,7 @@ def thingspeaktweet(api_key):
         	print(tweet)
 	payload = {'api_key': api_key, 'status': tweet}
 	try:
-        	r = requests.post(url, data=payload)
+        	r = requests.post(url, data=payload, timeout=req_timeout)
         	#time.sleep(1)
         	if debug:
         		print(str(today), now, r.text)
