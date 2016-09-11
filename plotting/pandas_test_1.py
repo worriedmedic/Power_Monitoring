@@ -47,7 +47,7 @@ if (1):
 		if temp_plot:
 			fig = plt.figure(figsize=(6, 8))
 
-			plt.style.use('fivethirtyeight')
+			plt.style.use('grayscale')
 
 			plt.plot_date(data0.last('8H').index, data0['Temperature'].last('8H').values, linestyle="solid", marker='.', label="Sensor 00")
 			plt.plot_date(data1.last('8H').index, data1['Temperature'].last('8H').values, linestyle="solid", marker='.', label="Sensor 01")
@@ -65,7 +65,7 @@ if (1):
 		if press_plot:
 			fig = plt.figure(figsize=(6, 8))
 
-			plt.style.use('fivethirtyeight')
+			plt.style.use('grayscale')
 
 			plt.plot_date(data0.last('8H').index, data0['Pressure'].last('8H').values, linestyle="solid", marker='.', label="Sensor 00")
 			plt.plot_date(data1.last('8H').index, data1['Pressure'].last('8H').values, linestyle="solid", marker='.', label="Sensor 01")
@@ -83,7 +83,7 @@ if (1):
 		if humid_plot:
 			fig = plt.figure(figsize=(6, 8))
 
-			plt.style.use('fivethirtyeight')
+			plt.style.use('grayscale')
 
 			plt.plot_date(data0.last('8H').index, data0['Humidity'].last('8H').values, linestyle="solid", marker='.', label="Sensor 00")
 			plt.plot_date(data1.last('8H').index, data1['Humidity'].last('8H').values, linestyle="solid", marker='.', label="Sensor 01")
