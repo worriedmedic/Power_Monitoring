@@ -72,7 +72,7 @@ if (1):
 
 		plt.plot_date(data_today0.between_time(now_minus_eight, now).index, data_today0['Temperature'].between_time(now_minus_eight, now).values, linestyle="solid", marker='.', label="Sensor 00")
 		plt.plot_date(data_today1.between_time(now_minus_eight, now).index, data_today1['Temperature'].between_time(now_minus_eight, now).values, linestyle="solid", marker='.', label="Sensor 01")
-		plt.legend(loc=4)
+		plt.legend(loc=0)
 		plt.title('Ext Sensor: Temp')
 		plt.xlabel('Time')
 		plt.ylabel('Temp')
