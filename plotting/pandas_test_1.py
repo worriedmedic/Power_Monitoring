@@ -96,7 +96,7 @@ if (1):
 			plt.grid()
 			plt.tight_layout()
 			fig.autofmt_xdate()
-			fig.savefig('/home/pi/Power_Monitoring/output/plot_press.png', facecolor=fig.get_facecolor(), edgecolor='none', bbox_inches='tight')
+			fig.savefig('/home/pi/Power_Monitoring/output/plot_humid.png', facecolor=fig.get_facecolor(), edgecolor='none', bbox_inches='tight')
 			
 	except Exception:
 		print("MATPLOTLIB ERROR")
