@@ -13,8 +13,8 @@ humid_plot = True
 if (1):
 	today = datetime.date.today()
 	yesterday = datetime.date.today() + datetime.timedelta(days=-1)
-	now = time.strftime("%H:%M")
-	now_minus_eight = '{:%H:%M}'.format(datetime.datetime.now() + datetime.timedelta(hours=-8))
+	now = datetime.datetime.now()
+	now_minus_eight = now + datetime.timedelta(hours=-8)
 	
 	try:
 		data_today = pd.read_csv('/home/pi/Power_Monitoring/data_log/' + time.strftime("%Y-%m") + '/' + str(today) + '.log', names = ["Date", "Time", "Address", "Temperature", "Pressure", "Humidity", "Voltage", "RSSI"], dtype=str)
@@ -49,10 +49,10 @@ if (1):
 
 			plt.style.use('fivethirtyeight')
 
-			plt.plot_date(data0.between_time(now_minus_eight, now).index, data0['Temperature'].between_time(now_minus_eight, now).values, label="Sensor 00")
-			plt.plot_date(data1.between_time(now_minus_eight, now).index, data1['Temperature'].between_time(now_minus_eight, now).values, label="Sensor 01")
-			plt.plot_date(data2.between_time(now_minus_eight, now).index, data2['Temperature'].between_time(now_minus_eight, now).values, label="Sensor 02")
-			plt.plot_date(data4.between_time(now_minus_eight, now).index, data4['Temperature'].between_time(now_minus_eight, now).values, label="Sensor 04")
+			plt.plot_date(data0.last('8H').index, data0['Temperature'].last('8H').values, label="Sensor 00")
+			plt.plot_date(data1.last('8H').index, data1['Temperature'].last('8H').values, label="Sensor 01")
+			plt.plot_date(data2.last('8H').index, data2['Temperature'].last('8H').values, label="Sensor 02")
+			plt.plot_date(data4.last('8H').index, data4['Temperature'].last('8H').values, label="Sensor 04")
 			plt.legend(loc=0)
 			plt.title('Temperature Plot: Past 8 Hours')
 			plt.xlabel('Time')
@@ -67,10 +67,10 @@ if (1):
 
 			plt.style.use('fivethirtyeight')
 
-			plt.plot_date(data0.between_time(now_minus_eight, now).index, data0['Pressure'].between_time(now_minus_eight, now).values, label="Sensor 00")
-			plt.plot_date(data1.between_time(now_minus_eight, now).index, data1['Pressure'].between_time(now_minus_eight, now).values, label="Sensor 01")
-			plt.plot_date(data2.between_time(now_minus_eight, now).index, data2['Pressure'].between_time(now_minus_eight, now).values, label="Sensor 02")
-			plt.plot_date(data4.between_time(now_minus_eight, now).index, data4['Pressure'].between_time(now_minus_eight, now).values, label="Sensor 04")
+			plt.plot_date(data0.last('8H').index, data0['Pressure'].last('8H').values, label="Sensor 00")
+			plt.plot_date(data1.last('8H').index, data1['Pressure'].last('8H').values, label="Sensor 01")
+			plt.plot_date(data2.last('8H').index, data2['Pressure'].last('8H').values, label="Sensor 02")
+			plt.plot_date(data4.last('8H').index, data4['Pressure'].last('8H').values, label="Sensor 04")
 			plt.legend(loc=0)
 			plt.title('Pressure Plot: Past 8 Hours')
 			plt.xlabel('Time')
@@ -85,10 +85,10 @@ if (1):
 
 			plt.style.use('fivethirtyeight')
 
-			plt.plot_date(data0.between_time(now_minus_eight, now).index, data0['Humidity'].between_time(now_minus_eight, now).values, label="Sensor 00")
-			plt.plot_date(data1.between_time(now_minus_eight, now).index, data1['Humidity'].between_time(now_minus_eight, now).values, label="Sensor 01")
-			plt.plot_date(data2.between_time(now_minus_eight, now).index, data2['Humidity'].between_time(now_minus_eight, now).values, label="Sensor 02")
-			plt.plot_date(data4.between_time(now_minus_eight, now).index, data4['Humidity'].between_time(now_minus_eight, now).values, label="Sensor 04")
+			plt.plot_date(data0.last('8H').index, data0['Humidity'].last('8H').values, label="Sensor 00")
+			plt.plot_date(data1.last('8H').index, data1['Humidity'].last('8H').values, label="Sensor 01")
+			plt.plot_date(data2.last('8H').index, data2['Humidity'].last('8H').values, label="Sensor 02")
+			plt.plot_date(data4.last('8H').index, data4['Humidity'].last('8H').values, label="Sensor 04")
 			plt.legend(loc=0)
 			plt.title('Pressure Plot: Past 8 Hours')
 			plt.xlabel('Time')
