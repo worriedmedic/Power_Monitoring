@@ -45,14 +45,14 @@ if (1):
 
 	try:
 		if temp_plot:
-			fig = plt.figure(figsize=(6, 8))
+			fig = plt.figure(figsize=(6, 8.5))
 
 			plt.style.use('grayscale')
 
-			plt.plot_date(data0.last('8H').index, data0['Temperature'].last('8H').values, linestyle="solid", marker='.', label="Sensor 00")
-			plt.plot_date(data1.last('8H').index, data1['Temperature'].last('8H').values, linestyle="solid", marker='.', label="Sensor 01")
-			plt.plot_date(data2.last('8H').index, data2['Temperature'].last('8H').values, linestyle="solid", marker='.', label="Sensor 02")
-			plt.plot_date(data4.last('8H').index, data4['Temperature'].last('8H').values, linestyle="solid", marker='.', label="Sensor 04")
+			plt.plot_date(data0.last('8H').index, data0['Temperature'].last('8H').values, linestyle="solid", linewidth=2, marker='.', label="Sensor 00")
+			plt.plot_date(data1.last('8H').index, data1['Temperature'].last('8H').values, linestyle="dashed", linewidth=2, marker='.', label="Sensor 01")
+			plt.plot_date(data2.last('8H').index, data2['Temperature'].last('8H').values, linestyle="dashdot", linewidth=2, marker='.', label="Sensor 02")
+			plt.plot_date(data4.last('8H').index, data4['Temperature'].last('8H').values, linestyle="dotted", linewidth=2, marker='.', label="Sensor 04")
 			plt.legend(loc=0)
 			plt.title('Temperature Plot: Past 8 Hours')
 			plt.xlabel('Time')
@@ -63,14 +63,14 @@ if (1):
 			fig.savefig('/home/pi/Power_Monitoring/output/plot_temp.png', bbox_inches='tight')
 		
 		if press_plot:
-			fig = plt.figure(figsize=(6, 8))
+			fig = plt.figure(figsize=(6, 8.5))
 
 			plt.style.use('grayscale')
 
-			plt.plot_date(data0.last('8H').index, data0['Pressure'].last('8H').values, linestyle="solid", marker='.', label="Sensor 00")
-			plt.plot_date(data1.last('8H').index, data1['Pressure'].last('8H').values, linestyle="solid", marker='.', label="Sensor 01")
-			plt.plot_date(data2.last('8H').index, data2['Pressure'].last('8H').values, linestyle="solid", marker='.', label="Sensor 02")
-			plt.plot_date(data4.last('8H').index, data4['Pressure'].last('8H').values, linestyle="solid", marker='.', label="Sensor 04")
+			plt.plot_date(data0.last('8H').index, data0['Pressure'].last('8H').values, linestyle="solid", linewidth=2, marker='.', label="Sensor 00")
+			plt.plot_date(data1.last('8H').index, data1['Pressure'].last('8H').values, linestyle="dashed", linewidth=2, marker='.', label="Sensor 01")
+			plt.plot_date(data2.last('8H').index, data2['Pressure'].last('8H').values, linestyle="dashdot", linewidth=2, marker='.', label="Sensor 02")
+			plt.plot_date(data4.last('8H').index, data4['Pressure'].last('8H').values, linestyle="dotted", linewidth=2, marker='.', label="Sensor 04")
 			plt.legend(loc=0)
 			plt.title('Pressure Plot: Past 8 Hours')
 			plt.xlabel('Time')
@@ -81,14 +81,14 @@ if (1):
 			fig.savefig('/home/pi/Power_Monitoring/output/plot_press.png', bbox_inches='tight')
 			
 		if humid_plot:
-			fig = plt.figure(figsize=(6, 8))
+			fig = plt.figure(figsize=(6, 8.5))
 
 			plt.style.use('grayscale')
 
-			plt.plot_date(data0.last('8H').index, data0['Humidity'].last('8H').values, linestyle="solid", marker='.', label="Sensor 00")
-			plt.plot_date(data1.last('8H').index, data1['Humidity'].last('8H').values, linestyle="solid", marker='.', label="Sensor 01")
-			plt.plot_date(data2.last('8H').index, data2['Humidity'].last('8H').values, linestyle="solid", marker='.', label="Sensor 02")
-			plt.plot_date(data4.last('8H').index, data4['Humidity'].last('8H').values, linestyle="solid", marker='.', label="Sensor 04")
+			plt.plot_date(data0.last('8H').index, data0['Humidity'].last('8H').values, linestyle="solid", linewidth=2, marker='.', label="Sensor 00")
+			plt.plot_date(data1.last('8H').index, data1['Humidity'].last('8H').values, linestyle="dashed", linewidth=2, marker='.', label="Sensor 01")
+			plt.plot_date(data2.last('8H').index, data2['Humidity'].last('8H').values, linestyle="dashdot", linewidth=2, marker='.', label="Sensor 02")
+			plt.plot_date(data4.last('8H').index, data4['Humidity'].last('8H').values, linestyle="dotted", linewidth=2, marker='.', label="Sensor 04")
 			plt.legend(loc=0)
 			plt.title('Pressure Plot: Past 8 Hours')
 			plt.xlabel('Time')
