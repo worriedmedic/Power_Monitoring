@@ -47,9 +47,9 @@ if (1):
 
 		data_yest0 = data_yest.loc[data_yest['Address'] == '00']
 		data_yest1 = data_yest.loc[data_yest['Address'] == '01']
-		data_yest2 = data_today.loc[data_yest['Address'] == '02']
-		data_yest3 = data_today.loc[data_yest['Address'] == '03']
-		data_yest4 = data_today.loc[data_yest['Address'] == '04']
+		data_yest2 = data_yest.loc[data_yest['Address'] == '02']
+		data_yest3 = data_yest.loc[data_yest['Address'] == '03']
+		data_yest4 = data_yest.loc[data_yest['Address'] == '04']
 
 	except Exception:
 		print("YESTERDAY READ CSV ERROR")
@@ -57,8 +57,8 @@ if (1):
 		print('-' * 60)
 
 	try:
-		print(data_today0.between_time('',now))
-		print(data_yest4.between_time('12:00','23:59'))
+		print(data_today0.between_time(now_minus_eight, now)
+		#print(data_yest4.between_time('12:00','23:59'))
 
 	except Exception:
 		print("PRINT DATA ERROR")
@@ -79,7 +79,7 @@ if (1):
 		plt.grid()
 		plt.tight_layout()
 		fig.autofmt_xdate()
-		savefig('foo.png', bbox_inches='tight')
+		fig.savefig('00_01_Temp.png', bbox_inches='tight')
 		#plt.show()
 	except Exception:
 		print("MATPLOTLIB ERROR")
