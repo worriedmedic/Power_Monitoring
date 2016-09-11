@@ -43,12 +43,12 @@ if os.path.isfile('dover.location'):
 elif os.path.isfile('cuttyhunk.location'):
     addr = '/dev/ttyACM0'
 
-with serial.Serial(addr,9600) as pt:
+with serial.Serial(addr,9600, timeout=300) as pt:
     try:
         spb = io.TextIOWrapper(io.BufferedRWPair(pt,pt,1), encoding='ascii', errors='strict',line_buffering=True)
-        #spb.readline()
-        #spb.readline()
-        #spb.readline()
+        spb.readline()
+        spb.readline()
+        spb.readline()
     except Exception:
         print("SERIAL READ ERROR")
         traceback.print_exc(file=sys.stdout)
