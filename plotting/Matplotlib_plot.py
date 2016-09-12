@@ -20,6 +20,7 @@ if os.path.isfile('/home/pi/Power_Monitoring/dover.location'):
 	plt_size_x   = 10
 	plt_size_y   = 8
 	plt_size_dpi = 100
+	plot_style   = 'fivethirtyeight'
 	sensor0      = '09'
 	sensor0label = 'Outside'
 	sensor1      = '08'
@@ -34,6 +35,7 @@ elif os.path.isfile('/home/pi/Power_Monitoring/cuttyhunk.location'):
 	plt_size_x   = 6.5
 	plt_size_y   = 9
 	plt_size_dpi = 84
+	plot_style   = 'grayscale'
 	sensor0      = '00'
 	sensor0label = 'Outside'
 	sensor1      = '01'
@@ -83,7 +85,7 @@ if (1):
 		if temp_plot:
 			fig = plt.figure(figsize=(plt_size_x, plt_size_y), dpi=plt_size_dpi)
 
-			plt.style.use('grayscale')
+			plt.style.use(plot_style)
 
 			plt.plot_date(data0.last(td).index, data0['Temperature'].last(td).values, linestyle="solid", linewidth=line_width, marker='None', color='0', label=sensor0label)
 			plt.plot_date(data1.last(td).index, data1['Temperature'].last(td).values, linestyle="solid", linewidth=line_width, marker='None', color='0.25', label=sensor1label)
@@ -101,7 +103,7 @@ if (1):
 		if press_plot:
 			fig = plt.figure(figsize=(plt_size_x, plt_size_y), dpi=plt_size_dpi)
 
-			plt.style.use('grayscale')
+			plt.style.use(plot_style)
 
 			plt.plot_date(data0.last(td).index, data0['Pressure'].last(td).values, linestyle="solid", linewidth=line_width, marker='None', color='0', label=sensor0label)
 			plt.plot_date(data1.last(td).index, data1['Pressure'].last(td).values, linestyle="solid", linewidth=line_width, marker='None', color='0.25', label=sensor1label)
@@ -119,7 +121,7 @@ if (1):
 		if humid_plot:
 			fig = plt.figure(figsize=(plt_size_x, plt_size_y), dpi=plt_size_dpi)
 
-			plt.style.use('grayscale')
+			plt.style.use(plot_style)
 
 			plt.plot_date(data0.last(td).index, data0['Humidity'].last(td).values, linestyle="solid", linewidth=line_width, marker='None', color='0', label=sensor0label)
 			plt.plot_date(data1.last(td).index, data1['Humidity'].last(td).values, linestyle="solid", linewidth=line_width, marker='None', color='0.25', label=sensor1label)
