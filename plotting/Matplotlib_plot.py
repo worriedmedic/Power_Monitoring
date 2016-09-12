@@ -16,7 +16,7 @@ td = '16H'
 line_width = 4
 marker_size = 6
 
-if os.path.isfile('dover.location'):
+if os.path.isfile('/home/pi/Power_Monitoring/dover.location'):
 	plt_size_x   = 10
 	plt_size_y   = 8
 	plt_size_dpi = 100
@@ -30,7 +30,7 @@ if os.path.isfile('dover.location'):
 	sensor3label = 'Garage'
 	sensor4      = '05'
 	sensor4label = 'Attic'
-elif os.path.isfile('cuttyhunk.location'):
+elif os.path.isfile('/home/pi/Power_Monitoring/cuttyhunk.location'):
 	plt_size_x   = 6.5
 	plt_size_y   = 9
 	plt_size_dpi = 84
