@@ -107,10 +107,10 @@ if (1):
 
 			plt.style.use(plot_style)
 
-			plt.plot_date(data0.last(td).index, data0['Pressure'].last(td).values, linestyle="solid", linewidth=line_width, marker='None', color='0', label=sensor0label)
-			plt.plot_date(data1.last(td).index, data1['Pressure'].last(td).values, linestyle="solid", linewidth=line_width, marker='None', color='0.25', label=sensor1label)
-			plt.plot_date(data2.last(td).index, data2['Pressure'].last(td).values, linestyle="solid", linewidth=line_width, marker='None', color='0.5', label=sensor2label)
-			plt.plot_date(data4.last(td).index, data4['Pressure'].last(td).values, linestyle="solid", linewidth=line_width, marker='None', color='0.75', label=sensor4label)
+			plt.plot_date(data0.last(td).index, data0['Pressure'].last(td).values, linestyle="solid", linewidth=line_width, marker='None', label=sensor0label)
+			plt.plot_date(data1.last(td).index, data1['Pressure'].last(td).values, linestyle="solid", linewidth=line_width, marker='None', label=sensor1label)
+			plt.plot_date(data2.last(td).index, data2['Pressure'].last(td).values, linestyle="solid", linewidth=line_width, marker='None', label=sensor2label)
+			plt.plot_date(data4.last(td).index, data4['Pressure'].last(td).values, linestyle="solid", linewidth=line_width, marker='None', label=sensor4label)
 			plt.legend(loc=0)
 			plt.title('Pressure Plot: Past 16 Hours')
 			plt.xlabel('Time')
