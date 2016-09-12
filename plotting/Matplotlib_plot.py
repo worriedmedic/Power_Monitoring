@@ -22,7 +22,7 @@ if os.path.isfile('/home/pi/Power_Monitoring/dover.location'):
 	plt_size_x   = 10
 	plt_size_y   = 8
 	plt_size_dpi = 100
-	plot_style   = 'ggplot' 
+	plot_style   = 'bmh' 
 	sensor0      = '09'
 	sensor0label = 'Outside'
 	sensor1      = '08'
