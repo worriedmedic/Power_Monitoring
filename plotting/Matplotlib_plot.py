@@ -87,10 +87,10 @@ if (1):
 
 			plt.style.use(plot_style)
 
-			plt.plot_date(data0.last(td).index, data0['Temperature'].last(td).values, linestyle="solid", linewidth=line_width, marker='None', color='0', label=sensor0label)
-			plt.plot_date(data1.last(td).index, data1['Temperature'].last(td).values, linestyle="solid", linewidth=line_width, marker='None', color='0.25', label=sensor1label)
-			plt.plot_date(data2.last(td).index, data2['Temperature'].last(td).values, linestyle="solid", linewidth=line_width, marker='None', color='0.5', label=sensor2label)
-			plt.plot_date(data4.last(td).index, data4['Temperature'].last(td).values, linestyle="solid", linewidth=line_width, marker='None', color='0.75', label=sensor4label)
+			plt.plot_date(data0.last(td).index, data0['Temperature'].last(td).values, linestyle="solid", linewidth=line_width, marker='None', label=sensor0label)
+			plt.plot_date(data1.last(td).index, data1['Temperature'].last(td).values, linestyle="solid", linewidth=line_width, marker='None', label=sensor1label)
+			plt.plot_date(data2.last(td).index, data2['Temperature'].last(td).values, linestyle="solid", linewidth=line_width, marker='None', label=sensor2label)
+			plt.plot_date(data4.last(td).index, data4['Temperature'].last(td).values, linestyle="solid", linewidth=line_width, marker='None', label=sensor4label)
 			plt.legend(loc=0)
 			plt.title('Temperature Plot: Past 16 Hours')
 			plt.xlabel('Time')
@@ -123,10 +123,10 @@ if (1):
 
 			plt.style.use(plot_style)
 
-			plt.plot_date(data0.last(td).index, data0['Humidity'].last(td).values, linestyle="solid", linewidth=line_width, marker='None', color='0', label=sensor0label)
-			plt.plot_date(data1.last(td).index, data1['Humidity'].last(td).values, linestyle="solid", linewidth=line_width, marker='None', color='0.25', label=sensor1label)
-			plt.plot_date(data2.last(td).index, data2['Humidity'].last(td).values, linestyle="solid", linewidth=line_width, marker='None', color='0.5', label=sensor2label)
-			plt.plot_date(data4.last(td).index, data4['Humidity'].last(td).values, linestyle="solid", linewidth=line_width, marker='None', color='0.75', label=sensor4label)
+			plt.plot_date(data0.last(td).index, data0['Humidity'].last(td).values, linestyle="solid", linewidth=line_width, marker='None', label=sensor0label)
+			plt.plot_date(data1.last(td).index, data1['Humidity'].last(td).values, linestyle="solid", linewidth=line_width, marker='None', label=sensor1label)
+			plt.plot_date(data2.last(td).index, data2['Humidity'].last(td).values, linestyle="solid", linewidth=line_width, marker='None', label=sensor2label)
+			plt.plot_date(data4.last(td).index, data4['Humidity'].last(td).values, linestyle="solid", linewidth=line_width, marker='None', label=sensor4label)
 			plt.legend(loc=0)
 			plt.title('Humidity Plot: Past 16 Hours')
 			plt.xlabel('Time')
