@@ -17,7 +17,7 @@ line_width = 4
 marker_size = 6
 
 if os.path.isfile('dover.location'):
-	plt_size     = figsize=(10, 8), dpi=84
+	plt_size     = 'figsize=(10, 8), dpi=84'
 	sensor0      = '09'
 	sensor0label = 'Outside'
 	sensor1      = '08'
@@ -29,7 +29,7 @@ if os.path.isfile('dover.location'):
 	sensor4      = '05'
 	sensor4label = 'Attic'
 elif os.path.isfile('cuttyhunk.location'):
-	plt_size     = figsize=(6.5, 9), dpi=84
+	plt_size     = 'figsize=(6.5, 9), dpi=84'
 	sensor0      = '00'
 	sensor0label = 'Outside'
 	sensor1      = '01'
