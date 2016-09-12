@@ -11,7 +11,7 @@ sudo cp -f plot_temp_16.png plot_press_16.png plot_humid_16.png /var/www/html/
 sudo chmod 755 /var/www/html/plot_temp_16.png /var/www/html/plot_press_16.png /var/www/html/plot_humid_16.png
 
 if [ -f '/home/pi/Power_Monitoring/dover.location' ]; then
-  /usr/local/bin/dropbox_uploader.sh -p upload plot_temp_16.png plot_press_16.png plot_humid_16.png /Programming/logs/cuttyhunk/plots/
+  /usr/local/bin/dropbox_uploader.sh -p upload plot_temp_16.png plot_press_16.png plot_humid_16.png /Programming/logs/dover/plots/
 elif [ -f '/home/pi/Power_Monitoring/cuttyhunk.location' ]; then
   /usr/local/bin/dropbox_uploader.sh -p upload plot_temp_16.png plot_press_16.png plot_humid_16.png /Programming/logs/cuttyhunk/plots/
 fi
