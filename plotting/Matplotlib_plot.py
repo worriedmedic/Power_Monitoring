@@ -17,7 +17,9 @@ line_width = 4
 marker_size = 6
 
 if os.path.isfile('dover.location'):
-	plt_size     = 'figsize=(10, 8), dpi=84'
+	plt_size_x   = 10
+	plt_size_y   = 8
+	plt_size_dpi = 100
 	sensor0      = '09'
 	sensor0label = 'Outside'
 	sensor1      = '08'
@@ -29,7 +31,9 @@ if os.path.isfile('dover.location'):
 	sensor4      = '05'
 	sensor4label = 'Attic'
 elif os.path.isfile('cuttyhunk.location'):
-	plt_size     = 'figsize=(6.5, 9), dpi=84'
+	plt_size_x   = 6.5
+	plt_size_y   = 9
+	plt_size_dpi = 84
 	sensor0      = '00'
 	sensor0label = 'Outside'
 	sensor1      = '01'
@@ -77,7 +81,7 @@ if (1):
 
 	try:
 		if temp_plot:
-			fig = plt.figure(plt_size)
+			fig = plt.figure(figsize=(plt_size_x, plt_size_y), dpi=plt_size_dpi)
 
 			plt.style.use('grayscale')
 
@@ -95,7 +99,7 @@ if (1):
 			fig.savefig('/home/pi/Power_Monitoring/output/plot_temp_16.png', bbox_inches='tight')
 		
 		if press_plot:
-			fig = plt.figure(plt_size)
+			fig = plt.figure(figsize=(plt_size_x, plt_size_y), dpi=plt_size_dpi)
 
 			plt.style.use('grayscale')
 
@@ -113,7 +117,7 @@ if (1):
 			fig.savefig('/home/pi/Power_Monitoring/output/plot_press_16.png', bbox_inches='tight')
 			
 		if humid_plot:
-			fig = plt.figure(plt_size)
+			fig = plt.figure(figsize=(plt_size_x, plt_size_y), dpi=plt_size_dpi)
 
 			plt.style.use('grayscale')
 
