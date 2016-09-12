@@ -26,10 +26,10 @@ if os.path.isfile('/home/pi/Power_Monitoring/dover.location'):
 	sensor1label = 'Upstairs'
 	sensor2      = '07'
 	sensor2label = 'Downstairs'
-	sensor3      = '06'
-	sensor3label = 'Garage'
-	sensor4      = '05'
-	sensor4label = 'Attic'
+	sensor3      = '05'
+	sensor3label = 'Attic'
+	sensor4      = '06'
+	sensor4label = 'Garage'
 elif os.path.isfile('/home/pi/Power_Monitoring/cuttyhunk.location'):
 	plt_size_x   = 6.5
 	plt_size_y   = 9
