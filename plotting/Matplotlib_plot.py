@@ -16,6 +16,8 @@ td = '16H'
 line_width = 4
 marker_size = 6
 
+face_color = 'white'
+
 if os.path.isfile('/home/pi/Power_Monitoring/dover.location'):
 	plt_size_x   = 10
 	plt_size_y   = 8
@@ -83,7 +85,7 @@ if (1):
 
 	try:
 		if temp_plot:
-			fig = plt.figure(figsize=(plt_size_x, plt_size_y), dpi=plt_size_dpi)
+			fig = plt.figure(figsize=(plt_size_x, plt_size_y), dpi=plt_size_dpi, facecolor=face_color)
 
 			plt.style.use(plot_style)
 
@@ -95,13 +97,13 @@ if (1):
 			plt.title('Temperature Plot: Past 16 Hours')
 			plt.xlabel('Time')
 			plt.ylabel('Temp (F)')
-			plt.grid()
+			plt.grid(True)
 			plt.tight_layout()
 			fig.autofmt_xdate()
 			fig.savefig('/home/pi/Power_Monitoring/output/plot_temp_16.png', bbox_inches='tight')
 		
 		if press_plot:
-			fig = plt.figure(figsize=(plt_size_x, plt_size_y), dpi=plt_size_dpi)
+			fig = plt.figure(figsize=(plt_size_x, plt_size_y), dpi=plt_size_dpi, facecolor=face_color)
 
 			plt.style.use(plot_style)
 
@@ -113,13 +115,13 @@ if (1):
 			plt.title('Pressure Plot: Past 16 Hours')
 			plt.xlabel('Time')
 			plt.ylabel('Pressure (hPa)')
-			plt.grid()
+			plt.grid(True)
 			plt.tight_layout()
 			fig.autofmt_xdate()
 			fig.savefig('/home/pi/Power_Monitoring/output/plot_press_16.png', bbox_inches='tight')
 			
 		if humid_plot:
-			fig = plt.figure(figsize=(plt_size_x, plt_size_y), dpi=plt_size_dpi)
+			fig = plt.figure(figsize=(plt_size_x, plt_size_y), dpi=plt_size_dpi, facecolor=face_color)
 
 			plt.style.use(plot_style)
 
@@ -131,7 +133,7 @@ if (1):
 			plt.title('Humidity Plot: Past 16 Hours')
 			plt.xlabel('Time')
 			plt.ylabel('Humid (%)')
-			plt.grid()
+			plt.grid(True)
 			plt.tight_layout()
 			fig.autofmt_xdate()
 			fig.savefig('/home/pi/Power_Monitoring/output/plot_humid_16.png', bbox_inches='tight')
