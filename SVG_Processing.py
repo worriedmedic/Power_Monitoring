@@ -397,6 +397,7 @@ while(1):
 			
 			try: #PANDAS STUFF FOR HI/LO
 				pd_now = datetime.datetime.now()
+				pd_now_minus = pd_now + datetime.timedelta(seconds=-15)
 				pd_timeframe = pd_now + datetime.timedelta(hours=-24)
 				
 				pd_today = datetime.date.today()
@@ -418,7 +419,7 @@ while(1):
 				data['Humidity'] = data['Humidity'].str.replace('H', '')
 				data['Voltage'] = data['Voltage'].str.replace('V', '')
 
-				data = data.loc[pd_timeframe.strftime("%Y-%m-%d %H:%M:%S"):pd_now.strftime("%Y-%m-%d %H:%M:%S")]
+				data = data.loc[pd_timeframe.strftime("%Y-%m-%d %H:%M:%S"):pd_now_minus.strftime("%Y-%m-%d %H:%M:%S")]
 				
 				data0 = data.loc[data['Address'] == sensor0]
 				data1 = data.loc[data['Address'] == sensor1]
