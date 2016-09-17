@@ -11,7 +11,7 @@ temp_plot = True
 press_plot = True
 humid_plot = True
 
-td = '16H'
+td = '25H'
 
 line_width = 4
 marker_size = 6
