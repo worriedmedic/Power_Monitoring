@@ -397,7 +397,7 @@ while(1):
 			
 			try: #PANDAS STUFF FOR HI/LO
 				pd_now = datetime.datetime.now()
-				pd_timeframe = now + datetime.timedelta(hours=-24)
+				pd_timeframe = pd_now + datetime.timedelta(hours=-24)
 				
 				pd_today = datetime.date.today()
 				pd_yesterday = datetime.date.today() + datetime.timedelta(days=-1)
