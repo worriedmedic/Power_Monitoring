@@ -65,7 +65,7 @@ if (1):
 		data_2prior = pd.read_csv('/home/pi/Power_Monitoring/data_log/' + prior2.strftime("%Y-%m") + '/' + str(prior2) + '.log', names = ["Date", "Time", "Address", "Temperature", "Pressure", "Humidity", "Voltage", "RSSI"], dtype=str)
 		data_3prior = pd.read_csv('/home/pi/Power_Monitoring/data_log/' + prior3.strftime("%Y-%m") + '/' + str(prior3) + '.log', names = ["Date", "Time", "Address", "Temperature", "Pressure", "Humidity", "Voltage", "RSSI"], dtype=str)
 		
-		data = pd.concat([data_2prior, data_3prior, data_yest, data_today])
+		data = pd.concat([data_3prior, data_2prior, data_yest, data_today])
 		
 		data['Temperature'] = data['Temperature'].str.replace('T', '')
 		data['Pressure'] = data['Pressure'].str.replace('P', '')
