@@ -53,8 +53,8 @@ elif os.path.isfile('/home/pi/Power_Monitoring/cuttyhunk.location'):
 if (1):
 	today = datetime.date.today()
 	yesterday = datetime.date.today() + datetime.timedelta(days=-1)
-	2prior = datetime.date.today() + datetime.timedelta(days=-2)
-	3prior = datetime.date.today() + datetime.timedelta(days=-3)
+	prior2 = datetime.date.today() + datetime.timedelta(days=-2)
+	prior3 = datetime.date.today() + datetime.timedelta(days=-3)
 	
 	now = datetime.datetime.now()
 	now_minus_eight = now + datetime.timedelta(hours=-8)
@@ -62,8 +62,8 @@ if (1):
 	try:
 		data_today = pd.read_csv('/home/pi/Power_Monitoring/data_log/' + today.strftime("%Y-%m") + '/' + str(today) + '.log', names = ["Date", "Time", "Address", "Temperature", "Pressure", "Humidity", "Voltage", "RSSI"], dtype=str)
 		data_yest = pd.read_csv('/home/pi/Power_Monitoring/data_log/' + yesterday.strftime("%Y-%m") + '/' + str(yesterday) + '.log', names = ["Date", "Time", "Address", "Temperature", "Pressure", "Humidity", "Voltage", "RSSI"], dtype=str)
-		data_2prior = pd.read_csv('/home/pi/Power_Monitoring/data_log/' + 2prior.strftime("%Y-%m") + '/' + str(2prior) + '.log', names = ["Date", "Time", "Address", "Temperature", "Pressure", "Humidity", "Voltage", "RSSI"], dtype=str)
-		data_3prior = pd.read_csv('/home/pi/Power_Monitoring/data_log/' + 3prior.strftime("%Y-%m") + '/' + str(3prior) + '.log', names = ["Date", "Time", "Address", "Temperature", "Pressure", "Humidity", "Voltage", "RSSI"], dtype=str)
+		data_2prior = pd.read_csv('/home/pi/Power_Monitoring/data_log/' + prior2.strftime("%Y-%m") + '/' + str(prior2) + '.log', names = ["Date", "Time", "Address", "Temperature", "Pressure", "Humidity", "Voltage", "RSSI"], dtype=str)
+		data_3prior = pd.read_csv('/home/pi/Power_Monitoring/data_log/' + prior3.strftime("%Y-%m") + '/' + str(prior3) + '.log', names = ["Date", "Time", "Address", "Temperature", "Pressure", "Humidity", "Voltage", "RSSI"], dtype=str)
 		
 		data = pd.concat([data_2prior, data_3prior, data_yest, data_today])
 		
