@@ -428,6 +428,9 @@ while(1):
 				data4 = data.loc[data['Address'] == sensor4]
 				
 				if data0.empty == 'False':
+					if debug:
+						print("No Data for ", sensor0label)
+				else:
 					max_temp_0 = data0['Temperature'].max()
 					min_temp_0 = data0['Temperature'].min()
 					max_press_0 = data0['Pressure'].max()
@@ -443,11 +446,11 @@ while(1):
 					if debug:
 						print("Max: ", sensor0label, max_temp_0, max_press_0, max_humid_0, max_volt_0, max_rssi_0)
 						print("Min: ", sensor0label, min_temp_0, min_press_0, min_humid_0, min_volt_0, min_rssi_0)
-				else:
-					if debug:
-						print("No Data for ", sensor0label)
-						
+
 				if data1.empty == 'False':
+					if debug:
+						print("No Data for ", sensor1label)
+				else:
 					max_temp_1 = data1['Temperature'].max()
 					min_temp_1 = data1['Temperature'].min()
 					max_press_1 = data1['Pressure'].max()
@@ -463,11 +466,11 @@ while(1):
 					if debug:
 						print("Max: ", sensor1label, max_temp_1, max_press_1, max_humid_1, max_volt_1, max_rssi_1)
 						print("Min: ", sensor1label, min_temp_1, min_press_1, min_humid_1, min_volt_1, min_rssi_1)
-				else:
+
+				if data2.empty:
 					if debug:
-						print("No Data for ", sensor1label)
-				
-				if data2.empty == 'False':
+						print("No Data for ", sensor2label)
+				else:
 					max_temp_2 = data2['Temperature'].max()
 					min_temp_2 = data2['Temperature'].min()
 					max_press_2 = data2['Pressure'].max()
@@ -483,11 +486,11 @@ while(1):
 					if debug:
 						print("Max: ", sensor2label, max_temp_2, max_press_2, max_humid_2, max_volt_2, max_rssi_2)
 						print("Min: ", sensor2label, min_temp_2, min_press_2, min_humid_2, min_volt_2, min_rssi_2)
-				else:
+
+				if data3.empty:
 					if debug:
-						print("No Data for ", sensor2label)
-				
-				if data3.empty == 'False':
+						print("No Data for ", sensor3label)
+				else:
 					max_temp_3 = data3['Temperature'].max()
 					min_temp_3 = data3['Temperature'].min()
 					max_press_3 = data3['Pressure'].max()
@@ -503,11 +506,11 @@ while(1):
 					if debug:
 						print("Max: ", sensor3label, max_temp_3, max_press_3, max_humid_3, max_volt_3, max_rssi_3)
 						print("Min: ", sensor3label, min_temp_3, min_press_3, min_humid_3, min_volt_3, min_rssi_3)
+
+				if data4.empty:
+						if debug:
+						print("No Data for ", sensor4label)
 				else:
-					if debug:
-						print("No Data for ", sensor3label)
-				
-				if data4.empty == 'False':
 					max_temp_4 = data4['Temperature'].max()
 					min_temp_4 = data4['Temperature'].min()
 					max_press_4 = data4['Pressure'].max()
@@ -523,10 +526,7 @@ while(1):
 					if debug:
 						print("Max: ", sensor4label, max_temp_4, max_press_4, max_humid_4, max_volt_4, max_rssi_4)
 						print("Min: ", sensor4label, min_temp_4, min_press_4, min_humid_4, min_volt_4, min_rssi_4)
-				else:
-					if debug:
-						print("No Data for ", sensor4label)
-						
+
 			except Exception:
 				print("DATA SPLIT ERR", str(today), now)
 				traceback.print_exc(file=sys.stdout)
