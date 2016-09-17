@@ -419,7 +419,7 @@ while(1):
 				data['Humidity'] = data['Humidity'].str.replace('H', '')
 				data['Voltage'] = data['Voltage'].str.replace('V', '')
 
-				data = data.loc[pd_timeframe.strftime("%Y-%m-%d %H:%M:%S"):pd_now_minus.strftime("%Y-%m-%d %H:%M:%S")]
+				data = data[pd_timeframe.strftime("%Y-%m-%d %H:%M:%S"):pd_now_minus.strftime("%Y-%m-%d %H:%M:%S")]
 				
 				data0 = data.loc[data['Address'] == sensor0]
 				data1 = data.loc[data['Address'] == sensor1]
