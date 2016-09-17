@@ -67,15 +67,14 @@ if (1):
 		
 		data = pd.concat([data_3prior, data_2prior, data_yest, data_today])
 		
+		data['Datetime'] = pd.to_datetime(data['Date'] + ' ' + data['Time'])
+		data = data.drop(['Date', 'Time'], 1)
+		data = data.set_index('Datetime')
+		
 		data['Temperature'] = data['Temperature'].str.replace('T', '')
 		data['Pressure'] = data['Pressure'].str.replace('P', '')
 		data['Humidity'] = data['Humidity'].str.replace('H', '')
 		data['Voltage'] = data['Voltage'].str.replace('V', '')
-		
-		data['Datetime'] = pd.to_datetime(data['Date'] + ' ' + data['Time'])
-		
-		data = data.drop(['Date', 'Time'], 1)
-		data = data.set_index('Datetime')
 		
 		data0 = data.loc[data['Address'] == sensor0]
 		data1 = data.loc[data['Address'] == sensor1]
