@@ -508,7 +508,7 @@ while(1):
 						print("Min: ", sensor3label, min_temp_3, min_press_3, min_humid_3, min_volt_3, min_rssi_3)
 
 				if data4.empty:
-						if debug:
+					if debug:
 						print("No Data for ", sensor4label)
 				else:
 					max_temp_4 = data4['Temperature'].max()
