@@ -9,6 +9,8 @@ import json
 from lxml import etree
 import traceback
 import sys
+import pandas as pd
+import numpy as np
 
 debug     = False
 verbose   = False
@@ -37,6 +39,16 @@ if os.path.isfile('dover.location'):
 	bat3 = '07'
 	bat4 = '06'
 	bat5 = '05'
+	sensor0      = '09'
+	sensor0label = 'Outside'
+	sensor1      = '08'
+	sensor1label = 'Upstairs'
+	sensor2      = '07'
+	sensor2label = 'Downstairs'
+	sensor3      = '05'
+	sensor3label = 'Attic'
+	sensor4      = '06'
+	sensor4label = 'Garage'
 	if debug:
 		print(location)
 elif os.path.isfile('cuttyhunk.location'):
@@ -48,17 +60,16 @@ elif os.path.isfile('cuttyhunk.location'):
 	bat3 = '02'
 	bat4 = '03'
 	bat5 = '04'
-	if debug:
-		print(location)
-else:
-	location = 'cuttyhunk' # DEFAULT
-	template_svg_filename = 'resources/CUTTY_WX_TEMPLATE.svg'
-	update_freq = 18
-	bat1 = '00'
-	bat2 = '01'
-	bat3 = '02'
-	bat4 = '03'
-	bat5 = '04'
+	sensor0      = '00'
+	sensor0label = 'Outside'
+	sensor1      = '01'
+	sensor1label = 'Upstairs'
+	sensor2      = None # Dead as per LWH 09-16-2016
+	sensor2label = None
+	sensor3      = '03'
+	sensor3label = 'Barn Upstairs'
+	sensor4      = '04'
+	sensor4label = 'Reeds Room'
 	if debug:
 		print(location)
 
@@ -67,7 +78,7 @@ today = [None]
 yesterday = [None]
 tomorrow = [None]
 fname = [None]
-sheetname =[None]
+sheetname = [None]
 fdir = [None]
 
 ## INT: Helper variables for tides
@@ -383,7 +394,143 @@ while(1):
 			i += 1
 			now = time.strftime('%H:%M:%S')
 			curr_time = time.strftime('%H:%M')
+			
+			try: #PANDAS STUFF FOR HI/LO
+				pd_now = datetime.datetime.now()
+				pd_timeframe = now + datetime.timedelta(hours=-24)
+				
+				pd_today = datetime.date.today()
+				pd_yesterday = datetime.date.today() + datetime.timedelta(days=-1)
+				pd_prior2 = datetime.date.today() + datetime.timedelta(days=-2)
+				
+				data_today = pd.read_csv('/home/pi/Power_Monitoring/data_log/' + pd_today.strftime("%Y-%m") + '/' + str(pd_today) + '.log', names = ["Date", "Time", "Address", "Temperature", "Pressure", "Humidity", "Voltage", "RSSI"], dtype=str)
+				data_yest = pd.read_csv('/home/pi/Power_Monitoring/data_log/' + pd_yesterday.strftime("%Y-%m") + '/' + str(pd_yesterday) + '.log', names = ["Date", "Time", "Address", "Temperature", "Pressure", "Humidity", "Voltage", "RSSI"], dtype=str)
+				data_2prior = pd.read_csv('/home/pi/Power_Monitoring/data_log/' + pd_prior2.strftime("%Y-%m") + '/' + str(pd_prior2) + '.log', names = ["Date", "Time", "Address", "Temperature", "Pressure", "Humidity", "Voltage", "RSSI"], dtype=str)
+				
+				data = pd.concat([data_2prior, data_yest, data_today])
+				
+				data['Datetime'] = pd.to_datetime(data['Date'] + ' ' + data['Time'])
+				data = data.drop(['Date', 'Time'], 1)
+				data = data.set_index('Datetime')
+		
+				data['Temperature'] = data['Temperature'].str.replace('T', '')
+				data['Pressure'] = data['Pressure'].str.replace('P', '')
+				data['Humidity'] = data['Humidity'].str.replace('H', '')
+				data['Voltage'] = data['Voltage'].str.replace('V', '')
 
+				data = data.loc[pd_timeframe.strftime("%Y-%m-%d %H:%M:%S"):pd_now.strftime("%Y-%m-%d %H:%M:%S")]
+				
+				data0 = data.loc[data['Address'] == sensor0]
+				data1 = data.loc[data['Address'] == sensor1]
+				data2 = data.loc[data['Address'] == sensor2]
+				data3 = data.loc[data['Address'] == sensor3]
+				data4 = data.loc[data['Address'] == sensor4]
+				
+				if data0.empty == 'False':
+					max_temp_0 = data0['Temperature'].max()
+					min_temp_0 = data0['Temperature'].min()
+					max_press_0 = data0['Pressure'].max()
+					min_press_0 = data0['Pressure'].min()
+					max_humid_0 = data0['Humidity'].max()
+					min_humid_0 = data0['Humidity'].min()
+					max_humid_0 = data0['Humidity'].max()
+					min_humid_0 = data0['Humidity'].min()
+					max_volt_0 = data0['Voltage'].max()
+					min_volt_0 = data0['Voltage'].min()
+					max_rssi_0 = data0['RSSI'].max()
+					min_rssi_0 = data0['RSSI'].min()
+					if debug:
+						print("Max: ", sensor0label, max_temp_0, max_press_0, max_humid_0, max_volt_0, max_rssi_0)
+						print("Min: ", sensor0label, min_temp_0, min_press_0, min_humid_0, min_volt_0, min_rssi_0)
+				else:
+					if debug:
+						print("No Data for ", sensor0label)
+						
+				if data1.empty == 'False':
+					max_temp_1 = data1['Temperature'].max()
+					min_temp_1 = data1['Temperature'].min()
+					max_press_1 = data1['Pressure'].max()
+					min_press_1 = data1['Pressure'].min()
+					max_humid_1 = data1['Humidity'].max()
+					min_humid_1 = data1['Humidity'].min()
+					max_humid_1 = data1['Humidity'].max()
+					min_humid_1 = data1['Humidity'].min()
+					max_volt_1 = data1['Voltage'].max()
+					min_volt_1 = data1['Voltage'].min()
+					max_rssi_1 = data1['RSSI'].max()
+					min_rssi_1 = data1['RSSI'].min()
+					if debug:
+						print("Max: ", sensor1label, max_temp_1, max_press_1, max_humid_1, max_volt_1, max_rssi_1)
+						print("Min: ", sensor1label, min_temp_1, min_press_1, min_humid_1, min_volt_1, min_rssi_1)
+				else:
+					if debug:
+						print("No Data for ", sensor1label)
+				
+				if data2.empty == 'False':
+					max_temp_2 = data2['Temperature'].max()
+					min_temp_2 = data2['Temperature'].min()
+					max_press_2 = data2['Pressure'].max()
+					min_press_2 = data2['Pressure'].min()
+					max_humid_2 = data2['Humidity'].max()
+					min_humid_2 = data2['Humidity'].min()
+					max_humid_2 = data2['Humidity'].max()
+					min_humid_2 = data2['Humidity'].min()
+					max_volt_2 = data2['Voltage'].max()
+					min_volt_2 = data2['Voltage'].min()
+					max_rssi_2 = data2['RSSI'].max()
+					min_rssi_2 = data2['RSSI'].min()
+					if debug:
+						print("Max: ", sensor2label, max_temp_2, max_press_2, max_humid_2, max_volt_2, max_rssi_2)
+						print("Min: ", sensor2label, min_temp_2, min_press_2, min_humid_2, min_volt_2, min_rssi_2)
+				else:
+					if debug:
+						print("No Data for ", sensor2label)
+				
+				if data3.empty == 'False':
+					max_temp_3 = data3['Temperature'].max()
+					min_temp_3 = data3['Temperature'].min()
+					max_press_3 = data3['Pressure'].max()
+					min_press_3 = data3['Pressure'].min()
+					max_humid_3 = data3['Humidity'].max()
+					min_humid_3 = data3['Humidity'].min()
+					max_humid_3 = data3['Humidity'].max()
+					min_humid_3 = data3['Humidity'].min()
+					max_volt_3 = data3['Voltage'].max()
+					min_volt_3 = data3['Voltage'].min()
+					max_rssi_3 = data3['RSSI'].max()
+					min_rssi_3 = data3['RSSI'].min()
+					if debug:
+						print("Max: ", sensor3label, max_temp_3, max_press_3, max_humid_3, max_volt_3, max_rssi_3)
+						print("Min: ", sensor3label, min_temp_3, min_press_3, min_humid_3, min_volt_3, min_rssi_3)
+				else:
+					if debug:
+						print("No Data for ", sensor3label)
+				
+				if data4.empty == 'False':
+					max_temp_4 = data4['Temperature'].max()
+					min_temp_4 = data4['Temperature'].min()
+					max_press_4 = data4['Pressure'].max()
+					min_press_4 = data4['Pressure'].min()
+					max_humid_4 = data4['Humidity'].max()
+					min_humid_4 = data4['Humidity'].min()
+					max_humid_4 = data4['Humidity'].max()
+					min_humid_4 = data4['Humidity'].min()
+					max_volt_4 = data4['Voltage'].max()
+					min_volt_4 = data4['Voltage'].min()
+					max_rssi_4 = data4['RSSI'].max()
+					min_rssi_4 = data4['RSSI'].min()
+					if debug:
+						print("Max: ", sensor4label, max_temp_4, max_press_4, max_humid_4, max_volt_4, max_rssi_4)
+						print("Min: ", sensor4label, min_temp_4, min_press_4, min_humid_4, min_volt_4, min_rssi_4)
+				else:
+					if debug:
+						print("No Data for ", sensor4label)
+						
+			except Exception:
+				print("DATA SPLIT ERR", str(today), now)
+				traceback.print_exc(file=sys.stdout)
+				print('-' * 60)
+				
 			try:
 				line.split(',')
 				addr = line.split(',')[2]
