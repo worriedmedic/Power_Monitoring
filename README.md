@@ -46,3 +46,5 @@ User Crontab:
 ```
 
 Plotting Software Installed: `python-matplotlib`, `python-pandas`
+
+http://tidesandcurrents.noaa.gov/api/datagetter?begin_date=20160918 09:00&end_date=20160918 23:59&station=8448376&product=water_level&datum=MWH&datum=MLW&units=english&time_zone=gmt&application=ports_screen&format=json
