@@ -10,6 +10,8 @@ import sys, os.path
 temp_plot = True
 press_plot = True
 humid_plot = True
+volt_plot = True
+rssi_plot = True
 
 ######## GLOBAL VAR #######
 td = '48H'
@@ -92,6 +94,7 @@ if (1):
 			plt.plot_date(data0.last(td).index, data0['Temperature'].last(td).values, linestyle="solid", linewidth=line_width, marker='None', label=sensor0label)
 			plt.plot_date(data1.last(td).index, data1['Temperature'].last(td).values, linestyle="solid", linewidth=line_width, marker='None', label=sensor1label)
 			plt.plot_date(data2.last(td).index, data2['Temperature'].last(td).values, linestyle="solid", linewidth=line_width, marker='None', label=sensor2label)
+			plt.plot_date(data3.last(td).index, data3['Temperature'].last(td).values, linestyle="solid", linewidth=line_width, marker='None', label=sensor3label)
 			plt.plot_date(data4.last(td).index, data4['Temperature'].last(td).values, linestyle="solid", linewidth=line_width, marker='None', label=sensor4label)
 			plt.legend(loc=0)
 			plt.title('Temperature Plot: Past %s' %td)
@@ -110,6 +113,7 @@ if (1):
 			plt.plot_date(data0.last(td).index, data0['Pressure'].last(td).values, linestyle="solid", linewidth=line_width, marker='None', label=sensor0label)
 			plt.plot_date(data1.last(td).index, data1['Pressure'].last(td).values, linestyle="solid", linewidth=line_width, marker='None', label=sensor1label)
 			plt.plot_date(data2.last(td).index, data2['Pressure'].last(td).values, linestyle="solid", linewidth=line_width, marker='None', label=sensor2label)
+			plt.plot_date(data3.last(td).index, data3['Pressure'].last(td).values, linestyle="solid", linewidth=line_width, marker='None', label=sensor3label)
 			plt.plot_date(data4.last(td).index, data4['Pressure'].last(td).values, linestyle="solid", linewidth=line_width, marker='None', label=sensor4label)
 			plt.legend(loc=0)
 			plt.title('Pressure Plot: Past %s' %td)
@@ -128,6 +132,7 @@ if (1):
 			plt.plot_date(data0.last(td).index, data0['Humidity'].last(td).values, linestyle="solid", linewidth=line_width, marker='None', label=sensor0label)
 			plt.plot_date(data1.last(td).index, data1['Humidity'].last(td).values, linestyle="solid", linewidth=line_width, marker='None', label=sensor1label)
 			plt.plot_date(data2.last(td).index, data2['Humidity'].last(td).values, linestyle="solid", linewidth=line_width, marker='None', label=sensor2label)
+			plt.plot_date(data3.last(td).index, data3['Humidity'].last(td).values, linestyle="solid", linewidth=line_width, marker='None', label=sensor3label)
 			plt.plot_date(data4.last(td).index, data4['Humidity'].last(td).values, linestyle="solid", linewidth=line_width, marker='None', label=sensor4label)
 			plt.legend(loc=0)
 			plt.title('Humidity Plot: Past %s' %td)
@@ -137,6 +142,44 @@ if (1):
 			plt.tight_layout()
 			fig.autofmt_xdate()
 			fig.savefig('/home/pi/Power_Monitoring/output/plot_humid.png', bbox_inches='tight')
+		
+		if volt_plot:
+			fig = plt.figure(figsize=(plt_size_x, plt_size_y), dpi=plt_size_dpi)
+
+			plt.style.use(plot_style)
+
+			plt.plot_date(data0.last(td).index, data0['Voltage'].last(td).values, linestyle="solid", linewidth=line_width, marker='None', label=sensor0label)
+			plt.plot_date(data1.last(td).index, data1['Voltage'].last(td).values, linestyle="solid", linewidth=line_width, marker='None', label=sensor1label)
+			plt.plot_date(data2.last(td).index, data2['Voltage'].last(td).values, linestyle="solid", linewidth=line_width, marker='None', label=sensor2label)
+			plt.plot_date(data3.last(td).index, data3['Voltage'].last(td).values, linestyle="solid", linewidth=line_width, marker='None', label=sensor3label)
+			plt.plot_date(data4.last(td).index, data4['Voltage'].last(td).values, linestyle="solid", linewidth=line_width, marker='None', label=sensor4label)
+			plt.legend(loc=0)
+			plt.title('Voltage Plot: Past %s' %td)
+			plt.xlabel('Time')
+			plt.ylabel('Voltage (%)')
+			plt.grid(True)
+			plt.tight_layout()
+			fig.autofmt_xdate()
+			fig.savefig('/home/pi/Power_Monitoring/output/plot_volt.png', bbox_inches='tight')
+
+		if rssi_plot:
+			fig = plt.figure(figsize=(plt_size_x, plt_size_y), dpi=plt_size_dpi)
+
+			plt.style.use(plot_style)
+
+			plt.plot_date(data0.last(td).index, data0['RSSI'].last(td).values, linestyle="solid", linewidth=line_width, marker='None', label=sensor0label)
+			plt.plot_date(data1.last(td).index, data1['RSSI'].last(td).values, linestyle="solid", linewidth=line_width, marker='None', label=sensor1label)
+			plt.plot_date(data2.last(td).index, data2['RSSI'].last(td).values, linestyle="solid", linewidth=line_width, marker='None', label=sensor2label)
+			plt.plot_date(data3.last(td).index, data3['RSSI'].last(td).values, linestyle="solid", linewidth=line_width, marker='None', label=sensor3label)
+			plt.plot_date(data4.last(td).index, data4['RSSI'].last(td).values, linestyle="solid", linewidth=line_width, marker='None', label=sensor4label)
+			plt.legend(loc=0)
+			plt.title('RSSI Plot: Past %s' %td)
+			plt.xlabel('Time')
+			plt.ylabel('RSSI')
+			plt.grid(True)
+			plt.tight_layout()
+			fig.autofmt_xdate()
+			fig.savefig('/home/pi/Power_Monitoring/output/plot_rssi.png', bbox_inches='tight')
 			
 	except Exception:
 		print("MATPLOTLIB ERROR")
