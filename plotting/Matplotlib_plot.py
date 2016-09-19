@@ -11,12 +11,9 @@ temp_plot = True
 press_plot = True
 humid_plot = True
 
+######## GLOBAL VAR #######
 td = '48H'
-
 line_width = 4
-marker_size = 6
-
-face_color = 'white'
 
 if os.path.isfile('/home/pi/Power_Monitoring/dover.location'):
 	plt_size_x   = 10
@@ -29,10 +26,10 @@ if os.path.isfile('/home/pi/Power_Monitoring/dover.location'):
 	sensor1label = 'Upstairs'
 	sensor2      = '07'
 	sensor2label = 'Downstairs'
-	sensor3      = '05'
-	sensor3label = 'Attic'
-	sensor4      = '06'
-	sensor4label = 'Garage'
+	sensor3      = '06'
+	sensor3label = 'Garage'
+	sensor4      = '05'
+	sensor4label = 'Attic'
 elif os.path.isfile('/home/pi/Power_Monitoring/cuttyhunk.location'):
 	plt_size_x   = 6.5
 	plt_size_y   = 9
@@ -88,7 +85,7 @@ if (1):
 
 	try:
 		if temp_plot:
-			fig = plt.figure(figsize=(plt_size_x, plt_size_y), dpi=plt_size_dpi, facecolor=face_color)
+			fig = plt.figure(figsize=(plt_size_x, plt_size_y), dpi=plt_size_dpi)
 
 			plt.style.use(plot_style)
 
@@ -103,10 +100,10 @@ if (1):
 			plt.grid(True)
 			plt.tight_layout()
 			fig.autofmt_xdate()
-			fig.savefig('/home/pi/Power_Monitoring/output/plot_temp_16.png', bbox_inches='tight')
+			fig.savefig('/home/pi/Power_Monitoring/output/plot_temp.png', bbox_inches='tight')
 		
 		if press_plot:
-			fig = plt.figure(figsize=(plt_size_x, plt_size_y), dpi=plt_size_dpi, facecolor=face_color)
+			fig = plt.figure(figsize=(plt_size_x, plt_size_y), dpi=plt_size_dpi)
 
 			plt.style.use(plot_style)
 
@@ -121,10 +118,10 @@ if (1):
 			plt.grid(True)
 			plt.tight_layout()
 			fig.autofmt_xdate()
-			fig.savefig('/home/pi/Power_Monitoring/output/plot_press_16.png', bbox_inches='tight')
+			fig.savefig('/home/pi/Power_Monitoring/output/plot_press.png', bbox_inches='tight')
 			
 		if humid_plot:
-			fig = plt.figure(figsize=(plt_size_x, plt_size_y), dpi=plt_size_dpi, facecolor=face_color)
+			fig = plt.figure(figsize=(plt_size_x, plt_size_y), dpi=plt_size_dpi)
 
 			plt.style.use(plot_style)
 
@@ -139,7 +136,7 @@ if (1):
 			plt.grid(True)
 			plt.tight_layout()
 			fig.autofmt_xdate()
-			fig.savefig('/home/pi/Power_Monitoring/output/plot_humid_16.png', bbox_inches='tight')
+			fig.savefig('/home/pi/Power_Monitoring/output/plot_humid.png', bbox_inches='tight')
 			
 	except Exception:
 		print("MATPLOTLIB ERROR")
