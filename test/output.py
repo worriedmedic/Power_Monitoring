@@ -11,6 +11,7 @@ import json
 debug = False
 verbose = False
 request_timeout = 5
+sensor_data = True
 
 for arg in sys.argv:
 	if arg == '-d':
@@ -76,22 +77,48 @@ elif os.path.isfile('/home/pi/Power_Monitoring/cuttyhunk.location'):
 
 if (1):
 	today = datetime.date.today()
-	now = datetime.date.now()
+	now = datetime.datetime.now()
 	today_minus_one = datetime.date.today() + datetime.timedelta(days=-1)
 	today_minus_two = datetime.date.today() + datetime.timedelta(days=-2)
 	today_minus_three = datetime.date.today() + datetime.timedelta(days=-3)
 	today_plus_one = datetime.date.today() + datetime.timedelta(days=1)
 	today_plus_two = datetime.date.today() + datetime.timedelta(days=2)
 	today_plus_three = datetime.date.today() + datetime.timedelta(days=3)
-
-	forcastjson = requests.get(wunder_site_forcast_json, timeout=request_timeout)
-	conditionjson = requests.get(wunder_site_conditions_json, timeout=request_timeout)
-  
 	if tides:
 		tide_data = pd.read_table(tide_csv, sep='\t', skiprows=20, names = ["Date","Day","Time","Predict Feet","NULL1","Predict Cent","NULL2","High/Low"], dtype=str)
 		tide_data['Datetime'] = pd.to_datetime(tide_data['Date'] + ' ' + tide_data['Time'])
 		tide_data = tide_data.set_index('Datetime')
 		tide_data = tide_data.drop(['Date','Time','Day','NULL1','NULL2','Predict Cent'],1)
-
 		tide_today = tide_data[today.strftime("%Y-%m-%d")]
-		tide_tomorrow = tide_data[tomorrow.strftime("%Y-%m-%d")]
+		tide_tomorrow = tide_data[today_plus_one.strftime("%Y-%m-%d")]
+		tide_yesterday = tide_data[today_minus_one.strftime("%Y-%m-%d")]
+		print("Tide Yesterday: ", tide_yesterday)
+		print("Tide Today: ", tide_today)
+		print("Tide Tomorrow: ", tide_tomorrow)
+	if weather_data:
+		condition_data = pd.read_json(wunder_site_conditions_json, typ='series')
+		forcast_data = pd.read_json(wunder_site_forcast_json, typ='series')
+		
+	if sensor_data:
+		data_today = pd.read_csv('/home/pi/Power_Monitoring/data_log/' + pd_today.strftime("%Y-%m") + '/' + str(pd_today) + '.log', names = ["Date", "Time", "Address", "Temperature", "Pressure", "Humidity", "Voltage", "RSSI"], dtype=str)
+		data_yest = pd.read_csv('/home/pi/Power_Monitoring/data_log/' + pd_yesterday.strftime("%Y-%m") + '/' + str(pd_yesterday) + '.log', names = ["Date", "Time", "Address", "Temperature", "Pressure", "Humidity", "Voltage", "RSSI"], dtype=str)
+		data_2prior = pd.read_csv('/home/pi/Power_Monitoring/data_log/' + pd_prior2.strftime("%Y-%m") + '/' + str(pd_prior2) + '.log', names = ["Date", "Time", "Address", "Temperature", "Pressure", "Humidity", "Voltage", "RSSI"], dtype=str)
+		data = pd.concat([data_2prior, data_yest, data_today])
+		data['Datetime'] = pd.to_datetime(data['Date'] + ' ' + data['Time'])
+		data = data.drop(['Date', 'Time'], 1)
+		data = data.set_index('Datetime')
+		data['Temperature'] = data['Temperature'].str.replace('T', '')
+		data['Pressure'] = data['Pressure'].str.replace('P', '')
+		data['Humidity'] = data['Humidity'].str.replace('H', '')
+		data['Voltage'] = data['Voltage'].str.replace('V', '')
+		data0 = data.loc[data['Address'] == sensor0]
+		data1 = data.loc[data['Address'] == sensor1]
+		data2 = data.loc[data['Address'] == sensor2]
+		data3 = data.loc[data['Address'] == sensor3]
+		data4 = data.loc[data['Address'] == sensor4]
+		
+		print(sensor0label, data0[-1:])
+		print(sensor1label, data1[-1:])
+		print(sensor2label, data2[-1:])
+		print(sensor3label, data3[-1:])
+		print(sensor4label, data4[-1:])
