@@ -24,7 +24,7 @@ for arg in sys.argv:
 		print("Backend processing of data collected by Arduino based sensors for output to SVG/PNG file")
 		print("Options:  [-d DEBUG] [-v VERBOSE] [-h HELP]")
 		sys.exit()
-		
+
 if os.path.isfile('/home/pi/Power_Monitoring/dover.location'):
 	location = 'dover'
 	
@@ -48,7 +48,7 @@ if os.path.isfile('/home/pi/Power_Monitoring/dover.location'):
 	sensor4label = 'Garage'
 	if debug:
 		print(location)
-		
+
 elif os.path.isfile('/home/pi/Power_Monitoring/cuttyhunk.location'):
 	location = 'cuttyhunk'
 	
@@ -75,26 +75,23 @@ elif os.path.isfile('/home/pi/Power_Monitoring/cuttyhunk.location'):
 		print(location)
 
 if (1):
-  today = datetime.date.today()
-  now = datetime.date.now()
-  today_minus_one = datetime.date.today() + datetime.timedelta(days=-1)
-  today_minus_two = datetime.date.today() + datetime.timedelta(days=-2)
-  today_minus_three = datetime.date.today() + datetime.timedelta(days=-3)
-  today_plus_one = datetime.date.today() + datetime.timedelta(days=1)
-  today_plus_two = datetime.date.today() + datetime.timedelta(days=2)
-  today_plus_three = datetime.date.today() + datetime.timedelta(days=3)
+	today = datetime.date.today()
+	now = datetime.date.now()
+	today_minus_one = datetime.date.today() + datetime.timedelta(days=-1)
+	today_minus_two = datetime.date.today() + datetime.timedelta(days=-2)
+	today_minus_three = datetime.date.today() + datetime.timedelta(days=-3)
+	today_plus_one = datetime.date.today() + datetime.timedelta(days=1)
+	today_plus_two = datetime.date.today() + datetime.timedelta(days=2)
+	today_plus_three = datetime.date.today() + datetime.timedelta(days=3)
 
 	forcastjson = requests.get(wunder_site_forcast_json, timeout=request_timeout)
 	conditionjson = requests.get(wunder_site_conditions_json, timeout=request_timeout)
   
-  if tides:
-	  tide_data = pd.read_table(tide_csv, sep='\t', skiprows=20, names = ["Date","Day","Time","Predict Feet","NULL1","Predict Cent","NULL2","High/Low"], dtype=str)
-	  tide_data['Datetime'] = pd.to_datetime(tide_data['Date'] + ' ' + tide_data['Time'])
-	  tide_data = tide_data.set_index('Datetime')
-	  tide_data = tide_data.drop(['Date','Time','Day','NULL1','NULL2','Predict Cent'],1)
-	  
-	  tide_today = tide_data[today.strftime("%Y-%m-%d")]
-	  tide_tomorrow = tide_data[tomorrow.strftime("%Y-%m-%d")]
-	  
-	  
-	  
+	if tides:
+		tide_data = pd.read_table(tide_csv, sep='\t', skiprows=20, names = ["Date","Day","Time","Predict Feet","NULL1","Predict Cent","NULL2","High/Low"], dtype=str)
+		tide_data['Datetime'] = pd.to_datetime(tide_data['Date'] + ' ' + tide_data['Time'])
+		tide_data = tide_data.set_index('Datetime')
+		tide_data = tide_data.drop(['Date','Time','Day','NULL1','NULL2','Predict Cent'],1)
+
+		tide_today = tide_data[today.strftime("%Y-%m-%d")]
+		tide_tomorrow = tide_data[tomorrow.strftime("%Y-%m-%d")]
