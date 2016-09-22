@@ -41,12 +41,12 @@ elif os.path.isfile('/home/pi/Power_Monitoring/cuttyhunk.location'):
 	sensor0label = 'Outside'
 	sensor1      = '01'
 	sensor1label = 'Upstairs'
-	sensor2      = None # '02' Dead as per LWH 09-16-2016
-	sensor2label = None # 'Downstairs'
-	sensor3      = None # '03' Dead as per LWH 09-22-2016
+	sensor2      = '04' 
+	sensor2label = 'Reeds Room'
+	sensor3      = None # '02' Dead as per LWH 09-16-2016
 	sensor3label = None # 'Barn Upstairs'
-	sensor4      = '04'
-	sensor4label = 'Reeds Room'
+	sensor4      = None # '03' Dead as per LWH 09-22-2016
+	sensor4label = None # 'Downstairs'
 
 
 if (1):
