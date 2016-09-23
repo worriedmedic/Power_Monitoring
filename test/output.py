@@ -12,6 +12,7 @@ debug = False
 verbose = False
 request_timeout = 5
 sensor_data = True
+weather_data = True
 
 for arg in sys.argv:
 	if arg == '-d':
@@ -100,9 +101,9 @@ if (1):
 		forcast_data = pd.read_json(wunder_site_forcast_json, typ='series')
 		
 	if sensor_data:
-		data_today = pd.read_csv('/home/pi/Power_Monitoring/data_log/' + pd_today.strftime("%Y-%m") + '/' + str(pd_today) + '.log', names = ["Date", "Time", "Address", "Temperature", "Pressure", "Humidity", "Voltage", "RSSI"], dtype=str)
-		data_yest = pd.read_csv('/home/pi/Power_Monitoring/data_log/' + pd_yesterday.strftime("%Y-%m") + '/' + str(pd_yesterday) + '.log', names = ["Date", "Time", "Address", "Temperature", "Pressure", "Humidity", "Voltage", "RSSI"], dtype=str)
-		data_2prior = pd.read_csv('/home/pi/Power_Monitoring/data_log/' + pd_prior2.strftime("%Y-%m") + '/' + str(pd_prior2) + '.log', names = ["Date", "Time", "Address", "Temperature", "Pressure", "Humidity", "Voltage", "RSSI"], dtype=str)
+		data_today = pd.read_csv('/home/pi/Power_Monitoring/data_log/' + today.strftime("%Y-%m") + '/' + str(today) + '.log', names = ["Date", "Time", "Address", "Temperature", "Pressure", "Humidity", "Voltage", "RSSI"], dtype=str)
+		data_yest = pd.read_csv('/home/pi/Power_Monitoring/data_log/' + today_minus_one.strftime("%Y-%m") + '/' + str(today_minus_one) + '.log', names = ["Date", "Time", "Address", "Temperature", "Pressure", "Humidity", "Voltage", "RSSI"], dtype=str)
+		data_2prior = pd.read_csv('/home/pi/Power_Monitoring/data_log/' + today_minus_two.strftime("%Y-%m") + '/' + str(today_minus_two) + '.log', names = ["Date", "Time", "Address", "Temperature", "Pressure", "Humidity", "Voltage", "RSSI"], dtype=str)
 		data = pd.concat([data_2prior, data_yest, data_today])
 		data['Datetime'] = pd.to_datetime(data['Date'] + ' ' + data['Time'])
 		data = data.drop(['Date', 'Time'], 1)
@@ -117,8 +118,44 @@ if (1):
 		data3 = data.loc[data['Address'] == sensor3]
 		data4 = data.loc[data['Address'] == sensor4]
 		
-		print(sensor0label, data0[-1:])
-		print(sensor1label, data1[-1:])
-		print(sensor2label, data2[-1:])
-		print(sensor3label, data3[-1:])
-		print(sensor4label, data4[-1:])
+		if not data0.empty:
+			data0_readtime = data0.index[-1:][0]
+			data0_temperature = data0['Temperature'][-1:].values
+			print sensor0label, "Time of Data Read: ", data0_readtime
+			print sensor0label, "Temperature: ", data0_temperature
+			print sensor0label, "Pressure: ", data0['Pressure'][-1:].values
+			print sensor0label, "Humidity: ", data0['Humidity'][-1:].values
+			print sensor0label, "Voltage: ", data0['Voltage'][-1:].values
+			print sensor0label, "RSSI: ", data0['RSSI'][-1:].values
+		
+		if not data1.empty:
+			print sensor1label, "Time of Data Read: ", data1.index[-1:][0]
+			print sensor1label, "Temperature: ", data1['Temperature'][-1:].values
+			print sensor1label, "Pressure: ", data1['Pressure'][-1:].values
+			print sensor1label, "Humidity: ", data1['Humidity'][-1:].values
+			print sensor1label, "Voltage: ", data1['Voltage'][-1:].values
+			print sensor1label, "RSSI: ", data1['RSSI'][-1:].values
+		
+		if not data2.empty:
+			print sensor2label, "Time of Data Read: ", data2.index[-1:][0]
+			print sensor2label, "Temperature: ", data2['Temperature'][-1:].values
+			print sensor2label, "Pressure: ", data2['Pressure'][-1:].values
+			print sensor2label, "Humidity: ", data2['Humidity'][-1:].values
+			print sensor2label, "Voltage: ", data2['Voltage'][-1:].values
+			print sensor2label, "RSSI: ", data2['RSSI'][-1:].values
+		
+		if not data3.empty:
+			print sensor3label, "Time of Data Read: ", data3.index[-1:][0]
+			print sensor3label, "Temperature: ", data3['Temperature'][-1:].values
+			print sensor3label, "Pressure: ", data3['Pressure'][-1:].values
+			print sensor3label, "Humidity: ", data3['Humidity'][-1:].values
+			print sensor3label, "Voltage: ", data3['Voltage'][-1:].values
+			print sensor3label, "RSSI: ", data3['RSSI'][-1:].values
+		
+		if not data4.empty:
+			print sensor4label, "Time of Data Read: ", data4.index[-1:][0]
+			print sensor4label, "Temperature: ", data4['Temperature'][-1:].values
+			print sensor4label, "Pressure: ", data4['Pressure'][-1:].values
+			print sensor4label, "Humidity: ", data4['Humidity'][-1:].values
+			print sensor4label, "Voltage: ", data4['Voltage'][-1:].values
+			print sensor4label, "RSSI: ", data4['RSSI'][-1:].values
