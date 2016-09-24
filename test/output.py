@@ -45,10 +45,10 @@ if os.path.isfile('/home/pi/Power_Monitoring/dover.location'):
 	sensor1label = 'Upstairs'
 	sensor2      = '07'
 	sensor2label = 'Downstairs'
-	sensor3      = '05'
-	sensor3label = 'Attic'
-	sensor4      = '06'
-	sensor4label = 'Garage'
+	sensor3      = '06'
+	sensor3label = 'Garage'
+	sensor4      = '05'
+	sensor4label = 'Attic'
 	if debug:
 		print(location)
 
@@ -189,7 +189,7 @@ def data_call():
 			print sensor1label, "Voltage:\t\t", data1_voltage, "H:", data1_voltage_max, "L:", data1_voltage_min
 			print sensor1label, "RSSI:\t\t", data1_rssi, "H:", data1_rssi_max, "L:", data1_rssi_min
 		
-		elif not data2.empty:
+		if not data2.empty:
 			data2_readtime = data2.index[-1:][0]
 			data2_temperature = data2['Temperature'][-1:].values
 			data2_temperature_max = data2['Temperature'].max()
