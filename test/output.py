@@ -7,6 +7,8 @@ import requests
 import codecs
 import urllib2
 import json
+import traceback
+from apscheduler.schedulers.blocking import BlockingScheduler
 
 debug = False
 verbose = False
@@ -88,79 +90,103 @@ def data_call():
 	today_plus_three = datetime.date.today() + datetime.timedelta(days=3)
 	
 	if tides:
-		tide_data = pd.read_table(tide_csv, sep='\t', skiprows=20, names = ["Date","Day","Time","Predict Feet","NULL1","Predict Cent","NULL2","High/Low"], dtype=str)
-		tide_data['Datetime'] = pd.to_datetime(tide_data['Date'] + ' ' + tide_data['Time'])
-		tide_data = tide_data.set_index('Datetime')
-		tide_data = tide_data.drop(['Date','Time','Day','NULL1','NULL2','Predict Cent'],1)
-		tide_today = tide_data[today.strftime("%Y-%m-%d")]
-		tide_tomorrow = tide_data[today_plus_one.strftime("%Y-%m-%d")]
-		tide_yesterday = tide_data[today_minus_one.strftime("%Y-%m-%d")]
-		print("Tide Yesterday: ", tide_yesterday)
-		print("Tide Today: ", tide_today)
-		print("Tide Tomorrow: ", tide_tomorrow)
-		
+		try:
+			tide_data = pd.read_table(tide_csv, sep='\t', skiprows=20, names = ["Date","Day","Time","Predict Feet","NULL1","Predict Cent","NULL2","High/Low"], dtype=str)
+			tide_data['Datetime'] = pd.to_datetime(tide_data['Date'] + ' ' + tide_data['Time'])
+			tide_data = tide_data.set_index('Datetime')
+			tide_data = tide_data.drop(['Date','Time','Day','NULL1','NULL2','Predict Cent'],1)
+			tide_today = tide_data[today.strftime("%Y-%m-%d")]
+			tide_tomorrow = tide_data[today_plus_one.strftime("%Y-%m-%d")]
+			tide_yesterday = tide_data[today_minus_one.strftime("%Y-%m-%d")]
+			if verbose:
+				print("Tide Yesterday: ", tide_yesterday)
+				print("Tide Today: ", tide_today)
+				print("Tide Tomorrow: ", tide_tomorrow)
+		except Exception:
+			print("TIDES ERROR", today, now)
+			traceback.print_exc(file=sys.stdout)
+			print('-' * 60)
+			
 	if weather_data:
-		if i >= wuapi_update_freq or i == 0:
-			condition_data = pd.read_json(wunder_site_conditions_json, typ='series')
-			forcast_data = pd.read_json(wunder_site_forcast_json, typ='series')
-			wind_mph = condition_data.current_observation['wind_mph']
-			wind_gust = condition_data.current_observation['wind_gust_mph']
-			wind_direction = condition_data.current_observation['wind_dir']
-			pressure_trend = condition_data.current_observation['pressure_trend']
-			print location, "Wind (MPH):", wind_mph, "Wind Gust (MPH):", wind_gust, "Wind Direction:", wind_direction, "Pressure Trend:", pressure_trend
+		try:
+			if i >= wuapi_update_freq or i == 0:
+				condition_data = pd.read_json(wunder_site_conditions_json, typ='series')
+				forcast_data = pd.read_json(wunder_site_forcast_json, typ='series')
+				wind_mph = condition_data.current_observation['wind_mph']
+				wind_gust = condition_data.current_observation['wind_gust_mph']
+				wind_direction = condition_data.current_observation['wind_dir']
+				pressure_trend = condition_data.current_observation['pressure_trend']
+				if verbose:
+					print location, "Wind (MPH):", wind_mph, "Wind Gust (MPH):", wind_gust, "Wind Direction:", wind_direction, "Pressure Trend:", pressure_trend
+		except Exception:
+			print("WEATHER DATA ERROR", today, now)
+			traceback.print_exc(file=sys.stdout)
+			print('-' * 60)
 			
 	if sensor_data:
-		data_today = pd.read_csv('/home/pi/Power_Monitoring/data_log/' + today.strftime("%Y-%m") + '/' + str(today) + '.log', names = ["Date", "Time", "Address", "Temperature", "Pressure", "Humidity", "Voltage", "RSSI"], dtype=str)
-		data_yest = pd.read_csv('/home/pi/Power_Monitoring/data_log/' + today_minus_one.strftime("%Y-%m") + '/' + str(today_minus_one) + '.log', names = ["Date", "Time", "Address", "Temperature", "Pressure", "Humidity", "Voltage", "RSSI"], dtype=str)
-		data_2prior = pd.read_csv('/home/pi/Power_Monitoring/data_log/' + today_minus_two.strftime("%Y-%m") + '/' + str(today_minus_two) + '.log', names = ["Date", "Time", "Address", "Temperature", "Pressure", "Humidity", "Voltage", "RSSI"], dtype=str)
-		data = pd.concat([data_2prior, data_yest, data_today])
-		data['Datetime'] = pd.to_datetime(data['Date'] + ' ' + data['Time'])
-		data = data.drop(['Date', 'Time'], 1)
-		data = data.set_index('Datetime')
-		data['Temperature'] = data['Temperature'].str.replace('T', '')
-		data['Pressure'] = data['Pressure'].str.replace('P', '')
-		data['Humidity'] = data['Humidity'].str.replace('H', '')
-		data['Voltage'] = data['Voltage'].str.replace('V', '')
-		data['Temperature'] = data['Temperature'].astype(float)
-		data['Pressure'] = data['Pressure'].astype(float)
-		data['Humidity'] = data['Humidity'].astype(float)
-		data['Voltage'] = data['Voltage'].astype(float)
-		data['RSSI'] = data['RSSI'].astype(float)
-		data['Dewpoint'] = data['Temperature'].values - (0.36 * (100 - data['Humidity'].values))
-		data0 = data.loc[data['Address'] == sensor0]
-		data1 = data.loc[data['Address'] == sensor1]
-		data2 = data.loc[data['Address'] == sensor2]
-		data3 = data.loc[data['Address'] == sensor3]
-		data4 = data.loc[data['Address'] == sensor4]
-		
+		try:
+			data_today = pd.read_csv('/home/pi/Power_Monitoring/data_log/' + today.strftime("%Y-%m") + '/' + str(today) + '.log', names = ["Date", "Time", "Address", "Temperature", "Pressure", "Humidity", "Voltage", "RSSI"], dtype=str)
+			data_yest = pd.read_csv('/home/pi/Power_Monitoring/data_log/' + today_minus_one.strftime("%Y-%m") + '/' + str(today_minus_one) + '.log', names = ["Date", "Time", "Address", "Temperature", "Pressure", "Humidity", "Voltage", "RSSI"], dtype=str)
+			data_2prior = pd.read_csv('/home/pi/Power_Monitoring/data_log/' + today_minus_two.strftime("%Y-%m") + '/' + str(today_minus_two) + '.log', names = ["Date", "Time", "Address", "Temperature", "Pressure", "Humidity", "Voltage", "RSSI"], dtype=str)
+			data = pd.concat([data_2prior, data_yest, data_today])
+			data['Datetime'] = pd.to_datetime(data['Date'] + ' ' + data['Time'])
+			data = data.drop(['Date', 'Time'], 1)
+			data = data.set_index('Datetime')
+			data['Temperature'] = data['Temperature'].str.replace('T', '')
+			data['Pressure'] = data['Pressure'].str.replace('P', '')
+			data['Humidity'] = data['Humidity'].str.replace('H', '')
+			data['Voltage'] = data['Voltage'].str.replace('V', '')
+			data['Temperature'] = data['Temperature'].astype(float)
+			data['Pressure'] = data['Pressure'].astype(float)
+			data['Humidity'] = data['Humidity'].astype(float)
+			data['Voltage'] = data['Voltage'].astype(float)
+			data['RSSI'] = data['RSSI'].astype(float)
+			data['Dewpoint'] = data['Temperature'].values - (0.36 * (100 - data['Humidity'].values))
+			data0 = data.loc[data['Address'] == sensor0]
+			data1 = data.loc[data['Address'] == sensor1]
+			data2 = data.loc[data['Address'] == sensor2]
+			data3 = data.loc[data['Address'] == sensor3]
+			data4 = data.loc[data['Address'] == sensor4]
+		except Exception:
+			print("PANDAS ERROR", today, now)
+			traceback.print_exc(file=sys.stdout)
+			print('-' * 60)
+
+	try:
 		if not data0.empty:
-			data0_readtime = data0.index[-1:][0]
-			data0_temperature = data0['Temperature'][-1:].values
-			data0_temperature_max = data0['Temperature'].max()
-			data0_temperature_min = data0['Temperature'].min()
-			data0_pressure = data0['Pressure'][-1:].values
-			data0_pressure_max = data0['Pressure'].max()
-			data0_pressure_min = data0['Pressure'].min()
-			data0_humidity = data0['Humidity'][-1:].values
-			data0_humidity_max = data0['Humidity'].max()
-			data0_humidity_min = data0['Humidity'].min()
-			data0_dewpoint = data0['Dewpoint'][-1:].values
-			data0_dewpoint_max = data0['Dewpoint'].max()
-			data0_dewpoint_min = data0['Dewpoint'].max()
-			data0_voltage = data0['Voltage'][-1:].values
-			data0_voltage_max = data0['Voltage'].max()
-			data0_voltage_min = data0['Voltage'].min()
-			data0_rssi = data0['RSSI'][-1:].values
-			data0_rssi_max = data0['RSSI'].max()
-			data0_rssi_min = data0['RSSI'].min()
-			print sensor0label, "Time of Data Read:\t", data0_readtime
-			print sensor0label, "Temperature:\t", data0_temperature, "H:", data0_temperature_max, "L:", data0_temperature_min
-			print sensor0label, "Pressure:\t", data0_pressure, "H:", data0_pressure_max, "L:", data0_pressure_min
-			print sensor0label, "Humidity:\t", data0_humidity, "H:", data0_humidity_max, "L:", data0_humidity_min
-			print sensor0label, "Dewpoint:\t", data0_dewpoint, "H:", data0_dewpoint_max, "L:", data0_dewpoint_min
-			print sensor0label, "Voltage:\t\t", data0_voltage, "H:", data0_voltage_max, "L:", data0_voltage_min
-			print sensor0label, "RSSI:\t\t", data0_rssi, "H:", data0_rssi_max, "L:", data0_rssi_min
-		
+				data0_readtime = data0.index[-1:][0]
+				data0_temperature = data0['Temperature'][-1:].values
+				data0_temperature_max = data0['Temperature'].max()
+				data0_temperature_min = data0['Temperature'].min()
+				data0_pressure = data0['Pressure'][-1:].values
+				data0_pressure_max = data0['Pressure'].max()
+				data0_pressure_min = data0['Pressure'].min()
+				data0_humidity = data0['Humidity'][-1:].values
+				data0_humidity_max = data0['Humidity'].max()
+				data0_humidity_min = data0['Humidity'].min()
+				data0_dewpoint = data0['Dewpoint'][-1:].values
+				data0_dewpoint_max = data0['Dewpoint'].max()
+				data0_dewpoint_min = data0['Dewpoint'].max()
+				data0_voltage = data0['Voltage'][-1:].values
+				data0_voltage_max = data0['Voltage'].max()
+				data0_voltage_min = data0['Voltage'].min()
+				data0_rssi = data0['RSSI'][-1:].values
+				data0_rssi_max = data0['RSSI'].max()
+				data0_rssi_min = data0['RSSI'].min()
+				if verbose:
+					print sensor0label, "Time of Data Read:\t", data0_readtime
+					print sensor0label, "Temperature:\t", data0_temperature, "H:", data0_temperature_max, "L:", data0_temperature_min
+					print sensor0label, "Pressure:\t", data0_pressure, "H:", data0_pressure_max, "L:", data0_pressure_min
+					print sensor0label, "Humidity:\t", data0_humidity, "H:", data0_humidity_max, "L:", data0_humidity_min
+					print sensor0label, "Dewpoint:\t", data0_dewpoint, "H:", data0_dewpoint_max, "L:", data0_dewpoint_min
+					print sensor0label, "Voltage:\t\t", data0_voltage, "H:", data0_voltage_max, "L:", data0_voltage_min
+					print sensor0label, "RSSI:\t\t", data0_rssi, "H:", data0_rssi_max, "L:", data0_rssi_min
+	except Exception:
+		print("DATA0 ERROR", today, now)
+		traceback.print_exc(file=sys.stdout)
+		print('-' * 60)
+
+	try:
 		if not data1.empty:
 			data1_readtime = data1.index[-1:][0]
 			data1_temperature = data1['Temperature'][-1:].values
@@ -181,14 +207,20 @@ def data_call():
 			data1_rssi = data1['RSSI'][-1:].values
 			data1_rssi_max = data1['RSSI'].max()
 			data1_rssi_min = data1['RSSI'].min()
-			print sensor1label, "Time of Data Read:\t", data1_readtime
-			print sensor1label, "Temperature:\t", data1_temperature, "H:", data1_temperature_max, "L:", data1_temperature_min
-			print sensor1label, "Pressure:\t", data1_pressure, "H:", data1_pressure_max, "L:", data1_pressure_min
-			print sensor1label, "Humidity:\t", data1_humidity, "H:", data1_humidity_max, "L:", data1_humidity_min
-			print sensor1label, "Dewpoint:\t", data1_dewpoint, "H:", data1_dewpoint_max, "L:", data1_dewpoint_min
-			print sensor1label, "Voltage:\t\t", data1_voltage, "H:", data1_voltage_max, "L:", data1_voltage_min
-			print sensor1label, "RSSI:\t\t", data1_rssi, "H:", data1_rssi_max, "L:", data1_rssi_min
-		
+			if verbose:
+				print sensor1label, "Time of Data Read:\t", data1_readtime
+				print sensor1label, "Temperature:\t", data1_temperature, "H:", data1_temperature_max, "L:", data1_temperature_min
+				print sensor1label, "Pressure:\t", data1_pressure, "H:", data1_pressure_max, "L:", data1_pressure_min
+				print sensor1label, "Humidity:\t", data1_humidity, "H:", data1_humidity_max, "L:", data1_humidity_min
+				print sensor1label, "Dewpoint:\t", data1_dewpoint, "H:", data1_dewpoint_max, "L:", data1_dewpoint_min
+				print sensor1label, "Voltage:\t\t", data1_voltage, "H:", data1_voltage_max, "L:", data1_voltage_min
+				print sensor1label, "RSSI:\t\t", data1_rssi, "H:", data1_rssi_max, "L:", data1_rssi_min
+	except Exception:
+		print("DATA1 ERROR", today, now)
+		traceback.print_exc(file=sys.stdout)
+		print('-' * 60)
+
+	try:
 		if not data2.empty:
 			data2_readtime = data2.index[-1:][0]
 			data2_temperature = data2['Temperature'][-1:].values
@@ -209,14 +241,20 @@ def data_call():
 			data2_rssi = data2['RSSI'][-1:].values
 			data2_rssi_max = data2['RSSI'].max()
 			data2_rssi_min = data2['RSSI'].min()
-			print sensor2label, "Time of Data Read:\t", data2_readtime
-			print sensor2label, "Temperature:\t", data2_temperature, "H:", data2_temperature_max, "L:", data2_temperature_min
-			print sensor2label, "Pressure:\t", data2_pressure, "H:", data2_pressure_max, "L:", data2_pressure_min
-			print sensor2label, "Humidity:\t", data2_humidity, "H:", data2_humidity_max, "L:", data2_humidity_min
-			print sensor2label, "Dewpoint:\t", data2_dewpoint, "H:", data2_dewpoint_max, "L:", data2_dewpoint_min
-			print sensor2label, "Voltage:\t\t", data2_voltage, "H:", data2_voltage_max, "L:", data2_voltage_min
-			print sensor2label, "RSSI:\t\t", data2_rssi, "H:", data2_rssi_max, "L:", data2_rssi_min
-		
+			if verbose:
+				print sensor2label, "Time of Data Read:\t", data2_readtime
+				print sensor2label, "Temperature:\t", data2_temperature, "H:", data2_temperature_max, "L:", data2_temperature_min
+				print sensor2label, "Pressure:\t", data2_pressure, "H:", data2_pressure_max, "L:", data2_pressure_min
+				print sensor2label, "Humidity:\t", data2_humidity, "H:", data2_humidity_max, "L:", data2_humidity_min
+				print sensor2label, "Dewpoint:\t", data2_dewpoint, "H:", data2_dewpoint_max, "L:", data2_dewpoint_min
+				print sensor2label, "Voltage:\t\t", data2_voltage, "H:", data2_voltage_max, "L:", data2_voltage_min
+				print sensor2label, "RSSI:\t\t", data2_rssi, "H:", data2_rssi_max, "L:", data2_rssi_min
+	except Exception:
+		print("DATA2 ERROR", today, now)
+		traceback.print_exc(file=sys.stdout)
+		print('-' * 60)
+
+	try:
 		if not data3.empty:
 			data3_readtime = data3.index[-1:][0]
 			data3_temperature = data3['Temperature'][-1:].values
@@ -237,14 +275,20 @@ def data_call():
 			data3_rssi = data3['RSSI'][-1:].values
 			data3_rssi_max = data3['RSSI'].max()
 			data3_rssi_min = data3['RSSI'].min()
-			print sensor3label, "Time of Data Read:\t", data3_readtime
-			print sensor3label, "Temperature:\t", data3_temperature, "H:", data3_temperature_max, "L:", data3_temperature_min
-			print sensor3label, "Pressure:\t", data3_pressure, "H:", data3_pressure_max, "L:", data3_pressure_min
-			print sensor3label, "Humidity:\t", data3_humidity, "H:", data3_humidity_max, "L:", data3_humidity_min
-			print sensor3label, "Dewpoint:\t", data3_dewpoint, "H:", data3_dewpoint_max, "L:", data3_dewpoint_min
-			print sensor3label, "Voltage:\t\t", data3_voltage, "H:", data3_voltage_max, "L:", data3_voltage_min
-			print sensor3label, "RSSI:\t\t", data3_rssi, "H:", data3_rssi_max, "L:", data3_rssi_min
-		
+			if verbose:
+				print sensor3label, "Time of Data Read:\t", data3_readtime
+				print sensor3label, "Temperature:\t", data3_temperature, "H:", data3_temperature_max, "L:", data3_temperature_min
+				print sensor3label, "Pressure:\t", data3_pressure, "H:", data3_pressure_max, "L:", data3_pressure_min
+				print sensor3label, "Humidity:\t", data3_humidity, "H:", data3_humidity_max, "L:", data3_humidity_min
+				print sensor3label, "Dewpoint:\t", data3_dewpoint, "H:", data3_dewpoint_max, "L:", data3_dewpoint_min
+				print sensor3label, "Voltage:\t\t", data3_voltage, "H:", data3_voltage_max, "L:", data3_voltage_min
+				print sensor3label, "RSSI:\t\t", data3_rssi, "H:", data3_rssi_max, "L:", data3_rssi_min
+	except Exception:
+		print("DATA3 ERROR", today, now)
+		traceback.print_exc(file=sys.stdout)
+		print('-' * 60)
+
+	try:
 		if not data4.empty:
 			data4_readtime = data4.index[-1:][0]
 			data4_temperature = data4['Temperature'][-1:].values
@@ -265,16 +309,25 @@ def data_call():
 			data4_rssi = data4['RSSI'][-1:].values
 			data4_rssi_max = data4['RSSI'].max()
 			data4_rssi_min = data4['RSSI'].min()
-			print sensor4label, "Time of Data Read:\t", data4_readtime
-			print sensor4label, "Temperature:\t", data4_temperature, "H:", data4_temperature_max, "L:", data4_temperature_min
-			print sensor4label, "Pressure:\t", data4_pressure, "H:", data4_pressure_max, "L:", data4_pressure_min
-			print sensor4label, "Humidity:\t", data4_humidity, "H:", data4_humidity_max, "L:", data4_humidity_min
-			print sensor4label, "Dewpoint:\t", data4_dewpoint, "H:", data4_dewpoint_max, "L:", data4_dewpoint_min
-			print sensor4label, "Voltage:\t\t", data4_voltage, "H:", data4_voltage_max, "L:", data4_voltage_min
-			print sensor4label, "RSSI:\t\t", data4_rssi, "H:", data4_rssi_max, "L:", data4_rssi_min
+			if verbose:
+				print sensor4label, "Time of Data Read:\t", data4_readtime
+				print sensor4label, "Temperature:\t", data4_temperature, "H:", data4_temperature_max, "L:", data4_temperature_min
+				print sensor4label, "Pressure:\t", data4_pressure, "H:", data4_pressure_max, "L:", data4_pressure_min
+				print sensor4label, "Humidity:\t", data4_humidity, "H:", data4_humidity_max, "L:", data4_humidity_min
+				print sensor4label, "Dewpoint:\t", data4_dewpoint, "H:", data4_dewpoint_max, "L:", data4_dewpoint_min
+				print sensor4label, "Voltage:\t\t", data4_voltage, "H:", data4_voltage_max, "L:", data4_voltage_min
+				print sensor4label, "RSSI:\t\t", data4_rssi, "H:", data4_rssi_max, "L:", data4_rssi_min
+	except Exception:
+			print("DATA4 ERROR", today, now)
+			traceback.print_exc(file=sys.stdout)
+			print('-' * 60)
 
-while(1):
-	print '*' * 60
-	data_call()
-	i += 1
-	time.sleep(60)
+if(1):
+	scheduler = BlockingScheduler()
+	scheduler.add_job(data_call, 'interval', seconds=30)
+	
+	try:
+		scheduler.start()
+	except (KeyboardInterrupt, SystemExit):
+		pass
+	
