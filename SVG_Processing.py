@@ -447,7 +447,7 @@ while(1):
 						print("Max: ", sensor0label, max_temp_0, max_press_0, max_humid_0, max_volt_0, max_rssi_0)
 						print("Min: ", sensor0label, min_temp_0, min_press_0, min_humid_0, min_volt_0, min_rssi_0)
 
-				if data1.empty == 'False':
+				if data1.empty:
 					if debug:
 						print("No Data for ", sensor1label)
 				else:
