@@ -9,7 +9,6 @@ import traceback
 from apscheduler.schedulers.blocking import BlockingScheduler
 
 verbose = False
-request_timeout = 5
 sensordata = True
 weatherdata = True
 now = datetime.datetime.now()
