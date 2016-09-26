@@ -691,7 +691,7 @@ def svg_update():
 	try:
 		output = codecs.open('/home/pi/Power_Monitoring/output/weather-script-output1.svg', 'r', encoding='utf-8').read()
 		output = output.replace('CURDATE', today.strftime("%m/%d/%Y"))
-		output = output.replace('CURTIME', now.strftime("%H:%m"))
+		output = output.replace('CURTIME', now.strftime("%H:%M"))
 		output = output.replace('SNRISE', str(weather_data['sunrise']))
 		output = output.replace('SNSET', str(weather_data['sunset']))
 		output = output.replace('FORHI', str(weather_data['forcast_high']))
