@@ -451,23 +451,23 @@ def battery_update(bat, dataglobal, datalabel):
 	if (0 <= dataglobal['voltage'] < 80):
 		element_upd_80(bat)
 		if verbose:
-			print(datalabel, dataglobal['voltage'], " - 0 to 80")
+			print datalabel, dataglobal['voltage'], " - 0 to 80"
 	elif (80 <= dataglobal['voltage'] < 85): 
 		element_upd_85(bat)
 		if verbose:
-			print(datalabel, dataglobal['voltage'], " - 80 to 85")
+			print datalabel, dataglobal['voltage'], " - 80 to 85"
 	elif (85 <= dataglobal['voltage'] < 90):
 		element_upd_90(bat)
 		if verbose:
-			print(datalabel, dataglobal['voltage'], " - 85 to 90")
+			print datalabel, dataglobal['voltage'], " - 85 to 90"
 	elif (90 <= dataglobal['voltage'] < 95):
 		element_upd_95(bat)
 		if verbose:
-			print(datalabel, dataglobal['voltage'], " - 90 to 95")
+			print datalabel, dataglobal['voltage'], " - 90 to 95"
 	elif (95 <= dataglobal['voltage']):
 		element_upd_100(bat)
 		if verbose:
-			print(datalabel, dataglobal['voltage'], " - 95 to 100")
+			print datalabel, dataglobal['voltage'], " - 95 to 100"
 
 def svg_update():
 	today = datetime.date.today()
@@ -539,7 +539,7 @@ def svg_update():
 					if element.get("id") == "wdno":
 						element.attrib['class'] = ''
 						if verbose:
-							print(weather_data['wind_direction'], "NORTH")
+							print weather_data['wind_direction'], "NORTH"
 					elif element.get("id") == "wdne":
 						element.attrib['class'] = 'st3'
 					elif element.get("id") == "wdea":
@@ -562,7 +562,7 @@ def svg_update():
 					elif element.get("id") == "wdne":
 						element.attrib['class'] = ''
 						if verbose:
-							print(weather_data['wind_direction'], "NORTH EAST")
+							print weather_data['wind_direction'], "NORTH EAST"
 					elif element.get("id") == "wdea":
 						element.attrib['class'] = 'st3'
 					elif element.get("id") == "wdse":
@@ -585,7 +585,7 @@ def svg_update():
 					elif element.get("id") == "wdea":
 						element.attrib['class'] = ''
 						if verbose:
-							print(weather_data['wind_direction'], "EAST")
+							print weather_data['wind_direction'], "EAST"
 					elif element.get("id") == "wdse":
 						element.attrib['class'] = 'st3'
 					elif element.get("id") == "wdso":
@@ -608,7 +608,7 @@ def svg_update():
 					elif element.get("id") == "wdse":
 						element.attrib['class'] = ''
 						if verbose:
-							print(weather_data['wind_direction'], "SOUTH EAST")
+							print weather_data['wind_direction'], "SOUTH EAST"
 					elif element.get("id") == "wdso":
 						element.attrib['class'] = 'st3'
 					elif element.get("id") == "wdsw":
@@ -631,7 +631,7 @@ def svg_update():
 					elif element.get("id") == "wdso":
 						element.attrib['class'] = ''
 						if verbose:
-							print(weather_data['wind_direction'], "SOUTH")
+							print weather_data['wind_direction'], "SOUTH"
 					elif element.get("id") == "wdsw":
 						element.attrib['class'] = 'st3'
 					elif element.get("id") == "wdwe":
@@ -654,7 +654,7 @@ def svg_update():
 					elif element.get("id") == "wdsw":
 						element.attrib['class'] = ''
 						if verbose:
-							print(weather_data['wind_direction'], "SOUTH WEST")
+							print weather_data['wind_direction'], "SOUTH WEST"
 					elif element.get("id") == "wdwe":
 						element.attrib['class'] = 'st3'
 					elif element.get("id") == "wdnw":
@@ -675,7 +675,7 @@ def svg_update():
 					elif element.get("id") == "wdsw":
 						element.attrib['class'] = ''
 						if verbose:
-							print(weather_data['wind_direction'], "WEST")
+							print weather_data['wind_direction'], "WEST"
 					elif element.get("id") == "wdwe":
 						element.attrib['class'] = 'st3'
 					elif element.get("id") == "wdnw":
@@ -700,7 +700,7 @@ def svg_update():
 					elif element.get("id") == "wdnw":
 						element.attrib['class'] = ''
 						if verbose:
-							print(weather_data['wind_direction'], "NORTH WEST")
+							print weather_data['wind_direction'], "NORTH WEST"
 		tree.write('/home/pi/Power_Monitoring/output/weather-script-output.svg')
 		
 	except Exception:
