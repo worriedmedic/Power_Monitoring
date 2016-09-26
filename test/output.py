@@ -16,6 +16,7 @@ verbose = False
 request_timeout = 5
 sensor_data = True
 weather_data = True
+global i
 i = 0
 
 for arg in sys.argv:
@@ -428,6 +429,8 @@ def battery_update(bat, dataglobal, datalabel):
 			print(datalabel, dataglobal['voltage'], " - 95 to 100")
 
 def svg_update():
+	today = datetime.date.today()
+	now = datetime.datetime.now()
 	try:
 		global tree
 		tree = etree.parse(open(template_svg_filename, 'r'))
@@ -663,13 +666,58 @@ def svg_update():
 		print("WIND_DIR TO SVG ERROR", today, now)
 		traceback.print_exc(file=sys.stdout)
 		print('-' * 60)
+	try:
+		output = codecs.open('output/weather-script-output1.svg', 'r', encoding='utf-8').read()
+		output = output.replace('CURDATE', today.strftime("%m/%d/%Y"))
+		output = output.replace('CURTIME', now.strftime("%H:%m"))
+		#output = output.replace('SNRISE', sun_rise)
+		#output = output.replace('SNSET', sun_down)
+		#output = output.replace('FORHI', str(exp_hi))
+		#output = output.replace('FORLO', str(exp_lo))
+		output = output.replace('WSP', str(wind_mph))
+		output = output.replace('WGUS', str(wind_gust))
+		if data0_global['temperature'] >= 100:
+			output = output.replace('TMPE', "{0:.1f}".format(float(data0_global['temperature'])))
+		elif data0_global['temperature'] < 100:
+			output = output.replace('TMPE', "{0:.2f}".format(float(data0_global['temperature'])))
+		if data1_global['temperature'] >= 100:
+			output = output.replace('TMPI', "{0:.1f}".format(float(data1_global['temperature'])))
+		elif data1_global['temperature'] < 100:
+			output = output.replace('TMPI', "{0:.2f}".format(float(data1_global['temperature'])))
+		if data2_global['temperature'] >= 100:
+			output = output.replace('TMPG', "{0:.1f}".format(float(data2_global['temperature'])))
+		elif data2_global['temperature'] < 100:
+			output = output.replace('TMPG', "{0:.2f}".format(float(data2_global['temperature'])))
+		if data3_global['temperature'] >= 100:
+			output = output.replace('TMPD', "{0:.1f}".format(float(data3_global['temperature'])))
+		elif data3_global['temperature'] < 100:
+			output = output.replace('TMPD', "{0:.2f}".format(float(data3_global['temperature'])))
+		if data0_global['pressure'] >= 1000:
+			output = output.replace('PRESS', "{0:.0f}".format(float(data0_global['pressure'])))
+		elif data0_global['pressure'] < 1000:
+			output = output.replace('PRESS', "{0:.1f}".format(float(data0_global['pressure'])))
 		
+		output = output.replace('RLHUM', "{0:.2f}".format(float(data0_global['humidity'])))
+		output = output.replace('DWPNT', "{0:.2f}".format(float(data0_global['dewpoint'])))
+		#output = output.replace('TDNTY', str(tide_pre_type))
+		#output = output.replace('TDNTM', old.strftime('%H:%M'))
+		#output = output.replace('TDNLV', str(tide_pre_mag))
+		#output = output.replace('TDFTY', str(tide_next_type))
+		#output = output.replace('TDFTM', tide_datetime.strftime('%H:%M'))
+		#output = output.replace('TDFLV', str(tide_next_mag))
+		codecs.open('output/weather-script-output1.svg', 'w', encoding='utf-8').write(output)
+		
+	except Exception:
+		print("CODECS TO SVG ERROR", today, now)
+		traceback.print_exc(file=sys.stdout)
+		print('-' * 60)
+
 if(1):
 	scheduler = BackgroundScheduler()
-	scheduler.add_job(data_call, 'interval', seconds=30)
+	scheduler.add_job(data_call, 'interval', seconds=60)
+	scheduler.add_job(svg_update, 'interval', seconds=60)
 	
 	try:
 		scheduler.start()
 	except (KeyboardInterrupt, SystemExit):
 		scheduler.shutdown()
-	
