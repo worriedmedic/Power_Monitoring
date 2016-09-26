@@ -12,6 +12,7 @@ verbose = False
 request_timeout = 5
 sensordata = True
 weatherdata = True
+now = datetime.datetime.now()
 
 for arg in sys.argv:
 	if arg == '-v':
@@ -77,12 +78,22 @@ elif os.path.isfile('/home/pi/Power_Monitoring/cuttyhunk.location'):
 
 def daily_wunder_update():
 	global forecast_data, astronomy_data
-	forecast_data = pd.read_json(wunder_site_forecast_json, typ='series')
-	astronomy_data = pd.read_json(wunder_site_astronomy_json, typ='series')
+	try:
+		forecast_data = pd.read_json(wunder_site_forecast_json, typ='series')
+		astronomy_data = pd.read_json(wunder_site_astronomy_json, typ='series')
+	except Exception:
+		print("DAILY WUNDER UPDATE ERROR", now.strftime("%Y-%m-%d %H:%M:%S"))
+		traceback.print_exc(file=sys.stdout)
+		print('-' * 60)
 
 def hourly_wunder_update():
 	global condition_data
-	condition_data = pd.read_json(wunder_site_conditions_json, typ='series')
+	try:
+		condition_data = pd.read_json(wunder_site_conditions_json, typ='series')
+	except Exception:
+		print("DAILY WUNDER UPDATE ERROR", now.strftime("%Y-%m-%d %H:%M:%S"))
+		traceback.print_exc(file=sys.stdout)
+		print('-' * 60)
 
 def data_call():	
 	today = datetime.date.today()
@@ -118,7 +129,7 @@ def data_call():
 				print "Next Tide:", tide_data['tide_next_time'], tide_data['tide_next_level']
 				print "Following Tide:", tide_data['tide_after_time'], tide_data['tide_after_level']
 		except Exception:
-			print("TIDES ERROR", today, now)
+			print("TIDES ERROR", now.strftime("%Y-%m-%d %H:%M:%S"))
 			traceback.print_exc(file=sys.stdout)
 			print('-' * 60)
 				
@@ -151,7 +162,7 @@ def data_call():
 				print "Forecast High:", weather_data['forecast_high'], "Forecast Low:", weather_data['forecast_low']
 		
 		except Exception:
-			print("WEATHER DATA ERROR", today, now)
+			print("WEATHER DATA ERROR", now.strftime("%Y-%m-%d %H:%M:%S"))
 			traceback.print_exc(file=sys.stdout)
 			print('-' * 60)
 				
@@ -182,7 +193,7 @@ def data_call():
 			data3 = data.loc[data['Address'] == sensor3]
 			data4 = data.loc[data['Address'] == sensor4]
 		except Exception:
-			print("PANDAS ERROR", today, now)
+			print("PANDAS ERROR", now.strftime("%Y-%m-%d %H:%M:%S"))
 			traceback.print_exc(file=sys.stdout)
 			print('-' * 60)
 	
@@ -218,7 +229,7 @@ def data_call():
 				print sensor0label, "Voltage:\t\t", data0_global['voltage'], "H:", data0_global['voltage_max'], "L:", data0_global['voltage_min']
 				print sensor0label, "RSSI:\t\t", data0_global['rssi'], "H:", data0_global['rssi_max'], "L:", data0_global['rssi_min']
 	except Exception:
-		print("DATA0 ERROR", today, now)
+		print("DATA0 ERROR", now.strftime("%Y-%m-%d %H:%M:%S"))
 		traceback.print_exc(file=sys.stdout)
 		print('-' * 60)
 	
@@ -254,7 +265,7 @@ def data_call():
 				print sensor1label, "Voltage:\t\t", data1_global['voltage'], "H:", data1_global['voltage_max'], "L:", data1_global['voltage_min']
 				print sensor1label, "RSSI:\t\t", data1_global['rssi'], "H:", data1_global['rssi_max'], "L:", data1_global['rssi_min']
 	except Exception:
-		print("DATA1 ERROR", today, now)
+		print("DATA1 ERROR", now.strftime("%Y-%m-%d %H:%M:%S"))
 		traceback.print_exc(file=sys.stdout)
 		print('-' * 60)
 	
@@ -290,7 +301,7 @@ def data_call():
 				print sensor2label, "Voltage:\t\t", data2_global['voltage'], "H:", data2_global['voltage_max'], "L:", data2_global['voltage_min']
 				print sensor2label, "RSSI:\t\t", data2_global['rssi'], "H:", data2_global['rssi_max'], "L:", data2_global['rssi_min']
 	except Exception:
-		print("DATA2 ERROR", today, now)
+		print("DATA2 ERROR", now.strftime("%Y-%m-%d %H:%M:%S"))
 		traceback.print_exc(file=sys.stdout)
 		print('-' * 60)
 	
@@ -326,7 +337,7 @@ def data_call():
 				print sensor3label, "Voltage:\t\t", data3_global['voltage'], "H:", data3_global['voltage_max'], "L:", data3_global['voltage_min']
 				print sensor3label, "RSSI:\t\t", data3_global['rssi'], "H:", data3_global['rssi_max'], "L:", data3_global['rssi_min']
 	except Exception:
-		print("DATA3 ERROR", today, now)
+		print("DATA3 ERROR", now.strftime("%Y-%m-%d %H:%M:%S"))
 		traceback.print_exc(file=sys.stdout)
 		print('-' * 60)
 	
@@ -362,7 +373,7 @@ def data_call():
 				print sensor4label, "Voltage:\t\t", data4_global['voltage'], "H:", data4_global['voltage_max'], "L:", data4_global['voltage_min']
 				print sensor4label, "RSSI:\t\t", data4_global['rssi'], "H:", data4_global['rssi_max'], "L:", data4_global['rssi_min']
 	except Exception:
-			print("DATA4 ERROR", today, now)
+			print("DATA4 ERROR", now.strftime("%Y-%m-%d %H:%M:%S"))
 			traceback.print_exc(file=sys.stdout)
 			print('-' * 60)
 
@@ -471,7 +482,7 @@ def svg_update():
 		battery_update('04', data4_global, sensor4label)
 		tree.write('/home/pi/Power_Monitoring/output/weather-script-output.svg')
 	except Exception:
-		print("BATTERY TO SVG ERROR", today, now)
+		print("BATTERY TO SVG ERROR", now.strftime("%Y-%m-%d %H:%M:%S"))
 		traceback.print_exc(file=sys.stdout)
 		print('-' * 60)
 	
@@ -516,7 +527,7 @@ def svg_update():
 		tree.write('/home/pi/Power_Monitoring/output/weather-script-output.svg')
 	
 	except Exception:
-		print("PRESSURE TO SVG ERROR", today, now)
+		print("PRESSURE TO SVG ERROR", now.strftime("%Y-%m-%d %H:%M:%S"))
 		traceback.print_exc(file=sys.stdout)
 		print('-' * 60)
 	
@@ -693,7 +704,7 @@ def svg_update():
 		tree.write('/home/pi/Power_Monitoring/output/weather-script-output.svg')
 		
 	except Exception:
-		print("WIND_DIR TO SVG ERROR", today, now)
+		print("WIND_DIR TO SVG ERROR", now.strftime("%Y-%m-%d %H:%M:%S"))
 		traceback.print_exc(file=sys.stdout)
 		print('-' * 60)
 	try:
@@ -738,7 +749,7 @@ def svg_update():
 		codecs.open('/home/pi/Power_Monitoring/output/weather-script-output.svg', 'w', encoding='utf-8').write(output)
 		
 	except Exception:
-		print("CODECS TO SVG ERROR", today, now)
+		print("CODECS TO SVG ERROR", now.strftime("%Y-%m-%d %H:%M:%S"))
 		traceback.print_exc(file=sys.stdout)
 		print('-' * 60)
 
