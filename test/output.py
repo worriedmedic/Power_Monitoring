@@ -105,15 +105,19 @@ def data_call():
 			tides = pd.read_table(tide_csv, sep='\t', skiprows=20, names = ["Date","Day","Time","Feet","NULL1","Metric","NULL2","High/Low"], dtype=str)
 			tides['Datetime'] = pd.to_datetime(tides['Date'] + ' ' + tides['Time'])
 			tides = tides.set_index('Datetime')
-			tides = tides.drop(['Date','Time','Day','NULL1','NULL2','Metric','High/Low'],1)
+			tides = tides.drop(['Date','Time','Day','NULL1','NULL2','Metric'],1)
 			tides['Feet'] = tides['Feet'].astype(float)
+			tides['High/Low'] = tides['High/Low'].str.replace('H', 'High')
+			tides['High/Low'] = tides['High/Low'].str.replace('L', 'Low')
 			tide_data = {'tide_prior_time'	: tides['Feet'][:now.strftime("%Y-%m-%d %H:%M:%S")].index[-1],
 				     'tide_prior_level'	: tides['Feet'][:now.strftime("%Y-%m-%d %H:%M:%S")][-1],
+				     'tide_prior_type'	: tides['High/Low'][:now.strftime("%Y-%m-%d %H:%M:%S")][-1],
 				     'tide_next_time'	: tides['Feet'][now.strftime("%Y-%m-%d %H:%M:%S"):].index[0],
 				     'tide_next_level'	: tides['Feet'][now.strftime("%Y-%m-%d %H:%M:%S"):][0],
+				     'tide_next_type'	: tides['High/Low'][now.strftime("%Y-%m-%d %H:%M:%S"):][0]
 				     'tide_after_time'	: tides['Feet'][now.strftime("%Y-%m-%d %H:%M:%S"):].index[1],
-				     'tide_after_level'	: tides['Feet'][now.strftime("%Y-%m-%d %H:%M:%S"):][1]}
-			
+				     'tide_after_level'	: tides['Feet'][now.strftime("%Y-%m-%d %H:%M:%S"):][1],
+				     'tide_after_type'	: tides['High/Low'][now.strftime("%Y-%m-%d %H:%M:%S"):][1]}
 			if verbose:
 				print "Previous Tide:", tide_data['tide_prior_time'], tide_data['tide_prior_level']
 				print "Next Tide:", tide_data['tide_next_time'], tide_data['tide_next_level']
@@ -717,10 +721,10 @@ def svg_update():
 		
 		output = output.replace('RLHUM', "{0:.2f}".format(float(data0_global['humidity'])))
 		output = output.replace('DWPNT', "{0:.2f}".format(float(data0_global['dewpoint'])))
-		#output = output.replace('TDNTY', str(tide_pre_type))
+		output = output.replace('TDNTY', str(tide_data['tide_next_type']))
 		output = output.replace('TDNTM', str(tide_data['tide_next_time'].strftime('%H:%M')))
 		output = output.replace('TDNLV', str(tide_data['tide_next_level']))
-		#output = output.replace('TDFTY', str(tide_next_type))
+		output = output.replace('TDFTY', str(tide_data['tide_after_type']))
 		output = output.replace('TDFTM', str(tide_data['tide_after_time'].strftime('%H:%M')))
 		output = output.replace('TDFLV', str(tide_data['tide_after_level']))
 		codecs.open('/home/pi/Power_Monitoring/output/weather-script-output1.svg', 'w', encoding='utf-8').write(output)
