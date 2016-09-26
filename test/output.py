@@ -14,8 +14,9 @@ from apscheduler.schedulers.blocking import BlockingScheduler
 debug = False
 verbose = False
 request_timeout = 5
-sensor_data = True
-weather_data = True
+sensordata = True
+weatherdata = True
+wunder_update = Null
 global i
 i = 0
 
@@ -37,11 +38,12 @@ if os.path.isfile('/home/pi/Power_Monitoring/dover.location'):
 	
 	template_svg_filename = '/home/pi/Power_Monitoring/resources/DOVER_WX_TEMPLATE.svg'
 	
-	tides = False
+	tide = True
 	
 	wuapi_update_freq = 200
-	wunder_site_forcast_json = 'http://api.wunderground.com/api/1f86b1c989ac268c/forecast/q/ma/cuttyhunk.json'
-	wunder_site_conditions_json = 'http://api.wunderground.com/api/1f86b1c989ac268c/conditions/q/ma/cuttyhunk.json'
+	wunder_site_forcast_json = 'http://api.wunderground.com/api/1f86b1c989ac268c/forecast/q/ny/carmel.json'
+	wunder_site_astronomy_json = 'http://api.wunderground.com/api/1f86b1c989ac268c/astronomy/q/ny/carmel.json'
+	wunder_site_conditions_json = 'http://api.wunderground.com/api/1f86b1c989ac268c/conditions/q/ny/carmel.json'
 	
 	sensor0      = '09'
 	sensor0label = 'Outside'
@@ -53,20 +55,21 @@ if os.path.isfile('/home/pi/Power_Monitoring/dover.location'):
 	sensor3label = 'Garage'
 	sensor4      = '05'
 	sensor4label = 'Attic'
-	if debug:
+	if verbose:
 		print(location)
-
+	
 elif os.path.isfile('/home/pi/Power_Monitoring/cuttyhunk.location'):
 	location = 'cuttyhunk'
 	
-	tides = True
+	tide = True
 	tide_csv = 'https://tidesandcurrents.noaa.gov/noaatidepredictions/NOAATidesFacade.jsp?datatype=Annual+TXT&Stationid=8448376&text=datafiles%252F8448376%252F22092016%252F773%252F&imagename=images%2F8448376%2F22092016%2F773%2F8448376_2016-09-23.gif&bdate=20160922&timelength=daily&timeZone=2&dataUnits=1&interval=&edate=20160923&StationName=Cuttyhunk&Stationid_=8448376&state=MA&primary=Subordinate&datum=MLLW&timeUnits=2&ReferenceStationName=Newport&ReferenceStation=8452660&HeightOffsetLow=*0.93&HeightOffsetHigh=*+0.97&TimeOffsetLow=75&TimeOffsetHigh=80&pageview=dayly&print_download=true&Threshold=&thresholdvalue='
 	
 	template_svg_filename = 'resources/CUTTY_WX_TEMPLATE.svg'
 	
 	wuapi_update_freq = 50
-	wunder_site_forcast_json = 'http://api.wunderground.com/api/1f86b1c989ac268c/forecast/q/ny/carmel.json'
-	wunder_site_conditions_json = 'http://api.wunderground.com/api/1f86b1c989ac268c/conditions/q/ny/carmel.json'
+	wunder_site_forcast_json = 'http://api.wunderground.com/api/1f86b1c989ac268c/forecast/q/ma/cuttyhunk.json'
+	wunder_site_astronomy_json = 'http://api.wunderground.com/api/1f86b1c989ac268c/astronomy/q/ma/cuttyhunk.json'
+	wunder_site_conditions_json = 'http://api.wunderground.com/api/1f86b1c989ac268c/conditions/q/ma/cuttyhunk.json'
 	
 	sensor0      = '00'
 	sensor0label = 'Outside'
@@ -78,8 +81,12 @@ elif os.path.isfile('/home/pi/Power_Monitoring/cuttyhunk.location'):
 	sensor3label = None
 	sensor4      = None
 	sensor4label = None
-	if debug:
+	if verbose:
 		print(location)
+
+def daily_wunder_update():
+	forcast_data = pd.read_json(wunder_site_forcast_json, typ='series')
+	astronomy_data = pd.read_json(wunder_site_astronomy_json, typ='series')
 
 def data_call():	
 	today = datetime.date.today()
@@ -91,42 +98,52 @@ def data_call():
 	today_plus_two = datetime.date.today() + datetime.timedelta(days=2)
 	today_plus_three = datetime.date.today() + datetime.timedelta(days=3)
 	
-	if tides:
+	if tide:
 		try:
-			tide_data = pd.read_table(tide_csv, sep='\t', skiprows=20, names = ["Date","Day","Time","Predict Feet","NULL1","Predict Cent","NULL2","High/Low"], dtype=str)
-			tide_data['Datetime'] = pd.to_datetime(tide_data['Date'] + ' ' + tide_data['Time'])
-			tide_data = tide_data.set_index('Datetime')
-			tide_data = tide_data.drop(['Date','Time','Day','NULL1','NULL2','Predict Cent'],1)
-			tide_today = tide_data[today.strftime("%Y-%m-%d")]
-			tide_tomorrow = tide_data[today_plus_one.strftime("%Y-%m-%d")]
-			tide_yesterday = tide_data[today_minus_one.strftime("%Y-%m-%d")]
+			global tides
+			tides = pd.read_table(tide_csv, sep='\t', skiprows=20, names = ["Date","Day","Time","Feet","NULL1","Metric","NULL2","High/Low"], dtype=str)
+			tides['Datetime'] = pd.to_datetime(tides['Date'] + ' ' + tides['Time'])
+			tides = tides.set_index('Datetime')
+			tides = tides.drop(['Date','Time','Day','NULL1','NULL2','Metric','High/Low'],1)
+			tides['Feet'] = tides['Feet'].astype(float)
+			tide_data = {'tide_prior_time'	: tides['Feet'][:now.strftime("%Y-%m-%d %H:%M:%S")].index[-1],
+				     'tide_prior_level'	: tides['Feet'][:now.strftime("%Y-%m-%d %H:%M:%S")][-1],
+				     'tide_next_time'	: tides['Feet'][now.strftime("%Y-%m-%d %H:%M:%S"):].index[0],
+				     'tide_next_level'	: tides['Feet'][now.strftime("%Y-%m-%d %H:%M:%S"):][0],
+				     'tide_after_time'	: tides['Feet'][now.strftime("%Y-%m-%d %H:%M:%S"):].index[1],
+				     'tide_after_level'	: tides['Feet'][now.strftime("%Y-%m-%d %H:%M:%S"):][1]}
+			
 			if verbose:
-				print("Tide Yesterday: ", tide_yesterday)
-				print("Tide Today: ", tide_today)
-				print("Tide Tomorrow: ", tide_tomorrow)
+				print "Previous Tide:", tide_data['tide_prior_time'], tide_data['tide_prior_level']
+				print "Next Tide:", tide_data['tide_next_time'], tide_data['tide_next_level']
+				print "Following Tide:", tide_data['tide_after_time'], tide_data['tide_after_level']
 		except Exception:
 			print("TIDES ERROR", today, now)
 			traceback.print_exc(file=sys.stdout)
 			print('-' * 60)
 				
-	if weather_data:
+	if weatherdata:
 		try:
 			if i >= wuapi_update_freq or i == 0:
-				global wind_mph, wind_gust, wind_direction, pressure_trend
+				global weather_data
 				condition_data = pd.read_json(wunder_site_conditions_json, typ='series')
-				forcast_data = pd.read_json(wunder_site_forcast_json, typ='series')
-				wind_mph = condition_data.current_observation['wind_mph']
-				wind_gust = condition_data.current_observation['wind_gust_mph']
-				wind_direction = condition_data.current_observation['wind_dir']
-				pressure_trend = condition_data.current_observation['pressure_trend']
+				weather_data = {'wind_mph'		: condition_data.current_observation['wind_mph'],
+						'wind_gust'		: condition_data.current_observation['wind_gust_mph'],
+						'wind_direction'	: condition_data.current_observation['wind_dir'],
+						'pressure_trend'	: condition_data.current_observation['pressure_trend'],
+						'forcast_high'		: forcast_data['forecast']['simpleforecast']['forecastday'][0]['high']['fahrenheit'],
+						'forcast_low'		: forcast_data['forecast']['simpleforecast']['forecastday'][0]['low']['fahrenheit'],
+						'sunrise'		: astronomy_data['sun_phase']['sunrise']['hour'] + ":" + astronomy_data['sun_phase']['sunrise']['minute'],
+						'sunset'		: astronomy_data['sun_phase']['sunset']['hour'] + ":" + astronomy_data['sun_phase']['sunset']['minute']}
 				if verbose:
-					print location, "Wind (MPH):", wind_mph, "Wind Gust (MPH):", wind_gust, "Wind Direction:", wind_direction, "Pressure Trend:", pressure_trend
+					print location, "Wind (MPH):", weather_data['wind_mph'], "Wind Gust (MPH):", weather_data['wind_gust'], "Wind Direction:", weather_data['wind_direction'], "Pressure Trend:", weather_data['pressure_trend'], 
+					print "Forcast High:", weather_data['forcast_high'], "Forcast Low:", weather_data['forcast_low']
 		except Exception:
 			print("WEATHER DATA ERROR", today, now)
 			traceback.print_exc(file=sys.stdout)
 			print('-' * 60)
 				
-	if sensor_data:
+	if sensordata:
 		try:
 			global data, data0, data1, data2, data3, data4
 			data_today = pd.read_csv('/home/pi/Power_Monitoring/data_log/' + today.strftime("%Y-%m") + '/' + str(today) + '.log', names = ["Date", "Time", "Address", "Temperature", "Pressure", "Humidity", "Voltage", "RSSI"], dtype=str)
@@ -715,6 +732,7 @@ def svg_update():
 if(1):
 	data_call()
 	scheduler = BlockingScheduler()
+	scheduler.add_job(daily_wunder_update, 'cron', minute=5)
 	scheduler.add_job(svg_update, 'interval', seconds=60)
 	scheduler.add_job(data_call, 'interval', seconds=60)
 	
