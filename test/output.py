@@ -107,8 +107,8 @@ def data_call():
 			tides = tides.set_index('Datetime')
 			tides = tides.drop(['Date','Time','Day','NULL1','NULL2','Metric'],1)
 			tides['Feet'] = tides['Feet'].astype(float)
-			tides['High/Low'] = tides['High/Low'].str.replace('H', 'High')
-			tides['High/Low'] = tides['High/Low'].str.replace('L', 'Low')
+			#tides['High/Low'] = tides['High/Low'].str.replace('H', 'High')
+			#tides['High/Low'] = tides['High/Low'].str.replace('L', 'Low')
 			tide_data = {'tide_prior_time'	: tides['Feet'][:now.strftime("%Y-%m-%d %H:%M:%S")].index[-1],
 				     'tide_prior_level'	: tides['Feet'][:now.strftime("%Y-%m-%d %H:%M:%S")][-1],
 				     'tide_prior_type'	: tides['High/Low'][:now.strftime("%Y-%m-%d %H:%M:%S")][-1],
