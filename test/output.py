@@ -80,9 +80,7 @@ elif os.path.isfile('/home/pi/Power_Monitoring/cuttyhunk.location'):
 	if debug:
 		print(location)
 
-def data_call():
-	global data, data0, data1, data2, data3, data4
-	
+def data_call():	
 	today = datetime.date.today()
 	now = datetime.datetime.now()
 	today_minus_one = datetime.date.today() + datetime.timedelta(days=-1)
@@ -113,6 +111,7 @@ def data_call():
 	if weather_data:
 		try:
 			if i >= wuapi_update_freq or i == 0:
+				global wind_mph, wind_gust, wind_direction, pressure_trend
 				condition_data = pd.read_json(wunder_site_conditions_json, typ='series')
 				forcast_data = pd.read_json(wunder_site_forcast_json, typ='series')
 				wind_mph = condition_data.current_observation['wind_mph']
@@ -128,6 +127,7 @@ def data_call():
 				
 	if sensor_data:
 		try:
+			global data, data0, data1, data2, data3, data4
 			data_today = pd.read_csv('/home/pi/Power_Monitoring/data_log/' + today.strftime("%Y-%m") + '/' + str(today) + '.log', names = ["Date", "Time", "Address", "Temperature", "Pressure", "Humidity", "Voltage", "RSSI"], dtype=str)
 			data_yest = pd.read_csv('/home/pi/Power_Monitoring/data_log/' + today_minus_one.strftime("%Y-%m") + '/' + str(today_minus_one) + '.log', names = ["Date", "Time", "Address", "Temperature", "Pressure", "Humidity", "Voltage", "RSSI"], dtype=str)
 			data_2prior = pd.read_csv('/home/pi/Power_Monitoring/data_log/' + today_minus_two.strftime("%Y-%m") + '/' + str(today_minus_two) + '.log', names = ["Date", "Time", "Address", "Temperature", "Pressure", "Humidity", "Voltage", "RSSI"], dtype=str)
@@ -157,34 +157,35 @@ def data_call():
 	
 	try:
 		if not data0.empty:
-			global data0_readtime, data0_temperature, data0_temperature_max, data0_temperature_min, data0_pressure, data0_pressure_max, data0_pressure_min, data0_humidity, data0_humidity_max, data0_humidity_min, data0_dewpoint, data0_dewpoint_max, data0_dewpoint_min, data0_voltage, data0_voltage_max, data0_voltage_min, data0_rssi, data0_rssi_max, data0_rssi_min
-			data0_readtime = data0.index[-1:][0]
-			data0_temperature = data0['Temperature'][-1:].values
-			data0_temperature_max = data0['Temperature'].max()
-			data0_temperature_min = data0['Temperature'].min()
-			data0_pressure = data0['Pressure'][-1:].values
-			data0_pressure_max = data0['Pressure'].max()
-			data0_pressure_min = data0['Pressure'].min()
-			data0_humidity = data0['Humidity'][-1:].values
-			data0_humidity_max = data0['Humidity'].max()
-			data0_humidity_min = data0['Humidity'].min()
-			data0_dewpoint = data0['Dewpoint'][-1:].values
-			data0_dewpoint_max = data3['Dewpoint'].max()
-			data0_dewpoint_min = data3['Dewpoint'].min()
-			data0_voltage = data0['Voltage'][-1:].values
-			data0_voltage_max = data0['Voltage'].max()
-			data0_voltage_min = data0['Voltage'].min()
-			data0_rssi = data0['RSSI'][-1:].values
-			data0_rssi_max = data0['RSSI'].max()
-			data0_rssi_min = data0['RSSI'].min()
+			global data0_global
+			data0_global = {'time' 		: data0.index[-1:][0], 
+				      'temperature'	: data0['Temperature'][-1:].values, 
+				      'temperature_max'	: data0['Temperature'].max(),
+				      'temperature_min' : data0['Temperature'].min(),
+				      'pressure'	: data0['Pressure'][-1:].values,
+				      'pressure_max'	: data0['Pressure'].max(),
+				      'pressure_min'	: data0['Pressure'].min(),
+				      'humidity'	: data0['Humidity'][-1:].values,
+				      'humidity_max'	: data0['Humidity'].max(),
+				      'humidity_min'	: data0['Humidity'].min(),
+				      'dewpoint'	: data0['Dewpoint'][-1:].values,
+				      'dewpoint_max'	: data0['Dewpoint'].max(),
+				      'dewpoint_min'	: data0['Dewpoint'].min(),
+				      'voltage'		: data0['Voltage'][-1:].values,
+				      'voltage_max'	: data0['Voltage'].max(),
+				      'voltage_min'	: data0['Voltage'].min(),
+				      'rssi'		: data0['RSSI'][-1:].values,
+				      'rssi_max'	: data0['RSSI'].max(),
+				      'rssi_min'	: data0['RSSI'].min()}
+			
 			if verbose:
-				print sensor0label, "Time of Data Read:\t", data0_readtime
-				print sensor0label, "Temperature:\t", data0_temperature, "H:", data0_temperature_max, "L:", data0_temperature_min
-				print sensor0label, "Pressure:\t", data0_pressure, "H:", data0_pressure_max, "L:", data0_pressure_min
-				print sensor0label, "Humidity:\t", data0_humidity, "H:", data0_humidity_max, "L:", data0_humidity_min
-				print sensor0label, "Dewpoint:\t", data0_dewpoint, "H:", data0_dewpoint_max, "L:", data0_dewpoint_min
-				print sensor0label, "Voltage:\t\t", data0_voltage, "H:", data0_voltage_max, "L:", data0_voltage_min
-				print sensor0label, "RSSI:\t\t", data0_rssi, "H:", data0_rssi_max, "L:", data0_rssi_min
+				print sensor0label, "Time of Data Read:\t", data0_global['time']
+				print sensor0label, "Temperature:\t", data0_global['temperature'], "H:", data0_global['temperature_max'], "L:", data0_global['temperature_min']
+				print sensor0label, "Pressure:\t", data0_global['pressure'], "H:", data0_global['pressure_max'], "L:", data0_global['pressure_min']
+				print sensor0label, "Humidity:\t", data0_global['humidity'], "H:", data0_global['humidity_max'], "L:", data0_global['humidity_min']
+				print sensor0label, "Dewpoint:\t", data0_global['dewpoint'], "H:", data0_global['dewpoint_max'], "L:", data0_global['dewpoint_min']
+				print sensor0label, "Voltage:\t\t", data0_global['voltage'], "H:", data0_global['voltage_max'], "L:", data0_global['voltage_min']
+				print sensor0label, "RSSI:\t\t", data0_global['rssi'], "H:", data0_global['rssi_max'], "L:", data0_global['rssi_min']
 	except Exception:
 		print("DATA0 ERROR", today, now)
 		traceback.print_exc(file=sys.stdout)
@@ -192,34 +193,35 @@ def data_call():
 	
 	try:
 		if not data1.empty:
-			global data1_readtime, data1_temperature, data1_temperature_max, data1_temperature_min, data1_pressure, data1_pressure_max, data1_pressure_min, data1_humidity, data1_humidity_max, data1_humidity_min, data1_dewpoint, data1_dewpoint_max, data1_dewpoint_min, data1_voltage, data1_voltage_max, data1_voltage_min, data1_rssi, data1_rssi_max, data1_rssi_min
-			data1_readtime = data1.index[-1:][0]
-			data1_temperature = data1['Temperature'][-1:].values
-			data1_temperature_max = data1['Temperature'].max()
-			data1_temperature_min = data1['Temperature'].min()
-			data1_pressure = data1['Pressure'][-1:].values
-			data1_pressure_max = data1['Pressure'].max()
-			data1_pressure_min = data1['Pressure'].min()
-			data1_humidity = data1['Humidity'][-1:].values
-			data1_humidity_max = data1['Humidity'].max()
-			data1_humidity_min = data1['Humidity'].min()
-			data1_dewpoint = data1['Dewpoint'][-1:].values
-			data1_dewpoint_max = data3['Dewpoint'].max()
-			data1_dewpoint_min = data3['Dewpoint'].min()
-			data1_voltage = data1['Voltage'][-1:].values
-			data1_voltage_max = data1['Voltage'].max()
-			data1_voltage_min = data1['Voltage'].min()
-			data1_rssi = data1['RSSI'][-1:].values
-			data1_rssi_max = data1['RSSI'].max()
-			data1_rssi_min = data1['RSSI'].min()
+			global data1_global
+			data1_global = {'time' 		: data1.index[-1:][0], 
+				      'temperature'	: data1['Temperature'][-1:].values, 
+				      'temperature_max'	: data1['Temperature'].max(),
+				      'temperature_min' : data1['Temperature'].min(),
+				      'pressure'	: data1['Pressure'][-1:].values,
+				      'pressure_max'	: data1['Pressure'].max(),
+				      'pressure_min'	: data1['Pressure'].min(),
+				      'humidity'	: data1['Humidity'][-1:].values,
+				      'humidity_max'	: data1['Humidity'].max(),
+				      'humidity_min'	: data1['Humidity'].min(),
+				      'dewpoint'	: data1['Dewpoint'][-1:].values,
+				      'dewpoint_max'	: data1['Dewpoint'].max(),
+				      'dewpoint_min'	: data1['Dewpoint'].min(),
+				      'voltage'		: data1['Voltage'][-1:].values,
+				      'voltage_max'	: data1['Voltage'].max(),
+				      'voltage_min'	: data1['Voltage'].min(),
+				      'rssi'		: data1['RSSI'][-1:].values,
+				      'rssi_max'	: data1['RSSI'].max(),
+				      'rssi_min'	: data1['RSSI'].min()}
+			
 			if verbose:
-				print sensor1label, "Time of Data Read:\t", data1_readtime
-				print sensor1label, "Temperature:\t", data1_temperature, "H:", data1_temperature_max, "L:", data1_temperature_min
-				print sensor1label, "Pressure:\t", data1_pressure, "H:", data1_pressure_max, "L:", data1_pressure_min
-				print sensor1label, "Humidity:\t", data1_humidity, "H:", data1_humidity_max, "L:", data1_humidity_min
-				print sensor1label, "Dewpoint:\t", data1_dewpoint, "H:", data1_dewpoint_max, "L:", data1_dewpoint_min
-				print sensor1label, "Voltage:\t\t", data1_voltage, "H:", data1_voltage_max, "L:", data1_voltage_min
-				print sensor1label, "RSSI:\t\t", data1_rssi, "H:", data1_rssi_max, "L:", data1_rssi_min
+				print sensor1label, "Time of Data Read:\t", data1_global['time']
+				print sensor1label, "Temperature:\t", data1_global['temperature'], "H:", data1_global['temperature_max'], "L:", data1_global['temperature_min']
+				print sensor1label, "Pressure:\t", data1_global['pressure'], "H:", data1_global['pressure_max'], "L:", data1_global['pressure_min']
+				print sensor1label, "Humidity:\t", data1_global['humidity'], "H:", data1_global['humidity_max'], "L:", data1_global['humidity_min']
+				print sensor1label, "Dewpoint:\t", data1_global['dewpoint'], "H:", data1_global['dewpoint_max'], "L:", data1_global['dewpoint_min']
+				print sensor1label, "Voltage:\t\t", data1_global['voltage'], "H:", data1_global['voltage_max'], "L:", data1_global['voltage_min']
+				print sensor1label, "RSSI:\t\t", data1_global['rssi'], "H:", data1_global['rssi_max'], "L:", data1_global['rssi_min']
 	except Exception:
 		print("DATA1 ERROR", today, now)
 		traceback.print_exc(file=sys.stdout)
@@ -227,34 +229,35 @@ def data_call():
 	
 	try:
 		if not data2.empty:
-			global data2_readtime, data2_temperature, data2_temperature_max, data2_temperature_min, data2_pressure, data2_pressure_max, data2_pressure_min, data2_humidity, data2_humidity_max, data2_humidity_min, data2_dewpoint, data2_dewpoint_max, data2_dewpoint_min, data2_voltage, data2_voltage_max, data2_voltage_min, data2_rssi, data2_rssi_max, data2_rssi_min
-			data2_readtime = data2.index[-1:][0]
-			data2_temperature = data2['Temperature'][-1:].values
-			data2_temperature_max = data2['Temperature'].max()
-			data2_temperature_min = data2['Temperature'].min()
-			data2_pressure = data2['Pressure'][-1:].values
-			data2_pressure_max = data2['Pressure'].max()
-			data2_pressure_min = data2['Pressure'].min()
-			data2_humidity = data2['Humidity'][-1:].values
-			data2_humidity_max = data2['Humidity'].max()
-			data2_humidity_min = data2['Humidity'].min()
-			data2_dewpoint = data2['Dewpoint'][-1:].values
-			data2_dewpoint_max = data3['Dewpoint'].max()
-			data2_dewpoint_min = data3['Dewpoint'].min()
-			data2_voltage = data2['Voltage'][-1:].values
-			data2_voltage_max = data2['Voltage'].max()
-			data2_voltage_min = data2['Voltage'].min()
-			data2_rssi = data2['RSSI'][-1:].values
-			data2_rssi_max = data2['RSSI'].max()
-			data2_rssi_min = data2['RSSI'].min()
+			global data2_global
+			data2_global = {'time' 		: data2.index[-1:][0], 
+				      'temperature'	: data2['Temperature'][-1:].values, 
+				      'temperature_max'	: data2['Temperature'].max(),
+				      'temperature_min' : data2['Temperature'].min(),
+				      'pressure'	: data2['Pressure'][-1:].values,
+				      'pressure_max'	: data2['Pressure'].max(),
+				      'pressure_min'	: data2['Pressure'].min(),
+				      'humidity'	: data2['Humidity'][-1:].values,
+				      'humidity_max'	: data2['Humidity'].max(),
+				      'humidity_min'	: data2['Humidity'].min(),
+				      'dewpoint'	: data2['Dewpoint'][-1:].values,
+				      'dewpoint_max'	: data2['Dewpoint'].max(),
+				      'dewpoint_min'	: data2['Dewpoint'].min(),
+				      'voltage'		: data2['Voltage'][-1:].values,
+				      'voltage_max'	: data2['Voltage'].max(),
+				      'voltage_min'	: data2['Voltage'].min(),
+				      'rssi'		: data2['RSSI'][-1:].values,
+				      'rssi_max'	: data2['RSSI'].max(),
+				      'rssi_min'	: data2['RSSI'].min()}
+			
 			if verbose:
-				print sensor2label, "Time of Data Read:\t", data2_readtime
-				print sensor2label, "Temperature:\t", data2_temperature, "H:", data2_temperature_max, "L:", data2_temperature_min
-				print sensor2label, "Pressure:\t", data2_pressure, "H:", data2_pressure_max, "L:", data2_pressure_min
-				print sensor2label, "Humidity:\t", data2_humidity, "H:", data2_humidity_max, "L:", data2_humidity_min
-				print sensor2label, "Dewpoint:\t", data2_dewpoint, "H:", data2_dewpoint_max, "L:", data2_dewpoint_min
-				print sensor2label, "Voltage:\t\t", data2_voltage, "H:", data2_voltage_max, "L:", data2_voltage_min
-				print sensor2label, "RSSI:\t\t", data2_rssi, "H:", data2_rssi_max, "L:", data2_rssi_min
+				print sensor2label, "Time of Data Read:\t", data2_global['time']
+				print sensor2label, "Temperature:\t", data2_global['temperature'], "H:", data2_global['temperature_max'], "L:", data2_global['temperature_min']
+				print sensor2label, "Pressure:\t", data2_global['pressure'], "H:", data2_global['pressure_max'], "L:", data2_global['pressure_min']
+				print sensor2label, "Humidity:\t", data2_global['humidity'], "H:", data2_global['humidity_max'], "L:", data2_global['humidity_min']
+				print sensor2label, "Dewpoint:\t", data2_global['dewpoint'], "H:", data2_global['dewpoint_max'], "L:", data2_global['dewpoint_min']
+				print sensor2label, "Voltage:\t\t", data2_global['voltage'], "H:", data2_global['voltage_max'], "L:", data2_global['voltage_min']
+				print sensor2label, "RSSI:\t\t", data2_global['rssi'], "H:", data2_global['rssi_max'], "L:", data2_global['rssi_min']
 	except Exception:
 		print("DATA2 ERROR", today, now)
 		traceback.print_exc(file=sys.stdout)
@@ -262,34 +265,35 @@ def data_call():
 	
 	try:
 		if not data3.empty:
-			global data3_readtime, data3_temperature, data3_temperature_max, data3_temperature_min, data3_pressure, data3_pressure_max, data3_pressure_min, data3_humidity, data3_humidity_max, data3_humidity_min, data3_dewpoint, data3_dewpoint_max, data3_dewpoint_min, data3_voltage, data3_voltage_max, data3_voltage_min, data3_rssi, data3_rssi_max, data3_rssi_min
-			data3_readtime = data3.index[-1:][0]
-			data3_temperature = data3['Temperature'][-1:].values
-			data3_temperature_max = data3['Temperature'].max()
-			data3_temperature_min = data3['Temperature'].min()
-			data3_pressure = data3['Pressure'][-1:].values
-			data3_pressure_max = data3['Pressure'].max()
-			data3_pressure_min = data3['Pressure'].min()
-			data3_humidity = data3['Humidity'][-1:].values
-			data3_humidity_max = data3['Humidity'].max()
-			data3_humidity_min = data3['Humidity'].min()
-			data3_dewpoint = data3['Dewpoint'][-1:].values
-			data3_dewpoint_max = data3['Dewpoint'].max()
-			data3_dewpoint_min = data3['Dewpoint'].min()
-			data3_voltage = data3['Voltage'][-1:].values
-			data3_voltage_max = data3['Voltage'].max()
-			data3_voltage_min = data3['Voltage'].min()
-			data3_rssi = data3['RSSI'][-1:].values
-			data3_rssi_max = data3['RSSI'].max()
-			data3_rssi_min = data3['RSSI'].min()
+			global data3_global
+			data3_global = {'time' 		: data3.index[-1:][0], 
+				      'temperature'	: data3['Temperature'][-1:].values, 
+				      'temperature_max'	: data3['Temperature'].max(),
+				      'temperature_min' : data3['Temperature'].min(),
+				      'pressure'	: data3['Pressure'][-1:].values,
+				      'pressure_max'	: data3['Pressure'].max(),
+				      'pressure_min'	: data3['Pressure'].min(),
+				      'humidity'	: data3['Humidity'][-1:].values,
+				      'humidity_max'	: data3['Humidity'].max(),
+				      'humidity_min'	: data3['Humidity'].min(),
+				      'dewpoint'	: data3['Dewpoint'][-1:].values,
+				      'dewpoint_max'	: data3['Dewpoint'].max(),
+				      'dewpoint_min'	: data3['Dewpoint'].min(),
+				      'voltage'		: data3['Voltage'][-1:].values,
+				      'voltage_max'	: data3['Voltage'].max(),
+				      'voltage_min'	: data3['Voltage'].min(),
+				      'rssi'		: data3['RSSI'][-1:].values,
+				      'rssi_max'	: data3['RSSI'].max(),
+				      'rssi_min'	: data3['RSSI'].min()}
+			
 			if verbose:
-				print sensor3label, "Time of Data Read:\t", data3_readtime
-				print sensor3label, "Temperature:\t", data3_temperature, "H:", data3_temperature_max, "L:", data3_temperature_min
-				print sensor3label, "Pressure:\t", data3_pressure, "H:", data3_pressure_max, "L:", data3_pressure_min
-				print sensor3label, "Humidity:\t", data3_humidity, "H:", data3_humidity_max, "L:", data3_humidity_min
-				print sensor3label, "Dewpoint:\t", data3_dewpoint, "H:", data3_dewpoint_max, "L:", data3_dewpoint_min
-				print sensor3label, "Voltage:\t\t", data3_voltage, "H:", data3_voltage_max, "L:", data3_voltage_min
-				print sensor3label, "RSSI:\t\t", data3_rssi, "H:", data3_rssi_max, "L:", data3_rssi_min
+				print sensor3label, "Time of Data Read:\t", data3_global['time']
+				print sensor3label, "Temperature:\t", data3_global['temperature'], "H:", data3_global['temperature_max'], "L:", data3_global['temperature_min']
+				print sensor3label, "Pressure:\t", data3_global['pressure'], "H:", data3_global['pressure_max'], "L:", data3_global['pressure_min']
+				print sensor3label, "Humidity:\t", data3_global['humidity'], "H:", data3_global['humidity_max'], "L:", data3_global['humidity_min']
+				print sensor3label, "Dewpoint:\t", data3_global['dewpoint'], "H:", data3_global['dewpoint_max'], "L:", data3_global['dewpoint_min']
+				print sensor3label, "Voltage:\t\t", data3_global['voltage'], "H:", data3_global['voltage_max'], "L:", data3_global['voltage_min']
+				print sensor3label, "RSSI:\t\t", data3_global['rssi'], "H:", data3_global['rssi_max'], "L:", data3_global['rssi_min']
 	except Exception:
 		print("DATA3 ERROR", today, now)
 		traceback.print_exc(file=sys.stdout)
@@ -297,58 +301,369 @@ def data_call():
 	
 	try:
 		if not data4.empty:
-			global data4_readtime, data4_temperature, data4_temperature_max, data4_temperature_min, data4_pressure, data4_pressure_max, data4_pressure_min, data4_humidity, data4_humidity_max, data4_humidity_min, data4_dewpoint, data4_dewpoint_max, data4_dewpoint_min, data4_voltage, data4_voltage_max, data4_voltage_min, data4_rssi, data4_rssi_max, data4_rssi_min
-			data4_readtime = data4.index[-1:][0]
-			data4_temperature = data4['Temperature'][-1:].values
-			data4_temperature_max = data4['Temperature'].max()
-			data4_temperature_min = data4['Temperature'].min()
-			data4_pressure = data4['Pressure'][-1:].values
-			data4_pressure_max = data4['Pressure'].max()
-			data4_pressure_min = data4['Pressure'].min()
-			data4_humidity = data4['Humidity'][-1:].values
-			data4_humidity_max = data4['Humidity'].max()
-			data4_humidity_min = data4['Humidity'].min()
-			data4_dewpoint = data4['Dewpoint'][-1:].values
-			data4_dewpoint_max = data4['Dewpoint'].max()
-			data4_dewpoint_min = data4['Dewpoint'].min()
-			data4_voltage = data4['Voltage'][-1:].values
-			data4_voltage_max = data4['Voltage'].max()
-			data4_voltage_min = data4['Voltage'].min()
-			data4_rssi = data4['RSSI'][-1:].values
-			data4_rssi_max = data4['RSSI'].max()
-			data4_rssi_min = data4['RSSI'].min()
+			global data4_global
+			data4_global = {'time' 		: data4.index[-1:][0], 
+				      'temperature'	: data4['Temperature'][-1:].values, 
+				      'temperature_max'	: data4['Temperature'].max(),
+				      'temperature_min' : data4['Temperature'].min(),
+				      'pressure'	: data4['Pressure'][-1:].values,
+				      'pressure_max'	: data4['Pressure'].max(),
+				      'pressure_min'	: data4['Pressure'].min(),
+				      'humidity'	: data4['Humidity'][-1:].values,
+				      'humidity_max'	: data4['Humidity'].max(),
+				      'humidity_min'	: data4['Humidity'].min(),
+				      'dewpoint'	: data4['Dewpoint'][-1:].values,
+				      'dewpoint_max'	: data4['Dewpoint'].max(),
+				      'dewpoint_min'	: data4['Dewpoint'].min(),
+				      'voltage'		: data4['Voltage'][-1:].values,
+				      'voltage_max'	: data4['Voltage'].max(),
+				      'voltage_min'	: data4['Voltage'].min(),
+				      'rssi'		: data4['RSSI'][-1:].values,
+				      'rssi_max'	: data4['RSSI'].max(),
+				      'rssi_min'	: data4['RSSI'].min()}
+			
 			if verbose:
-				print sensor4label, "Time of Data Read:\t", data4_readtime
-				print sensor4label, "Temperature:\t", data4_temperature, "H:", data4_temperature_max, "L:", data4_temperature_min
-				print sensor4label, "Pressure:\t", data4_pressure, "H:", data4_pressure_max, "L:", data4_pressure_min
-				print sensor4label, "Humidity:\t", data4_humidity, "H:", data4_humidity_max, "L:", data4_humidity_min
-				print sensor4label, "Dewpoint:\t", data4_dewpoint, "H:", data4_dewpoint_max, "L:", data4_dewpoint_min
-				print sensor4label, "Voltage:\t\t", data4_voltage, "H:", data4_voltage_max, "L:", data4_voltage_min
-				print sensor4label, "RSSI:\t\t", data4_rssi, "H:", data4_rssi_max, "L:", data4_rssi_min
+				print sensor4label, "Time of Data Read:\t", data4_global['time']
+				print sensor4label, "Temperature:\t", data4_global['temperature'], "H:", data4_global['temperature_max'], "L:", data4_global['temperature_min']
+				print sensor4label, "Pressure:\t", data4_global['pressure'], "H:", data4_global['pressure_max'], "L:", data4_global['pressure_min']
+				print sensor4label, "Humidity:\t", data4_global['humidity'], "H:", data4_global['humidity_max'], "L:", data4_global['humidity_min']
+				print sensor4label, "Dewpoint:\t", data4_global['dewpoint'], "H:", data4_global['dewpoint_max'], "L:", data4_global['dewpoint_min']
+				print sensor4label, "Voltage:\t\t", data4_global['voltage'], "H:", data4_global['voltage_max'], "L:", data4_global['voltage_min']
+				print sensor4label, "RSSI:\t\t", data4_global['rssi'], "H:", data4_global['rssi_max'], "L:", data4_global['rssi_min']
 	except Exception:
 			print("DATA4 ERROR", today, now)
 			traceback.print_exc(file=sys.stdout)
 			print('-' * 60)
 
+def element_upd_80(x):
+	for element in tree.iter():
+		if element.tag.split("}")[1] == "path":
+			if element.get("id") == "b%sBat4" %x:
+				element.attrib['class'] = 'st3'
+			if element.get("id") == "b%sBat3" %x:
+				element.attrib['class'] = 'st3'
+			if element.get("id") == "b%sBat2" %x:
+				element.attrib['class'] = 'st3'
+			if element.get("id") == "b%sBat1" %x:
+				element.attrib['class'] = 'st3'
+			if element.get("id") == "b%sBat0" %x:
+				element.attrib['class'] = ''
+
+def element_upd_85(x):
+	for element in tree.iter():
+		if element.tag.split("}")[1] == "path":
+			if element.get("id") == "b%sBat4" %x:
+				element.attrib['class'] = 'st3'
+			if element.get("id") == "b%sBat3" %x:
+				element.attrib['class'] = 'st3'
+			if element.get("id") == "b%sBat2" %x:
+				element.attrib['class'] = 'st3'
+			if element.get("id") == "b%sBat1" %x:
+				element.attrib['class'] = ''
+			if element.get("id") == "b%sBat0" %x:
+				element.attrib['class'] = 'st3'
+
+def element_upd_90(x):
+	for element in tree.iter():
+		if element.tag.split("}")[1] == "path":
+			if element.get("id") == "b%sBat4" %x:
+				element.attrib['class'] = 'st3'
+			if element.get("id") == "b%sBat3" %x:
+				element.attrib['class'] = 'st3'
+			if element.get("id") == "b%sBat2" %x:
+				element.attrib['class'] = ''
+			if element.get("id") == "b%sBat1" %x:
+				element.attrib['class'] = 'st3'
+			if element.get("id") == "b%sBat0" %x:
+				element.attrib['class'] = 'st3'
+
+def element_upd_95(x):
+	for element in tree.iter():
+		if element.tag.split("}")[1] == "path":
+			if element.get("id") == "b%sBat4" %x:
+				element.attrib['class'] = 'st3'
+			if element.get("id") == "b%sBat3" %x:
+				element.attrib['class'] = ''
+			if element.get("id") == "b%sBat2" %x:
+				element.attrib['class'] = 'st3'
+			if element.get("id") == "b%sBat1" %x:
+				element.attrib['class'] = 'st3'
+			if element.get("id") == "b%sBat0" %x:
+				element.attrib['class'] = 'st3'
+
+def element_upd_100(x):
+	for element in tree.iter():
+		if element.tag.split("}")[1] == "path":
+			if element.get("id") == "b%sBat4" %x:
+				element.attrib['class'] = ''
+			if element.get("id") == "b%sBat3" %x:
+				element.attrib['class'] = 'st3'
+			if element.get("id") == "b%sBat2" %x:
+				element.attrib['class'] = 'st3'
+			if element.get("id") == "b%sBat1" %x:
+				element.attrib['class'] = 'st3'
+			if element.get("id") == "b%sBat0" %x:
+				element.attrib['class'] = 'st3'
+
+def battery_update(bat, dataglobal, datalabel):
+	if (0 <= dataglobal['voltage'] < 80):
+		element_upd_80(bat)
+		if verbose:
+			print(datalabel, dataglobal['voltage'], " - 0 to 80")
+	elif (80 <= dataglobal['voltage'] < 85): 
+		element_upd_85(bat)
+		if verbose:
+			print(datalabel, dataglobal['voltage'], " - 80 to 85")
+	elif (85 <= dataglobal['voltage'] < 90):
+		element_upd_90(bat)
+		if verbose:
+			print(datalabel, dataglobal['voltage'], " - 85 to 90")
+	elif (90 <= dataglobal['voltage'] < 95):
+		element_upd_95(bat)
+		if verbose:
+			print(datalabel, dataglobal['voltage'], " - 90 to 95")
+	elif (95 <= dataglobal['voltage']):
+		element_upd_100(bat)
+		if verbose:
+			print(datalabel, dataglobal['voltage'], " - 95 to 100")
+
 def svg_update():
 	try:
+		global tree
 		tree = etree.parse(open(template_svg_filename, 'r'))
-		if (0 <= data0_voltage < 80):
+		battery_update('00', data0_global, sensor0label)
+		battery_update('01', data1_global, sensor1label)
+		battery_update('02', data2_global, sensor2label)
+		battery_update('03', data3_global, sensor3label)
+		battery_update('04', data4_global, sensor4label)
+		tree.write('output/weather-script-output1.svg')
+	except Exception:
+		print("BATTERY TO SVG ERROR", today, now)
+		traceback.print_exc(file=sys.stdout)
+		print('-' * 60)
+	
+	try:
+		tree = etree.parse(open('output/weather-script-output1.svg', 'r'))
+		if pressure_trend in ['+']:
 			for element in tree.iter():
 				if element.tag.split("}")[1] == "path":
-					if element.get("id") == "b00Bat4":
+					if element.get("id") == "ple":
 						element.attrib['class'] = 'st3'
-					if element.get("id") == "b00Bat3":
-						element.attrib['class'] = 'st3'
-					if element.get("id") == "b00Bat2":
-						element.attrib['class'] = 'st3'
-					if element.get("id") == "b00Bat1":
-						element.attrib['class'] = 'st3'
-					if element.get("id") == "b00Bat0":
+					if element.get("id") == "pup":
 						element.attrib['class'] = ''
-					if verbose:
-						print(data0label, data0voltage, " - 0 to 80")
-
+					if element.get("id") == "pdn":
+						element.attrib['class'] = 'st3'
+			if verbose:
+				print "Pressure Up"
+		
+		elif pressure_trend in ['0']:
+			for element in tree.iter():
+				if element.tag.split("}")[1] == "path":
+					if element.get("id") == "ple":
+						element.attrib['class'] = ''
+					if element.get("id") == "pup":
+						element.attrib['class'] = 'st3'
+					if element.get("id") == "pdn":
+						element.attrib['class'] = 'st3'
+			if verbose:
+				print "Pressure Neutral"
+		
+		elif pressure_trend in ['-']:
+			for element in tree.iter():
+				if element.tag.split("}")[1] == "path":
+					if element.get("id") == "ple":
+						element.attrib['class'] = 'st3'
+					if element.get("id") == "pup":
+						element.attrib['class'] = 'st3'
+					if element.get("id") == "pdn":
+						element.attrib['class'] = ''
+			if verbose:
+				print "Pressure Down"
+		
+		tree.write('output/weather-script-output1.svg')
+	
+	except Exception:
+		print("PRESSURE TO SVG ERROR", today, now)
+		traceback.print_exc(file=sys.stdout)
+		print('-' * 60)
+	
+	try:
+		tree = etree.parse(open('output/weather-script-output1.svg', 'r'))
+		if wind_direction in ['NNW', 'N', 'NNE', 'North']:
+			for element in tree.iter():
+				if element.tag.split("}")[1] == "path":
+					if element.get("id") == "wdno":
+						element.attrib['class'] = ''
+						if verbose:
+							print(wind_direction, "NORTH")
+					elif element.get("id") == "wdne":
+						element.attrib['class'] = 'st3'
+					elif element.get("id") == "wdea":
+						element.attrib['class'] = 'st3'
+					elif element.get("id") == "wdse":
+						element.attrib['class'] = 'st3'
+					elif element.get("id") == "wdso":
+						element.attrib['class'] = 'st3'
+					elif element.get("id") == "wdsw":
+						element.attrib['class'] = 'st3'
+					elif element.get("id") == "wdwe":
+						element.attrib['class'] = 'st3'
+					elif element.get("id") == "wdnw":
+						element.attrib['class'] = 'st3'
+		elif wind_direction in ['NE']:
+			for element in tree.iter():
+				if element.tag.split("}")[1] == "path":
+					if element.get("id") == "wdno":
+						element.attrib['class'] = 'st3'
+					elif element.get("id") == "wdne":
+						element.attrib['class'] = ''
+						if verbose:
+							print(wind_direction, "NORTH EAST")
+					elif element.get("id") == "wdea":
+						element.attrib['class'] = 'st3'
+					elif element.get("id") == "wdse":
+						element.attrib['class'] = 'st3'
+					elif element.get("id") == "wdso":
+						element.attrib['class'] = 'st3'
+					elif element.get("id") == "wdsw":
+						element.attrib['class'] = 'st3'
+					elif element.get("id") == "wdwe":
+						element.attrib['class'] = 'st3'
+					elif element.get("id") == "wdnw":
+						element.attrib['class'] = 'st3'
+		elif wind_direction in ['ENE', 'E', 'ESE', 'East']:
+			for element in tree.iter():
+				if element.tag.split("}")[1] == "path":
+					if element.get("id") == "wdno":
+						element.attrib['class'] = 'st3'
+					elif element.get("id") == "wdne":
+						element.attrib['class'] = 'st3'
+					elif element.get("id") == "wdea":
+						element.attrib['class'] = ''
+						if verbose:
+							print(wind_direction, "EAST")
+					elif element.get("id") == "wdse":
+						element.attrib['class'] = 'st3'
+					elif element.get("id") == "wdso":
+						element.attrib['class'] = 'st3'
+					elif element.get("id") == "wdsw":
+						element.attrib['class'] = 'st3'
+					elif element.get("id") == "wdwe":
+						element.attrib['class'] = 'st3'
+					elif element.get("id") == "wdnw":
+						element.attrib['class'] = 'st3'
+		elif wind_direction in ['SE']:
+			for element in tree.iter():
+				if element.tag.split("}")[1] == "path":
+					if element.get("id") == "wdno":
+						element.attrib['class'] = 'st3'
+					elif element.get("id") == "wdne":
+						element.attrib['class'] = 'st3'
+					elif element.get("id") == "wdea":
+						element.attrib['class'] = 'st3'
+					elif element.get("id") == "wdse":
+						element.attrib['class'] = ''
+						if verbose:
+							print(wind_direction, "SOUTH EAST")
+					elif element.get("id") == "wdso":
+						element.attrib['class'] = 'st3'
+					elif element.get("id") == "wdsw":
+						element.attrib['class'] = 'st3'
+					elif element.get("id") == "wdwe":
+						element.attrib['class'] = 'st3'
+					elif element.get("id") == "wdnw":
+						element.attrib['class'] = 'st3'
+		elif wind_direction in ['SSE', 'S', 'SSW', 'South']:
+			for element in tree.iter():
+				if element.tag.split("}")[1] == "path":
+					if element.get("id") == "wdno":
+						element.attrib['class'] = 'st3'
+					elif element.get("id") == "wdne":
+						element.attrib['class'] = 'st3'
+					elif element.get("id") == "wdea":
+						element.attrib['class'] = 'st3'
+					elif element.get("id") == "wdse":
+						element.attrib['class'] = 'st3'
+					elif element.get("id") == "wdso":
+						element.attrib['class'] = ''
+						if verbose:
+							print(wind_direction, "SOUTH")
+					elif element.get("id") == "wdsw":
+						element.attrib['class'] = 'st3'
+					elif element.get("id") == "wdwe":
+						element.attrib['class'] = 'st3'
+					elif element.get("id") == "wdnw":
+						element.attrib['class'] = 'st3'
+		elif wind_direction in ['SW']:
+			for element in tree.iter():
+				if element.tag.split("}")[1] == "path":
+					if element.get("id") == "wdno":
+						element.attrib['class'] = 'st3'
+					elif element.get("id") == "wdne":
+						element.attrib['class'] = 'st3'
+					elif element.get("id") == "wdea":
+						element.attrib['class'] = 'st3'
+					elif element.get("id") == "wdse":
+						element.attrib['class'] = 'st3'
+					elif element.get("id") == "wdso":
+						element.attrib['class'] = 'st3'
+					elif element.get("id") == "wdsw":
+						element.attrib['class'] = ''
+						if verbose:
+							print(wind_direction, "SOUTH WEST")
+					elif element.get("id") == "wdwe":
+						element.attrib['class'] = 'st3'
+					elif element.get("id") == "wdnw":
+						element.attrib['class'] = 'st3'
+		elif wind_direction in ['WSW', 'W', 'WNW', 'West']:
+			for element in tree.iter():
+				if element.tag.split("}")[1] == "path":
+					if element.get("id") == "wdno":
+						element.attrib['class'] = 'st3'
+					elif element.get("id") == "wdne":
+						element.attrib['class'] = 'st3'
+					elif element.get("id") == "wdea":
+						element.attrib['class'] = 'st3'
+					elif element.get("id") == "wdse":
+						element.attrib['class'] = 'st3'
+					elif element.get("id") == "wdso":
+						element.attrib['class'] = 'st3'
+					elif element.get("id") == "wdsw":
+						element.attrib['class'] = ''
+						if verbose:
+							print(wind_direction, "WEST")
+					elif element.get("id") == "wdwe":
+						element.attrib['class'] = 'st3'
+					elif element.get("id") == "wdnw":
+						element.attrib['class'] = 'st3'
+		elif wind_direction in ['NW']:
+			for element in tree.iter():
+				if element.tag.split("}")[1] == "path":
+					if element.get("id") == "wdno":
+						element.attrib['class'] = 'st3'
+					elif element.get("id") == "wdne":
+						element.attrib['class'] = 'st3'
+					elif element.get("id") == "wdea":
+						element.attrib['class'] = 'st3'
+					elif element.get("id") == "wdse":
+						element.attrib['class'] = 'st3'
+					elif element.get("id") == "wdso":
+						element.attrib['class'] = 'st3'
+					elif element.get("id") == "wdsw":
+						element.attrib['class'] = 'st3'
+					elif element.get("id") == "wdwe":
+						element.attrib['class'] = 'st3'
+					elif element.get("id") == "wdnw":
+						element.attrib['class'] = ''
+						if verbose:
+							print(wind_direction, "NORTH WEST")
+		tree.write('output/weather-script-output1.svg')
+		
+	except Exception:
+		print("WIND_DIR TO SVG ERROR", today, now)
+		traceback.print_exc(file=sys.stdout)
+		print('-' * 60)
+		
 if(1):
 	scheduler = BackgroundScheduler()
 	scheduler.add_job(data_call, 'interval', seconds=30)
