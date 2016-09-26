@@ -731,6 +731,7 @@ def svg_update():
 
 if(1):
 	data_call()
+	daily_wunder_update()
 	scheduler = BlockingScheduler()
 	scheduler.add_job(daily_wunder_update, 'cron', minute=5)
 	scheduler.add_job(svg_update, 'interval', seconds=5)
