@@ -85,6 +85,7 @@ elif os.path.isfile('/home/pi/Power_Monitoring/cuttyhunk.location'):
 		print(location)
 
 def daily_wunder_update():
+	global forcast_data, astronomy_data
 	forcast_data = pd.read_json(wunder_site_forcast_json, typ='series')
 	astronomy_data = pd.read_json(wunder_site_astronomy_json, typ='series')
 
@@ -100,7 +101,7 @@ def data_call():
 	
 	if tide:
 		try:
-			global tides
+			global tide_data
 			tides = pd.read_table(tide_csv, sep='\t', skiprows=20, names = ["Date","Day","Time","Feet","NULL1","Metric","NULL2","High/Low"], dtype=str)
 			tides['Datetime'] = pd.to_datetime(tides['Date'] + ' ' + tides['Time'])
 			tides = tides.set_index('Datetime')
@@ -464,7 +465,7 @@ def svg_update():
 	
 	try:
 		tree = etree.parse(open('/home/pi/Power_Monitoring/output/weather-script-output1.svg', 'r'))
-		if pressure_trend in ['+']:
+		if weather_data['pressure_trend'] in ['+']:
 			for element in tree.iter():
 				if element.tag.split("}")[1] == "path":
 					if element.get("id") == "ple":
@@ -476,7 +477,7 @@ def svg_update():
 			if verbose:
 				print "Pressure Up"
 		
-		elif pressure_trend in ['0']:
+		elif weather_data['pressure_trend'] in ['0']:
 			for element in tree.iter():
 				if element.tag.split("}")[1] == "path":
 					if element.get("id") == "ple":
@@ -488,7 +489,7 @@ def svg_update():
 			if verbose:
 				print "Pressure Neutral"
 		
-		elif pressure_trend in ['-']:
+		elif weather_data['pressure_trend'] in ['-']:
 			for element in tree.iter():
 				if element.tag.split("}")[1] == "path":
 					if element.get("id") == "ple":
@@ -509,13 +510,13 @@ def svg_update():
 	
 	try:
 		tree = etree.parse(open('/home/pi/Power_Monitoring/output/weather-script-output1.svg', 'r'))
-		if wind_direction in ['NNW', 'N', 'NNE', 'North']:
+		if weather_data['wind_direction'] in ['NNW', 'N', 'NNE', 'North']:
 			for element in tree.iter():
 				if element.tag.split("}")[1] == "path":
 					if element.get("id") == "wdno":
 						element.attrib['class'] = ''
 						if verbose:
-							print(wind_direction, "NORTH")
+							print(weather_data['wind_direction'], "NORTH")
 					elif element.get("id") == "wdne":
 						element.attrib['class'] = 'st3'
 					elif element.get("id") == "wdea":
@@ -530,7 +531,7 @@ def svg_update():
 						element.attrib['class'] = 'st3'
 					elif element.get("id") == "wdnw":
 						element.attrib['class'] = 'st3'
-		elif wind_direction in ['NE']:
+		elif weather_data['wind_direction'] in ['NE']:
 			for element in tree.iter():
 				if element.tag.split("}")[1] == "path":
 					if element.get("id") == "wdno":
@@ -538,7 +539,7 @@ def svg_update():
 					elif element.get("id") == "wdne":
 						element.attrib['class'] = ''
 						if verbose:
-							print(wind_direction, "NORTH EAST")
+							print(weather_data['wind_direction'], "NORTH EAST")
 					elif element.get("id") == "wdea":
 						element.attrib['class'] = 'st3'
 					elif element.get("id") == "wdse":
@@ -551,7 +552,7 @@ def svg_update():
 						element.attrib['class'] = 'st3'
 					elif element.get("id") == "wdnw":
 						element.attrib['class'] = 'st3'
-		elif wind_direction in ['ENE', 'E', 'ESE', 'East']:
+		elif weather_data['wind_direction'] in ['ENE', 'E', 'ESE', 'East']:
 			for element in tree.iter():
 				if element.tag.split("}")[1] == "path":
 					if element.get("id") == "wdno":
@@ -561,7 +562,7 @@ def svg_update():
 					elif element.get("id") == "wdea":
 						element.attrib['class'] = ''
 						if verbose:
-							print(wind_direction, "EAST")
+							print(weather_data['wind_direction'], "EAST")
 					elif element.get("id") == "wdse":
 						element.attrib['class'] = 'st3'
 					elif element.get("id") == "wdso":
@@ -572,7 +573,7 @@ def svg_update():
 						element.attrib['class'] = 'st3'
 					elif element.get("id") == "wdnw":
 						element.attrib['class'] = 'st3'
-		elif wind_direction in ['SE']:
+		elif weather_data['wind_direction'] in ['SE']:
 			for element in tree.iter():
 				if element.tag.split("}")[1] == "path":
 					if element.get("id") == "wdno":
@@ -584,7 +585,7 @@ def svg_update():
 					elif element.get("id") == "wdse":
 						element.attrib['class'] = ''
 						if verbose:
-							print(wind_direction, "SOUTH EAST")
+							print(weather_data['wind_direction'], "SOUTH EAST")
 					elif element.get("id") == "wdso":
 						element.attrib['class'] = 'st3'
 					elif element.get("id") == "wdsw":
@@ -593,28 +594,7 @@ def svg_update():
 						element.attrib['class'] = 'st3'
 					elif element.get("id") == "wdnw":
 						element.attrib['class'] = 'st3'
-		elif wind_direction in ['SSE', 'S', 'SSW', 'South']:
-			for element in tree.iter():
-				if element.tag.split("}")[1] == "path":
-					if element.get("id") == "wdno":
-						element.attrib['class'] = 'st3'
-					elif element.get("id") == "wdne":
-						element.attrib['class'] = 'st3'
-					elif element.get("id") == "wdea":
-						element.attrib['class'] = 'st3'
-					elif element.get("id") == "wdse":
-						element.attrib['class'] = 'st3'
-					elif element.get("id") == "wdso":
-						element.attrib['class'] = ''
-						if verbose:
-							print(wind_direction, "SOUTH")
-					elif element.get("id") == "wdsw":
-						element.attrib['class'] = 'st3'
-					elif element.get("id") == "wdwe":
-						element.attrib['class'] = 'st3'
-					elif element.get("id") == "wdnw":
-						element.attrib['class'] = 'st3'
-		elif wind_direction in ['SW']:
+		elif weather_data['wind_direction'] in ['SSE', 'S', 'SSW', 'South']:
 			for element in tree.iter():
 				if element.tag.split("}")[1] == "path":
 					if element.get("id") == "wdno":
@@ -626,16 +606,16 @@ def svg_update():
 					elif element.get("id") == "wdse":
 						element.attrib['class'] = 'st3'
 					elif element.get("id") == "wdso":
-						element.attrib['class'] = 'st3'
-					elif element.get("id") == "wdsw":
 						element.attrib['class'] = ''
 						if verbose:
-							print(wind_direction, "SOUTH WEST")
+							print(weather_data['wind_direction'], "SOUTH")
+					elif element.get("id") == "wdsw":
+						element.attrib['class'] = 'st3'
 					elif element.get("id") == "wdwe":
 						element.attrib['class'] = 'st3'
 					elif element.get("id") == "wdnw":
 						element.attrib['class'] = 'st3'
-		elif wind_direction in ['WSW', 'W', 'WNW', 'West']:
+		elif weather_data['wind_direction'] in ['SW']:
 			for element in tree.iter():
 				if element.tag.split("}")[1] == "path":
 					if element.get("id") == "wdno":
@@ -651,12 +631,33 @@ def svg_update():
 					elif element.get("id") == "wdsw":
 						element.attrib['class'] = ''
 						if verbose:
-							print(wind_direction, "WEST")
+							print(weather_data['wind_direction'], "SOUTH WEST")
 					elif element.get("id") == "wdwe":
 						element.attrib['class'] = 'st3'
 					elif element.get("id") == "wdnw":
 						element.attrib['class'] = 'st3'
-		elif wind_direction in ['NW']:
+		elif weather_data['wind_direction'] in ['WSW', 'W', 'WNW', 'West']:
+			for element in tree.iter():
+				if element.tag.split("}")[1] == "path":
+					if element.get("id") == "wdno":
+						element.attrib['class'] = 'st3'
+					elif element.get("id") == "wdne":
+						element.attrib['class'] = 'st3'
+					elif element.get("id") == "wdea":
+						element.attrib['class'] = 'st3'
+					elif element.get("id") == "wdse":
+						element.attrib['class'] = 'st3'
+					elif element.get("id") == "wdso":
+						element.attrib['class'] = 'st3'
+					elif element.get("id") == "wdsw":
+						element.attrib['class'] = ''
+						if verbose:
+							print(weather_data['wind_direction'], "WEST")
+					elif element.get("id") == "wdwe":
+						element.attrib['class'] = 'st3'
+					elif element.get("id") == "wdnw":
+						element.attrib['class'] = 'st3'
+		elif weather_data['wind_direction'] in ['NW']:
 			for element in tree.iter():
 				if element.tag.split("}")[1] == "path":
 					if element.get("id") == "wdno":
@@ -676,7 +677,7 @@ def svg_update():
 					elif element.get("id") == "wdnw":
 						element.attrib['class'] = ''
 						if verbose:
-							print(wind_direction, "NORTH WEST")
+							print(weather_data['wind_direction'], "NORTH WEST")
 		tree.write('/home/pi/Power_Monitoring/output/weather-script-output1.svg')
 		
 	except Exception:
@@ -687,12 +688,12 @@ def svg_update():
 		output = codecs.open('/home/pi/Power_Monitoring/output/weather-script-output1.svg', 'r', encoding='utf-8').read()
 		output = output.replace('CURDATE', today.strftime("%m/%d/%Y"))
 		output = output.replace('CURTIME', now.strftime("%H:%m"))
-		#output = output.replace('SNRISE', sun_rise)
-		#output = output.replace('SNSET', sun_down)
-		#output = output.replace('FORHI', str(exp_hi))
-		#output = output.replace('FORLO', str(exp_lo))
-		output = output.replace('WSP', str(wind_mph))
-		output = output.replace('WGUS', str(wind_gust))
+		output = output.replace('SNRISE', str(weather_data['sunrise']))
+		output = output.replace('SNSET', str(weather_data['sunset']))
+		output = output.replace('FORHI', str(weather_data['forcast_high']))
+		output = output.replace('FORLO', str(weather_data['forcast_low']))
+		output = output.replace('WSP', str(weather_data['wind_mph']))
+		output = output.replace('WGUS', str(weather_data['wind_gust']))
 		if data0_global['temperature'] >= 100:
 			output = output.replace('TMPE', "{0:.1f}".format(float(data0_global['temperature'])))
 		elif data0_global['temperature'] < 100:
@@ -717,11 +718,11 @@ def svg_update():
 		output = output.replace('RLHUM', "{0:.2f}".format(float(data0_global['humidity'])))
 		output = output.replace('DWPNT', "{0:.2f}".format(float(data0_global['dewpoint'])))
 		#output = output.replace('TDNTY', str(tide_pre_type))
-		#output = output.replace('TDNTM', old.strftime('%H:%M'))
-		#output = output.replace('TDNLV', str(tide_pre_mag))
+		output = output.replace('TDNTM', str(tide_data['tide_next_time'].strftime('%H:%M')))
+		output = output.replace('TDNLV', str(tide_data['tide_next_level']))
 		#output = output.replace('TDFTY', str(tide_next_type))
-		#output = output.replace('TDFTM', tide_datetime.strftime('%H:%M'))
-		#output = output.replace('TDFLV', str(tide_next_mag))
+		output = output.replace('TDFTM', str(tide_data['tide_after_time'].strftime('%H:%M')))
+		output = output.replace('TDFLV', str(tide_data['tide_after_level']))
 		codecs.open('/home/pi/Power_Monitoring/output/weather-script-output1.svg', 'w', encoding='utf-8').write(output)
 		
 	except Exception:
@@ -733,8 +734,8 @@ if(1):
 	data_call()
 	scheduler = BlockingScheduler()
 	scheduler.add_job(daily_wunder_update, 'cron', minute=5)
-	scheduler.add_job(svg_update, 'interval', seconds=60)
-	scheduler.add_job(data_call, 'interval', seconds=60)
+	scheduler.add_job(svg_update, 'interval', seconds=5)
+	scheduler.add_job(data_call, 'interval', seconds=30)
 	
 	
 	try:
