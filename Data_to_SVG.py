@@ -1,17 +1,13 @@
 import pandas as pd
 import numpy as np
-import datetime, time
+from lxml import etree
+import datetime
 import traceback
 import sys, os.path
-import requests
 import codecs
-import urllib2
-import json
 import traceback
-from lxml import etree
 from apscheduler.schedulers.blocking import BlockingScheduler
 
-debug = False
 verbose = False
 request_timeout = 5
 sensordata = True
@@ -20,16 +16,13 @@ global i
 i = 0
 
 for arg in sys.argv:
-	if arg == '-d':
-		debug = True
-		print("DEBUG IS ON")
-	elif arg == '-v':
+	if arg == '-v':
 		verbose = True
 		print("VERBOSE IS ON")
 	elif arg == '-h':
 		print("SVG_Processing.py script - LWH & NHH")
 		print("Backend processing of data collected by Arduino based sensors for output to SVG/PNG file")
-		print("Options:  [-d DEBUG] [-v VERBOSE] [-h HELP]")
+		print("Options: [-v VERBOSE] [-h HELP]")
 		sys.exit()
 
 if os.path.isfile('/home/pi/Power_Monitoring/dover.location'):
@@ -41,7 +34,7 @@ if os.path.isfile('/home/pi/Power_Monitoring/dover.location'):
 	tide_csv = 'https://tidesandcurrents.noaa.gov/noaatidepredictions/NOAATidesFacade.jsp?datatype=Annual+TXT&Stationid=8448376&text=datafiles%252F8448376%252F22092016%252F773%252F&imagename=images%2F8448376%2F22092016%2F773%2F8448376_2016-09-23.gif&bdate=20160922&timelength=daily&timeZone=2&dataUnits=1&interval=&edate=20160923&StationName=Cuttyhunk&Stationid_=8448376&state=MA&primary=Subordinate&datum=MLLW&timeUnits=2&ReferenceStationName=Newport&ReferenceStation=8452660&HeightOffsetLow=*0.93&HeightOffsetHigh=*+0.97&TimeOffsetLow=75&TimeOffsetHigh=80&pageview=dayly&print_download=true&Threshold=&thresholdvalue='
 	
 	wuapi_update_freq = 200
-	wunder_site_forcast_json = 'http://api.wunderground.com/api/1f86b1c989ac268c/forecast/q/ny/carmel.json'
+	wunder_site_forecast_json = 'http://api.wunderground.com/api/1f86b1c989ac268c/forecast/q/ny/carmel.json'
 	wunder_site_astronomy_json = 'http://api.wunderground.com/api/1f86b1c989ac268c/astronomy/q/ny/carmel.json'
 	wunder_site_conditions_json = 'http://api.wunderground.com/api/1f86b1c989ac268c/conditions/q/ny/carmel.json'
 	
@@ -67,7 +60,7 @@ elif os.path.isfile('/home/pi/Power_Monitoring/cuttyhunk.location'):
 	template_svg_filename = 'resources/CUTTY_WX_TEMPLATE.svg'
 	
 	wuapi_update_freq = 50
-	wunder_site_forcast_json = 'http://api.wunderground.com/api/1f86b1c989ac268c/forecast/q/ma/cuttyhunk.json'
+	wunder_site_forecast_json = 'http://api.wunderground.com/api/1f86b1c989ac268c/forecast/q/ma/cuttyhunk.json'
 	wunder_site_astronomy_json = 'http://api.wunderground.com/api/1f86b1c989ac268c/astronomy/q/ma/cuttyhunk.json'
 	wunder_site_conditions_json = 'http://api.wunderground.com/api/1f86b1c989ac268c/conditions/q/ma/cuttyhunk.json'
 	
@@ -85,9 +78,13 @@ elif os.path.isfile('/home/pi/Power_Monitoring/cuttyhunk.location'):
 		print(location)
 
 def daily_wunder_update():
-	global forcast_data, astronomy_data
-	forcast_data = pd.read_json(wunder_site_forcast_json, typ='series')
+	global forecast_data, astronomy_data
+	forecast_data = pd.read_json(wunder_site_forecast_json, typ='series')
 	astronomy_data = pd.read_json(wunder_site_astronomy_json, typ='series')
+
+def hourly_wunder_update():
+	global condition_data
+	condition_data = pd.read_json(wunder_site_conditions_json, typ='series')
 
 def data_call():	
 	today = datetime.date.today()
@@ -129,20 +126,24 @@ def data_call():
 				
 	if weatherdata:
 		try:
-			if i >= wuapi_update_freq or i == 0:
-				global weather_data
-				condition_data = pd.read_json(wunder_site_conditions_json, typ='series')
-				weather_data = {'wind_mph'		: condition_data.current_observation['wind_mph'],
-						'wind_gust'		: condition_data.current_observation['wind_gust_mph'],
-						'wind_direction'	: condition_data.current_observation['wind_dir'],
-						'pressure_trend'	: condition_data.current_observation['pressure_trend'],
-						'forcast_high'		: forcast_data['forecast']['simpleforecast']['forecastday'][0]['high']['fahrenheit'],
-						'forcast_low'		: forcast_data['forecast']['simpleforecast']['forecastday'][0]['low']['fahrenheit'],
-						'sunrise'		: astronomy_data['sun_phase']['sunrise']['hour'] + ":" + astronomy_data['sun_phase']['sunrise']['minute'],
-						'sunset'		: astronomy_data['sun_phase']['sunset']['hour'] + ":" + astronomy_data['sun_phase']['sunset']['minute']}
+			if condition_data.empty and forecast_data.empty and astronomy_data.empty:
+				daily_wunder_update()
+				hourly_wunder_update()
 				if verbose:
-					print location, "Wind (MPH):", weather_data['wind_mph'], "Wind Gust (MPH):", weather_data['wind_gust'], "Wind Direction:", weather_data['wind_direction'], "Pressure Trend:", weather_data['pressure_trend'], 
-					print "Forcast High:", weather_data['forcast_high'], "Forcast Low:", weather_data['forcast_low']
+					print "WUNDER DATA SETS EMPTY, FORCING UPDATE"
+			global weather_data
+			weather_data = {'wind_mph'		: condition_data.current_observation['wind_mph'],
+					'wind_gust'		: condition_data.current_observation['wind_gust_mph'],
+					'wind_direction'	: condition_data.current_observation['wind_dir'],
+					'pressure_trend'	: condition_data.current_observation['pressure_trend'],
+					'forecast_high'		: forecast_data['forecast']['simpleforecast']['forecastday'][0]['high']['fahrenheit'],
+					'forecast_low'		: forecast_data['forecast']['simpleforecast']['forecastday'][0]['low']['fahrenheit'],
+					'sunrise'		: astronomy_data['sun_phase']['sunrise']['hour'] + ":" + astronomy_data['sun_phase']['sunrise']['minute'],
+					'sunset'		: astronomy_data['sun_phase']['sunset']['hour'] + ":" + astronomy_data['sun_phase']['sunset']['minute']}
+			if verbose:
+				print location, "Wind (MPH):", weather_data['wind_mph'], "Wind Gust (MPH):", weather_data['wind_gust'], "Wind Direction:", weather_data['wind_direction'], "Pressure Trend:", weather_data['pressure_trend'], 
+				print "Forecast High:", weather_data['forecast_high'], "Forecast Low:", weather_data['forecast_low']
+		
 		except Exception:
 			print("WEATHER DATA ERROR", today, now)
 			traceback.print_exc(file=sys.stdout)
@@ -150,7 +151,8 @@ def data_call():
 				
 	if sensordata:
 		try:
-			global data, data0, data1, data2, data3, data4
+			if verbose:
+				global data, data0, data1, data2, data3, data4
 			data_today = pd.read_csv('/home/pi/Power_Monitoring/data_log/' + today.strftime("%Y-%m") + '/' + str(today) + '.log', names = ["Date", "Time", "Address", "Temperature", "Pressure", "Humidity", "Voltage", "RSSI"], dtype=str)
 			data_yest = pd.read_csv('/home/pi/Power_Monitoring/data_log/' + today_minus_one.strftime("%Y-%m") + '/' + str(today_minus_one) + '.log', names = ["Date", "Time", "Address", "Temperature", "Pressure", "Humidity", "Voltage", "RSSI"], dtype=str)
 			data_2prior = pd.read_csv('/home/pi/Power_Monitoring/data_log/' + today_minus_two.strftime("%Y-%m") + '/' + str(today_minus_two) + '.log', names = ["Date", "Time", "Address", "Temperature", "Pressure", "Humidity", "Voltage", "RSSI"], dtype=str)
@@ -461,14 +463,14 @@ def svg_update():
 		battery_update('02', data2_global, sensor2label)
 		battery_update('03', data3_global, sensor3label)
 		battery_update('04', data4_global, sensor4label)
-		tree.write('/home/pi/Power_Monitoring/output/weather-script-output1.svg')
+		tree.write('/home/pi/Power_Monitoring/output/weather-script-output.svg')
 	except Exception:
 		print("BATTERY TO SVG ERROR", today, now)
 		traceback.print_exc(file=sys.stdout)
 		print('-' * 60)
 	
 	try:
-		tree = etree.parse(open('/home/pi/Power_Monitoring/output/weather-script-output1.svg', 'r'))
+		tree = etree.parse(open('/home/pi/Power_Monitoring/output/weather-script-output.svg', 'r'))
 		if weather_data['pressure_trend'] in ['+']:
 			for element in tree.iter():
 				if element.tag.split("}")[1] == "path":
@@ -505,7 +507,7 @@ def svg_update():
 			if verbose:
 				print "Pressure Down"
 		
-		tree.write('/home/pi/Power_Monitoring/output/weather-script-output1.svg')
+		tree.write('/home/pi/Power_Monitoring/output/weather-script-output.svg')
 	
 	except Exception:
 		print("PRESSURE TO SVG ERROR", today, now)
@@ -513,7 +515,7 @@ def svg_update():
 		print('-' * 60)
 	
 	try:
-		tree = etree.parse(open('/home/pi/Power_Monitoring/output/weather-script-output1.svg', 'r'))
+		tree = etree.parse(open('/home/pi/Power_Monitoring/output/weather-script-output.svg', 'r'))
 		if weather_data['wind_direction'] in ['NNW', 'N', 'NNE', 'North']:
 			for element in tree.iter():
 				if element.tag.split("}")[1] == "path":
@@ -682,20 +684,20 @@ def svg_update():
 						element.attrib['class'] = ''
 						if verbose:
 							print(weather_data['wind_direction'], "NORTH WEST")
-		tree.write('/home/pi/Power_Monitoring/output/weather-script-output1.svg')
+		tree.write('/home/pi/Power_Monitoring/output/weather-script-output.svg')
 		
 	except Exception:
 		print("WIND_DIR TO SVG ERROR", today, now)
 		traceback.print_exc(file=sys.stdout)
 		print('-' * 60)
 	try:
-		output = codecs.open('/home/pi/Power_Monitoring/output/weather-script-output1.svg', 'r', encoding='utf-8').read()
+		output = codecs.open('/home/pi/Power_Monitoring/output/weather-script-output.svg', 'r', encoding='utf-8').read()
 		output = output.replace('CURDATE', today.strftime("%m/%d/%Y"))
 		output = output.replace('CURTIME', now.strftime("%H:%M"))
 		output = output.replace('SNRISE', str(weather_data['sunrise']))
 		output = output.replace('SNSET', str(weather_data['sunset']))
-		output = output.replace('FORHI', str(weather_data['forcast_high']))
-		output = output.replace('FORLO', str(weather_data['forcast_low']))
+		output = output.replace('FORHI', str(weather_data['forecast_high']))
+		output = output.replace('FORLO', str(weather_data['forecast_low']))
 		output = output.replace('WSP', str(weather_data['wind_mph']))
 		output = output.replace('WGUS', str(weather_data['wind_gust']))
 		if data0_global['temperature'] >= 100:
@@ -727,7 +729,7 @@ def svg_update():
 		output = output.replace('TDFTY', str(tide_data['tide_after_type']))
 		output = output.replace('TDFTM', str(tide_data['tide_after_time'].strftime('%H:%M')))
 		output = output.replace('TDFLV', str(tide_data['tide_after_level']))
-		codecs.open('/home/pi/Power_Monitoring/output/weather-script-output1.svg', 'w', encoding='utf-8').write(output)
+		codecs.open('/home/pi/Power_Monitoring/output/weather-script-output.svg', 'w', encoding='utf-8').write(output)
 		
 	except Exception:
 		print("CODECS TO SVG ERROR", today, now)
@@ -737,12 +739,12 @@ def svg_update():
 if(1):
 	scheduler = BlockingScheduler()
 	scheduler.add_job(daily_wunder_update, 'cron', minute=5)
+	scheduler.add_job(hourly_wunder_update, 'interval', minute=60)
 	scheduler.add_job(svg_update, 'interval', seconds=5)
 	scheduler.add_job(data_call, 'interval', seconds=30)
 	
 	
 	try:
-		daily_wunder_update()
 		data_call()
 		scheduler.start()
 	except (KeyboardInterrupt, SystemExit):
