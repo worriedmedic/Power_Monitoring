@@ -13,10 +13,8 @@ do
 	if [ -f '/home/pi/Power_Monitoring/dover.location' ]; then
 		/usr/local/bin/dropbox_uploader.sh upload weather-script-output.png /Programming/logs/dover/
 		/usr/local/bin/dropbox_uploader.sh upload weather-script-output.svg /Programming/logs/dover/
-		/usr/local/bin/dropbox_uploader.sh upload weather-script-output1.svg /Programming/logs/dover/
 	elif [ -f '/home/pi/Power_Monitoring/cuttyhunk.location' ]; then
 		/usr/local/bin/dropbox_uploader.sh upload weather-script-output.png /Programming/logs/cuttyhunk/
-		/usr/local/bin/dropbox_uploader.sh upload weather-script-output.svg /Programming/logs/cuttyhunk/
 		/usr/local/bin/dropbox_uploader.sh upload weather-script-output.svg /Programming/logs/cuttyhunk/
 	fi
 
