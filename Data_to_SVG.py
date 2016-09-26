@@ -12,8 +12,6 @@ verbose = False
 request_timeout = 5
 sensordata = True
 weatherdata = True
-global i
-i = 0
 
 for arg in sys.argv:
 	if arg == '-v':
@@ -126,11 +124,19 @@ def data_call():
 				
 	if weatherdata:
 		try:
-			if condition_data.empty and forecast_data.empty and astronomy_data.empty:
-				daily_wunder_update()
-				hourly_wunder_update()
-				if verbose:
-					print "WUNDER DATA SETS EMPTY, FORCING UPDATE"
+			condition_data
+		except NameError:
+			hourly_wunder_update()
+			if verbose:
+				print "CONDITION_DATA NOT FOUND, FORCING PULL"
+		try:
+			forecast_data
+			astronomy_data
+		except NameError:
+			daily_wunder_update()
+			if verbose:
+				print "FORECAST_DATA, ASTRONOMY_DATA NOT FOUND, FORCING PULL"
+		try:			
 			global weather_data
 			weather_data = {'wind_mph'		: condition_data.current_observation['wind_mph'],
 					'wind_gust'		: condition_data.current_observation['wind_gust_mph'],
@@ -739,10 +745,9 @@ def svg_update():
 if(1):
 	scheduler = BlockingScheduler()
 	scheduler.add_job(daily_wunder_update, 'cron', minute=5)
-	scheduler.add_job(hourly_wunder_update, 'interval', minute=60)
+	scheduler.add_job(hourly_wunder_update, 'cron', hour='*/1')
 	scheduler.add_job(svg_update, 'interval', seconds=5)
 	scheduler.add_job(data_call, 'interval', seconds=30)
-	
 	
 	try:
 		data_call()
