@@ -713,6 +713,7 @@ def svg_update():
 		print('-' * 60)
 
 if(1):
+	data_call()
 	scheduler = BlockingScheduler()
 	scheduler.add_job(svg_update, 'interval', seconds=60)
 	scheduler.add_job(data_call, 'interval', seconds=60)
