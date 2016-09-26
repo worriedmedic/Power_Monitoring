@@ -9,7 +9,7 @@ import urllib2
 import json
 import traceback
 from lxml import etree
-from apscheduler.schedulers.blocking import BackgroundScheduler
+from apscheduler.schedulers.blocking import BlockingScheduler
 
 debug = False
 verbose = False
@@ -713,7 +713,7 @@ def svg_update():
 		print('-' * 60)
 
 if(1):
-	scheduler = BackgroundScheduler()
+	scheduler = BlockingScheduler()
 	scheduler.add_job(data_call, 'interval', seconds=60)
 	scheduler.add_job(svg_update, 'interval', seconds=60)
 	
