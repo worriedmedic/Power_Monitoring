@@ -735,8 +735,6 @@ def svg_update():
 		print('-' * 60)
 
 if(1):
-	data_call()
-	daily_wunder_update()
 	scheduler = BlockingScheduler()
 	scheduler.add_job(daily_wunder_update, 'cron', minute=5)
 	scheduler.add_job(svg_update, 'interval', seconds=5)
@@ -744,6 +742,8 @@ if(1):
 	
 	
 	try:
+		daily_wunder_update()
+		data_call()
 		scheduler.start()
 	except (KeyboardInterrupt, SystemExit):
 		scheduler.shutdown()
