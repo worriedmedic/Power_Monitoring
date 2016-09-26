@@ -16,7 +16,6 @@ verbose = False
 request_timeout = 5
 sensordata = True
 weatherdata = True
-wunder_update = None
 global i
 i = 0
 
