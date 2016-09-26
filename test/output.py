@@ -35,7 +35,7 @@ for arg in sys.argv:
 if os.path.isfile('/home/pi/Power_Monitoring/dover.location'):
 	location = 'dover'
 	
-	template_svg_filename = 'resources/DOVER_WX_TEMPLATE.svg'
+	template_svg_filename = '/home/pi/Power_Monitoring/resources/DOVER_WX_TEMPLATE.svg'
 	
 	tides = False
 	
@@ -439,14 +439,14 @@ def svg_update():
 		battery_update('02', data2_global, sensor2label)
 		battery_update('03', data3_global, sensor3label)
 		battery_update('04', data4_global, sensor4label)
-		tree.write('output/weather-script-output1.svg')
+		tree.write('/home/pi/Power_Monitoring/output/weather-script-output1.svg')
 	except Exception:
 		print("BATTERY TO SVG ERROR", today, now)
 		traceback.print_exc(file=sys.stdout)
 		print('-' * 60)
 	
 	try:
-		tree = etree.parse(open('output/weather-script-output1.svg', 'r'))
+		tree = etree.parse(open('/home/pi/Power_Monitoring/output/weather-script-output1.svg', 'r'))
 		if pressure_trend in ['+']:
 			for element in tree.iter():
 				if element.tag.split("}")[1] == "path":
@@ -483,7 +483,7 @@ def svg_update():
 			if verbose:
 				print "Pressure Down"
 		
-		tree.write('output/weather-script-output1.svg')
+		tree.write('/home/pi/Power_Monitoring/output/weather-script-output1.svg')
 	
 	except Exception:
 		print("PRESSURE TO SVG ERROR", today, now)
@@ -491,7 +491,7 @@ def svg_update():
 		print('-' * 60)
 	
 	try:
-		tree = etree.parse(open('output/weather-script-output1.svg', 'r'))
+		tree = etree.parse(open('/home/pi/Power_Monitoring/output/weather-script-output1.svg', 'r'))
 		if wind_direction in ['NNW', 'N', 'NNE', 'North']:
 			for element in tree.iter():
 				if element.tag.split("}")[1] == "path":
@@ -660,14 +660,14 @@ def svg_update():
 						element.attrib['class'] = ''
 						if verbose:
 							print(wind_direction, "NORTH WEST")
-		tree.write('output/weather-script-output1.svg')
+		tree.write('/home/pi/Power_Monitoring/output/weather-script-output1.svg')
 		
 	except Exception:
 		print("WIND_DIR TO SVG ERROR", today, now)
 		traceback.print_exc(file=sys.stdout)
 		print('-' * 60)
 	try:
-		output = codecs.open('output/weather-script-output1.svg', 'r', encoding='utf-8').read()
+		output = codecs.open('/home/pi/Power_Monitoring/output/weather-script-output1.svg', 'r', encoding='utf-8').read()
 		output = output.replace('CURDATE', today.strftime("%m/%d/%Y"))
 		output = output.replace('CURTIME', now.strftime("%H:%m"))
 		#output = output.replace('SNRISE', sun_rise)
@@ -705,7 +705,7 @@ def svg_update():
 		#output = output.replace('TDFTY', str(tide_next_type))
 		#output = output.replace('TDFTM', tide_datetime.strftime('%H:%M'))
 		#output = output.replace('TDFLV', str(tide_next_mag))
-		codecs.open('output/weather-script-output1.svg', 'w', encoding='utf-8').write(output)
+		codecs.open('/home/pi/Power_Monitoring/output/weather-script-output1.svg', 'w', encoding='utf-8').write(output)
 		
 	except Exception:
 		print("CODECS TO SVG ERROR", today, now)
