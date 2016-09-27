@@ -50,6 +50,7 @@ while true; do
         echo "Installing Dependencies..."
         sudo apt-get update
         sudo apt-get install apache2 python-lxml libxml2-dev libxslt-dev python-dev pngcrush librsvg2-bin fail2ban tightvncserver -y
+        sudo pip install apscheduler
         echo
         break
     elif [[ $REPLY =~ ^[Nn]$ ]]
@@ -165,18 +166,22 @@ while true; do
         else
             if [ $location=cuttyhunk ]; then
                 echo "@reboot /home/pi/Power_Monitoring/Gateway_Logger.sh" >> mycron
-                echo "@reboot /home/pi/Power_Monitoring/Power_Monitor.sh" >> mycron
-                echo "@reboot /home/pi/Power_Monitoring/SVG_Processing.sh" >> mycron
+                echo "@reboot python /home/pi/Power_Monitoring/Data_to_SVG.py >> /home/pi/Power_Monitoring/data_log/Data_to_SVG.log 2>&1" >> mycron
                 echo "@reboot /home/pi/Power_Monitoring/SVG_PNG_Script.sh" >> mycron
                 echo "*/30 * * * * /home/pi/Power_Monitoring/tweeter.sh" >> mycron
                 echo "*/15 * * * * /home/pi/Power_Monitoring/Dropbox-Uploader/data_log_update.sh" >> mycron
+                echo "*/15 * * * * python /home/pi/Power_Monitoring/plotting/Matplotlib_plot.py >> /home/pi/Power_Monitoring/data_log/Matplotlib-plot.log 2>&1" >> mycron
+                echo "*/15 * * * * /home/pi/Power_Monitoring/plotting/PNG_Processing.sh" >> mycron
+               
             elif [ $location=dover ]; then
                 echo "@reboot /home/pi/Power_Monitoring/Gateway_Logger.sh" >> mycron
                 echo "@reboot /home/pi/Power_Monitoring/Power_Monitor.sh" >> mycron
-                echo "@reboot /home/pi/Power_Monitoring/SVG_Processing.sh" >> mycron
+                echo "@reboot python /home/pi/Power_Monitoring/Data_to_SVG.py >> /home/pi/Power_Monitoring/data_log/Data_to_SVG.log 2>&1" >> mycron
                 echo "@reboot /home/pi/Power_Monitoring/SVG_PNG_Script.sh" >> mycron
                 echo "*/15 * * * * /home/pi/Power_Monitoring/tweeter.sh" >> mycron
                 echo "*/15 * * * * /home/pi/Power_Monitoring/Dropbox-Uploader/data_log_update.sh" >> mycron
+                echo "*/15 * * * * python /home/pi/Power_Monitoring/plotting/Matplotlib_plot.py >> /home/pi/Power_Monitoring/data_log/Matplotlib-plot.log 2>&1" >> mycron
+                echo "*/15 * * * * /home/pi/Power_Monitoring/plotting/PNG_Processing.sh" >> mycron
             fi
         fi
         crontab mycron #WRITE ADDITIONS TO CRONTAB
