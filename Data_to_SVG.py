@@ -359,9 +359,60 @@ def data_call():
 				print sensor4label, "Voltage:\t\t", data4_global['voltage'], "H:", data4_global['voltage_max'], "L:", data4_global['voltage_min']
 				print sensor4label, "RSSI:\t\t", data4_global['rssi'], "H:", data4_global['rssi_max'], "L:", data4_global['rssi_min']
 	except Exception:
-			print("DATA4 ERROR", now.strftime("%Y-%m-%d %H:%M:%S"))
-			traceback.print_exc(file=sys.stdout)
-			print('-' * 60)
+		print("DATA4 ERROR", now.strftime("%Y-%m-%d %H:%M:%S"))
+		traceback.print_exc(file=sys.stdout)
+		print('-' * 60)
+	try:
+		txt_output()
+	except Exception:
+		print("TXT_OUTPUT ERROR", now.strftime("%Y-%m-%d %H:%M:%S"))
+		traceback.print_exc(file=sys.stdout)
+		print('-' * 60)
+
+def txt_output():
+	try:
+		with open("/home/pi/Power_Monitoring/output/weather_output.txt", "w") as text_file:
+			text_file.write("%s Time of Data Read:\t %s\n" %(sensor0label, data0_global['time']))
+			text_file.write("%s Temperature:\t\t %s  H: %s L: %s\n" %(sensor0label, data0_global['temperature'], data0_global['temperature_max'], data0_global['temperature_min']))
+			text_file.write("%s Pressure:\t\t %s  H: %s L: %s\n" %(sensor0label, data0_global['pressure'], data0_global['pressure_max'], data0_global['pressure_min']))
+			text_file.write("%s Humidity:\t\t %s  H: %s L: %s\n" %(sensor0label, data0_global['humidity'], data0_global['humidity_max'], data0_global['humidity_min']))
+			text_file.write("%s Dewpoint:\t\t %s  H: %s L: %s\n" %(sensor0label, data0_global['dewpoint'], data0_global['dewpoint_max'], data0_global['dewpoint_min']))
+			text_file.write("%s Voltage:\t\t %s  H: %s L: %s\n" %(sensor0label, data0_global['voltage'], data0_global['voltage_max'], data0_global['voltage_min']))
+			text_file.write("%s RSSI:\t\t\t %s  H: %s L: %s\n" %(sensor0label, data0_global['rssi'], data0_global['rssi_max'], data0_global['rssi_min']))
+			text_file.write("%s Time of Data Read:\t %s\n" %(sensor1label, data1_global['time']))
+			text_file.write("%s Temperature:\t\t %s  H: %s L: %s\n" %(sensor1label, data1_global['temperature'], data1_global['temperature_max'], data1_global['temperature_min']))
+			text_file.write("%s Pressure:\t\t %s  H: %s L: %s\n" %(sensor1label, data1_global['pressure'], data1_global['pressure_max'], data1_global['pressure_min']))
+			text_file.write("%s Humidity:\t\t %s  H: %s L: %s\n" %(sensor1label, data1_global['humidity'], data1_global['humidity_max'], data1_global['humidity_min']))
+			text_file.write("%s Dewpoint:\t\t %s  H: %s L: %s\n" %(sensor1label, data1_global['dewpoint'], data1_global['dewpoint_max'], data1_global['dewpoint_min']))
+			text_file.write("%s Voltage:\t\t %s  H: %s L: %s\n" %(sensor1label, data1_global['voltage'], data1_global['voltage_max'], data1_global['voltage_min']))
+			text_file.write("%s RSSI:\t\t\t %s  H: %s L: %s\n" %(sensor1label, data1_global['rssi'], data1_global['rssi_max'], data1_global['rssi_min']))
+			text_file.write("%s Time of Data Read:\t %s\n" %(sensor2label, data2_global['time']))
+			text_file.write("%s Temperature:\t\t %s  H: %s L: %s\n" %(sensor2label, data2_global['temperature'], data2_global['temperature_max'], data2_global['temperature_min']))
+			text_file.write("%s Pressure:\t\t %s  H: %s L: %s\n" %(sensor2label, data2_global['pressure'], data2_global['pressure_max'], data2_global['pressure_min']))
+			text_file.write("%s Humidity:\t\t %s  H: %s L: %s\n" %(sensor2label, data2_global['humidity'], data2_global['humidity_max'], data2_global['humidity_min']))
+			text_file.write("%s Dewpoint:\t\t %s  H: %s L: %s\n" %(sensor2label, data2_global['dewpoint'], data2_global['dewpoint_max'], data2_global['dewpoint_min']))
+			text_file.write("%s Voltage:\t\t %s  H: %s L: %s\n" %(sensor2label, data2_global['voltage'], data2_global['voltage_max'], data2_global['voltage_min']))
+			text_file.write("%s RSSI:\t\t %s  H: %s L: %s\n" %(sensor2label, data2_global['rssi'], data2_global['rssi_max'], data2_global['rssi_min']))
+			text_file.write("%s Time of Data Read:\t %s\n" %(sensor3label, data3_global['time']))
+			text_file.write("%s Temperature:\t\t %s  H: %s L: %s\n" %(sensor3label, data3_global['temperature'], data3_global['temperature_max'], data3_global['temperature_min']))
+			text_file.write("%s Pressure:\t\t %s  H: %s L: %s\n" %(sensor3label, data3_global['pressure'], data3_global['pressure_max'], data3_global['pressure_min']))
+			text_file.write("%s Humidity:\t\t %s  H: %s L: %s\n" %(sensor3label, data3_global['humidity'], data3_global['humidity_max'], data3_global['humidity_min']))
+			text_file.write("%s Dewpoint:\t\t %s  H: %s L: %s\n" %(sensor3label, data3_global['dewpoint'], data3_global['dewpoint_max'], data3_global['dewpoint_min']))
+			text_file.write("%s Voltage:\t\t\t %s  H: %s L: %s\n" %(sensor3label, data3_global['voltage'], data3_global['voltage_max'], data3_global['voltage_min']))
+			text_file.write("%s RSSI:\t\t\t %s  H: %s L: %s\n" %(sensor3label, data3_global['rssi'], data3_global['rssi_max'], data3_global['rssi_min']))
+			text_file.write("%s Time of Data Read:\t %s\n" %(sensor4label, data4_global['time']))
+			text_file.write("%s Temperature:\t\t %s  H: %s L: %s\n" %(sensor4label, data4_global['temperature'], data4_global['temperature_max'], data4_global['temperature_min']))
+			text_file.write("%s Pressure:\t\t\t %s  H: %s L: %s\n" %(sensor4label, data4_global['pressure'], data4_global['pressure_max'], data4_global['pressure_min']))
+			text_file.write("%s Humidity:\t\t\t %s  H: %s L: %s\n" %(sensor4label, data4_global['humidity'], data4_global['humidity_max'], data4_global['humidity_min']))
+			text_file.write("%s Dewpoint:\t\t\t %s  H: %s L: %s\n" %(sensor4label, data4_global['dewpoint'], data4_global['dewpoint_max'], data4_global['dewpoint_min']))
+			text_file.write("%s Voltage:\t\t\t %s  H: %s L: %s\n" %(sensor4label, data4_global['voltage'], data4_global['voltage_max'], data4_global['voltage_min']))
+			text_file.write("%s RSSI:\t\t\t %s  H: %s L: %s\n" %(sensor4label, data4_global['rssi'], data4_global['rssi_max'], data4_global['rssi_min']))
+			text_file.write("%s Wind (MPH): %s Wind Gust (MPH): %s Wind Direction: %s Pressure Trend: %s\n" %(location, weather_data['wind_mph'], weather_data['wind_gust'], weather_data['wind_direction'], weather_data['pressure_trend']))
+			text_file.write("Forecast High: %s Forecast Low: %s\n" %(weather_data['forecast_high'], weather_data['forecast_low']))
+	except Exception:
+		print("TXT_OUTPUT ERROR", now.strftime("%Y-%m-%d %H:%M:%S"))
+		traceback.print_exc(file=sys.stdout)
+		print('-' * 60)
 
 def element_upd_80(x):
 	for element in tree.iter():
