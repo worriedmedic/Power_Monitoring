@@ -133,19 +133,6 @@ def data_call():
 			print('-' * 60)
 				
 	if weatherdata:
-		try:
-			condition_data
-		except NameError:
-			hourly_wunder_update()
-			if verbose:
-				print "CONDITION_DATA NOT FOUND, FORCING PULL"
-		try:
-			forecast_data
-			astronomy_data
-		except NameError:
-			daily_wunder_update()
-			if verbose:
-				print "FORECAST_DATA, ASTRONOMY_DATA NOT FOUND, FORCING PULL"
 		try:			
 			global weather_data
 			weather_data = {'wind_mph'		: condition_data.current_observation['wind_mph'],
@@ -754,12 +741,14 @@ def svg_update():
 
 if(1):
 	scheduler = BlockingScheduler()
-	scheduler.add_job(daily_wunder_update, 'cron', minute=5)
+	scheduler.add_job(daily_wunder_update, 'cron', hour=0 minute=5)
 	scheduler.add_job(hourly_wunder_update, 'cron', hour='*/1')
 	scheduler.add_job(svg_update, 'interval', seconds=5)
 	scheduler.add_job(data_call, 'interval', seconds=30)
 	
 	try:
+		daily_wunder_update()
+		hourly_wunder_update()
 		data_call()
 		scheduler.start()
 	except (KeyboardInterrupt, SystemExit):
