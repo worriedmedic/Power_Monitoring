@@ -34,10 +34,12 @@ User Crontab:
 ```
 @reboot /home/pi/Power_Monitoring/Gateway_Logger.sh
 @reboot /home/pi/Power_Monitoring/Power_Monitor.sh
-@reboot /home/pi/Power_Monitoring/SVG_Processing.sh
 @reboot /home/pi/Power_Monitoring/SVG_PNG_Script.sh
+@reboot python /home/pi/Power_Monitoring/Data_to_SVG.py >> /home/pi/Power_Monitoring/data_log/Data_to_SVG.log 2>&1
 */10 * * * * /home/pi/Power_Monitoring/tweeter.sh
 */15 * * * * /home/pi/Power_Monitoring/Dropbox-Uploader/data_log_update.sh
+*/15 * * * * python /home/pi/Power_Monitoring/plotting/Matplotlib_plot.py >> /home/pi/Power_Monitoring/data_log/Matplotlib-plot.log 2>&1
+*/15 * * * * /home/pi/Power_Monitoring/plotting/PNG_Processing.sh
 ```
 `/etc/crontab`:
 ```
