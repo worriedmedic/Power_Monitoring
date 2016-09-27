@@ -11,14 +11,10 @@ do
 	sudo cp -f weather-script-output.png weather_output.txt /var/www/html/
 	sudo chmod 755 /var/www/html/weather-script-output.png /var/www/html/weather_output.txt
 	if [ -f '/home/pi/Power_Monitoring/dover.location' ]; then
-		/usr/local/bin/dropbox_uploader.sh upload weather-script-output.png /Programming/logs/dover/
-		/usr/local/bin/dropbox_uploader.sh upload weather-script-output.svg /Programming/logs/dover/
-		/usr/local/bin/dropbox_uploader.sh upload weather_output.txt /Programming/logs/dover/
+		/usr/local/bin/dropbox_uploader.sh upload weather-script-output.png weather-script-output.svg weather_output.txt /Programming/logs/dover/
 	elif [ -f '/home/pi/Power_Monitoring/cuttyhunk.location' ]; then
-		/usr/local/bin/dropbox_uploader.sh upload weather-script-output.png /Programming/logs/cuttyhunk/
-		/usr/local/bin/dropbox_uploader.sh upload weather-script-output.svg /Programming/logs/cuttyhunk/
-		/usr/local/bin/dropbox_uploader.sh upload weather_output.txt /Programming/logs/cuttyhunk/
+		/usr/local/bin/dropbox_uploader.sh upload weather-script-output.png weather-script-output.svg weather_output.txt /Programming/logs/cuttyhunk/
 	fi
 
-	sleep 10
+	sleep 5
 done
