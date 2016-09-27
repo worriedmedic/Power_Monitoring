@@ -1,7 +1,7 @@
 import pandas as pd
 import numpy as np
 from lxml import etree
-import datetime
+import datetime, time
 import traceback
 import sys, os.path
 import codecs
@@ -834,6 +834,7 @@ if(1):
 	scheduler.add_job(data_call, 'interval', seconds=30)
 	
 	try:
+		time.sleep(5)
 		daily_wunder_update()
 		hourly_wunder_update()
 		data_call()
