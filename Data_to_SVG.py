@@ -753,7 +753,7 @@ def txt_output():
 			text_file.write("Location: %s, Time: %s\n" %(location, now_time))
 			text_file.write("Forecast High: %s Forecast Low: %s\n" %(weather_data['forecast_high'], weather_data['forecast_low']))
 			text_file.write("Wind (MPH): %s Wind Gust (MPH): %s Wind Direction: %s\n" %(weather_data['wind_mph'], weather_data['wind_gust'], weather_data['wind_direction']))
-			text_file.write("Pressure Trend: %s\n" %(weather_data['pressure_trend']))
+			text_file.write("Pressure Trend:\t\t\t %s\n" %(weather_data['pressure_trend']))
 			text_file.write("Previous Tide:\t\t\t %s %s %s\n" %(tide_data['tide_prior_time'], tide_data['tide_prior_level'], tide_data['tide_prior_type']))
 			text_file.write("Next Tide:\t\t\t %s %s %s\n" %(tide_data['tide_next_time'], tide_data['tide_next_level'], tide_data['tide_next_type']))
 			text_file.write("Following Tide:\t\t\t %s %s %s\n" %(tide_data['tide_after_time'], tide_data['tide_after_level'], tide_data['tide_after_type']))
