@@ -76,23 +76,29 @@ elif os.path.isfile('/home/pi/Power_Monitoring/cuttyhunk.location'):
 		print(location)
 
 def daily_wunder_update():
-	global forecast_data, astronomy_data
-	try:
-		forecast_data = pd.read_json(wunder_site_forecast_json, typ='series')
-		astronomy_data = pd.read_json(wunder_site_astronomy_json, typ='series')
-	except Exception:
-		print("DAILY WUNDER UPDATE ERROR", now.strftime("%Y-%m-%d %H:%M:%S"))
-		traceback.print_exc(file=sys.stdout)
-		print('-' * 60)
+	while True:
+		global forecast_data, astronomy_data
+		try:
+			forecast_data = pd.read_json(wunder_site_forecast_json, typ='series')
+			astronomy_data = pd.read_json(wunder_site_astronomy_json, typ='series')
+		except Exception:
+			print("DAILY WUNDER UPDATE ERROR", now.strftime("%Y-%m-%d %H:%M:%S"))
+			traceback.print_exc(file=sys.stdout)
+			print('-' * 60)
+			continue
+		break
 
 def hourly_wunder_update():
-	global condition_data
-	try:
-		condition_data = pd.read_json(wunder_site_conditions_json, typ='series')
-	except Exception:
-		print("DAILY WUNDER UPDATE ERROR", now.strftime("%Y-%m-%d %H:%M:%S"))
-		traceback.print_exc(file=sys.stdout)
-		print('-' * 60)
+	while True:
+		global condition_data
+		try:
+			condition_data = pd.read_json(wunder_site_conditions_json, typ='series')
+		except Exception:
+			print("DAILY WUNDER UPDATE ERROR", now.strftime("%Y-%m-%d %H:%M:%S"))
+			traceback.print_exc(file=sys.stdout)
+			print('-' * 60)
+			continue
+		break
 
 def data_call():	
 	today = datetime.date.today()
