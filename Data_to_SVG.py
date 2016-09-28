@@ -97,6 +97,7 @@ def hourly_wunder_update():
 def data_call():	
 	today = datetime.date.today()
 	now = datetime.datetime.now()
+	now_minus_twentyfour = now + datetime.timedelta(hours=-24)
 	today_minus_one = datetime.date.today() + datetime.timedelta(days=-1)
 	today_minus_two = datetime.date.today() + datetime.timedelta(days=-2)
 	today_minus_three = datetime.date.today() + datetime.timedelta(days=-3)
@@ -124,9 +125,9 @@ def data_call():
 				     'tide_after_level'	: tides['Feet'][now.strftime("%Y-%m-%d %H:%M:%S"):][1],
 				     'tide_after_type'	: tides['High/Low'][now.strftime("%Y-%m-%d %H:%M:%S"):][1]}
 			if verbose:
-				print "Previous Tide:", tide_data['tide_prior_time'], tide_data['tide_prior_level']
-				print "Next Tide:", tide_data['tide_next_time'], tide_data['tide_next_level']
-				print "Following Tide:", tide_data['tide_after_time'], tide_data['tide_after_level']
+				print "Previous Tide:", tide_data['tide_prior_time'], tide_data['tide_prior_level'], str(now - tide_data['tide_prior_time'])
+				print "Next Tide:", tide_data['tide_next_time'], tide_data['tide_next_level'], str(tide_data['tide_next_time'] - now)
+				print "Following Tide:", tide_data['tide_after_time'], tide_data['tide_after_level'], str(tide_data['tide_after_time'] - now)
 		except Exception:
 			print("TIDES ERROR", now.strftime("%Y-%m-%d %H:%M:%S"))
 			traceback.print_exc(file=sys.stdout)
@@ -163,6 +164,7 @@ def data_call():
 			data['Datetime'] = pd.to_datetime(data['Date'] + ' ' + data['Time'])
 			data = data.drop(['Date', 'Time'], 1)
 			data = data.set_index('Datetime')
+			data = data[now_minus_twentyfour.strftime("%Y-%m-%d %H:%M:%S"):now.strftime("%Y-%m-%d %H:%M:%S")]
 			data['Temperature'] = data['Temperature'].str.replace('T', '')
 			data['Pressure'] = data['Pressure'].str.replace('P', '')
 			data['Humidity'] = data['Humidity'].str.replace('H', '')
