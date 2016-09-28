@@ -7,6 +7,8 @@ import sys, os.path
 import codecs
 import traceback
 from apscheduler.schedulers.blocking import BlockingScheduler
+import logging
+logging.basicConfig()
 
 verbose = False
 sensordata = True
