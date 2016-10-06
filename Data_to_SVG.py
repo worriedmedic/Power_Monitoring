@@ -30,10 +30,9 @@ if os.path.isfile('/home/pi/Power_Monitoring/dover.location'):
 	
 	template_svg_filename = '/home/pi/Power_Monitoring/resources/DOVER_WX_TEMPLATE.svg'
 	
-	tide = True
+	tide = False
 	tide_csv = 'https://tidesandcurrents.noaa.gov/noaatidepredictions/NOAATidesFacade.jsp?datatype=Annual+TXT&Stationid=8448376&text=datafiles%252F8448376%252F22092016%252F773%252F&imagename=images%2F8448376%2F22092016%2F773%2F8448376_2016-09-23.gif&bdate=20160922&timelength=daily&timeZone=2&dataUnits=1&interval=&edate=20160923&StationName=Cuttyhunk&Stationid_=8448376&state=MA&primary=Subordinate&datum=MLLW&timeUnits=2&ReferenceStationName=Newport&ReferenceStation=8452660&HeightOffsetLow=*0.93&HeightOffsetHigh=*+0.97&TimeOffsetLow=75&TimeOffsetHigh=80&pageview=dayly&print_download=true&Threshold=&thresholdvalue='
 	
-	wuapi_update_freq = 200
 	wunder_site_forecast_json = 'http://api.wunderground.com/api/1f86b1c989ac268c/forecast/q/ny/carmel.json'
 	wunder_site_astronomy_json = 'http://api.wunderground.com/api/1f86b1c989ac268c/astronomy/q/ny/carmel.json'
 	wunder_site_conditions_json = 'http://api.wunderground.com/api/1f86b1c989ac268c/conditions/q/ny/carmel.json'
@@ -59,7 +58,6 @@ elif os.path.isfile('/home/pi/Power_Monitoring/cuttyhunk.location'):
 	
 	template_svg_filename = '/home/pi/Power_Monitoring/resources/CUTTY_WX_TEMPLATE.svg'
 	
-	wuapi_update_freq = 50
 	wunder_site_forecast_json = 'http://api.wunderground.com/api/1f86b1c989ac268c/forecast/q/ma/cuttyhunk.json'
 	wunder_site_astronomy_json = 'http://api.wunderground.com/api/1f86b1c989ac268c/astronomy/q/ma/cuttyhunk.json'
 	wunder_site_conditions_json = 'http://api.wunderground.com/api/1f86b1c989ac268c/conditions/q/ma/cuttyhunk.json'
@@ -748,6 +746,8 @@ def svg_update():
 				output = output.replace('PRESS', "{0:.0f}".format(float(data0_global['pressure'])))
 			elif data0_global['pressure'] < 1000:
 				output = output.replace('PRESS', "{0:.1f}".format(float(data0_global['pressure'])))
+			output = output.replace('RLHUM', "{0:.2f}".format(float(data0_global['humidity'])))
+			output = output.replace('DWPNT', "{0:.2f}".format(float(data0_global['dewpoint'])))			
 		if data1_global:
 			if data1_global['temperature'] >= 100:
 				output = output.replace('TMPI', "{0:.1f}".format(float(data1_global['temperature'])))
@@ -762,15 +762,14 @@ def svg_update():
 			if data3_global['temperature'] >= 100:
 				output = output.replace('TMPD', "{0:.1f}".format(float(data3_global['temperature'])))
 			elif data3_global['temperature'] < 100:
-				output = output.replace('TMPD', "{0:.2f}".format(float(data3_global['temperature'])))		
-		output = output.replace('RLHUM', "{0:.2f}".format(float(data0_global['humidity'])))
-		output = output.replace('DWPNT', "{0:.2f}".format(float(data0_global['dewpoint'])))
-		output = output.replace('TDNTY', str(tide_data['tide_next_type']))
-		output = output.replace('TDNTM', str(tide_data['tide_next_time'].strftime('%H:%M')))
-		output = output.replace('TDNLV', str(tide_data['tide_next_level']))
-		output = output.replace('TDFTY', str(tide_data['tide_after_type']))
-		output = output.replace('TDFTM', str(tide_data['tide_after_time'].strftime('%H:%M')))
-		output = output.replace('TDFLV', str(tide_data['tide_after_level']))
+				output = output.replace('TMPD', "{0:.2f}".format(float(data3_global['temperature'])))
+		if tide:
+			output = output.replace('TDNTY', str(tide_data['tide_next_type']))
+			output = output.replace('TDNTM', str(tide_data['tide_next_time'].strftime('%H:%M')))
+			output = output.replace('TDNLV', str(tide_data['tide_next_level']))
+			output = output.replace('TDFTY', str(tide_data['tide_after_type']))
+			output = output.replace('TDFTM', str(tide_data['tide_after_time'].strftime('%H:%M')))
+			output = output.replace('TDFLV', str(tide_data['tide_after_level']))
 		codecs.open('/home/pi/Power_Monitoring/output/weather-script-output.svg', 'w', encoding='utf-8').write(output)
 		
 	except Exception:
@@ -784,6 +783,7 @@ def txt_output():
 		with open("/home/pi/Power_Monitoring/output/weather_output.txt", "w") as text_file:
 			now = datetime.datetime.now()
 			text_file.write("Location: %s, Time: %s\n" %(location, now.strftime('%Y-%m-%d %H:%M:%S')))
+			text_file.write("Sunrise: %s, Sunset: %s" %(weather_data['sunrise'], weather_data['sunset']))
 			text_file.write("Forecast High: %s Forecast Low: %s\n" %(weather_data['forecast_high'], weather_data['forecast_low']))
 			text_file.write("Wind (MPH): %s Wind Gust (MPH): %s Wind Direction: %s\n" %(weather_data['wind_mph'], weather_data['wind_gust'], weather_data['wind_direction']))
 			if tide:
