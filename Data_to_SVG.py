@@ -153,7 +153,7 @@ def data_call():
 			if verbose:
 				print location, "Wind (MPH):", weather_data['wind_mph'], "Wind Gust (MPH):", weather_data['wind_gust'], "Wind Direction:", weather_data['wind_direction'], "Pressure Trend:", weather_data['pressure_trend'], 
 				print "Forecast High:", weather_data['forecast_high'], "Forecast Low:", weather_data['forecast_low']
-		
+				print "Sunrise: ", weather_data['sunrise'], "Sunset: ", weather_data['sunset']
 		except Exception:
 			print("WEATHER DATA ERROR", now.strftime("%Y-%m-%d %H:%M:%S"))
 			traceback.print_exc(file=sys.stdout)
@@ -783,7 +783,7 @@ def txt_output():
 		with open("/home/pi/Power_Monitoring/output/weather_output.txt", "w") as text_file:
 			now = datetime.datetime.now()
 			text_file.write("Location: %s, Time: %s\n" %(location, now.strftime('%Y-%m-%d %H:%M:%S')))
-			text_file.write("Sunrise: %s, Sunset: %s" %(weather_data['sunrise'], weather_data['sunset']))
+			text_file.write("Sunrise: %s, Sunset: %s\n" %(weather_data['sunrise'],weather_data['sunset']))
 			text_file.write("Forecast High: %s Forecast Low: %s\n" %(weather_data['forecast_high'], weather_data['forecast_low']))
 			text_file.write("Wind (MPH): %s Wind Gust (MPH): %s Wind Direction: %s\n" %(weather_data['wind_mph'], weather_data['wind_gust'], weather_data['wind_direction']))
 			if tide:
