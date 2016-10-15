@@ -42,7 +42,7 @@ if os.path.isfile('/home/pi/Power_Monitoring/dover.location'):
 	sensor1      = '08'
 	sensor1label = 'Upstairs'
 	sensor2      = '07'
-	sensor2label = 'Downstairs'
+	sensor2label = 'MBedroom'
 	sensor3      = '06'
 	sensor3label = 'Garage'
 	sensor4      = '05'
