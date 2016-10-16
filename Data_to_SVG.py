@@ -814,7 +814,7 @@ def txt_output():
 				text_file.write("%s Humidity:\t\t %s\t\t  H: %s L: %s\n" %(sensor2label, data2_global['humidity'], data2_global['humidity_max'], data2_global['humidity_min']))
 				text_file.write("%s Dewpoint:\t\t %s\t\t  H: %s L: %s\n" %(sensor2label, data2_global['dewpoint'], data2_global['dewpoint_max'], data2_global['dewpoint_min']))
 				text_file.write("%s Voltage:\t\t %s\t\t  H: %s L: %s\n" %(sensor2label, data2_global['voltage'], data2_global['voltage_max'], data2_global['voltage_min']))
-				text_file.write("%s RSSI:\t\t %s\t\t\t  H: %s L: %s\n" %(sensor2label, data2_global['rssi'], data2_global['rssi_max'], data2_global['rssi_min']))
+				text_file.write("%s RSSI:\t\t\t %s\t\t\t  H: %s L: %s\n" %(sensor2label, data2_global['rssi'], data2_global['rssi_max'], data2_global['rssi_min']))
 			if data3_global:
 				text_file.write("%s Time of Data Read:\t %s\n" %(sensor3label, data3_global['time']))
 				text_file.write("%s Temperature:\t\t %s\t\t  H: %s L: %s\n" %(sensor3label, data3_global['temperature'], data3_global['temperature_max'], data3_global['temperature_min']))
