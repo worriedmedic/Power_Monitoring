@@ -46,7 +46,7 @@ if os.path.isfile('/home/pi/Power_Monitoring/dover.location'):
 	sensor3      = '06'
 	sensor3label = 'Garage'
 	sensor4      = '05'
-	sensor4label = 'Attic'
+	sensor4label = 'Guest'
 	if verbose:
 		print(location)
 	
