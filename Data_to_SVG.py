@@ -737,32 +737,81 @@ def svg_update():
 		output = output.replace('FORLO', str(weather_data['forecast_low']))
 		output = output.replace('WSP', str(weather_data['wind_mph']))
 		output = output.replace('WGUS', str(weather_data['wind_gust']))
-		if data0_global:
-			if data0_global['temperature'] >= 100:
-				output = output.replace('TMPE', "{0:.1f}".format(float(data0_global['temperature'])))
-			elif data0_global['temperature'] < 100:
-				output = output.replace('TMPE', "{0:.2f}".format(float(data0_global['temperature'])))
-			if data0_global['pressure'] >= 1000:
-				output = output.replace('PRESS', "{0:.0f}".format(float(data0_global['pressure'])))
-			elif data0_global['pressure'] < 1000:
-				output = output.replace('PRESS', "{0:.1f}".format(float(data0_global['pressure'])))
-			output = output.replace('RLHUM', "{0:.2f}".format(float(data0_global['humidity'])))
-			output = output.replace('DWPNT', "{0:.2f}".format(float(data0_global['dewpoint'])))			
-		if data1_global:
-			if data1_global['temperature'] >= 100:
-				output = output.replace('TMPI', "{0:.1f}".format(float(data1_global['temperature'])))
-			elif data1_global['temperature'] < 100:
-				output = output.replace('TMPI', "{0:.2f}".format(float(data1_global['temperature'])))
-		if data2_global:
-			if data2_global['temperature'] >= 100:
-				output = output.replace('TMPG', "{0:.1f}".format(float(data2_global['temperature'])))
-			elif data2_global['temperature'] < 100:
-				output = output.replace('TMPG', "{0:.2f}".format(float(data2_global['temperature'])))
-		if data3_global:
-			if data3_global['temperature'] >= 100:
-				output = output.replace('TMPD', "{0:.1f}".format(float(data3_global['temperature'])))
-			elif data3_global['temperature'] < 100:
-				output = output.replace('TMPD', "{0:.2f}".format(float(data3_global['temperature'])))
+		output = output.replace('WDIRECT', str(weather_data['wind_direction']))
+		if location is 'cuttyhunk':
+			if data0_global:
+				if data0_global['temperature'] >= 100:
+					output = output.replace('TMPE', "{0:.1f}".format(float(data0_global['temperature'])))
+				elif data0_global['temperature'] < 100:
+					output = output.replace('TMPE', "{0:.2f}".format(float(data0_global['temperature'])))
+				if data0_global['pressure'] >= 1000:
+					output = output.replace('PRESS', "{0:.0f}".format(float(data0_global['pressure'])))
+				elif data0_global['pressure'] < 1000:
+					output = output.replace('PRESS', "{0:.1f}".format(float(data0_global['pressure'])))
+				output = output.replace('RLHUM', "{0:.2f}".format(float(data0_global['humidity'])))
+				output = output.replace('DWPNT', "{0:.2f}".format(float(data0_global['dewpoint'])))			
+			if data1_global:
+				if data1_global['temperature'] >= 100:
+					output = output.replace('TMPI', "{0:.1f}".format(float(data1_global['temperature'])))
+				elif data1_global['temperature'] < 100:
+					output = output.replace('TMPI', "{0:.2f}".format(float(data1_global['temperature'])))
+			if data2_global:
+				if data2_global['temperature'] >= 100:
+					output = output.replace('TMPG', "{0:.1f}".format(float(data2_global['temperature'])))
+				elif data2_global['temperature'] < 100:
+					output = output.replace('TMPG', "{0:.2f}".format(float(data2_global['temperature'])))
+			if data3_global:
+				if data3_global['temperature'] >= 100:
+					output = output.replace('TMPD', "{0:.1f}".format(float(data3_global['temperature'])))
+				elif data3_global['temperature'] < 100:
+					output = output.replace('TMPD', "{0:.2f}".format(float(data3_global['temperature'])))
+		if location is 'dover':
+			if data0_global:
+				if data0_global['temperature'] >= 100:
+					output = output.replace('TMP0', "{0:.1f}".format(float(data0_global['temperature'])))
+				elif data0_global['temperature'] < 100:
+					output = output.replace('TMP0', "{0:.2f}".format(float(data0_global['temperature'])))
+				output = output.replace('TMP0TIME', str(data0_global['time']))
+				output = output.replace('TMP0HI', "{0:.2f}".format(float(data0_global['temperature_max'])))
+				output = output.replace('TMP0LO ', "{0:.2f}".format(float(data0_global['temperature_min'])))
+				if data0_global['pressure'] >= 1000:
+					output = output.replace('PRESS', "{0:.0f}".format(float(data0_global['pressure'])))
+				elif data0_global['pressure'] < 1000:
+					output = output.replace('PRESS', "{0:.1f}".format(float(data0_global['pressure'])))
+				output = output.replace('RLHUM', "{0:.2f}".format(float(data0_global['humidity'])))
+				output = output.replace('DWPNT', "{0:.2f}".format(float(data0_global['dewpoint'])))			
+			if data1_global:
+				if data1_global['temperature'] >= 100:
+					output = output.replace('TMP1', "{0:.1f}".format(float(data1_global['temperature'])))
+				elif data1_global['temperature'] < 100:
+					output = output.replace('TMP1', "{0:.2f}".format(float(data1_global['temperature'])))
+				output = output.replace('TMP1TIME', str(data1_global['time']))
+				output = output.replace('TMP1HI', "{0:.2f}".format(float(data1_global['temperature_max'])))
+				output = output.replace('TMP1LO ', "{0:.2f}".format(float(data1_global['temperature_min'])))
+			if data2_global:
+				if data2_global['temperature'] >= 100:
+					output = output.replace('TMP2', "{0:.1f}".format(float(data2_global['temperature'])))
+				elif data2_global['temperature'] < 100:
+					output = output.replace('TMP2', "{0:.2f}".format(float(data2_global['temperature'])))
+				output = output.replace('TMP2TIME', str(data2_global['time']))
+				output = output.replace('TMP2HI', "{0:.2f}".format(float(data2_global['temperature_max'])))
+				output = output.replace('TMP2LO ', "{0:.2f}".format(float(data2_global['temperature_min'])))
+			if data3_global:
+				if data3_global['temperature'] >= 100:
+					output = output.replace('TMP3', "{0:.1f}".format(float(data3_global['temperature'])))
+				elif data3_global['temperature'] < 100:
+					output = output.replace('TMP3', "{0:.2f}".format(float(data3_global['temperature'])))
+				output = output.replace('TMP3TIME', str(data3_global['time']))
+				output = output.replace('TMP3HI', "{0:.2f}".format(float(data3_global['temperature_max'])))
+				output = output.replace('TMP3LO ', "{0:.2f}".format(float(data3_global['temperature_min'])))
+			if data4_global:
+				if data4_global['temperature'] >= 100:
+					output = output.replace('TMP4', "{0:.1f}".format(float(data4_global['temperature'])))
+				elif data4_global['temperature'] < 100:
+					output = output.replace('TMP4', "{0:.2f}".format(float(data4_global['temperature'])))
+				output = output.replace('TMP4TIME', str(data4_global['time']))
+				output = output.replace('TMP4HI', "{0:.2f}".format(float(data4_global['temperature_max'])))
+				output = output.replace('TMP4LO ', "{0:.2f}".format(float(data4_global['temperature_min'])))
 		if tide:
 			output = output.replace('TDNTY', str(tide_data['tide_next_type']))
 			output = output.replace('TDNTM', str(tide_data['tide_next_time'].strftime('%H:%M')))
