@@ -768,9 +768,9 @@ def svg_update():
 		if location is 'dover':
 			if data0_global:
 				if data0_global['temperature'] >= 100:
-					output = output.replace('TMP0', "{0:.1f}".format(float(data0_global['temperature'])))
+					output = output.replace('TMP0TMP', "{0:.1f}".format(float(data0_global['temperature'])))
 				elif data0_global['temperature'] < 100:
-					output = output.replace('TMP0', "{0:.2f}".format(float(data0_global['temperature'])))
+					output = output.replace('TMP0TMP', "{0:.2f}".format(float(data0_global['temperature'])))
 				output = output.replace('TMP0TIME', str(data0_global['time']))
 				output = output.replace('TMP0HI', "{0:.2f}".format(float(data0_global['temperature_max'])))
 				output = output.replace('TMP0LO ', "{0:.2f}".format(float(data0_global['temperature_min'])))
@@ -782,33 +782,33 @@ def svg_update():
 				output = output.replace('DWPNT', "{0:.2f}".format(float(data0_global['dewpoint'])))			
 			if data1_global:
 				if data1_global['temperature'] >= 100:
-					output = output.replace('TMP1', "{0:.1f}".format(float(data1_global['temperature'])))
+					output = output.replace('TMP1TMP', "{0:.1f}".format(float(data1_global['temperature'])))
 				elif data1_global['temperature'] < 100:
-					output = output.replace('TMP1', "{0:.2f}".format(float(data1_global['temperature'])))
+					output = output.replace('TMP1TMP', "{0:.2f}".format(float(data1_global['temperature'])))
 				output = output.replace('TMP1TIME', str(data1_global['time']))
 				output = output.replace('TMP1HI', "{0:.2f}".format(float(data1_global['temperature_max'])))
 				output = output.replace('TMP1LO ', "{0:.2f}".format(float(data1_global['temperature_min'])))
 			if data2_global:
 				if data2_global['temperature'] >= 100:
-					output = output.replace('TMP2', "{0:.1f}".format(float(data2_global['temperature'])))
+					output = output.replace('TMP2TMP', "{0:.1f}".format(float(data2_global['temperature'])))
 				elif data2_global['temperature'] < 100:
-					output = output.replace('TMP2', "{0:.2f}".format(float(data2_global['temperature'])))
+					output = output.replace('TMP2TMP', "{0:.2f}".format(float(data2_global['temperature'])))
 				output = output.replace('TMP2TIME', str(data2_global['time']))
 				output = output.replace('TMP2HI', "{0:.2f}".format(float(data2_global['temperature_max'])))
 				output = output.replace('TMP2LO ', "{0:.2f}".format(float(data2_global['temperature_min'])))
 			if data3_global:
 				if data3_global['temperature'] >= 100:
-					output = output.replace('TMP3', "{0:.1f}".format(float(data3_global['temperature'])))
+					output = output.replace('TMP3TMP', "{0:.1f}".format(float(data3_global['temperature'])))
 				elif data3_global['temperature'] < 100:
-					output = output.replace('TMP3', "{0:.2f}".format(float(data3_global['temperature'])))
+					output = output.replace('TMP3TMP', "{0:.2f}".format(float(data3_global['temperature'])))
 				output = output.replace('TMP3TIME', str(data3_global['time']))
 				output = output.replace('TMP3HI', "{0:.2f}".format(float(data3_global['temperature_max'])))
 				output = output.replace('TMP3LO ', "{0:.2f}".format(float(data3_global['temperature_min'])))
 			if data4_global:
 				if data4_global['temperature'] >= 100:
-					output = output.replace('TMP4', "{0:.1f}".format(float(data4_global['temperature'])))
+					output = output.replace('TMP4TMP', "{0:.1f}".format(float(data4_global['temperature'])))
 				elif data4_global['temperature'] < 100:
-					output = output.replace('TMP4', "{0:.2f}".format(float(data4_global['temperature'])))
+					output = output.replace('TMP4TMP', "{0:.2f}".format(float(data4_global['temperature'])))
 				output = output.replace('TMP4TIME', str(data4_global['time']))
 				output = output.replace('TMP4HI', "{0:.2f}".format(float(data4_global['temperature_max'])))
 				output = output.replace('TMP4LO ', "{0:.2f}".format(float(data4_global['temperature_min'])))
