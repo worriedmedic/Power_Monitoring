@@ -49,7 +49,7 @@ while true; do
     then
         echo "Installing Dependencies..."
         sudo apt-get update
-        sudo apt-get install apache2 python-lxml libxml2-dev libxslt-dev python-dev pngcrush librsvg2-bin fail2ban tightvncserver -y
+        sudo apt-get install apache2 python-lxml libxml2-dev libxslt-dev python-dev pngcrush librsvg2-bin fail2ban tightvncserver python-matplotlib python-pandas -y
         sudo pip install apscheduler
         echo
         break
