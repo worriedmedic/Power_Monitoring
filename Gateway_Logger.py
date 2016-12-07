@@ -39,7 +39,7 @@ for arg in sys.argv:
 		sys.exit()
 	
 if os.path.isfile('dover.location'):
-    addr = '/dev/ttyUSB1'
+    addr = '/dev/ttyUSB0'
 elif os.path.isfile('cuttyhunk.location'):
     addr = '/dev/ttyACM0'
 
