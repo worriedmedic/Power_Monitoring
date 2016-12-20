@@ -748,7 +748,7 @@ def svg_update():
 					output = output.replace('PRESS', "{0:.0f}".format(float(data0_global['pressure'])))
 				elif data0_global['pressure'] < 1000:
 					output = output.replace('PRESS', "{0:.1f}".format(float(data0_global['pressure'])))
-				if data0_global['humidity'] = 100:
+				if data0_global['humidity'] == 100:
 					output = output.replace('RLHUM', "{0:.1f}".format(float(data0_global['humidity'])))
 				elif data0_global['humidity'] < 100:
 					output = output.replace('RLHUM', "{0:.2f}".format(float(data0_global['humidity'])))
@@ -781,7 +781,7 @@ def svg_update():
 					output = output.replace('PRESS', "{0:.0f}".format(float(data0_global['pressure'])))
 				elif data0_global['pressure'] < 1000:
 					output = output.replace('PRESS', "{0:.1f}".format(float(data0_global['pressure'])))
-				if data0_global['humidity'] = 100:
+				if data0_global['humidity'] == 100:
 					output = output.replace('RLHUM', "{0:.1f}".format(float(data0_global['humidity'])))
 				elif data0_global['humidity'] < 100:
 					output = output.replace('RLHUM', "{0:.2f}".format(float(data0_global['humidity'])))
