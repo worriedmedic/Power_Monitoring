@@ -12,7 +12,7 @@ import traceback
 import sys
 
 addr                = '/dev/ttyUSB1'  # serial port to read data from
-baud                = 9600   # baud rate for serial port
+baud                = 115200   # baud rate for serial port
 thingspeak_update   = True # Turn on/off updating to ThingSpeak
 emoncms_update      = True # Turn on/off updating to Emoncms
 txt_logging         = True # Enable/Disable logging to TXT file
@@ -50,12 +50,17 @@ with serial.Serial(addr,9600) as pt:
         addr = '10'
         
         try:
-            buffer.split(' ')
-            ct1p = buffer.split(' ')[0]
-            ct2p = buffer.split(' ')[1]
-            ct3p = buffer.split(' ')[2]
-            ct4p = buffer.split(' ')[3]
-            volt = buffer.split(' ')[4]
+            buffer.split(',')
+            ct1p = buffer.split(',')[0]
+            ct1p = ct1p.strip("ct1:")
+            ct2p = buffer.split(',')[1]
+            ct2p = ct2p.strip("ct2:")
+            ct3p = buffer.split(',')[2]
+            ct3p = ct3p.strip("ct3:")
+            ct4p = buffer.split(',')[3]
+            ct4p = ct4p.strip("ct4:")
+            volt = buffer.split(',')[4]
+            volt = volt.strip("vrms:")
         
             volt = float(volt) / 100
             cttotal = int(ct1p) + int(ct2p)
