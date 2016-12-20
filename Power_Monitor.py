@@ -19,7 +19,7 @@ txt_logging         = True # Enable/Disable logging to TXT file
 verbose             = False
 req_timeout         = 5
 
-with serial.Serial(addr,9600) as pt:
+with serial.Serial(addr,baud) as pt:
     try:
         spb = io.TextIOWrapper(io.BufferedRWPair(pt,pt,1), encoding='ascii', errors='ignore',line_buffering=True)
         spb.readline()  # throw away first line; likely to start mid-sentence (incomplete)
