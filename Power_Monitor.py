@@ -51,16 +51,11 @@ with serial.Serial(addr,baud) as pt:
         
         try:
             buffer.split(',')
-            ct1p = buffer.split(',')[0]
-            ct1p = ct1p.strip("ct1:")
-            ct2p = buffer.split(',')[1]
-            ct2p = ct2p.strip("ct2:")
-            ct3p = buffer.split(',')[2]
-            ct3p = ct3p.strip("ct3:")
-            ct4p = buffer.split(',')[3]
-            ct4p = ct4p.strip("ct4:")
-            volt = buffer.split(',')[4]
-            volt = volt.strip("vrms:")
+            ct1p = buffer.split(',')[0].strip('ct1:')
+            ct2p = buffer.split(',')[1].strip('ct2:')
+            ct3p = buffer.split(',')[2].strip('ct3:')
+            ct4p = buffer.split(',')[3].strip('ct4:')
+            volt = buffer.split(',')[4].strip('vrms:')
         
             volt = float(volt) / 100
             cttotal = int(ct1p) + int(ct2p)
