@@ -15,7 +15,8 @@ rssi_plot = True
 
 ######## GLOBAL VAR #######
 td = '48H'
-line_width = 4
+line_width = 3
+rssi_line_width = 1.5
 
 if os.path.isfile('/home/pi/Power_Monitoring/dover.location'):
 	plt_size_x   = 10
@@ -181,13 +182,13 @@ if (1):
 
 			plt.style.use(plot_style)
 
-			plt.plot_date(data0.last(td).index, data0['RSSI'].last(td).values, linestyle="solid", linewidth=line_width, marker='None', label=sensor0label)
-			plt.plot_date(data1.last(td).index, data1['RSSI'].last(td).values, linestyle="solid", linewidth=line_width, marker='None', label=sensor1label)
-			plt.plot_date(data2.last(td).index, data2['RSSI'].last(td).values, linestyle="solid", linewidth=line_width, marker='None', label=sensor2label)
-			plt.plot_date(data3.last(td).index, data3['RSSI'].last(td).values, linestyle="solid", linewidth=line_width, marker='None', label=sensor3label)
-			plt.plot_date(data4.last(td).index, data4['RSSI'].last(td).values, linestyle="solid", linewidth=line_width, marker='None', label=sensor4label)
-			plt.plot_date(data5.last(td).index, data5['RSSI'].last(td).values, linestyle="solid", linewidth=line_width, marker='None', label=sensor5label)
-			plt.plot_date(data6.last(td).index, data6['RSSI'].last(td).values, linestyle="solid", linewidth=line_width, marker='None', label=sensor6label)
+			plt.plot_date(data0.last(td).index, data0['RSSI'].last(td).values, linestyle="solid", linewidth=rssi_line_width, marker='None', label=sensor0label)
+			plt.plot_date(data1.last(td).index, data1['RSSI'].last(td).values, linestyle="solid", linewidth=rssi_line_width, marker='None', label=sensor1label)
+			plt.plot_date(data2.last(td).index, data2['RSSI'].last(td).values, linestyle="solid", linewidth=rssi_line_width, marker='None', label=sensor2label)
+			plt.plot_date(data3.last(td).index, data3['RSSI'].last(td).values, linestyle="solid", linewidth=rssi_line_width, marker='None', label=sensor3label)
+			plt.plot_date(data4.last(td).index, data4['RSSI'].last(td).values, linestyle="solid", linewidth=rssi_line_width, marker='None', label=sensor4label)
+			plt.plot_date(data5.last(td).index, data5['RSSI'].last(td).values, linestyle="solid", linewidth=rssi_line_width, marker='None', label=sensor5label)
+			plt.plot_date(data6.last(td).index, data6['RSSI'].last(td).values, linestyle="solid", linewidth=rssi_line_width, marker='None', label=sensor6label)
 			plt.legend(loc=0)
 			plt.title('RSSI Plot: Past %s' %td)
 			plt.xlabel('Time')
