@@ -15,8 +15,8 @@ rssi_plot = True
 
 ######## GLOBAL VAR #######
 td = '48H'
-line_width = 3
-rssi_line_width = 1.5
+line_width = 2
+rssi_line_width = 1
 
 if os.path.isfile('/home/pi/Power_Monitoring/dover.location'):
 	plt_size_x   = 10
