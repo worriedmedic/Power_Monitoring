@@ -32,6 +32,10 @@ if os.path.isfile('/home/pi/Power_Monitoring/dover.location'):
 	sensor3label = 'Garage'
 	sensor4      = '05'
 	sensor4label = 'Guest'
+	sensor5      = '04'
+	sensor5label = 'Downstairs'
+	sensor6	     = '03'
+	sensor6label = 'Laundry'
 elif os.path.isfile('/home/pi/Power_Monitoring/cuttyhunk.location'):
 	plt_size_x   = 6.5
 	plt_size_y   = 9
@@ -79,7 +83,9 @@ if (1):
 		data2 = data.loc[data['Address'] == sensor2]
 		data3 = data.loc[data['Address'] == sensor3]
 		data4 = data.loc[data['Address'] == sensor4]
-
+		data5 = data.loc[data['Address'] == sensor5]
+		data6 = data.loc[data['Address'] == sensor6]
+		
 	except Exception:
 		print("TODAY READ CSV ERROR")
 		traceback.print_exc(file=sys.stdout)
@@ -96,6 +102,8 @@ if (1):
 			plt.plot_date(data2.last(td).index, data2['Temperature'].last(td).values, linestyle="solid", linewidth=line_width, marker='None', label=sensor2label)
 			plt.plot_date(data3.last(td).index, data3['Temperature'].last(td).values, linestyle="solid", linewidth=line_width, marker='None', label=sensor3label)
 			plt.plot_date(data4.last(td).index, data4['Temperature'].last(td).values, linestyle="solid", linewidth=line_width, marker='None', label=sensor4label)
+			plt.plot_date(data5.last(td).index, data5['Temperature'].last(td).values, linestyle="solid", linewidth=line_width, marker='None', label=sensor5label)
+			plt.plot_date(data6.last(td).index, data6['Temperature'].last(td).values, linestyle="solid", linewidth=line_width, marker='None', label=sensor6label)
 			plt.legend(loc=0)
 			plt.title('Temperature Plot: Past %s' %td)
 			plt.xlabel('Time')
@@ -115,6 +123,8 @@ if (1):
 			plt.plot_date(data2.last(td).index, data2['Pressure'].last(td).values, linestyle="solid", linewidth=line_width, marker='None', label=sensor2label)
 			plt.plot_date(data3.last(td).index, data3['Pressure'].last(td).values, linestyle="solid", linewidth=line_width, marker='None', label=sensor3label)
 			plt.plot_date(data4.last(td).index, data4['Pressure'].last(td).values, linestyle="solid", linewidth=line_width, marker='None', label=sensor4label)
+			plt.plot_date(data5.last(td).index, data5['Pressure'].last(td).values, linestyle="solid", linewidth=line_width, marker='None', label=sensor5label)
+			plt.plot_date(data6.last(td).index, data6['Pressure'].last(td).values, linestyle="solid", linewidth=line_width, marker='None', label=sensor6label)
 			plt.legend(loc=0)
 			plt.title('Pressure Plot: Past %s' %td)
 			plt.xlabel('Time')
@@ -134,6 +144,8 @@ if (1):
 			plt.plot_date(data2.last(td).index, data2['Humidity'].last(td).values, linestyle="solid", linewidth=line_width, marker='None', label=sensor2label)
 			plt.plot_date(data3.last(td).index, data3['Humidity'].last(td).values, linestyle="solid", linewidth=line_width, marker='None', label=sensor3label)
 			plt.plot_date(data4.last(td).index, data4['Humidity'].last(td).values, linestyle="solid", linewidth=line_width, marker='None', label=sensor4label)
+			plt.plot_date(data5.last(td).index, data5['Humidity'].last(td).values, linestyle="solid", linewidth=line_width, marker='None', label=sensor5label)
+			plt.plot_date(data6.last(td).index, data6['Humidity'].last(td).values, linestyle="solid", linewidth=line_width, marker='None', label=sensor6label)
 			plt.legend(loc=0)
 			plt.title('Humidity Plot: Past %s' %td)
 			plt.xlabel('Time')
@@ -153,6 +165,8 @@ if (1):
 			plt.plot_date(data2.last(td).index, data2['Voltage'].last(td).values, linestyle="solid", linewidth=line_width, marker='None', label=sensor2label)
 			plt.plot_date(data3.last(td).index, data3['Voltage'].last(td).values, linestyle="solid", linewidth=line_width, marker='None', label=sensor3label)
 			plt.plot_date(data4.last(td).index, data4['Voltage'].last(td).values, linestyle="solid", linewidth=line_width, marker='None', label=sensor4label)
+			plt.plot_date(data5.last(td).index, data5['Voltage'].last(td).values, linestyle="solid", linewidth=line_width, marker='None', label=sensor5label)
+			plt.plot_date(data6.last(td).index, data6['Voltage'].last(td).values, linestyle="solid", linewidth=line_width, marker='None', label=sensor6label)
 			plt.legend(loc=0)
 			plt.title('Voltage Plot: Past %s' %td)
 			plt.xlabel('Time')
@@ -172,6 +186,8 @@ if (1):
 			plt.plot_date(data2.last(td).index, data2['RSSI'].last(td).values, linestyle="solid", linewidth=line_width, marker='None', label=sensor2label)
 			plt.plot_date(data3.last(td).index, data3['RSSI'].last(td).values, linestyle="solid", linewidth=line_width, marker='None', label=sensor3label)
 			plt.plot_date(data4.last(td).index, data4['RSSI'].last(td).values, linestyle="solid", linewidth=line_width, marker='None', label=sensor4label)
+			plt.plot_date(data5.last(td).index, data5['RSSI'].last(td).values, linestyle="solid", linewidth=line_width, marker='None', label=sensor5label)
+			plt.plot_date(data6.last(td).index, data6['RSSI'].last(td).values, linestyle="solid", linewidth=line_width, marker='None', label=sensor6label)
 			plt.legend(loc=0)
 			plt.title('RSSI Plot: Past %s' %td)
 			plt.xlabel('Time')
