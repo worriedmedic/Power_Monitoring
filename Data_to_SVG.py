@@ -47,6 +47,10 @@ if os.path.isfile('/home/pi/Power_Monitoring/dover.location'):
 	sensor3label = 'Garage'
 	sensor4      = '05'
 	sensor4label = 'Guest'
+	sensor5	     = '04'
+	sensor5label = 'Downstairs'
+	sensor6      = '03'
+	sensor6label = 'Laundry'
 	if verbose:
 		print(location)
 	
@@ -186,6 +190,9 @@ def data_call():
 			data2 = data.loc[data['Address'] == sensor2]
 			data3 = data.loc[data['Address'] == sensor3]
 			data4 = data.loc[data['Address'] == sensor4]
+			data5 = data.loc[data['Address'] == sensor5]
+			data6 = data.loc[data['Address'] == sensor6]
+			
 		except Exception:
 			print("PANDAS ERROR", now.strftime("%Y-%m-%d %H:%M:%S"))
 			traceback.print_exc(file=sys.stdout)
@@ -383,6 +390,84 @@ def data_call():
 			
 	except Exception:
 		print("DATA4 ERROR", now.strftime("%Y-%m-%d %H:%M:%S"))
+		traceback.print_exc(file=sys.stdout)
+		print('-' * 60)
+
+	try:
+		if not data5.empty:
+			global data5_global
+			data5_global = {'time' 		: data5.index[-1:][0], 
+				      'temperature'	: data5['Temperature'][-1:].values, 
+				      'temperature_max'	: data5['Temperature'].max(),
+				      'temperature_min' : data5['Temperature'].min(),
+				      'pressure'	: data5['Pressure'][-1:].values,
+				      'pressure_max'	: data5['Pressure'].max(),
+				      'pressure_min'	: data5['Pressure'].min(),
+				      'humidity'	: data5['Humidity'][-1:].values,
+				      'humidity_max'	: data5['Humidity'].max(),
+				      'humidity_min'	: data5['Humidity'].min(),
+				      'dewpoint'	: data5['Dewpoint'][-1:].values,
+				      'dewpoint_max'	: data5['Dewpoint'].max(),
+				      'dewpoint_min'	: data5['Dewpoint'].min(),
+				      'voltage'		: data5['Voltage'][-1:].values,
+				      'voltage_max'	: data5['Voltage'].max(),
+				      'voltage_min'	: data5['Voltage'].min(),
+				      'rssi'		: data5['RSSI'][-1:].values,
+				      'rssi_max'	: data5['RSSI'].max(),
+				      'rssi_min'	: data5['RSSI'].min()}
+			
+			if verbose:
+				print sensor5label, "Time of Data Read:\t", data5_global['time']
+				print sensor5label, "Temperature:\t", data5_global['temperature'], "H:", data5_global['temperature_max'], "L:", data5_global['temperature_min']
+				print sensor5label, "Pressure:\t", data5_global['pressure'], "H:", data5_global['pressure_max'], "L:", data5_global['pressure_min']
+				print sensor5label, "Humidity:\t", data5_global['humidity'], "H:", data5_global['humidity_max'], "L:", data5_global['humidity_min']
+				print sensor5label, "Dewpoint:\t", data5_global['dewpoint'], "H:", data5_global['dewpoint_max'], "L:", data5_global['dewpoint_min']
+				print sensor5label, "Voltage:\t\t", data5_global['voltage'], "H:", data5_global['voltage_max'], "L:", data5_global['voltage_min']
+				print sensor5label, "RSSI:\t\t", data5_global['rssi'], "H:", data5_global['rssi_max'], "L:", data5_global['rssi_min']
+		else:
+			data5_global = None
+			
+	except Exception:
+		print("DATA5 ERROR", now.strftime("%Y-%m-%d %H:%M:%S"))
+		traceback.print_exc(file=sys.stdout)
+		print('-' * 60)
+	
+	try:
+		if not data6.empty:
+			global data6_global
+			data6_global = {'time' 		: data6.index[-1:][0], 
+				      'temperature'	: data6['Temperature'][-1:].values, 
+				      'temperature_max'	: data6['Temperature'].max(),
+				      'temperature_min' : data6['Temperature'].min(),
+				      'pressure'	: data6['Pressure'][-1:].values,
+				      'pressure_max'	: data6['Pressure'].max(),
+				      'pressure_min'	: data6['Pressure'].min(),
+				      'humidity'	: data6['Humidity'][-1:].values,
+				      'humidity_max'	: data6['Humidity'].max(),
+				      'humidity_min'	: data6['Humidity'].min(),
+				      'dewpoint'	: data6['Dewpoint'][-1:].values,
+				      'dewpoint_max'	: data6['Dewpoint'].max(),
+				      'dewpoint_min'	: data6['Dewpoint'].min(),
+				      'voltage'		: data6['Voltage'][-1:].values,
+				      'voltage_max'	: data6['Voltage'].max(),
+				      'voltage_min'	: data6['Voltage'].min(),
+				      'rssi'		: data6['RSSI'][-1:].values,
+				      'rssi_max'	: data6['RSSI'].max(),
+				      'rssi_min'	: data6['RSSI'].min()}
+			
+			if verbose:
+				print sensor6label, "Time of Data Read:\t", data6_global['time']
+				print sensor6label, "Temperature:\t", data6_global['temperature'], "H:", data6_global['temperature_max'], "L:", data6_global['temperature_min']
+				print sensor6label, "Pressure:\t", data6_global['pressure'], "H:", data6_global['pressure_max'], "L:", data6_global['pressure_min']
+				print sensor6label, "Humidity:\t", data6_global['humidity'], "H:", data6_global['humidity_max'], "L:", data6_global['humidity_min']
+				print sensor6label, "Dewpoint:\t", data6_global['dewpoint'], "H:", data6_global['dewpoint_max'], "L:", data6_global['dewpoint_min']
+				print sensor6label, "Voltage:\t\t", data6_global['voltage'], "H:", data6_global['voltage_max'], "L:", data6_global['voltage_min']
+				print sensor6label, "RSSI:\t\t", data6_global['rssi'], "H:", data6_global['rssi_max'], "L:", data6_global['rssi_min']
+		else:
+			data6_global = None
+			
+	except Exception:
+		print("DATA6 ERROR", now.strftime("%Y-%m-%d %H:%M:%S"))
 		traceback.print_exc(file=sys.stdout)
 		print('-' * 60)
 	try:
@@ -886,6 +971,22 @@ def txt_output():
 				text_file.write("%s Dewpoint:\t\t\t %s\t\t  H: %s L: %s\n" %(sensor4label, data4_global['dewpoint'], data4_global['dewpoint_max'], data4_global['dewpoint_min']))
 				text_file.write("%s Voltage:\t\t\t %s\t\t  H: %s L: %s\n" %(sensor4label, data4_global['voltage'], data4_global['voltage_max'], data4_global['voltage_min']))
 				text_file.write("%s RSSI:\t\t\t %s\t\t\t  H: %s L: %s\n" %(sensor4label, data4_global['rssi'], data4_global['rssi_max'], data4_global['rssi_min']))
+			if data5_global:
+				text_file.write("%s Time of Data Read:\t %s\n" %(sensor5label, data5_global['time']))
+				text_file.write("%s Temperature:\t\t %s\t\t  H: %s L: %s\n" %(sensor5label, data5_global['temperature'], data5_global['temperature_max'], data5_global['temperature_min']))
+				text_file.write("%s Pressure:\t\t\t %s\t\t  H: %s L: %s\n" %(sensor5label, data5_global['pressure'], data5_global['pressure_max'], data5_global['pressure_min']))
+				text_file.write("%s Humidity:\t\t\t %s\t\t  H: %s L: %s\n" %(sensor5label, data5_global['humidity'], data5_global['humidity_max'], data5_global['humidity_min']))
+				text_file.write("%s Dewpoint:\t\t\t %s\t\t  H: %s L: %s\n" %(sensor5label, data5_global['dewpoint'], data5_global['dewpoint_max'], data5_global['dewpoint_min']))
+				text_file.write("%s Voltage:\t\t\t %s\t\t  H: %s L: %s\n" %(sensor5label, data5_global['voltage'], data5_global['voltage_max'], data5_global['voltage_min']))
+				text_file.write("%s RSSI:\t\t\t %s\t\t\t  H: %s L: %s\n" %(sensor5label, data5_global['rssi'], data5_global['rssi_max'], data5_global['rssi_min']))
+			if data6_global:
+				text_file.write("%s Time of Data Read:\t %s\n" %(sensor6label, data6_global['time']))
+				text_file.write("%s Temperature:\t\t %s\t\t  H: %s L: %s\n" %(sensor6label, data6_global['temperature'], data6_global['temperature_max'], data6_global['temperature_min']))
+				text_file.write("%s Pressure:\t\t\t %s\t\t  H: %s L: %s\n" %(sensor6label, data6_global['pressure'], data6_global['pressure_max'], data6_global['pressure_min']))
+				text_file.write("%s Humidity:\t\t\t %s\t\t  H: %s L: %s\n" %(sensor6label, data6_global['humidity'], data6_global['humidity_max'], data6_global['humidity_min']))
+				text_file.write("%s Dewpoint:\t\t\t %s\t\t  H: %s L: %s\n" %(sensor6label, data6_global['dewpoint'], data6_global['dewpoint_max'], data6_global['dewpoint_min']))
+				text_file.write("%s Voltage:\t\t\t %s\t\t  H: %s L: %s\n" %(sensor6label, data6_global['voltage'], data6_global['voltage_max'], data6_global['voltage_min']))
+				text_file.write("%s RSSI:\t\t\t %s\t\t\t  H: %s L: %s\n" %(sensor6label, data6_global['rssi'], data6_global['rssi_max'], data6_global['rssi_min']))
 	except Exception:
 		print("TXT_OUTPUT ERROR", now.strftime("%Y-%m-%d %H:%M:%S"))
 		traceback.print_exc(file=sys.stdout)
