@@ -778,11 +778,11 @@ def svg_update():
 					elif element.get("id") == "wdso":
 						element.attrib['class'] = 'st3'
 					elif element.get("id") == "wdsw":
+						element.attrib['class'] = 'st3'
+					elif element.get("id") == "wdwe":
 						element.attrib['class'] = ''
 						if verbose:
 							print weather_data['wind_direction'], "WEST"
-					elif element.get("id") == "wdwe":
-						element.attrib['class'] = 'st3'
 					elif element.get("id") == "wdnw":
 						element.attrib['class'] = 'st3'
 		elif weather_data['wind_direction'] in ['NW']:
