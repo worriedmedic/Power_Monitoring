@@ -99,6 +99,7 @@ if (1):
 			fig = plt.figure(figsize=(plt_size_x, plt_size_y), dpi=plt_size_dpi)
 
 			plt.style.use(plot_style)
+			plt.rcParams['axes.facecolor']='w'
 
 			plt.plot_date(data0.last(td).index, data0['Temperature'].last(td).values, linestyle="solid", linewidth=line_width, marker='None', label=sensor0label)
 			plt.plot_date(data1.last(td).index, data1['Temperature'].last(td).values, linestyle="solid", linewidth=line_width, marker='None', label=sensor1label)
@@ -115,12 +116,13 @@ if (1):
 			plt.tight_layout()
 			fig.autofmt_xdate()
 			fig.text(0.95, 0.05, '%s Weather Station' %location, fontsize=25, color='gray', ha='right', va='bottom', alpha=0.5)
-			fig.savefig('/home/pi/Power_Monitoring/output/plot_temp.png', facecolor='white', bbox_inches='tight')
+			fig.savefig('/home/pi/Power_Monitoring/output/plot_temp.png', bbox_inches='tight')
 		
 		if press_plot:
-			fig = plt.figure(figsize=(plt_size_x, plt_size_y), dpi=plt_size_dpi, facecolor='white')
+			fig = plt.figure(figsize=(plt_size_x, plt_size_y), dpi=plt_size_dpi)
 
 			plt.style.use(plot_style)
+			plt.rcParams['axes.facecolor']='w'
 
 			plt.plot_date(data0.last(td).index, data0['Pressure'].last(td).values, linestyle="solid", linewidth=line_width, marker='None', label=sensor0label)
 			plt.plot_date(data1.last(td).index, data1['Pressure'].last(td).values, linestyle="solid", linewidth=line_width, marker='None', label=sensor1label)
@@ -143,6 +145,7 @@ if (1):
 			fig = plt.figure(figsize=(plt_size_x, plt_size_y), dpi=plt_size_dpi)
 
 			plt.style.use(plot_style)
+			plt.rcParams['axes.facecolor']='w'
 
 			plt.plot_date(data0.last(td).index, data0['Humidity'].last(td).values, linestyle="solid", linewidth=line_width, marker='None', label=sensor0label)
 			plt.plot_date(data1.last(td).index, data1['Humidity'].last(td).values, linestyle="solid", linewidth=line_width, marker='None', label=sensor1label)
@@ -159,12 +162,13 @@ if (1):
 			plt.tight_layout()
 			fig.autofmt_xdate()
 			fig.text(0.95, 0.05, '%s Weather Station' %location, fontsize=25, color='gray', ha='right', va='bottom', alpha=0.5)
-			fig.savefig('/home/pi/Power_Monitoring/output/plot_humid.png', facecolor='white', bbox_inches='tight')
+			fig.savefig('/home/pi/Power_Monitoring/output/plot_humid.png', bbox_inches='tight')
 		
 		if volt_plot:
 			fig = plt.figure(figsize=(plt_size_x, plt_size_y), dpi=plt_size_dpi)
 
 			plt.style.use(plot_style)
+			plt.rcParams['axes.facecolor']='w'
 
 			plt.plot_date(data0.last(td).index, data0['Voltage'].last(td).values, linestyle="solid", linewidth=line_width, marker='None', label=sensor0label)
 			plt.plot_date(data1.last(td).index, data1['Voltage'].last(td).values, linestyle="solid", linewidth=line_width, marker='None', label=sensor1label)
@@ -181,12 +185,13 @@ if (1):
 			plt.tight_layout()
 			fig.autofmt_xdate()
 			fig.text(0.95, 0.05, '%s Weather Station' %location, fontsize=25, color='gray', ha='right', va='bottom', alpha=0.5)
-			fig.savefig('/home/pi/Power_Monitoring/output/plot_volt.png', facecolor='white', bbox_inches='tight')
+			fig.savefig('/home/pi/Power_Monitoring/output/plot_volt.png', bbox_inches='tight')
 
 		if rssi_plot:
 			fig = plt.figure(figsize=(plt_size_x, plt_size_y), dpi=plt_size_dpi)
 
 			plt.style.use(plot_style)
+			plt.rcParams['axes.facecolor']='w'
 
 			plt.plot_date(data0.last(td).index, data0['RSSI'].last(td).values, linestyle="solid", linewidth=rssi_line_width, marker='None', label=sensor0label)
 			plt.plot_date(data1.last(td).index, data1['RSSI'].last(td).values, linestyle="solid", linewidth=rssi_line_width, marker='None', label=sensor1label)
@@ -202,7 +207,7 @@ if (1):
 			plt.grid(True)
 			plt.tight_layout()
 			fig.autofmt_xdate()
-			fig.savefig('/home/pi/Power_Monitoring/output/plot_rssi.png', facecolor='white', bbox_inches='tight')
+			fig.savefig('/home/pi/Power_Monitoring/output/plot_rssi.png', bbox_inches='tight')
 			
 	except Exception:
 		print("MATPLOTLIB ERROR")
