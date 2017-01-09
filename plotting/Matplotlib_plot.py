@@ -130,8 +130,8 @@ if (1):
 				plt.text(data5.index[-1:][0], data5['Temperature'][-1] + label_offset, sensor5label, fontsize=12, color=plt.rcParams['axes.color_cycle'][5])
 			if not data6.empty:
 				plt.plot_date(data6.last(td).index, data6['Temperature'].last(td).values, linestyle="solid", linewidth=line_width, marker='None', color=plt.rcParams['axes.color_cycle'][6], label=sensor6label)
-				plt.text(data6.index[-1:][0], data7['Temperature'][-1], data6['Temperature'][-1], fontsize=12, color=plt.rcParams['axes.color_cycle'][6])
-				plt.text(data6.index[-1:][0], data7['Temperature'][-1] + label_offset, sensor6label, fontsize=12, color=plt.rcParams['axes.color_cycle'][6])
+				plt.text(data6.index[-1:][0], data6['Temperature'][-1], data6['Temperature'][-1], fontsize=12, color=plt.rcParams['axes.color_cycle'][6])
+				plt.text(data6.index[-1:][0], data6['Temperature'][-1] + label_offset, sensor6label, fontsize=12, color=plt.rcParams['axes.color_cycle'][6])
 			
 			plt.legend(loc=0).set_visible(False)
 			plt.title('Temperature Plot: Past %s' %td)
