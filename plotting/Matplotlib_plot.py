@@ -133,7 +133,7 @@ if (1):
 				plt.text(data6.index[-1:][0], data6['Temperature'][-1], data6['Temperature'][-1], fontsize=8, horizontalalignment='left', verticalalignment='top', rotation=45, backgroundcolor='w', color=plt.rcParams['axes.color_cycle'][6])
 				#plt.text(data6.index[-1:][0], data6['Temperature'][-1] + label_offset, sensor6label, fontsize=12, color=plt.rcParams['axes.color_cycle'][6])
 			
-			plt.legend(loc=0).set_visible(True)
+			plt.legend(loc=1, fontsize=8).set_visible(True)
 			plt.title('Temperature Plot: Past %s' %td)
 			plt.xlabel('Time')
 			plt.ylabel('Temp (F)')
@@ -178,7 +178,7 @@ if (1):
 				plt.text(data6.index[-1:][0], data6['Pressure'][-1], data6['Pressure'][-1], fontsize=8, horizontalalignment='left', verticalalignment='top', rotation=45, backgroundcolor='w', color=plt.rcParams['axes.color_cycle'][6])
 				#plt.text(data6.index[-1:][0], data6['Pressure'][-1] + label_offset, sensor6label, fontsize=12, color=plt.rcParams['axes.color_cycle'][6])
 			
-			plt.legend(loc=0).set_visible(True)
+			plt.legend(loc=1, fontsize=8).set_visible(True)
 			plt.title('Pressure Plot: Past %s' %td)
 			plt.xlabel('Time')
 			plt.ylabel('Pressure (hPa)')
@@ -223,7 +223,7 @@ if (1):
 				plt.text(data6.index[-1:][0], data6['Humidity'][-1], data6['Humidity'][-1], fontsize=8, horizontalalignment='left', verticalalignment='top', rotation=45, backgroundcolor='w', color=plt.rcParams['axes.color_cycle'][6])
 				#plt.text(data6.index[-1:][0], data6['Humidity'][-1] + label_offset, sensor6label, fontsize=12, color=plt.rcParams['axes.color_cycle'][6])
 			
-			plt.legend(loc=0).set_visible(True)
+			plt.legend(loc=1, fontsize=8).set_visible(True)
 			plt.title('Humidity Plot: Past %s' %td)
 			plt.xlabel('Time')
 			plt.ylabel('Humid (%)')
@@ -268,7 +268,7 @@ if (1):
 				plt.text(data6.index[-1:][0], data6['Voltage'][-1], data6['Voltage'][-1], fontsize=8, horizontalalignment='left', verticalalignment='top', rotation=45, backgroundcolor='w', color=plt.rcParams['axes.color_cycle'][6])
 				#plt.text(data6.index[-1:][0], data6['Voltage'][-1] + label_offset, sensor6label, fontsize=12, color=plt.rcParams['axes.color_cycle'][6])
 			
-			plt.legend(loc=0).set_visible(True)
+			plt.legend(loc=1, fontsize=8).set_visible(True)
 			plt.title('Voltage Plot: Past %s' %td)
 			plt.xlabel('Time')
 			plt.ylabel('Voltage (%)')
@@ -313,7 +313,7 @@ if (1):
 				plt.text(data6.index[-1:][0], data6['RSSI'][-1], data6['RSSI'][-1], fontsize=8, horizontalalignment='left', verticalalignment='top', rotation=45, backgroundcolor='w', color=plt.rcParams['axes.color_cycle'][6])
 				#plt.text(data6.index[-1:][0], data6['RSSI'][-1] + label_offset, sensor6label, fontsize=12, color=plt.rcParams['axes.color_cycle'][6])
 			
-			plt.legend(loc=0).set_visible(True)
+			plt.legend(loc=1, fontsize=8).set_visible(True)
 			plt.title('Voltage Plot: Past %s' %td)
 			plt.xlabel('Time')
 			plt.ylabel('Voltage (%)')
