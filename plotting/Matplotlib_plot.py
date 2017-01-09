@@ -104,8 +104,8 @@ if (1):
 			plt.rcParams['axes.facecolor']='w'
 
 			plt.plot_date(data0.last(td).index, data0['Temperature'].last(td).values, linestyle="solid", linewidth=line_width, marker='None', color=plt.rcParams['axes.color_cycle'][6], label=sensor0label)
-			plt.text(data0.index[-1:][0] + 0.5, data0['Temperature'][-1] - 0.5, data0['Temperature'][-1], fontsize=12, color=plt.rcParams['axes.color_cycle'][6])
-			plt.text(data0.index[-1:][0] + 0.5, data0['Temperature'][-1] + 0.5, sensor0label, fontsize=12, color=plt.rcParams['axes.color_cycle'][6])
+			plt.text(data0.index[-1:][0], data0['Temperature'][-1] - 0.5, data0['Temperature'][-1], fontsize=12, color=plt.rcParams['axes.color_cycle'][6])
+			plt.text(data0.index[-1:][0], data0['Temperature'][-1] + 0.5, sensor0label, fontsize=12, color=plt.rcParams['axes.color_cycle'][6])
 			plt.plot_date(data1.last(td).index, data1['Temperature'].last(td).values, linestyle="solid", linewidth=line_width, marker='None', color=plt.rcParams['axes.color_cycle'][5], label=sensor1label)
 			plt.text(data1.index[-1:][0], data1['Temperature'][-1], sensor1label, fontsize=12, color=plt.rcParams['axes.color_cycle'][5])
 			plt.plot_date(data2.last(td).index, data2['Temperature'].last(td).values, linestyle="solid", linewidth=line_width, marker='None', color=plt.rcParams['axes.color_cycle'][4], label=sensor2label)
