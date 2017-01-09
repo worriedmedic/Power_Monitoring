@@ -118,7 +118,7 @@ if (1):
 			fig.savefig('/home/pi/Power_Monitoring/output/plot_temp.png', facecolor='white', bbox_inches='tight')
 		
 		if press_plot:
-			fig = plt.figure(figsize=(plt_size_x, plt_size_y), dpi=plt_size_dpi)
+			fig = plt.figure(figsize=(plt_size_x, plt_size_y), dpi=plt_size_dpi, facecolor='white')
 
 			plt.style.use(plot_style)
 
@@ -137,7 +137,7 @@ if (1):
 			plt.tight_layout()
 			fig.autofmt_xdate()
 			fig.text(0.95, 0.05, '%s Weather Station' %location, fontsize=25, color='gray', ha='right', va='bottom', alpha=0.5)
-			fig.savefig('/home/pi/Power_Monitoring/output/plot_press.png', facecolor='white', bbox_inches='tight')
+			fig.savefig('/home/pi/Power_Monitoring/output/plot_press.png', bbox_inches='tight')
 			
 		if humid_plot:
 			fig = plt.figure(figsize=(plt_size_x, plt_size_y), dpi=plt_size_dpi)
