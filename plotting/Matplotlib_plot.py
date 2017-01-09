@@ -17,7 +17,7 @@ rssi_plot = True
 td = '48H'
 line_width = 2
 rssi_line_width = 1
-lable_offset = 3
+label_offset = 3
 
 if os.path.isfile('/home/pi/Power_Monitoring/dover.location'):
 	location     = 'Dover'
