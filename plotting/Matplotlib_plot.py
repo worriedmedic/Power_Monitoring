@@ -19,6 +19,7 @@ line_width = 2
 rssi_line_width = 1
 
 if os.path.isfile('/home/pi/Power_Monitoring/dover.location'):
+	location     = 'Dover'
 	plt_size_x   = 10
 	plt_size_y   = 8
 	plt_size_dpi = 100
@@ -38,6 +39,7 @@ if os.path.isfile('/home/pi/Power_Monitoring/dover.location'):
 	sensor6	     = '03'
 	sensor6label = 'Laundry'
 elif os.path.isfile('/home/pi/Power_Monitoring/cuttyhunk.location'):
+	location     = 'Cuttyhunk'
 	plt_size_x   = 6.5
 	plt_size_y   = 9
 	plt_size_dpi = 84
@@ -112,7 +114,8 @@ if (1):
 			plt.grid(True)
 			plt.tight_layout()
 			fig.autofmt_xdate()
-			fig.savefig('/home/pi/Power_Monitoring/output/plot_temp.png', bbox_inches='tight')
+			fig.text(0.95, 0.05, '%s Weather Station' %location, fontsize=25, color='gray', ha='right', va='bottom', alpha=0.5)
+			fig.savefig('/home/pi/Power_Monitoring/output/plot_temp.png', facecolor='white', bbox_inches='tight')
 		
 		if press_plot:
 			fig = plt.figure(figsize=(plt_size_x, plt_size_y), dpi=plt_size_dpi)
@@ -133,7 +136,8 @@ if (1):
 			plt.grid(True)
 			plt.tight_layout()
 			fig.autofmt_xdate()
-			fig.savefig('/home/pi/Power_Monitoring/output/plot_press.png', bbox_inches='tight')
+			fig.text(0.95, 0.05, '%s Weather Station' %location, fontsize=25, color='gray', ha='right', va='bottom', alpha=0.5)
+			fig.savefig('/home/pi/Power_Monitoring/output/plot_press.png', facecolor='white', bbox_inches='tight')
 			
 		if humid_plot:
 			fig = plt.figure(figsize=(plt_size_x, plt_size_y), dpi=plt_size_dpi)
@@ -154,7 +158,8 @@ if (1):
 			plt.grid(True)
 			plt.tight_layout()
 			fig.autofmt_xdate()
-			fig.savefig('/home/pi/Power_Monitoring/output/plot_humid.png', bbox_inches='tight')
+			fig.text(0.95, 0.05, '%s Weather Station' %location, fontsize=25, color='gray', ha='right', va='bottom', alpha=0.5)
+			fig.savefig('/home/pi/Power_Monitoring/output/plot_humid.png', facecolor='white', bbox_inches='tight')
 		
 		if volt_plot:
 			fig = plt.figure(figsize=(plt_size_x, plt_size_y), dpi=plt_size_dpi)
@@ -175,7 +180,8 @@ if (1):
 			plt.grid(True)
 			plt.tight_layout()
 			fig.autofmt_xdate()
-			fig.savefig('/home/pi/Power_Monitoring/output/plot_volt.png', bbox_inches='tight')
+			fig.text(0.95, 0.05, '%s Weather Station' %location, fontsize=25, color='gray', ha='right', va='bottom', alpha=0.5)
+			fig.savefig('/home/pi/Power_Monitoring/output/plot_volt.png', facecolor='white', bbox_inches='tight')
 
 		if rssi_plot:
 			fig = plt.figure(figsize=(plt_size_x, plt_size_y), dpi=plt_size_dpi)
@@ -196,7 +202,7 @@ if (1):
 			plt.grid(True)
 			plt.tight_layout()
 			fig.autofmt_xdate()
-			fig.savefig('/home/pi/Power_Monitoring/output/plot_rssi.png', bbox_inches='tight')
+			fig.savefig('/home/pi/Power_Monitoring/output/plot_rssi.png', facecolor='white', bbox_inches='tight')
 			
 	except Exception:
 		print("MATPLOTLIB ERROR")
