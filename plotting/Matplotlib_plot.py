@@ -24,19 +24,19 @@ if os.path.isfile('/home/pi/Power_Monitoring/dover.location'):
 	plt_size_y   = 8
 	plt_size_dpi = 100
 	plot_style   = 'bmh' 
-	sensor0      = '09'
+	sensor0      = 9
 	sensor0label = 'Outside'
-	sensor1      = '08'
+	sensor1      = 8
 	sensor1label = 'Upstairs'
-	sensor2      = '07'
+	sensor2      = 7
 	sensor2label = 'MBedroom'
-	sensor3      = '06'
+	sensor3      = 6
 	sensor3label = 'Garage'
-	sensor4      = '05'
+	sensor4      = 5
 	sensor4label = 'Guest'
-	sensor5      = '04'
+	sensor5      = 4
 	sensor5label = 'Downstairs'
-	sensor6	     = '03'
+	sensor6	     = 3
 	sensor6label = 'Laundry'
 elif os.path.isfile('/home/pi/Power_Monitoring/cuttyhunk.location'):
 	location     = 'Cuttyhunk'
@@ -81,6 +81,8 @@ if (1):
 		data['Humidity'] = data['Humidity'].str.replace('H', '')
 		data['Voltage'] = data['Voltage'].str.replace('V', '')
 		
+		data = data.convert_objects(convert_numeric=True)
+		
 		data0 = data.loc[data['Address'] == sensor0]
 		data1 = data.loc[data['Address'] == sensor1]
 		data2 = data.loc[data['Address'] == sensor2]
@@ -102,8 +104,8 @@ if (1):
 			plt.rcParams['axes.facecolor']='w'
 
 			plt.plot_date(data0.last(td).index, data0['Temperature'].last(td).values, linestyle="solid", linewidth=line_width, marker='None', color=plt.rcParams['axes.color_cycle'][6], label=sensor0label)
-			plt.text(data0.index[-1:][0], data0['Temperature'][-1], data0['Temperature'][-1], fontsize=12, color=plt.rcParams['axes.color_cycle'][6])
-			plt.text(data0.index[-1:][0], data0['Temperature'][-1], sensor0label, fontsize=12, color=plt.rcParams['axes.color_cycle'][6])
+			plt.text(data0.index[-1:][0] + 0.5, data0['Temperature'][-1] - 0.5, data0['Temperature'][-1], fontsize=12, color=plt.rcParams['axes.color_cycle'][6])
+			plt.text(data0.index[-1:][0] + 0.5, data0['Temperature'][-1] + 0.5, sensor0label, fontsize=12, color=plt.rcParams['axes.color_cycle'][6])
 			plt.plot_date(data1.last(td).index, data1['Temperature'].last(td).values, linestyle="solid", linewidth=line_width, marker='None', color=plt.rcParams['axes.color_cycle'][5], label=sensor1label)
 			plt.text(data1.index[-1:][0], data1['Temperature'][-1], sensor1label, fontsize=12, color=plt.rcParams['axes.color_cycle'][5])
 			plt.plot_date(data2.last(td).index, data2['Temperature'].last(td).values, linestyle="solid", linewidth=line_width, marker='None', color=plt.rcParams['axes.color_cycle'][4], label=sensor2label)
