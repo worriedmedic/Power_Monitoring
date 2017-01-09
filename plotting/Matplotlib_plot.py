@@ -140,7 +140,7 @@ if (1):
 			plt.grid(True)
 			plt.tight_layout()
 			fig.autofmt_xdate()
-			fig.text(0.95, 3, '%s Weather Station' %location, fontsize=25, color='gray', ha='right', va='bottom', alpha=0.5)
+			fig.text(0.5, 0.5, '%s Weather Station' %location, fontsize=25, color='gray', ha='right', va='bottom', alpha=0.5)
 			fig.savefig('/home/pi/Power_Monitoring/output/plot_temp.png', bbox_inches='tight')
 		
 		if press_plot:
