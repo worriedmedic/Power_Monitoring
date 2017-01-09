@@ -185,7 +185,7 @@ if (1):
 			plt.grid(True)
 			plt.tight_layout()
 			fig.autofmt_xdate()
-			fig.text(0.95, 0.05, '%s Weather Station' %location, fontsize=25, color='gray', ha='center', va='center', alpha=0.35)
+			fig.text(0.5, 0.5, '%s Weather Station' %location, fontsize=25, color='gray', ha='center', va='center', alpha=0.35)
 			fig.savefig('/home/pi/Power_Monitoring/output/plot_press.png', bbox_inches='tight')
 			
 		if humid_plot:
@@ -230,7 +230,7 @@ if (1):
 			plt.grid(True)
 			plt.tight_layout()
 			fig.autofmt_xdate()
-			fig.text(0.95, 0.05, '%s Weather Station' %location, fontsize=25, color='gray', ha='center', va='center', alpha=0.35)
+			fig.text(0.5, 0.5, '%s Weather Station' %location, fontsize=25, color='gray', ha='center', va='center', alpha=0.35)
 			fig.savefig('/home/pi/Power_Monitoring/output/plot_humid.png', bbox_inches='tight')
 		
 		if volt_plot:
@@ -275,7 +275,7 @@ if (1):
 			plt.grid(True)
 			plt.tight_layout()
 			fig.autofmt_xdate()
-			fig.text(0.95, 0.05, '%s Weather Station' %location, fontsize=25, color='gray', ha='center', va='center', alpha=0.35)
+			fig.text(0.5, 0.5, '%s Weather Station' %location, fontsize=25, color='gray', ha='center', va='center', alpha=0.35)
 			fig.savefig('/home/pi/Power_Monitoring/output/plot_volt.png', bbox_inches='tight')
 
 		if rssi_plot:
@@ -320,7 +320,7 @@ if (1):
 			plt.grid(True)
 			plt.tight_layout()
 			fig.autofmt_xdate()
-			fig.text(0.95, 0.05, '%s Weather Station' %location, fontsize=25, color='gray', ha='center', va='center', alpha=0.35)
+			fig.text(0.5, 0.5, '%s Weather Station' %location, fontsize=25, color='gray', ha='center', va='center', alpha=0.35)
 			fig.savefig('/home/pi/Power_Monitoring/output/plot_rssi.png', bbox_inches='tight')
 			
 	except Exception:
