@@ -102,7 +102,7 @@ if (1):
 			plt.rcParams['axes.facecolor']='w'
 
 			plt.plot_date(data0.last(td).index, data0['Temperature'].last(td).values, linestyle="solid", linewidth=line_width, marker='None', label=sensor0label)
-			plt.text(0.99, data0['Temperature'][-1], sensor0lable, fontsize=12)
+			plt.text(0.99, data0['Temperature'][-1], sensor0label, fontsize=12)
 			plt.plot_date(data1.last(td).index, data1['Temperature'].last(td).values, linestyle="solid", linewidth=line_width, marker='None', label=sensor1label)
 			plt.plot_date(data2.last(td).index, data2['Temperature'].last(td).values, linestyle="solid", linewidth=line_width, marker='None', label=sensor2label)
 			plt.plot_date(data3.last(td).index, data3['Temperature'].last(td).values, linestyle="solid", linewidth=line_width, marker='None', label=sensor3label)
