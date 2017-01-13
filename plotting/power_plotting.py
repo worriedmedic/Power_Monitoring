@@ -7,6 +7,15 @@ import time, datetime
 import traceback
 import sys, os.path
 
+plt_size_x   = 10
+plt_size_y   = 8
+plt_size_dpi = 100
+plot_style   = 'bmh'
+td = '48H'
+line_width = 2
+rssi_line_width = 1
+label_offset = 3
+
 today = datetime.date.today()
 yesterday = datetime.date.today() + datetime.timedelta(days=-1)
 prior2 = datetime.date.today() + datetime.timedelta(days=-2)
@@ -39,3 +48,24 @@ data['CT4'] = data['CT4'].str.replace('ct4:', '')
 data['VRMS'] = data['VRMS'].str.replace('vrms:', '')
 data['Pulse'] = data['Pulse'].str.replace('pulse:', '')
 
+data = data.astype(float)
+
+data['CTT'] = data['CT1'] + data['CT2']
+
+fig = plt.figure(figsize=(plt_size_x, plt_size_y), dpi=plt_size_dpi)
+plt.style.use(plot_style)
+plt.rcParams['axes.facecolor']='w'
+
+plt.plot_date(data.last(td).index, data['CTT'].last(td).values, linestyle="solid", linewidth=line_width, marker='None', color=plt.rcParams['axes.color_cycle'][0], label="CTT")
+plt.plot_date(data.last(td).index, data['CT1'].last(td).values, linestyle="solid", linewidth=line_width, marker='None', color=plt.rcParams['axes.color_cycle'][0], label="CT1")
+plt.plot_date(data.last(td).index, data['CT2'].last(td).values, linestyle="solid", linewidth=line_width, marker='None', color=plt.rcParams['axes.color_cycle'][0], label="CT2")
+
+plt.legend(loc=2, ncol=2, fontsize=8).set_visible(True)
+plt.title('Dover Power Usage: %s' %td)
+plt.xlabel('Time')
+plt.ylabel('Watts')
+plt.grid(True)
+plt.tight_layout()
+fig.autofmt_xdate()
+fig.text(0.5, 0.5, 'Dover Power Monitoring', fontsize=25, color='gray', ha='center', va='center', alpha=0.35)
+fig.savefig('/home/pi/Power_Monitoring/output/power.png', bbox_inches='tight')
