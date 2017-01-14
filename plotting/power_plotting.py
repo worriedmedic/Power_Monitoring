@@ -51,8 +51,8 @@ data['CTT'] = data['CT1'] + data['CT2']
 
 
 td1 = '3H'
-td2 = '24H'
-td3 = '7D'
+td2 = '6H'
+td3 = '23H'
 
 fig = plt.figure(figsize=(plt_size_x, plt_size_y), dpi=plt_size_dpi)
 plt.style.use(plot_style)
