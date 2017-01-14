@@ -46,7 +46,7 @@ data['CT3'] = data['CT3'].str.replace('ct3:', '')
 data['CT4'] = data['CT4'].str.replace('ct4:', '')
 data['VRMS'] = data['VRMS'].str.replace('vrms:', '')
 data['Pulse'] = data['Pulse'].str.replace('pulse:', '')  
-data = data.astype(float)  
+data = data.astype(float, raise_on_error=False)  
 data['CTT'] = data['CT1'] + data['CT2']
 
 
