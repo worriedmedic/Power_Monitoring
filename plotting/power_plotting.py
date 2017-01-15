@@ -59,6 +59,7 @@ plt.style.use(plot_style)
 plt.rcParams['axes.facecolor']='w'
 plt.plot_date(data.last(td1).index, data['CTT'].last(td1).values, linestyle="solid", linewidth=line_width, marker='None', color=plt.rcParams['axes.color_cycle'][0], label="CTT")
 plt.fill_between(data.last(td1).index, data['CTT'].last(td1).values, facecolor=plt.rcParams['axes.color_cycle'][0], alpha=0.35)
+plt.text(data.index[-1:][0], data['CTT'][-1], data['CTT'][-1], fontsize=8, horizontalalignment='left', verticalalignment='top', rotation=45, backgroundcolor='w', color=plt.rcParams['axes.color_cycle'][0])
 plt.legend(loc=2, ncol=2, fontsize=8).set_visible(True)
 plt.title('Dover Power Usage: %s' %td1)
 plt.xlabel('Time')
