@@ -1,6 +1,7 @@
 #! /bin/bash
 #Script converts SVG output to a PNG and then converts it properly so it can be displayed on the kindle
 #Also copies the SVG and PNG file to dropbox
+#EDIT
 
 cd /home/pi/Power_Monitoring/output
 
