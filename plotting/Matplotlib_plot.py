@@ -16,6 +16,7 @@ rssi_plot = True
 
 ######## GLOBAL VAR #######
 td = '48H'
+batt_td = '8H'
 line_width = 2
 rssi_line_width = 1
 label_offset = 3
@@ -239,46 +240,45 @@ if (1):
 
 			plt.style.use(plot_style)
 			plt.rcParams['axes.facecolor']='w'
-			
-			data0_y_sm = interp1d(data0.last(td).index.values.astype('float64'), data0['Voltage'].last(td).values.astype('float64'), kind='cubic')
-			data1_y_sm = interp1d(data1.last(td).index.values.astype('float64'), data1['Voltage'].last(td).values.astype('float64'), kind='cubic')
-			data2_y_sm = interp1d(data2.last(td).index.values.astype('float64'), data2['Voltage'].last(td).values.astype('float64'), kind='cubic')
-			data3_y_sm = interp1d(data3.last(td).index.values.astype('float64'), data3['Voltage'].last(td).values.astype('float64'), kind='cubic')
-			data4_y_sm = interp1d(data4.last(td).index.values.astype('float64'), data4['Voltage'].last(td).values.astype('float64'), kind='cubic')
-			data5_y_sm = interp1d(data5.last(td).index.values.astype('float64'), data5['Voltage'].last(td).values.astype('float64'), kind='cubic')
-			data6_y_sm = interp1d(data6.last(td).index.values.astype('float64'), data6['Voltage'].last(td).values.astype('float64'), kind='cubic')
 
 			if not data0.empty:
-				plt.plot_date(data0.last(td).index, data0_y_sm, linestyle="solid", linewidth=line_width, marker='None', color=plt.rcParams['axes.color_cycle'][0], label=sensor0label)
+				data0_y_sm = interp1d(data0.last(batt_td).index.values.astype('float64'), data0['Voltage'].last(batt_td).values.astype('float64'), kind='cubic')
+				plt.plot_date(data0.last(batt_td).index, data0_y_sm, linestyle="solid", linewidth=line_width, marker='None', color=plt.rcParams['axes.color_cycle'][0], label=sensor0label)
 				plt.text(data0.index[-1:][0], data0['Voltage'][-1], data0['Voltage'][-1], fontsize=8, horizontalalignment='left', verticalalignment='top', rotation=45, backgroundcolor='w', color=plt.rcParams['axes.color_cycle'][0])
 				#plt.text(data0.index[-1:][0], data0['Voltage'][-1] + label_offset, sensor0label, fontsize=12, color=plt.rcParams['axes.color_cycle'][0])
 			if not data1.empty:
-				plt.plot_date(data1.last(td).index, data1_y_sm, linestyle="solid", linewidth=line_width, marker='None', color=plt.rcParams['axes.color_cycle'][1], label=sensor1label)
+				data1_y_sm = interp1d(data1.last(batt_td).index.values.astype('float64'), data1['Voltage'].last(batt_td).values.astype('float64'), kind='cubic')
+				plt.plot_date(data1.last(batt_td).index, data1_y_sm, linestyle="solid", linewidth=line_width, marker='None', color=plt.rcParams['axes.color_cycle'][1], label=sensor1label)
 				plt.text(data1.index[-1:][0], data1['Voltage'][-1], data1['Voltage'][-1], fontsize=8, horizontalalignment='left', verticalalignment='top', rotation=45, backgroundcolor='w', color=plt.rcParams['axes.color_cycle'][1])
 				#plt.text(data1.index[-1:][0], data1['Voltage'][-1] + label_offset, sensor1label, fontsize=12, color=plt.rcParams['axes.color_cycle'][1])
 			if not data2.empty:
-				plt.plot_date(data2.last(td).index, data2_y_sm, linestyle="solid", linewidth=line_width, marker='None', color=plt.rcParams['axes.color_cycle'][2], label=sensor2label)
+				data2_y_sm = interp1d(data2.last(batt_td).index.values.astype('float64'), data2['Voltage'].last(batt_td).values.astype('float64'), kind='cubic')
+				plt.plot_date(data2.last(batt_td).index, data2_y_sm, linestyle="solid", linewidth=line_width, marker='None', color=plt.rcParams['axes.color_cycle'][2], label=sensor2label)
 				plt.text(data2.index[-1:][0], data2['Voltage'][-1], data2['Voltage'][-1], fontsize=8, horizontalalignment='left', verticalalignment='top', rotation=45, backgroundcolor='w', color=plt.rcParams['axes.color_cycle'][2])
 				#plt.text(data2.index[-1:][0], data2['Voltage'][-1] + label_offset, sensor2label, fontsize=12, color=plt.rcParams['axes.color_cycle'][2])
 			if not data3.empty:
-				plt.plot_date(data3.last(td).index, data3_y_sm, linestyle="solid", linewidth=line_width, marker='None', color=plt.rcParams['axes.color_cycle'][3], label=sensor3label)
+				data3_y_sm = interp1d(data3.last(batt_td).index.values.astype('float64'), data3['Voltage'].last(batt_td).values.astype('float64'), kind='cubic')
+				plt.plot_date(data3.last(batt_td).index, data3_y_sm, linestyle="solid", linewidth=line_width, marker='None', color=plt.rcParams['axes.color_cycle'][3], label=sensor3label)
 				plt.text(data3.index[-1:][0], data3['Voltage'][-1], data3['Voltage'][-1], fontsize=8, horizontalalignment='left', verticalalignment='top', rotation=45, backgroundcolor='w', color=plt.rcParams['axes.color_cycle'][3])
 				#plt.text(data3.index[-1:][0], data3['Voltage'][-1] + label_offset, sensor3label, fontsize=12, color=plt.rcParams['axes.color_cycle'][3])
 			if not data4.empty:
-				plt.plot_date(data4.last(td).index, data4_y_sm, linestyle="solid", linewidth=line_width, marker='None', color=plt.rcParams['axes.color_cycle'][4], label=sensor4label)
+				data4_y_sm = interp1d(data4.last(batt_td).index.values.astype('float64'), data4['Voltage'].last(batt_td).values.astype('float64'), kind='cubic')
+				plt.plot_date(data4.last(batt_td).index, data4_y_sm, linestyle="solid", linewidth=line_width, marker='None', color=plt.rcParams['axes.color_cycle'][4], label=sensor4label)
 				plt.text(data4.index[-1:][0], data4['Voltage'][-1], data4['Voltage'][-1], fontsize=8, horizontalalignment='left', verticalalignment='top', rotation=45, backgroundcolor='w', color=plt.rcParams['axes.color_cycle'][4])
 				#plt.text(data4.index[-1:][0], data4['Voltage'][-1] + label_offset, sensor4label, fontsize=12, color=plt.rcParams['axes.color_cycle'][4])
 			if not data5.empty:
-				plt.plot_date(data5.last(td).index, data5_y_sm, linestyle="solid", linewidth=line_width, marker='None', color=plt.rcParams['axes.color_cycle'][5], label=sensor5label)
+				data5_y_sm = interp1d(data5.last(batt_td).index.values.astype('float64'), data5['Voltage'].last(batt_td).values.astype('float64'), kind='cubic')
+				plt.plot_date(data5.last(batt_td).index, data5_y_sm, linestyle="solid", linewidth=line_width, marker='None', color=plt.rcParams['axes.color_cycle'][5], label=sensor5label)
 				plt.text(data5.index[-1:][0], data5['Voltage'][-1], data5['Voltage'][-1], fontsize=8, horizontalalignment='left', verticalalignment='top', rotation=45, backgroundcolor='w', color=plt.rcParams['axes.color_cycle'][5])
 				#plt.text(data5.index[-1:][0], data5['Voltage'][-1] + label_offset, sensor5label, fontsize=12, color=plt.rcParams['axes.color_cycle'][5])
 			if not data6.empty:
-				plt.plot_date(data6.last(td).index, data6_y_sm, linestyle="solid", linewidth=line_width, marker='None', color=plt.rcParams['axes.color_cycle'][6], label=sensor6label)
+				data6_y_sm = interp1d(data6.last(batt_td).index.values.astype('float64'), data6['Voltage'].last(batt_td).values.astype('float64'), kind='cubic')
+				plt.plot_date(data6.last(batt_td).index, data6_y_sm, linestyle="solid", linewidth=line_width, marker='None', color=plt.rcParams['axes.color_cycle'][6], label=sensor6label)
 				plt.text(data6.index[-1:][0], data6['Voltage'][-1], data6['Voltage'][-1], fontsize=8, horizontalalignment='left', verticalalignment='top', rotation=45, backgroundcolor='w', color=plt.rcParams['axes.color_cycle'][6])
 				#plt.text(data6.index[-1:][0], data6['Voltage'][-1] + label_offset, sensor6label, fontsize=12, color=plt.rcParams['axes.color_cycle'][6])
 			
 			plt.legend(loc=2, ncol=2, fontsize=8).set_visible(True)
-			plt.title('Voltage Plot: Past %s' %td)
+			plt.title('Voltage Plot: Past %s' %batt_td)
 			plt.xlabel('Time')
 			plt.ylabel('Voltage (%)')
 			plt.grid(True)
