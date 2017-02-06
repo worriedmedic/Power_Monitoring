@@ -6,6 +6,7 @@ import matplotlib.pyplot as plt
 import time, datetime
 import traceback
 import sys, os.path
+from scipy.interpolate import spline
 
 temp_plot = True
 press_plot = True
@@ -240,31 +241,31 @@ if (1):
 			plt.rcParams['axes.facecolor']='w'
 
 			if not data0.empty:
-				plt.plot_date(data0.last(td).index, data0['Voltage'].last(td).values, linestyle="solid", linewidth=line_width, marker='None', color=plt.rcParams['axes.color_cycle'][0], label=sensor0label)
+				plt.plot_date(data0.last(td).index, spline(data0['Voltage'].last(td).values), linestyle="solid", linewidth=line_width, marker='None', color=plt.rcParams['axes.color_cycle'][0], label=sensor0label)
 				plt.text(data0.index[-1:][0], data0['Voltage'][-1], data0['Voltage'][-1], fontsize=8, horizontalalignment='left', verticalalignment='top', rotation=45, backgroundcolor='w', color=plt.rcParams['axes.color_cycle'][0])
 				#plt.text(data0.index[-1:][0], data0['Voltage'][-1] + label_offset, sensor0label, fontsize=12, color=plt.rcParams['axes.color_cycle'][0])
 			if not data1.empty:
-				plt.plot_date(data1.last(td).index, data1['Voltage'].last(td).values, linestyle="solid", linewidth=line_width, marker='None', color=plt.rcParams['axes.color_cycle'][1], label=sensor1label)
+				plt.plot_date(data1.last(td).index, spline(data1['Voltage'].last(td).values), linestyle="solid", linewidth=line_width, marker='None', color=plt.rcParams['axes.color_cycle'][1], label=sensor1label)
 				plt.text(data1.index[-1:][0], data1['Voltage'][-1], data1['Voltage'][-1], fontsize=8, horizontalalignment='left', verticalalignment='top', rotation=45, backgroundcolor='w', color=plt.rcParams['axes.color_cycle'][1])
 				#plt.text(data1.index[-1:][0], data1['Voltage'][-1] + label_offset, sensor1label, fontsize=12, color=plt.rcParams['axes.color_cycle'][1])
 			if not data2.empty:
-				plt.plot_date(data2.last(td).index, data2['Voltage'].last(td).values, linestyle="solid", linewidth=line_width, marker='None', color=plt.rcParams['axes.color_cycle'][2], label=sensor2label)
+				plt.plot_date(data2.last(td).index, spline(data2['Voltage'].last(td).values), linestyle="solid", linewidth=line_width, marker='None', color=plt.rcParams['axes.color_cycle'][2], label=sensor2label)
 				plt.text(data2.index[-1:][0], data2['Voltage'][-1], data2['Voltage'][-1], fontsize=8, horizontalalignment='left', verticalalignment='top', rotation=45, backgroundcolor='w', color=plt.rcParams['axes.color_cycle'][2])
 				#plt.text(data2.index[-1:][0], data2['Voltage'][-1] + label_offset, sensor2label, fontsize=12, color=plt.rcParams['axes.color_cycle'][2])
 			if not data3.empty:
-				plt.plot_date(data3.last(td).index, data3['Voltage'].last(td).values, linestyle="solid", linewidth=line_width, marker='None', color=plt.rcParams['axes.color_cycle'][3], label=sensor3label)
+				plt.plot_date(data3.last(td).index, spline(data3['Voltage'].last(td).values), linestyle="solid", linewidth=line_width, marker='None', color=plt.rcParams['axes.color_cycle'][3], label=sensor3label)
 				plt.text(data3.index[-1:][0], data3['Voltage'][-1], data3['Voltage'][-1], fontsize=8, horizontalalignment='left', verticalalignment='top', rotation=45, backgroundcolor='w', color=plt.rcParams['axes.color_cycle'][3])
 				#plt.text(data3.index[-1:][0], data3['Voltage'][-1] + label_offset, sensor3label, fontsize=12, color=plt.rcParams['axes.color_cycle'][3])
 			if not data4.empty:
-				plt.plot_date(data4.last(td).index, data4['Voltage'].last(td).values, linestyle="solid", linewidth=line_width, marker='None', color=plt.rcParams['axes.color_cycle'][4], label=sensor4label)
+				plt.plot_date(data4.last(td).index, spline(data4['Voltage'].last(td).values), linestyle="solid", linewidth=line_width, marker='None', color=plt.rcParams['axes.color_cycle'][4], label=sensor4label)
 				plt.text(data4.index[-1:][0], data4['Voltage'][-1], data4['Voltage'][-1], fontsize=8, horizontalalignment='left', verticalalignment='top', rotation=45, backgroundcolor='w', color=plt.rcParams['axes.color_cycle'][4])
 				#plt.text(data4.index[-1:][0], data4['Voltage'][-1] + label_offset, sensor4label, fontsize=12, color=plt.rcParams['axes.color_cycle'][4])
 			if not data5.empty:
-				plt.plot_date(data5.last(td).index, data5['Voltage'].last(td).values, linestyle="solid", linewidth=line_width, marker='None', color=plt.rcParams['axes.color_cycle'][5], label=sensor5label)
+				plt.plot_date(data5.last(td).index, spline(data5['Voltage'].last(td).values), linestyle="solid", linewidth=line_width, marker='None', color=plt.rcParams['axes.color_cycle'][5], label=sensor5label)
 				plt.text(data5.index[-1:][0], data5['Voltage'][-1], data5['Voltage'][-1], fontsize=8, horizontalalignment='left', verticalalignment='top', rotation=45, backgroundcolor='w', color=plt.rcParams['axes.color_cycle'][5])
 				#plt.text(data5.index[-1:][0], data5['Voltage'][-1] + label_offset, sensor5label, fontsize=12, color=plt.rcParams['axes.color_cycle'][5])
 			if not data6.empty:
-				plt.plot_date(data6.last(td).index, data6['Voltage'].last(td).values, linestyle="solid", linewidth=line_width, marker='None', color=plt.rcParams['axes.color_cycle'][6], label=sensor6label)
+				plt.plot_date(data6.last(td).index, spline(data6['Voltage'].last(td).values), linestyle="solid", linewidth=line_width, marker='None', color=plt.rcParams['axes.color_cycle'][6], label=sensor6label)
 				plt.text(data6.index[-1:][0], data6['Voltage'][-1], data6['Voltage'][-1], fontsize=8, horizontalalignment='left', verticalalignment='top', rotation=45, backgroundcolor='w', color=plt.rcParams['axes.color_cycle'][6])
 				#plt.text(data6.index[-1:][0], data6['Voltage'][-1] + label_offset, sensor6label, fontsize=12, color=plt.rcParams['axes.color_cycle'][6])
 			
