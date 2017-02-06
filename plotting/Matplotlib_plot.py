@@ -240,13 +240,13 @@ if (1):
 			plt.style.use(plot_style)
 			plt.rcParams['axes.facecolor']='w'
 			
-			data0_y_sm = interp1d(data0.last(td).index.total_seconds(), data0['Voltage'].last(td).values.astype('float64'), kind='cubic')
-			data1_y_sm = interp1d(data1.last(td).index.total_seconds(), data1['Voltage'].last(td).values.astype('float64'), kind='cubic')
-			data2_y_sm = interp1d(data2.last(td).index.total_seconds(), data2['Voltage'].last(td).values.astype('float64'), kind='cubic')
-			data3_y_sm = interp1d(data3.last(td).index.total_seconds(), data3['Voltage'].last(td).values.astype('float64'), kind='cubic')
-			data4_y_sm = interp1d(data4.last(td).index.total_seconds(), data4['Voltage'].last(td).values.astype('float64'), kind='cubic')
-			data5_y_sm = interp1d(data5.last(td).index.total_seconds(), data5['Voltage'].last(td).values.astype('float64'), kind='cubic')
-			data6_y_sm = interp1d(data6.last(td).index.total_seconds(), data6['Voltage'].last(td).values.astype('float64'), kind='cubic')
+			data0_y_sm = interp1d(data0.last(td).index.values.astype('float64'), data0['Voltage'].last(td).values.astype('float64'), kind='cubic')
+			data1_y_sm = interp1d(data1.last(td).index.values.astype('float64'), data1['Voltage'].last(td).values.astype('float64'), kind='cubic')
+			data2_y_sm = interp1d(data2.last(td).index.values.astype('float64'), data2['Voltage'].last(td).values.astype('float64'), kind='cubic')
+			data3_y_sm = interp1d(data3.last(td).index.values.astype('float64'), data3['Voltage'].last(td).values.astype('float64'), kind='cubic')
+			data4_y_sm = interp1d(data4.last(td).index.values.astype('float64'), data4['Voltage'].last(td).values.astype('float64'), kind='cubic')
+			data5_y_sm = interp1d(data5.last(td).index.values.astype('float64'), data5['Voltage'].last(td).values.astype('float64'), kind='cubic')
+			data6_y_sm = interp1d(data6.last(td).index.values.astype('float64'), data6['Voltage'].last(td).values.astype('float64'), kind='cubic')
 
 			if not data0.empty:
 				plt.plot_date(data0.last(td).index, data0_y_sm, linestyle="solid", linewidth=line_width, marker='None', color=plt.rcParams['axes.color_cycle'][0], label=sensor0label)
