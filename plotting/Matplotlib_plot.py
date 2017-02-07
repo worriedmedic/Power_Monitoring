@@ -41,6 +41,7 @@ if os.path.isfile('/home/pi/Power_Monitoring/dover.location'):
 	sensor5label = 'Downstairs'
 	sensor6	     = 3
 	sensor6label = 'Laundry'
+	volt_plot = False
 elif os.path.isfile('/home/pi/Power_Monitoring/cuttyhunk.location'):
 	location     = 'Cuttyhunk'
 	plt_size_x   = 6.5
