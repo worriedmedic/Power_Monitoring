@@ -185,7 +185,7 @@ if (1):
 				plt.text(data6.index[-1:][0], data6['Pressure'][-1], data6['Pressure'][-1], fontsize=8, horizontalalignment='left', verticalalignment='top', rotation=45, backgroundcolor='w', color=plt.rcParams['axes.color_cycle'][6])
 				#plt.text(data6.index[-1:][0], data6['Pressure'][-1] + label_offset, sensor6label, fontsize=12, color=plt.rcParams['axes.color_cycle'][6])
 			if not data7.empty:
-				plt.plot_date(data7.last(td).index, data7['Pressure'].last(td).values, linestyle="solid", linewidth=line_width, marker='None', color=plt.rcParams['axes.color_cycle'][7], label=sensor6label)
+				plt.plot_date(data7.last(td).index, data7['Pressure'].last(td).values, linestyle="solid", linewidth=line_width, marker='None', color=plt.rcParams['axes.color_cycle'][7], label=sensor7label)
 				plt.text(data7.index[-1:][0], data7['Pressure'][-1], data7['Pressure'][-1], fontsize=8, horizontalalignment='left', verticalalignment='top', rotation=45, backgroundcolor='w', color=plt.rcParams['axes.color_cycle'][7])
 			
 			plt.legend(loc=2, ncol=2, fontsize=8).set_visible(True)
@@ -233,7 +233,7 @@ if (1):
 				plt.text(data6.index[-1:][0], data6['Humidity'][-1], data6['Humidity'][-1], fontsize=8, horizontalalignment='left', verticalalignment='top', rotation=45, backgroundcolor='w', color=plt.rcParams['axes.color_cycle'][6])
 				#plt.text(data6.index[-1:][0], data6['Humidity'][-1] + label_offset, sensor6label, fontsize=12, color=plt.rcParams['axes.color_cycle'][6])
 			if not data7.empty:
-				plt.plot_date(data7.last(td).index, data7['Humidity'].last(td).values, linestyle="solid", linewidth=line_width, marker='None', color=plt.rcParams['axes.color_cycle'][7], label=sensor6label)
+				plt.plot_date(data7.last(td).index, data7['Humidity'].last(td).values, linestyle="solid", linewidth=line_width, marker='None', color=plt.rcParams['axes.color_cycle'][7], label=sensor7label)
 				plt.text(data7.index[-1:][0], data7['Humidity'][-1], data7['Humidity'][-1], fontsize=8, horizontalalignment='left', verticalalignment='top', rotation=45, backgroundcolor='w', color=plt.rcParams['axes.color_cycle'][7])
 			
 			plt.legend(loc=2, ncol=2, fontsize=8).set_visible(True)
@@ -281,7 +281,7 @@ if (1):
 				plt.text(data6.index[-1:][0], data6['Voltage'][-1], data6['Voltage'][-1], fontsize=8, horizontalalignment='left', verticalalignment='top', rotation=45, backgroundcolor='w', color=plt.rcParams['axes.color_cycle'][6])
 				#plt.text(data6.index[-1:][0], data6['Voltage'][-1] + label_offset, sensor6label, fontsize=12, color=plt.rcParams['axes.color_cycle'][6])
 			if not data7.empty:
-				plt.plot_date(data7.last(td).index, data7['Voltage'].last(td).values, linestyle="solid", linewidth=line_width, marker='None', color=plt.rcParams['axes.color_cycle'][6], label=sensor6label)
+				plt.plot_date(data7.last(td).index, data7['Voltage'].last(td).values, linestyle="solid", linewidth=line_width, marker='None', color=plt.rcParams['axes.color_cycle'][7], label=sensor7label)
 				plt.text(data7.index[-1:][0], data7['Voltage'][-1], data7['Voltage'][-1], fontsize=8, horizontalalignment='left', verticalalignment='top', rotation=45, backgroundcolor='w', color=plt.rcParams['axes.color_cycle'][7])
 			
 			plt.legend(loc=2, ncol=2, fontsize=8).set_visible(True)
@@ -329,7 +329,7 @@ if (1):
 				plt.text(data6.index[-1:][0], data6['RSSI'][-1], data6['RSSI'][-1], fontsize=8, horizontalalignment='left', verticalalignment='top', rotation=45, backgroundcolor='w', color=plt.rcParams['axes.color_cycle'][6])
 				#plt.text(data6.index[-1:][0], data6['RSSI'][-1] + label_offset, sensor6label, fontsize=12, color=plt.rcParams['axes.color_cycle'][6])
 			if not data7.empty:
-				plt.plot_date(data7.last(td).index, data7['RSSI'].last(td).values, linestyle="solid", linewidth=rssi_line_width, marker='None', color=plt.rcParams['axes.color_cycle'][7], label=sensor6label)
+				plt.plot_date(data7.last(td).index, data7['RSSI'].last(td).values, linestyle="solid", linewidth=rssi_line_width, marker='None', color=plt.rcParams['axes.color_cycle'][7], label=sensor7label)
 				plt.text(data7.index[-1:][0], data7['RSSI'][-1], data7['RSSI'][-1], fontsize=8, horizontalalignment='left', verticalalignment='top', rotation=45, backgroundcolor='w', color=plt.rcParams['axes.color_cycle'][7])
 			
 			plt.legend(loc=2, ncol=2, fontsize=8).set_visible(True)
