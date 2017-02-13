@@ -285,7 +285,7 @@ if (1):
 				plt.text(data7.index[-1:][0], data7['Voltage'][-1], data7['Voltage'][-1], fontsize=8, horizontalalignment='left', verticalalignment='top', rotation=45, backgroundcolor='w', color=plt.rcParams['axes.color_cycle'][7])
 			
 			plt.legend(loc=2, ncol=2, fontsize=8).set_visible(True)
-			plt.title('Voltage Plot: Past %s' %batt_td)
+			plt.title('Voltage Plot: Past %s' %td)
 			plt.xlabel('Time')
 			plt.ylabel('Voltage (%)')
 			plt.grid(True)
