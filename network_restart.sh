@@ -1,11 +1,11 @@
 #!/bin/bash
-##################################################################
+###################################################################
 # "Borrowed" from author bellow (thanks) and modified for 
 # specific use.
 # Author:    Kevin Reed (Dweeber)
 # Copyright: Copyright (c) 2012 Kevin Reed <kreed@tnet.com>
 #            https://github.com/dweeber/WiFi_Check
-##################################################################
+###################################################################
 # Settings
 # Where and what you want to call the Lockfile
 lockfile='/var/run/WiFi_Check.pid'
