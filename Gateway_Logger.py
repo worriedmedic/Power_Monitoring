@@ -38,9 +38,9 @@ for arg in sys.argv:
 		print("[-t THINGSPEAK UPDATING ON (default)] [-v VERBOSE] [-h HELP]")
 		sys.exit()
 	
-if os.path.isfile('./dover.location'):
+if os.path.isfile('/home/pi/Power_Monitoring/dover.location'):
     addr = '/dev/ttyUSB0'
-elif os.path.isfile('./cuttyhunk.location'):
+elif os.path.isfile('/home/pi/Power_Monitoring/cuttyhunk.location'):
     addr = '/dev/ttyACM0'
 
 with serial.Serial(addr,9600, timeout=300) as pt:
