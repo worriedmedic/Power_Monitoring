@@ -165,7 +165,7 @@ while true; do
             echo
         else
             if [ $location=cuttyhunk ]; then
-                echo "@reboot /home/pi/Power_Monitoring/Gateway_Logger.sh" >> mycron
+                echo "@reboot python /home/pi/Power_Monitoring/Gateway_Logger.py >> /home/pi/Power_Monitoring/data_log/Gateway_Logger.log 2>&1" >> mycron
                 echo "@reboot python /home/pi/Power_Monitoring/Data_to_SVG.py >> /home/pi/Power_Monitoring/data_log/Data_to_SVG.log 2>&1" >> mycron
                 echo "@reboot /home/pi/Power_Monitoring/SVG_PNG_Script.sh" >> mycron
                 echo "*/30 * * * * /home/pi/Power_Monitoring/tweeter.sh" >> mycron
@@ -174,8 +174,8 @@ while true; do
                 echo "*/15 * * * * /home/pi/Power_Monitoring/plotting/PNG_Processing.sh" >> mycron
                
             elif [ $location=dover ]; then
-                echo "@reboot /home/pi/Power_Monitoring/Gateway_Logger.sh" >> mycron
-                echo "@reboot /home/pi/Power_Monitoring/Power_Monitor.sh" >> mycron
+                echo "@reboot python /home/pi/Power_Monitoring/Gateway_Logger.py /home/pi/Power_Monitoring/data_log/Gateway_Logger.log 2>&1>> " >> mycron
+                echo "@reboot python /home/pi/Power_Monitoring/Power_Monitor.py >> /home/pi/Power_Monitoring/data_log/Power_Monitor.log 2>&1" >> mycron
                 echo "@reboot python /home/pi/Power_Monitoring/Data_to_SVG.py >> /home/pi/Power_Monitoring/data_log/Data_to_SVG.log 2>&1" >> mycron
                 echo "@reboot /home/pi/Power_Monitoring/SVG_PNG_Script.sh" >> mycron
                 echo "*/15 * * * * /home/pi/Power_Monitoring/tweeter.sh" >> mycron
