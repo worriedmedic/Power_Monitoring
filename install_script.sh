@@ -78,6 +78,7 @@ while true; do
             rm ngrok
             rm ngrok-stable-linux-arm.zip
         else
+            echo
             echo "Copy of NGROK found in /usr/local/bin/"
             echo
         fi
@@ -120,12 +121,14 @@ while true; do
     echo
     if [[ $REPLY =~ ^[Yy]$ ]]
     then
+        echo
         echo "Copying 'network_restart.sh' to /usr/local/bin/"
         sudo cp network_restart.sh /usr/local/bin
         echo
         break
     elif [[ $REPLY =~ ^[Nn]$ ]]
     then
+        echo
         echo "network_restart.sh NOT installed..."
         echo
         break
@@ -144,6 +147,7 @@ while true; do
         break
     elif [[ $REPLY =~ ^[Nn]$ ]]
     then
+        echo
         echo "dropbox-uploader.sh NOT installed..."
         echo
         break
@@ -197,6 +201,7 @@ while true; do
         break
     elif [[ $REPLY =~ ^[Nn]$ ]]
     then
+        echo
         echo "CRONTAB entires not installed..."
         echo
         break
@@ -204,7 +209,7 @@ while true; do
 done
 
 #APACHE STUFF
-while True; do
+while true; do
     read -p "Install generated index.html? (y/n) " -n 1 -r
     echo
     if [[ $REPLY =~ ^[Yy]$ ]]
@@ -217,6 +222,7 @@ while True; do
         echo "...complete..."
     elif [[ $REPLY =~ ^[Nn]$ ]]
     then
+        echo
         echo "index.html not copied..."
         echo
         break
