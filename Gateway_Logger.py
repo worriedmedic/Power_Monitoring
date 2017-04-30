@@ -61,8 +61,7 @@ with serial.Serial(addr,9600, timeout=300) as pt:
         try:
             buffer = spb.readline()  # read one line of text from serial port
             buffer = buffer.strip("\n")
-            
-        except Exception:
+	except Exception:
             print("SERIAL READ ERROR", today, now)
             traceback.print_exc(file=sys.stdout)
             print('-' * 60)
@@ -80,7 +79,7 @@ with serial.Serial(addr,9600, timeout=300) as pt:
             print('-' * 60)
 
 
-        if addr.startswith('0'):
+        if addr[0].isdigit():
             try:
                 buffer.split(',')
                 temp = buffer.split(',')[1].strip('T')
@@ -95,7 +94,7 @@ with serial.Serial(addr,9600, timeout=300) as pt:
                 print("DATA SPLIT ERROR", today, now, buffer)
                 traceback.print_exc(file=sys.stdout)
                 print('-' * 60)
-            
+
         if txt_logging:
             try:
                 if not os.path.exists('data_log'):
@@ -164,7 +163,7 @@ with serial.Serial(addr,9600, timeout=300) as pt:
                     print("THINGSPEAK GENERAL ERROR", today, now, buffer)
                     traceback.print_exc(file=sys.stdout)
                     print('-' * 60)
-            
+
             elif addr == '01':
                 try:
                     api_key = 'ARPQ7GWOHTQSYWYW'
@@ -212,7 +211,7 @@ with serial.Serial(addr,9600, timeout=300) as pt:
                     print("THINGSPEAK GENERAL ERROR", today, now, buffer)
                     traceback.print_exc(file=sys.stdout)
                     print('-' * 60)
-            
+
             elif addr == '03':
                 try:
                     api_key = 'DOXY1Q9I6C6I88DA'
@@ -308,7 +307,7 @@ with serial.Serial(addr,9600, timeout=300) as pt:
                     print("THINGSPEAK GENERAL ERROR", today, now, buffer)
                     traceback.print_exc(file=sys.stdout)
                     print('-' * 60)
-            
+
             elif addr == '07':
                 try:
                     api_key = 'NQQZE8CL8ZC445DN'
@@ -332,7 +331,7 @@ with serial.Serial(addr,9600, timeout=300) as pt:
                     print("THINGSPEAK GENERAL ERROR", today, now, buffer)
                     traceback.print_exc(file=sys.stdout)
                     print('-' * 60)
-            
+
             elif addr == '08':
                 try:
                     api_key = '8SHTGBFETA4XVN5P'
@@ -356,7 +355,7 @@ with serial.Serial(addr,9600, timeout=300) as pt:
                     print("THINGSPEAK GENERAL ERROR", today, now, buffer)
                     traceback.print_exc(file=sys.stdout)
                     print('-' * 60)
-            
+
             elif addr == '09':
                 try:
                     api_key = 'TUFQWU8SA1HL1B4O'
@@ -380,6 +379,6 @@ with serial.Serial(addr,9600, timeout=300) as pt:
                     print("THINGSPEAK GENERAL ERROR", today, now, buffer)
                     traceback.print_exc(file=sys.stdout)
                     print('-' * 60)
-            
+
             else:
                 print("NOT PUSHED TO THINGSPEAK :: SENSOR ID NOT FOUND", today, now, buffer)
