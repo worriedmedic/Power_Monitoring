@@ -202,3 +202,25 @@ while true; do
         break
     fi
 done
+
+#APACHE STUFF
+while True; do
+    read -p "Install generated index.html? (y/n) " -n 1 -r
+    echo
+    if [[ $REPLY =~ ^[Yy]$ ]]
+    then
+        echo
+        echo "Removing stock index.html"
+        sudo rm -f /var/www/html/index.html
+        echo "Copying ./output/index.html /var/html/www/"
+        sudo cp /home/pi/Power_Monitoring/output/index.html /var/html/www/
+        echo "...complete..."
+    fi
+    elif [[ $REPLY =~ ^[Nn]$ ]]
+    then
+        echo "index.html not copied..."
+        echo
+        break
+    fi
+done
+    
