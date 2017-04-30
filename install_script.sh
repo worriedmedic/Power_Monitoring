@@ -215,7 +215,6 @@ while True; do
         echo "Copying ./output/index.html /var/html/www/"
         sudo cp /home/pi/Power_Monitoring/output/index.html /var/html/www/
         echo "...complete..."
-    fi
     elif [[ $REPLY =~ ^[Nn]$ ]]
     then
         echo "index.html not copied..."
