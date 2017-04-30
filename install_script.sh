@@ -217,9 +217,11 @@ while true; do
         echo
         echo "Removing stock index.html"
         sudo rm -f /var/www/html/index.html
-        echo "Copying ./output/index.html /var/html/www/"
-        sudo cp /home/pi/Power_Monitoring/output/index.html /var/html/www/
+        echo "Copying ./output/index.html /var/www/html"
+        sudo cp /home/pi/Power_Monitoring/output/index.html /var/www/html/
         echo "...complete..."
+        echo
+        break
     elif [[ $REPLY =~ ^[Nn]$ ]]
     then
         echo
