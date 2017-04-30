@@ -168,7 +168,7 @@ while true; do
                 echo "@reboot python /home/pi/Power_Monitoring/Gateway_Logger.py >> /home/pi/Power_Monitoring/data_log/Gateway_Logger.log 2>&1" >> mycron
                 echo "@reboot python /home/pi/Power_Monitoring/Data_to_SVG.py >> /home/pi/Power_Monitoring/data_log/Data_to_SVG.log 2>&1" >> mycron
                 echo "@reboot /home/pi/Power_Monitoring/SVG_PNG_Script.sh" >> mycron
-                echo "*/30 * * * * /home/pi/Power_Monitoring/tweeter.sh" >> mycron
+                echo "*/30 * * * * python /home/pi/Power_Monitoring/tweeter.py >> /home/pi/Power_Monitoring/data_log/tweeter.log 2>&1" >> mycron
                 echo "*/15 * * * * /home/pi/Power_Monitoring/Dropbox-Uploader/data_log_update.sh" >> mycron
                 echo "*/15 * * * * python /home/pi/Power_Monitoring/plotting/Matplotlib_plot.py >> /home/pi/Power_Monitoring/data_log/Matplotlib-plot.log 2>&1" >> mycron
                 echo "*/15 * * * * /home/pi/Power_Monitoring/plotting/PNG_Processing.sh" >> mycron
@@ -178,7 +178,7 @@ while true; do
                 echo "@reboot python /home/pi/Power_Monitoring/Power_Monitor.py >> /home/pi/Power_Monitoring/data_log/Power_Monitor.log 2>&1" >> mycron
                 echo "@reboot python /home/pi/Power_Monitoring/Data_to_SVG.py >> /home/pi/Power_Monitoring/data_log/Data_to_SVG.log 2>&1" >> mycron
                 echo "@reboot /home/pi/Power_Monitoring/SVG_PNG_Script.sh" >> mycron
-                echo "*/15 * * * * /home/pi/Power_Monitoring/tweeter.sh" >> mycron
+                echo "*/15 * * * * python /home/pi/Power_Monitoring/tweeter.py >> /home/pi/Power_Monitoring/data_log/tweeter.log 2>&1" >> mycron
                 echo "*/15 * * * * /home/pi/Power_Monitoring/Dropbox-Uploader/data_log_update.sh" >> mycron
                 echo "*/15 * * * * python /home/pi/Power_Monitoring/plotting/Matplotlib_plot.py >> /home/pi/Power_Monitoring/data_log/Matplotlib-plot.log 2>&1" >> mycron
                 echo "*/15 * * * * /home/pi/Power_Monitoring/plotting/PNG_Processing.sh" >> mycron
