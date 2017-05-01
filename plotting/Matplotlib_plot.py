@@ -15,7 +15,7 @@ volt_plot = True
 rssi_plot = True
 
 ######## GLOBAL VAR #######
-td = '48H'
+td = '30m'
 line_width = 2
 rssi_line_width = 1
 label_offset = 3
@@ -48,66 +48,106 @@ elif os.path.isfile('/home/pi/Power_Monitoring/cuttyhunk.location'):
 	plt_size_y   = 9
 	plt_size_dpi = 84
 	plot_style   = 'grayscale'
-	sensor0      = '00'
+	sensor0      = 94
 	sensor0label = 'Outside'
-	sensor1      = '01'
+	sensor1      = 95
 	sensor1label = 'Upstairs'
-	sensor2      = '04' 
+	sensor2      = 96
 	sensor2label = 'Reeds Room'
-	sensor3      = None # '02' Dead as per LWH 09-16-2016
-	sensor3label = None # 'Barn Upstairs'
-	sensor4      = None # '03' Dead as per LWH 09-22-2016
-	sensor4label = None # 'Downstairs'
-
+	sensor3      = 97
+	sensor3label = 'Barn'
+	sensor4      = 98
+	sensor4label = 'Barn Upstairs' 
+	sensor5		= 99
+	sensor5label	= 'TEST'
+	sensor6		= 93
+	sensor6label	= 'None'
+	sensor7		= 92
+	sensor7label	= 'None'
 
 if (1):
 	today = datetime.date.today()
 	yesterday = datetime.date.today() + datetime.timedelta(days=-1)
 	prior2 = datetime.date.today() + datetime.timedelta(days=-2)
 	prior3 = datetime.date.today() + datetime.timedelta(days=-3)
-	
 	now = datetime.datetime.now()
 	now_minus_eight = now + datetime.timedelta(hours=-8)
-	
 	try:
-		data_today = pd.read_csv('/home/pi/Power_Monitoring/data_log/' + today.strftime("%Y-%m") + '/' + str(today) + '.log', names = ["Date", "Time", "Address", "Temperature", "Pressure", "Humidity", "Voltage", "RSSI"], dtype=str)
-		data_yest = pd.read_csv('/home/pi/Power_Monitoring/data_log/' + yesterday.strftime("%Y-%m") + '/' + str(yesterday) + '.log', names = ["Date", "Time", "Address", "Temperature", "Pressure", "Humidity", "Voltage", "RSSI"], dtype=str)
-		data_2prior = pd.read_csv('/home/pi/Power_Monitoring/data_log/' + prior2.strftime("%Y-%m") + '/' + str(prior2) + '.log', names = ["Date", "Time", "Address", "Temperature", "Pressure", "Humidity", "Voltage", "RSSI"], dtype=str)
-		
-		data = pd.concat([data_2prior, data_yest, data_today])
-		
+		try:
+			data_today = pd.read_csv('/home/pi/Power_Monitoring/data_log/' + today.strftime("%Y-%m") + '/' + str(today) + '.log', names = ["Date", "Time", "Address", "Temperature", "Pressure", "Humidity", "Voltage", "RSSI"], dtype=str)
+			data_today_valid = True
+		except Exception:
+			data_today_valid = False
+			print("No logfile for today found...")
+		try:
+			data_yest = pd.read_csv('/home/pi/Power_Monitoring/data_log/' + yesterday.strftime("%Y-%m") + '/' + str(yesterday) + '.log', names = ["Date", "Time", "Address", "Temperature", "Pressure", "Humidity", "Voltage", "RSSI"], dtype=str)
+			data_yest_valid = True
+		except Exception:
+			data_yest_valid = False
+			print("No logfile for yesterday found...")
+		try:
+			data_2prior = pd.read_csv('/home/pi/Power_Monitoring/data_log/' + prior2.strftime("%Y-%m") + '/' + str(prior2) + '.log', names = ["Date", "Time", "Address", "Temperature", "Pressure", "Humidity", "Voltage", "RSSI"], dtype=str)
+			data_2prior_valid = True
+		except Exception:
+			data_2prior_valid = False
+			print("No logfile for two days ago found...")
+		if (data_today_valid and data_yest_valid and data_2prior_valid):
+			data = pd.concat([data_2prior, data_yest, data_today])
+		elif (data_today_valid and data_yest_valid):
+			data = pd.concat([data_yest, data_today])
+		elif data_today_valid:
+			data = data_today
+		else:
+			print("No data logfiles found...")
 		data['Datetime'] = pd.to_datetime(data['Date'] + ' ' + data['Time'])
 		data = data.drop(['Date', 'Time'], 1)
 		data = data.set_index('Datetime')
-		
 		data['Temperature'] = data['Temperature'].str.replace('T', '')
 		data['Pressure'] = data['Pressure'].str.replace('P', '')
 		data['Humidity'] = data['Humidity'].str.replace('H', '')
 		data['Voltage'] = data['Voltage'].str.replace('V', '')
-		
 		data = data.convert_objects(convert_numeric=True)
-		
-		data0 = data.loc[data['Address'] == sensor0]
-		data1 = data.loc[data['Address'] == sensor1]
-		data2 = data.loc[data['Address'] == sensor2]
-		data3 = data.loc[data['Address'] == sensor3]
-		data4 = data.loc[data['Address'] == sensor4]
-		data5 = data.loc[data['Address'] == sensor5]
-		data6 = data.loc[data['Address'] == sensor6]
-		data7 = data.loc[data['Address'] == sensor7]
-		
+		try:
+			data0 = data.loc[data['Address'] == sensor0]
+		except Exception:
+			print("Data0 Error")
+		try:
+			data1 = data.loc[data['Address'] == sensor1]
+		except Exception:
+			print("Data1 Error")
+		try:
+			data2 = data.loc[data['Address'] == sensor2]
+		except Exception:
+			print("Data2 Error")
+		try:
+			data3 = data.loc[data['Address'] == sensor3]
+		except Exception:
+			print("Data3 Error")
+		try:
+			data4 = data.loc[data['Address'] == sensor4]
+		except Exception:
+			print("Data4 Error")
+		try:
+			data5 = data.loc[data['Address'] == sensor5]
+		except Exception:
+			print("Data5 Error")
+		try:
+			data6 = data.loc[data['Address'] == sensor6]
+		except Exception:
+			print("Data6 Error")
+		try:
+			data7 = data.loc[data['Address'] == sensor7]
+		except Exception:
+			print("Data7 Error")		
 	except Exception:
 		print("TODAY READ CSV ERROR")
 		traceback.print_exc(file=sys.stdout)
 		print('-' * 60)
-
 	try:
 		if temp_plot:
 			fig = plt.figure(figsize=(plt_size_x, plt_size_y), dpi=plt_size_dpi)
-
 			plt.style.use(plot_style)
 			plt.rcParams['axes.facecolor']='w'
-
 			if not data0.empty:
 				plt.plot_date(data0.last(td).index, data0['Temperature'].last(td).values, linestyle="solid", linewidth=line_width, marker='None', color=plt.rcParams['axes.color_cycle'][0], label=sensor0label)
 				plt.text(data0.index[-1:][0], data0['Temperature'][-1], data0['Temperature'][-1], fontsize=8, horizontalalignment='left', verticalalignment='top', rotation=45, backgroundcolor='w', color=plt.rcParams['axes.color_cycle'][0])
@@ -139,7 +179,6 @@ if (1):
 			if not data7.empty:
 				plt.plot_date(data7.last(td).index, data7['Temperature'].last(td).values, linestyle="solid", linewidth=line_width, marker='None', color=plt.rcParams['axes.color_cycle'][7], label=sensor7label)
 				plt.text(data7.index[-1:][0], data7['Temperature'][-1], data7['Temperature'][-1], fontsize=8, horizontalalignment='left', verticalalignment='top', rotation=45, backgroundcolor='w', color=plt.rcParams['axes.color_cycle'][7])
-			
 			plt.legend(loc=2, ncol=2, fontsize=8).set_visible(True)
 			plt.title('Temperature Plot: Past %s' %td)
 			plt.xlabel('Time')
@@ -149,13 +188,10 @@ if (1):
 			fig.autofmt_xdate()
 			fig.text(0.5, 0.5, '%s Weather Station' %location, fontsize=25, color='gray', ha='center', va='center', alpha=0.35)
 			fig.savefig('/home/pi/Power_Monitoring/output/plot_temp.png', bbox_inches='tight')
-		
 		if press_plot:
 			fig = plt.figure(figsize=(plt_size_x, plt_size_y), dpi=plt_size_dpi)
-
 			plt.style.use(plot_style)
 			plt.rcParams['axes.facecolor']='w'
-
 			if not data0.empty:
 				plt.plot_date(data0.last(td).index, data0['Pressure'].last(td).values, linestyle="solid", linewidth=line_width, marker='None', color=plt.rcParams['axes.color_cycle'][0], label=sensor0label)
 				plt.text(data0.index[-1:][0], data0['Pressure'][-1], data0['Pressure'][-1], fontsize=8, horizontalalignment='left', verticalalignment='top', rotation=45, backgroundcolor='w', color=plt.rcParams['axes.color_cycle'][0])
@@ -187,7 +223,6 @@ if (1):
 			if not data7.empty:
 				plt.plot_date(data7.last(td).index, data7['Pressure'].last(td).values, linestyle="solid", linewidth=line_width, marker='None', color=plt.rcParams['axes.color_cycle'][7], label=sensor7label)
 				plt.text(data7.index[-1:][0], data7['Pressure'][-1], data7['Pressure'][-1], fontsize=8, horizontalalignment='left', verticalalignment='top', rotation=45, backgroundcolor='w', color=plt.rcParams['axes.color_cycle'][7])
-			
 			plt.legend(loc=2, ncol=2, fontsize=8).set_visible(True)
 			plt.title('Pressure Plot: Past %s' %td)
 			plt.xlabel('Time')
@@ -197,13 +232,10 @@ if (1):
 			fig.autofmt_xdate()
 			fig.text(0.5, 0.5, '%s Weather Station' %location, fontsize=25, color='gray', ha='center', va='center', alpha=0.35)
 			fig.savefig('/home/pi/Power_Monitoring/output/plot_press.png', bbox_inches='tight')
-			
 		if humid_plot:
 			fig = plt.figure(figsize=(plt_size_x, plt_size_y), dpi=plt_size_dpi)
-
 			plt.style.use(plot_style)
 			plt.rcParams['axes.facecolor']='w'
-
 			if not data0.empty:
 				plt.plot_date(data0.last(td).index, data0['Humidity'].last(td).values, linestyle="solid", linewidth=line_width, marker='None', color=plt.rcParams['axes.color_cycle'][0], label=sensor0label)
 				plt.text(data0.index[-1:][0], data0['Humidity'][-1], data0['Humidity'][-1], fontsize=8, horizontalalignment='left', verticalalignment='top', rotation=45, backgroundcolor='w', color=plt.rcParams['axes.color_cycle'][0])
@@ -235,7 +267,6 @@ if (1):
 			if not data7.empty:
 				plt.plot_date(data7.last(td).index, data7['Humidity'].last(td).values, linestyle="solid", linewidth=line_width, marker='None', color=plt.rcParams['axes.color_cycle'][7], label=sensor7label)
 				plt.text(data7.index[-1:][0], data7['Humidity'][-1], data7['Humidity'][-1], fontsize=8, horizontalalignment='left', verticalalignment='top', rotation=45, backgroundcolor='w', color=plt.rcParams['axes.color_cycle'][7])
-			
 			plt.legend(loc=2, ncol=2, fontsize=8).set_visible(True)
 			plt.title('Humidity Plot: Past %s' %td)
 			plt.xlabel('Time')
@@ -245,13 +276,10 @@ if (1):
 			fig.autofmt_xdate()
 			fig.text(0.5, 0.5, '%s Weather Station' %location, fontsize=25, color='gray', ha='center', va='center', alpha=0.35)
 			fig.savefig('/home/pi/Power_Monitoring/output/plot_humid.png', bbox_inches='tight')
-		
 		if volt_plot:
 			fig = plt.figure(figsize=(plt_size_x, plt_size_y), dpi=plt_size_dpi)
-
 			plt.style.use(plot_style)
 			plt.rcParams['axes.facecolor']='w'
-
 			if not data0.empty:
 				plt.plot_date(data0.last(td).index, data0['Voltage'].last(td).values, linestyle="solid", linewidth=line_width, marker='None', color=plt.rcParams['axes.color_cycle'][0], label=sensor0label)
 				plt.text(data0.index[-1:][0], data0['Voltage'][-1], data0['Voltage'][-1], fontsize=8, horizontalalignment='left', verticalalignment='top', rotation=45, backgroundcolor='w', color=plt.rcParams['axes.color_cycle'][0])
@@ -283,7 +311,6 @@ if (1):
 			if not data7.empty:
 				plt.plot_date(data7.last(td).index, data7['Voltage'].last(td).values, linestyle="solid", linewidth=line_width, marker='None', color=plt.rcParams['axes.color_cycle'][7], label=sensor7label)
 				plt.text(data7.index[-1:][0], data7['Voltage'][-1], data7['Voltage'][-1], fontsize=8, horizontalalignment='left', verticalalignment='top', rotation=45, backgroundcolor='w', color=plt.rcParams['axes.color_cycle'][7])
-			
 			plt.legend(loc=2, ncol=2, fontsize=8).set_visible(True)
 			plt.title('Voltage Plot: Past %s' %td)
 			plt.xlabel('Time')
@@ -293,13 +320,10 @@ if (1):
 			fig.autofmt_xdate()
 			fig.text(0.5, 0.5, '%s Weather Station' %location, fontsize=25, color='gray', ha='center', va='center', alpha=0.35)
 			fig.savefig('/home/pi/Power_Monitoring/output/plot_volt.png', bbox_inches='tight')
-
 		if rssi_plot:
 			fig = plt.figure(figsize=(plt_size_x, plt_size_y), dpi=plt_size_dpi)
-
 			plt.style.use(plot_style)
 			plt.rcParams['axes.facecolor']='w'
-
 			if not data0.empty:
 				plt.plot_date(data0.last(td).index, data0['RSSI'].last(td).values, linestyle="solid", linewidth=rssi_line_width, marker='None', color=plt.rcParams['axes.color_cycle'][0], label=sensor0label)
 				plt.text(data0.index[-1:][0], data0['RSSI'][-1], data0['RSSI'][-1], fontsize=8, horizontalalignment='left', verticalalignment='top', rotation=45, backgroundcolor='w', color=plt.rcParams['axes.color_cycle'][0])
@@ -331,7 +355,6 @@ if (1):
 			if not data7.empty:
 				plt.plot_date(data7.last(td).index, data7['RSSI'].last(td).values, linestyle="solid", linewidth=rssi_line_width, marker='None', color=plt.rcParams['axes.color_cycle'][7], label=sensor7label)
 				plt.text(data7.index[-1:][0], data7['RSSI'][-1], data7['RSSI'][-1], fontsize=8, horizontalalignment='left', verticalalignment='top', rotation=45, backgroundcolor='w', color=plt.rcParams['axes.color_cycle'][7])
-			
 			plt.legend(loc=2, ncol=2, fontsize=8).set_visible(True)
 			plt.title('RSSI Plot: Past %s' %td)
 			plt.xlabel('Time')
@@ -341,8 +364,7 @@ if (1):
 			fig.autofmt_xdate()
 			fig.text(0.5, 0.5, '%s Weather Station' %location, fontsize=25, color='gray', ha='center', va='center', alpha=0.35)
 			fig.savefig('/home/pi/Power_Monitoring/output/plot_rssi.png', bbox_inches='tight')
-			
 	except Exception:
 		print("MATPLOTLIB ERROR")
 		traceback.print_exc(file=sys.stdout)
-		print('-' * 60) 
+		print('-' * 60)
