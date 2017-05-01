@@ -244,8 +244,8 @@
 		l0,0l0,0c0.3,0,0.5,0,0.8-0.1c0,0,0,0,0.1,0c0.7-0.2,1.4-0.5,2-1.1c0,0,0,0,0-0.1l15.5-15.5c1.6-1.6,1.6-4.1,0-5.7
 		c-1.6-1.6-4.1-1.6-5.7,0l-8.7,8.7V664c0-2.2-1.8-4-4-4s-4,1.8-4,4v27.3l-8.7-8.7c-1.6-1.6-4.1-1.6-5.7,0
 		C398.8,684.2,398.8,686.7,400.4,688.3z"/>
-	<text transform="matrix(1 0 0 1 8 251.4259)" class="st1 st5">Interior Temp (F)</text>
-	<text transform="matrix(1 0 0 1 396 393.426)" class="st1 st5">Guest Room Temp (F)</text>
+	<text transform="matrix(1 0 0 1 8 251.4259)" class="st1 st5">TMP1LABEL (F)</text>
+	<text transform="matrix(1 0 0 1 396 393.426)" class="st1 st5">TMP4LABEL (F)</text>
 	<text transform="matrix(1 0 0 1 396 449.614)" class="st1 st9">TMP4TMP</text>
 	<text transform="matrix(1 0 0 1 396 501.4258)" class="st1 st5">Dew Point (F)</text>
 	<text transform="matrix(1 0 0 1 396 558.6137)" class="st1 st9">DWPNT</text>
@@ -255,7 +255,7 @@
 	<text transform="matrix(1 0 0 1 447.474 706.8477)" class="st1 st10">PRESS</text>
 	<text transform="matrix(1 0 0 1 491.3176 109.5298)" class="st1 st11">FORHI</text>
 	<text transform="matrix(1 0 0 1 491.376 160.6878)" class="st1 st11">FORLO</text>
-	<text transform="matrix(1 0 0 1 8 73.4258)" class="st1 st5">Exterior Temp (F)</text>
+	<text transform="matrix(1 0 0 1 8 73.4258)" class="st1 st5">TMP0LABEL (F)</text>
 	<text transform="matrix(1 0 0 1 8 203.4258)" class="st1 st5">TMP0TIME</text>
 	<text transform="matrix(1 0 0 1 8 229.4258)" class="st1 st12">H:</text>
 	<text transform="matrix(1 0 0 1 38 229.4258)" class="st1 st12">TMP0HI</text>
@@ -266,14 +266,14 @@
 	<text transform="matrix(1 0 0 1 415 478.4258)" class="st1 st6">TMP4HI</text>
 	<text transform="matrix(1 0 0 1 504 478.4258)" class="st1 st6">L:</text>
 	<text transform="matrix(1 0 0 1 517 478.4258)" class="st1 st6">TMP4LO</text>
-	<text transform="matrix(1 0 0 1 396 289.426)" class="st1 st5">Garage Temp (F)</text>
+	<text transform="matrix(1 0 0 1 396 289.426)" class="st1 st5">TMP3LABEL (F)</text>
 	<text transform="matrix(1 0 0 1 396 345.614)" class="st1 st9">TMP3TMP</text>
 	<text transform="matrix(1 0 0 1 400 360.4258)" class="st1 st6">TMP3TIME</text>
 	<text transform="matrix(1 0 0 1 400 374.4258)" class="st1 st6">H:</text>
 	<text transform="matrix(1 0 0 1 415 374.4258)" class="st1 st6">TMP3HI</text>
 	<text transform="matrix(1 0 0 1 504 374.4258)" class="st1 st6">L:</text>
 	<text transform="matrix(1 0 0 1 517 374.4258)" class="st1 st6">TMP3LO</text>
-	<text transform="matrix(1 0 0 1 396 181.426)" class="st1 st5">Master Bed Temp (F)</text>
+	<text transform="matrix(1 0 0 1 396 181.426)" class="st1 st5">TMP2LABEL (F)</text>
 	<text transform="matrix(1 0 0 1 396 86.6287)" class="st1 st5">Forecast</text>
 	<text transform="matrix(1 0 0 1 396 108.2287)" class="st1 st5">High:</text>
 	<text transform="matrix(1 0 0 1 396 131.3976)" class="st1 st5">Forecast</text>
