@@ -101,7 +101,7 @@ with serial.Serial(addr,9600, timeout=300) as pt:
                     os.makedirs('data_log')
                 
                 fname = str(today) + '.log'  # log file to save data in
-                fdirectory = 'data_log/' + time.strftime("%Y-%m")
+                fdirectory = '/home/pi/Power_Monitoring/data_log/' + time.strftime("%Y-%m")
                 fmode = 'a'  # log file mode = append
 
                 if not os.path.exists(fdirectory):
