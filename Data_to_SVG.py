@@ -31,28 +31,30 @@ if os.path.isfile('/home/pi/Power_Monitoring/dover.location'):
 	template_svg_filename = '/home/pi/Power_Monitoring/resources/DOVER_WX_TEMPLATE.svg'
 	
 	tide = False
-	tide_csv = 'https://tidesandcurrents.noaa.gov/noaatidepredictions/NOAATidesFacade.jsp?datatype=Annual+TXT&Stationid=8448376&text=datafiles%252F8448376%252F22092016%252F773%252F&imagename=images%2F8448376%2F22092016%2F773%2F8448376_2016-09-23.gif&bdate=20160922&timelength=daily&timeZone=2&dataUnits=1&interval=&edate=20160923&StationName=Cuttyhunk&Stationid_=8448376&state=MA&primary=Subordinate&datum=MLLW&timeUnits=2&ReferenceStationName=Newport&ReferenceStation=8452660&HeightOffsetLow=*0.93&HeightOffsetHigh=*+0.97&TimeOffsetLow=75&TimeOffsetHigh=80&pageview=dayly&print_download=true&Threshold=&thresholdvalue='
+	tide_begin_date = '20170101'
+	tide_end_date = '20171231'
+	tide_csv = 'https://tidesandcurrents.noaa.gov/api/datagetter?product=predictions&application=NOS.COOPS.TAC.WL&begin_date=%s&end_date=%s&datum=MLLW&station=8448376&time_zone=lst_ldt&units=english&interval=hilo&format=csv' %(tide_begin_date, tide_end_date)
 	
 	wunder_site_forecast_json = 'http://api.wunderground.com/api/1f86b1c989ac268c/forecast/q/ny/carmel.json'
 	wunder_site_astronomy_json = 'http://api.wunderground.com/api/1f86b1c989ac268c/astronomy/q/ny/carmel.json'
 	wunder_site_conditions_json = 'http://api.wunderground.com/api/1f86b1c989ac268c/conditions/q/ny/carmel.json'
 	
-	sensor0      = '09'
-	sensor0label = 'Outside'
-	sensor1      = '08'
-	sensor1label = 'Upstairs'
-	sensor2      = '07'
-	sensor2label = 'MBedroom'
-	sensor3      = '06'
-	sensor3label = 'Garage'
-	sensor4      = '05'
-	sensor4label = 'Guest'
-	sensor5	     = '04'
-	sensor5label = 'Downstairs'
-	sensor6      = '03'
-	sensor6label = 'Laundry'
-	sensor7      = '02'
-	sensor7label = 'Liam'
+	sensor0		= '09'
+	sensor0label	= 'Outside'
+	sensor1		= '08'
+	sensor1label	= 'Upstairs'
+	sensor2		= '07'
+	sensor2label	= 'MBedroom'
+	sensor3		= '06'
+	sensor3label	= 'Garage'
+	sensor4		= '05'
+	sensor4label	= 'Guest'
+	sensor5		= '04'
+	sensor5label	= 'Downstairs'
+	sensor6		= '03'
+	sensor6label	= 'Laundry'
+	sensor7		= '02'
+	sensor7label	= 'Liam'
 	if verbose:
 		print(location)
 	
@@ -60,7 +62,9 @@ elif os.path.isfile('/home/pi/Power_Monitoring/cuttyhunk.location'):
 	location = 'cuttyhunk'
 	
 	tide = True
-	tide_csv = 'https://tidesandcurrents.noaa.gov/noaatidepredictions/NOAATidesFacade.jsp?datatype=Annual+TXT&Stationid=8448376&text=datafiles%252F8448376%252F22092016%252F773%252F&imagename=images%2F8448376%2F22092016%2F773%2F8448376_2016-09-23.gif&bdate=20160922&timelength=daily&timeZone=2&dataUnits=1&interval=&edate=20160923&StationName=Cuttyhunk&Stationid_=8448376&state=MA&primary=Subordinate&datum=MLLW&timeUnits=2&ReferenceStationName=Newport&ReferenceStation=8452660&HeightOffsetLow=*0.93&HeightOffsetHigh=*+0.97&TimeOffsetLow=75&TimeOffsetHigh=80&pageview=dayly&print_download=true&Threshold=&thresholdvalue='
+	tide_begin_date = '20170101'
+	tide_end_date = '20171231'
+	tide_csv = 'https://tidesandcurrents.noaa.gov/api/datagetter?product=predictions&application=NOS.COOPS.TAC.WL&begin_date=%s&end_date=%s&datum=MLLW&station=8448376&time_zone=lst_ldt&units=english&interval=hilo&format=csv' %(tide_begin_date, tide_end_date)
 	
 	template_svg_filename = '/home/pi/Power_Monitoring/resources/CUTTY_WX_TEMPLATE.svg'
 	
@@ -68,16 +72,22 @@ elif os.path.isfile('/home/pi/Power_Monitoring/cuttyhunk.location'):
 	wunder_site_astronomy_json = 'http://api.wunderground.com/api/1f86b1c989ac268c/astronomy/q/ma/cuttyhunk.json'
 	wunder_site_conditions_json = 'http://api.wunderground.com/api/1f86b1c989ac268c/conditions/q/ma/cuttyhunk.json'
 	
-	sensor0      = '00'
-	sensor0label = 'Outside'
-	sensor1      = '01'
-	sensor1label = 'Upstairs'
-	sensor2      = '04'
-	sensor2label = 'Reeds Room'
-	sensor3      = None
-	sensor3label = None
-	sensor4      = None
-	sensor4label = None
+	sensor0		= '94'
+	sensor0label	= 'Outside'
+	sensor1		= '95'
+	sensor1label	= 'Upstairs'
+	sensor2		= '96'
+	sensor2label	= 'Reeds Room'
+	sensor3		= '97'
+	sensor3label	= 'Barn'
+	sensor4		= '98'
+	sensor4label	= 'Barn Upstairs'
+	sensor5		= '99'
+	sensor5label	= 'TEST'
+	sensor6		= None
+	sensor6label	= None
+	sensor7		= None
+	sensor7label	= None
 	if verbose:
 		print(location)
 
@@ -116,17 +126,13 @@ def data_call():
 	today_plus_one = datetime.date.today() + datetime.timedelta(days=1)
 	today_plus_two = datetime.date.today() + datetime.timedelta(days=2)
 	today_plus_three = datetime.date.today() + datetime.timedelta(days=3)
-	
 	if tide:
 		try:
 			global tide_data
-			tides = pd.read_table(tide_csv, sep='\t', skiprows=20, names = ["Date","Day","Time","Feet","NULL1","Metric","NULL2","High/Low"], dtype=str)
-			tides['Datetime'] = pd.to_datetime(tides['Date'] + ' ' + tides['Time'])
+			tides = pd.read_table(tide_csv, sep=',', skiprows=1, names = ["Datetime","Feet","High/Low"], dtype=str)
+			tides['Datetime'] = pd.to_datetime(tides['Datetime'])
 			tides = tides.set_index('Datetime')
-			tides = tides.drop(['Date','Time','Day','NULL1','NULL2','Metric'],1)
 			tides['Feet'] = tides['Feet'].astype(float)
-			#tides['High/Low'] = tides['High/Low'].str.replace('H', 'High')
-			#tides['High/Low'] = tides['High/Low'].str.replace('L', 'Low')
 			tide_data = {'tide_prior_time'	: tides['Feet'][:now.strftime("%Y-%m-%d %H:%M:%S")].index[-1],
 				     'tide_prior_level'	: tides['Feet'][:now.strftime("%Y-%m-%d %H:%M:%S")][-1],
 				     'tide_prior_type'	: tides['High/Low'][:now.strftime("%Y-%m-%d %H:%M:%S")][-1],
@@ -144,7 +150,6 @@ def data_call():
 			print("TIDES ERROR", now.strftime("%Y-%m-%d %H:%M:%S"))
 			traceback.print_exc(file=sys.stdout)
 			print('-' * 60)
-				
 	if weatherdata:
 		try:			
 			global weather_data
@@ -164,15 +169,43 @@ def data_call():
 			print("WEATHER DATA ERROR", now.strftime("%Y-%m-%d %H:%M:%S"))
 			traceback.print_exc(file=sys.stdout)
 			print('-' * 60)
-				
 	if sensordata:
 		try:
 			if verbose:
 				global data, data0, data1, data2, data3, data4, data5, data6, data7
-			data_today = pd.read_csv('/home/pi/Power_Monitoring/data_log/' + today.strftime("%Y-%m") + '/' + str(today) + '.log', names = ["Date", "Time", "Address", "Temperature", "Pressure", "Humidity", "Voltage", "RSSI"], dtype=str)
-			data_yest = pd.read_csv('/home/pi/Power_Monitoring/data_log/' + today_minus_one.strftime("%Y-%m") + '/' + str(today_minus_one) + '.log', names = ["Date", "Time", "Address", "Temperature", "Pressure", "Humidity", "Voltage", "RSSI"], dtype=str)
-			data_2prior = pd.read_csv('/home/pi/Power_Monitoring/data_log/' + today_minus_two.strftime("%Y-%m") + '/' + str(today_minus_two) + '.log', names = ["Date", "Time", "Address", "Temperature", "Pressure", "Humidity", "Voltage", "RSSI"], dtype=str)
-			data = pd.concat([data_2prior, data_yest, data_today])
+			try:
+				data_today = pd.read_csv('/home/pi/Power_Monitoring/data_log/' + today.strftime("%Y-%m") + '/' + str(today) + '.log', names = ["Date", "Time", "Address", "Temperature", "Pressure", "Humidity", "Voltage", "RSSI"], dtype=str)
+				data_today_valid = True
+			except Exception:
+				data_today_valid = False
+				print("NO TODAY LOG FILE", now.strftime("%Y-%m-%d %H:%M:%S"))
+				print('-' * 60)
+			try:
+				data_yest = pd.read_csv('/home/pi/Power_Monitoring/data_log/' + today_minus_one.strftime("%Y-%m") + '/' + str(today_minus_one) + '.log', names = ["Date", "Time", "Address", "Temperature", "Pressure", "Humidity", "Voltage", "RSSI"], dtype=str)
+				data_yest_valid = True
+			except Exception:
+				data_yest_valid = False
+				print("NO YESTERDAY LOG FILE", now.strftime("%Y-%m-%d %H:%M:%S"))
+				print('-' * 60)
+			try:
+				data_2prior = pd.read_csv('/home/pi/Power_Monitoring/data_log/' + today_minus_two.strftime("%Y-%m") + '/' + str(today_minus_two) + '.log', names = ["Date", "Time", "Address", "Temperature", "Pressure", "Humidity", "Voltage", "RSSI"], dtype=str)
+				data_2prior_valid = True
+			except Exception:
+				data_2prior_valid = False
+				print("NO 2DAYPRIOR LOG FILE", now.strftime("%Y-%m-%d %H:%M:%S"))
+				print('-' * 60)
+			if (data_today_valid and data_yest_valid and data_2prior_valid):
+				data = pd.concat([data_2prior, data_yest, data_today])
+				if verbose:
+					print("Logs for today, yesterday and day prior are present")
+			elif (data_today_valid and data_yest_valid):
+				data = pd.concat([data_yest, data_today])
+				if verbose:
+					print("Logs for today and yesterday are present")
+			elif data_today_valid:
+				data = data_today
+				if verbose:
+					print("Log for today only present")
 			data['Datetime'] = pd.to_datetime(data['Date'] + ' ' + data['Time'])
 			data = data.drop(['Date', 'Time'], 1)
 			data = data.set_index('Datetime')
@@ -197,10 +230,9 @@ def data_call():
 			data7 = data.loc[data['Address'] == sensor7]
 			
 		except Exception:
-			print("PANDAS ERROR", now.strftime("%Y-%m-%d %H:%M:%S"))
+			print("Main Data Aggragate PANDAS ERROR", now.strftime("%Y-%m-%d %H:%M:%S"))
 			traceback.print_exc(file=sys.stdout)
 			print('-' * 60)
-	
 	try:
 		if not data0.empty:
 			global data0_global
@@ -223,7 +255,6 @@ def data_call():
 				      'rssi'		: data0['RSSI'][-1:].values,
 				      'rssi_max'	: data0['RSSI'].max(),
 				      'rssi_min'	: data0['RSSI'].min()}
-			
 			if verbose:
 				print sensor0label, "Time of Data Read:\t", data0_global['time']
 				print sensor0label, "Temperature:\t", data0_global['temperature'], "H:", data0_global['temperature_max'], "L:", data0_global['temperature_min']
@@ -234,12 +265,10 @@ def data_call():
 				print sensor0label, "RSSI:\t\t", data0_global['rssi'], "H:", data0_global['rssi_max'], "L:", data0_global['rssi_min']
 		else:
 			data0_global = None
-			
 	except Exception:
 		print("DATA0 ERROR", now.strftime("%Y-%m-%d %H:%M:%S"))
 		traceback.print_exc(file=sys.stdout)
 		print('-' * 60)
-	
 	try:
 		if not data1.empty:
 			global data1_global
@@ -262,7 +291,6 @@ def data_call():
 				      'rssi'		: data1['RSSI'][-1:].values,
 				      'rssi_max'	: data1['RSSI'].max(),
 				      'rssi_min'	: data1['RSSI'].min()}
-			
 			if verbose:
 				print sensor1label, "Time of Data Read:\t", data1_global['time']
 				print sensor1label, "Temperature:\t", data1_global['temperature'], "H:", data1_global['temperature_max'], "L:", data1_global['temperature_min']
@@ -273,12 +301,10 @@ def data_call():
 				print sensor1label, "RSSI:\t\t", data1_global['rssi'], "H:", data1_global['rssi_max'], "L:", data1_global['rssi_min']
 		else:
 			data1_global = None
-			
 	except Exception:
 		print("DATA1 ERROR", now.strftime("%Y-%m-%d %H:%M:%S"))
 		traceback.print_exc(file=sys.stdout)
 		print('-' * 60)
-	
 	try:
 		if not data2.empty:
 			global data2_global
@@ -301,7 +327,6 @@ def data_call():
 				      'rssi'		: data2['RSSI'][-1:].values,
 				      'rssi_max'	: data2['RSSI'].max(),
 				      'rssi_min'	: data2['RSSI'].min()}
-			
 			if verbose:
 				print sensor2label, "Time of Data Read:\t", data2_global['time']
 				print sensor2label, "Temperature:\t", data2_global['temperature'], "H:", data2_global['temperature_max'], "L:", data2_global['temperature_min']
@@ -312,12 +337,10 @@ def data_call():
 				print sensor2label, "RSSI:\t\t", data2_global['rssi'], "H:", data2_global['rssi_max'], "L:", data2_global['rssi_min']
 		else:
 			data2_global = None
-			
 	except Exception:
 		print("DATA2 ERROR", now.strftime("%Y-%m-%d %H:%M:%S"))
 		traceback.print_exc(file=sys.stdout)
 		print('-' * 60)
-	
 	try:
 		if not data3.empty:
 			global data3_global
@@ -340,7 +363,6 @@ def data_call():
 				      'rssi'		: data3['RSSI'][-1:].values,
 				      'rssi_max'	: data3['RSSI'].max(),
 				      'rssi_min'	: data3['RSSI'].min()}
-			
 			if verbose:
 				print sensor3label, "Time of Data Read:\t", data3_global['time']
 				print sensor3label, "Temperature:\t", data3_global['temperature'], "H:", data3_global['temperature_max'], "L:", data3_global['temperature_min']
@@ -351,12 +373,10 @@ def data_call():
 				print sensor3label, "RSSI:\t\t", data3_global['rssi'], "H:", data3_global['rssi_max'], "L:", data3_global['rssi_min']
 		else:
 			data3_global = None
-			
 	except Exception:
 		print("DATA3 ERROR", now.strftime("%Y-%m-%d %H:%M:%S"))
 		traceback.print_exc(file=sys.stdout)
 		print('-' * 60)
-	
 	try:
 		if not data4.empty:
 			global data4_global
@@ -379,7 +399,6 @@ def data_call():
 				      'rssi'		: data4['RSSI'][-1:].values,
 				      'rssi_max'	: data4['RSSI'].max(),
 				      'rssi_min'	: data4['RSSI'].min()}
-			
 			if verbose:
 				print sensor4label, "Time of Data Read:\t", data4_global['time']
 				print sensor4label, "Temperature:\t", data4_global['temperature'], "H:", data4_global['temperature_max'], "L:", data4_global['temperature_min']
@@ -390,12 +409,10 @@ def data_call():
 				print sensor4label, "RSSI:\t\t", data4_global['rssi'], "H:", data4_global['rssi_max'], "L:", data4_global['rssi_min']
 		else:
 			data4_global = None
-			
 	except Exception:
 		print("DATA4 ERROR", now.strftime("%Y-%m-%d %H:%M:%S"))
 		traceback.print_exc(file=sys.stdout)
 		print('-' * 60)
-
 	try:
 		if not data5.empty:
 			global data5_global
@@ -418,7 +435,6 @@ def data_call():
 				      'rssi'		: data5['RSSI'][-1:].values,
 				      'rssi_max'	: data5['RSSI'].max(),
 				      'rssi_min'	: data5['RSSI'].min()}
-			
 			if verbose:
 				print sensor5label, "Time of Data Read:\t", data5_global['time']
 				print sensor5label, "Temperature:\t", data5_global['temperature'], "H:", data5_global['temperature_max'], "L:", data5_global['temperature_min']
@@ -429,12 +445,10 @@ def data_call():
 				print sensor5label, "RSSI:\t\t", data5_global['rssi'], "H:", data5_global['rssi_max'], "L:", data5_global['rssi_min']
 		else:
 			data5_global = None
-			
 	except Exception:
 		print("DATA5 ERROR", now.strftime("%Y-%m-%d %H:%M:%S"))
 		traceback.print_exc(file=sys.stdout)
 		print('-' * 60)
-	
 	try:
 		if not data6.empty:
 			global data6_global
@@ -457,7 +471,6 @@ def data_call():
 				      'rssi'		: data6['RSSI'][-1:].values,
 				      'rssi_max'	: data6['RSSI'].max(),
 				      'rssi_min'	: data6['RSSI'].min()}
-			
 			if verbose:
 				print sensor6label, "Time of Data Read:\t", data6_global['time']
 				print sensor6label, "Temperature:\t", data6_global['temperature'], "H:", data6_global['temperature_max'], "L:", data6_global['temperature_min']
@@ -468,12 +481,10 @@ def data_call():
 				print sensor6label, "RSSI:\t\t", data6_global['rssi'], "H:", data6_global['rssi_max'], "L:", data6_global['rssi_min']
 		else:
 			data6_global = None
-			
 	except Exception:
 		print("DATA6 ERROR", now.strftime("%Y-%m-%d %H:%M:%S"))
 		traceback.print_exc(file=sys.stdout)
 		print('-' * 60)
-		
 	try:
 		if not data7.empty:
 			global data7_global
@@ -496,7 +507,6 @@ def data_call():
 				      'rssi'		: data7['RSSI'][-1:].values,
 				      'rssi_max'	: data7['RSSI'].max(),
 				      'rssi_min'	: data7['RSSI'].min()}
-			
 			if verbose:
 				print sensor7label, "Time of Data Read:\t", data7_global['time']
 				print sensor7label, "Temperature:\t", data7_global['temperature'], "H:", data7_global['temperature_max'], "L:", data7_global['temperature_min']
@@ -507,12 +517,10 @@ def data_call():
 				print sensor7label, "RSSI:\t\t", data7_global['rssi'], "H:", data7_global['rssi_max'], "L:", data7_global['rssi_min']
 		else:
 			data7_global = None
-			
 	except Exception:
 		print("DATA7 ERROR", now.strftime("%Y-%m-%d %H:%M:%S"))
 		traceback.print_exc(file=sys.stdout)
 		print('-' * 60)
-	
 	try:
 		txt_output()
 	except Exception:
@@ -633,7 +641,6 @@ def svg_update():
 		print("BATTERY TO SVG ERROR", now.strftime("%Y-%m-%d %H:%M:%S"))
 		traceback.print_exc(file=sys.stdout)
 		print('-' * 60)
-	
 	try:
 		tree = etree.parse(open('/home/pi/Power_Monitoring/output/weather-script-output.svg', 'r'))
 		if weather_data['pressure_trend'] in ['+']:
@@ -647,7 +654,6 @@ def svg_update():
 						element.attrib['class'] = 'st3'
 			if verbose:
 				print "Pressure Up"
-		
 		elif weather_data['pressure_trend'] in ['0']:
 			for element in tree.iter():
 				if element.tag.split("}")[1] == "path":
@@ -659,7 +665,6 @@ def svg_update():
 						element.attrib['class'] = 'st3'
 			if verbose:
 				print "Pressure Neutral"
-		
 		elif weather_data['pressure_trend'] in ['-']:
 			for element in tree.iter():
 				if element.tag.split("}")[1] == "path":
@@ -671,14 +676,11 @@ def svg_update():
 						element.attrib['class'] = ''
 			if verbose:
 				print "Pressure Down"
-		
 		tree.write('/home/pi/Power_Monitoring/output/weather-script-output.svg')
-	
 	except Exception:
 		print("PRESSURE TO SVG ERROR", now.strftime("%Y-%m-%d %H:%M:%S"))
 		traceback.print_exc(file=sys.stdout)
 		print('-' * 60)
-	
 	try:
 		tree = etree.parse(open('/home/pi/Power_Monitoring/output/weather-script-output.svg', 'r'))
 		if weather_data['wind_direction'] in ['NNW', 'N', 'NNE', 'North']:
@@ -850,7 +852,6 @@ def svg_update():
 						if verbose:
 							print weather_data['wind_direction'], "NORTH WEST"
 		tree.write('/home/pi/Power_Monitoring/output/weather-script-output.svg')
-		
 	except Exception:
 		print("WIND_DIR TO SVG ERROR", now.strftime("%Y-%m-%d %H:%M:%S"))
 		traceback.print_exc(file=sys.stdout)
@@ -954,12 +955,10 @@ def svg_update():
 			output = output.replace('TDFTM', str(tide_data['tide_after_time'].strftime('%H:%M')))
 			output = output.replace('TDFLV', str(tide_data['tide_after_level']))
 		codecs.open('/home/pi/Power_Monitoring/output/weather-script-output.svg', 'w', encoding='utf-8').write(output)
-		
 	except Exception:
 		print("CODECS TO SVG ERROR", now.strftime("%Y-%m-%d %H:%M:%S"))
 		traceback.print_exc(file=sys.stdout)
 		print('-' * 60)
-		
 
 def txt_output():
 	try:
@@ -1049,7 +1048,6 @@ if(1):
 	scheduler.add_job(hourly_wunder_update, 'cron', hour='*/1')
 	scheduler.add_job(svg_update, 'interval', seconds=5)
 	scheduler.add_job(data_call, 'interval', seconds=30)
-	
 	try:
 		time.sleep(5)
 		daily_wunder_update()
