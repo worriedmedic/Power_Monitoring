@@ -27,12 +27,14 @@ for arg in sys.argv:
 
 if os.path.isfile('/home/pi/Power_Monitoring/dover.location'):
 	location = 'dover'
+	today_minus_one = datetime.date.today() + datetime.timedelta(days=-1)
+	today_plus_one = datetime.date.today() + datetime.timedelta(days=1)
 	
 	template_svg_filename = '/home/pi/Power_Monitoring/resources/DOVER_WX_TEMPLATE.svg'
 	
 	tide = False
-	tide_begin_date = '20170101'
-	tide_end_date = '20171231'
+	tide_begin_date = today_minus_one.strftime('%Y%m%d')
+	tide_end_date = today_plus_one.strftime('%Y%m%d')
 	tide_csv = 'https://tidesandcurrents.noaa.gov/api/datagetter?product=predictions&application=NOS.COOPS.TAC.WL&begin_date=%s&end_date=%s&datum=MLLW&station=8448376&time_zone=lst_ldt&units=english&interval=hilo&format=csv' %(tide_begin_date, tide_end_date)
 	
 	wunder_site_forecast_json = 'http://api.wunderground.com/api/1f86b1c989ac268c/forecast/q/ny/carmel.json'
@@ -60,10 +62,12 @@ if os.path.isfile('/home/pi/Power_Monitoring/dover.location'):
 	
 elif os.path.isfile('/home/pi/Power_Monitoring/cuttyhunk.location'):
 	location = 'cuttyhunk'
+	today_minus_one = datetime.date.today() + datetime.timedelta(days=-1)
+	today_plus_one = datetime.date.today() + datetime.timedelta(days=1)
 	
 	tide = True
-	tide_begin_date = '20170101'
-	tide_end_date = '20171231'
+	tide_begin_date = today_minus_one.strftime('%Y%m%d')
+	tide_end_date = today_plus_one.strftime('%Y%m%d')
 	tide_csv = 'https://tidesandcurrents.noaa.gov/api/datagetter?product=predictions&application=NOS.COOPS.TAC.WL&begin_date=%s&end_date=%s&datum=MLLW&station=8448376&time_zone=lst_ldt&units=english&interval=hilo&format=csv' %(tide_begin_date, tide_end_date)
 	
 	template_svg_filename = '/home/pi/Power_Monitoring/resources/CUTTY_WX_TEMPLATE.svg'
