@@ -867,6 +867,11 @@ def svg_update():
 		output = output.replace('WSP', str(weather_data['wind_mph']))
 		output = output.replace('WGUS', str(weather_data['wind_gust']))
 		output = output.replace('WDIRECT', str(weather_data['wind_direction']))
+		output = output.replace('TMP0LABEL', sensor0label)
+		output = output.replace('TMP1LABEL', sensor1label)
+		output = output.replace('TMP2LABEL', sensor2label)
+		output = output.replace('TMP3LABEL', sensor3label)
+		output = output.replace('TMP4LABEL', sensor4label)
 		if location is 'cuttyhunk':
 			if data0_global:
 				if data0_global['temperature'] >= 100:
