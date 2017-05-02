@@ -98,8 +98,8 @@ with serial.Serial(addr,9600, timeout=300) as pt:
                 	fname = str(today) + '.log'  # log file to save data in
                 	fdirectory = '/home/pi/Power_Monitoring/data_log/' + time.strftime("%Y-%m")
                 	fmode = 'a'  # log file mode = append
-                		if not os.path.exists(fdirectory):
-                    	os.makedirs(fdirectory)
+                	if not os.path.exists(fdirectory):
+                    		os.makedirs(fdirectory)
                 	outf = open(os.path.join(fdirectory, fname), fmode)
                 	outf.write(x)  # write line of text to file
                 	outf.flush()  # make sure it actually gets written out
