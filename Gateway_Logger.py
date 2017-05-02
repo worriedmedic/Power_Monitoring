@@ -15,6 +15,7 @@ baud                = 9600   # baud rate for serial port
 emoncms_update      = True # Turn on/off updating to Emoncms
 txt_logging         = True # Enable/Disable logging to TXT file
 verbose             = False
+thingspeak_update   = True
 req_timeout         = 5
 
 for arg in sys.argv:
@@ -121,3 +122,224 @@ with serial.Serial(addr,9600, timeout=300) as pt:
 				print("EMONCMS GENERAL ERROR", today, now, buffer)
 				traceback.print_exc(file=sys.stdout)
 				print('-' * 60)
+		if thingspeak_update:
+			if addr == '00':
+				try:
+					api_key = 'TFGVV0YYM18ALONJ'		
+					temp_payload = {'api_key': api_key, 'field1': addr, 'field2': temp, 'field3': press, 'field4': humid, 'field5': dew, 'field6': volt, 'field7': rssi}		
+					r = requests.post(url, data=temp_payload, timeout=req_timeout)		
+					if verbose:		
+						print(r.text)		
+						if r.text == "0":		
+							print("Thingspeak Update FAILED")		
+						else:		
+							print("Thingspeak Update OK")		
+				except requests.exceptions.Timeout:		
+					print("REQUESTS TIMEOUT ERROR", today, now, buffer)		
+					print('-' * 60)		
+				except requests.exceptions.RequestException:		
+					print("THINGSPEAK REQUESTS ERROR", today, now, buffer)		
+					traceback.print_exc(file=sys.stdout)		
+					print('-' * 60)		
+				except Exception:		
+					print("THINGSPEAK GENERAL ERROR", today, now, buffer)		
+					traceback.print_exc(file=sys.stdout)		
+					print('-' * 60)
+			elif addr == '01':
+				try:
+					api_key = 'ARPQ7GWOHTQSYWYW'		
+					temp_payload = {'api_key': api_key, 'field1': addr, 'field2': temp, 'field3': press, 'field4': humid, 'field5': dew, 'field6': volt, 'field7': rssi}		
+					r = requests.post(url, data=temp_payload, timeout=req_timeout)		
+					if verbose:		
+						print(r.text)		
+						if r.text == "0":		
+							print("Thingspeak Update FAILED")		
+						else:		
+							print("Thingspeak Update OK")		
+				except requests.exceptions.Timeout:		
+					print("REQUESTS TIMEOUT ERROR", today, now, buffer)		
+					print('-' * 60)		
+				except requests.exceptions.RequestException:		
+					print("THINGSPEAK REQUESTS ERROR", today, now, buffer)		
+					traceback.print_exc(file=sys.stdout)		
+					print('-' * 60)		
+				except Exception:		
+					print("THINGSPEAK GENERAL ERROR", today, now, buffer)		
+					traceback.print_exc(file=sys.stdout)		
+					print('-' * 60)
+			elif addr == '02':
+				try:
+					api_key = 'GVWSJ8V12MIPJBLY'		
+					temp_payload = {'api_key': api_key, 'field1': addr, 'field2': temp, 'field3': press, 'field4': humid, 'field5': dew, 'field6': volt, 'field7': rssi}		
+					r = requests.post(url, data=temp_payload, timeout=req_timeout)		
+					if verbose:		
+						print(r.text)		
+						if r.text == "0":		
+							print("Thingspeak Update FAILED")		
+						else:		
+							print("Thingspeak Update OK")		
+				except requests.exceptions.Timeout:		
+					print("REQUESTS TIMEOUT ERROR", today, now, buffer)		
+					print('-' * 60)		
+				except requests.exceptions.RequestException:		
+					print("THINGSPEAK REQUESTS ERROR", today, now, buffer)		
+					traceback.print_exc(file=sys.stdout)		
+					print('-' * 60)		
+				except Exception:		
+					print("THINGSPEAK GENERAL ERROR", today, now, buffer)		
+					traceback.print_exc(file=sys.stdout)		
+					print('-' * 60)
+			elif addr == '03':
+				try:
+					api_key = 'DOXY1Q9I6C6I88DA'		
+					temp_payload = {'api_key': api_key, 'field1': addr, 'field2': temp, 'field3': press, 'field4': humid, 'field5': dew, 'field6': volt, 'field7': rssi}		
+					r = requests.post(url, data=temp_payload, timeout=req_timeout)		
+					if verbose:		
+						print(r.text)		
+						if r.text == "0":		
+							print("Thingspeak Update FAILED")		
+						else:		
+							print("Thingspeak Update OK")		
+				except requests.exceptions.Timeout:		
+					print("REQUESTS TIMEOUT ERROR", today, now, buffer)		
+					print('-' * 60)		
+				except requests.exceptions.RequestException:		
+					print("THINGSPEAK REQUESTS ERROR", today, now, buffer)		
+					traceback.print_exc(file=sys.stdout)		
+					print('-' * 60)		
+				except Exception:		
+					print("THINGSPEAK GENERAL ERROR", today, now, buffer)		
+					traceback.print_exc(file=sys.stdout)		
+					print('-' * 60)
+			elif addr == '04':
+				try:
+					api_key = 'MJEV3AA82GKVMP4V'		
+					temp_payload = {'api_key': api_key, 'field1': addr, 'field2': temp, 'field3': press, 'field4': humid, 'field5': dew, 'field6': volt, 'field7': rssi}		
+					r = requests.post(url, data=temp_payload, timeout=req_timeout)		
+					if verbose:		
+						print(r.text)		
+						if r.text == "0":		
+							print("Thingspeak Update FAILED")		
+						else:		
+							print("Thingspeak Update OK")		
+				except requests.exceptions.Timeout:		
+					print("REQUESTS TIMEOUT ERROR", today, now, buffer)		
+					print('-' * 60)		
+				except requests.exceptions.RequestException:		
+					print("THINGSPEAK REQUESTS ERROR", today, now, buffer)		
+					traceback.print_exc(file=sys.stdout)		
+					print('-' * 60)		
+				except Exception:		
+					print("THINGSPEAK GENERAL ERROR", today, now, buffer)		
+					traceback.print_exc(file=sys.stdout)		
+					print('-' * 60)
+			elif addr == '05':
+				try:
+					api_key = '89NM6222ST0UW15H'		
+					temp_payload = {'api_key': api_key, 'field1': addr, 'field2': temp, 'field3': press, 'field4': humid, 'field5': dew, 'field6': volt, 'field7': rssi}		
+					r = requests.post(url, data=temp_payload, timeout=req_timeout)		
+					if verbose:		
+						print(r.text)		
+						if r.text == "0":		
+							print("Thingspeak Update FAILED")		
+						else:		
+							print("Thingspeak Update OK")		
+				except requests.exceptions.Timeout:		
+					print("REQUESTS TIMEOUT ERROR", today, now, buffer)		
+					print('-' * 60)		
+				except requests.exceptions.RequestException:		
+					print("THINGSPEAK REQUESTS ERROR", today, now, buffer)		
+					traceback.print_exc(file=sys.stdout)		
+					print('-' * 60)		
+				except Exception:		
+					print("THINGSPEAK GENERAL ERROR", today, now, buffer)		
+					traceback.print_exc(file=sys.stdout)		
+					print('-' * 60)
+			elif addr == '06':
+				try:
+					api_key = 'LZAFORDCZ4UT75GU'		
+					temp_payload = {'api_key': api_key, 'field1': addr, 'field2': temp, 'field3': press, 'field4': humid, 'field5': dew, 'field6': volt, 'field7': rssi}		
+					r = requests.post(url, data=temp_payload, timeout=req_timeout)		
+					if verbose:		
+						print(r.text)		
+						if r.text == "0":		
+							print("Thingspeak Update FAILED")		
+						else:		
+							print("Thingspeak Update OK")		
+				except requests.exceptions.Timeout:		
+					print("REQUESTS TIMEOUT ERROR", today, now, buffer)		
+					print('-' * 60)		
+				except requests.exceptions.RequestException:		
+					print("THINGSPEAK REQUESTS ERROR", today, now, buffer)		
+					traceback.print_exc(file=sys.stdout)		
+					print('-' * 60)		
+				except Exception:		
+					print("THINGSPEAK GENERAL ERROR", today, now, buffer)		
+					traceback.print_exc(file=sys.stdout)		
+					print('-' * 60)
+			elif addr == '07':
+				try:
+					api_key = 'NQQZE8CL8ZC445DN'		
+					temp_payload = {'api_key': api_key, 'field1': addr, 'field2': temp, 'field3': press, 'field4': humid, 'field5': dew, 'field6': volt, 'field7': rssi}		
+					r = requests.post(url, data=temp_payload, timeout=req_timeout)		
+					if verbose:		
+						print(r.text)		
+						if r.text == "0":		
+							print("Thingspeak Update FAILED")		
+						else:		
+							print("Thingspeak Update OK")		
+				except requests.exceptions.Timeout:		
+					print("REQUESTS TIMEOUT ERROR", today, now, buffer)		
+					print('-' * 60)		
+				except requests.exceptions.RequestException:		
+					print("THINGSPEAK REQUESTS ERROR", today, now, buffer)		
+					traceback.print_exc(file=sys.stdout)		
+					print('-' * 60)		
+				except Exception:		
+					print("THINGSPEAK GENERAL ERROR", today, now, buffer)		
+					traceback.print_exc(file=sys.stdout)		
+					print('-' * 60)
+			elif addr == '08':
+				try:
+					api_key = '8SHTGBFETA4XVN5P'		
+					temp_payload = {'api_key': api_key, 'field1': addr, 'field2': temp, 'field3': press, 'field4': humid, 'field5': dew, 'field6': volt, 'field7': rssi}		
+					r = requests.post(url, data=temp_payload, timeout=req_timeout)		
+					if verbose:		
+						print(r.text)		
+						if r.text == "0":		
+							print("Thingspeak Update FAILED")		
+						else:		
+							print("Thingspeak Update OK")		
+				except requests.exceptions.Timeout:		
+					print("REQUESTS TIMEOUT ERROR", today, now, buffer)		
+					print('-' * 60)		
+				except requests.exceptions.RequestException:		
+					print("THINGSPEAK REQUESTS ERROR", today, now, buffer)		
+					traceback.print_exc(file=sys.stdout)		
+					print('-' * 60)		
+				except Exception:		
+					print("THINGSPEAK GENERAL ERROR", today, now, buffer)		
+					traceback.print_exc(file=sys.stdout)		
+					print('-' * 60)
+			elif addr == '09':
+				try:
+					api_key = 'TUFQWU8SA1HL1B4O'		
+					temp_payload = {'api_key': api_key, 'field1': addr, 'field2': temp, 'field3': press, 'field4': humid, 'field5': dew, 'field6': volt, 'field7': rssi}		
+					r = requests.post(url, data=temp_payload, timeout=req_timeout)		
+					if verbose:		
+						print(r.text)		
+						if r.text == "0":		
+							print("Thingspeak Update FAILED")		
+						else:		
+							print("Thingspeak Update OK")		
+				except requests.exceptions.Timeout:		
+					print("REQUESTS TIMEOUT ERROR", today, now, buffer)		
+					print('-' * 60)		
+				except requests.exceptions.RequestException:		
+					print("THINGSPEAK REQUESTS ERROR", today, now, buffer)		
+					traceback.print_exc(file=sys.stdout)		
+					print('-' * 60)		
+				except Exception:		
+					print("THINGSPEAK GENERAL ERROR", today, now, buffer)		
+					traceback.print_exc(file=sys.stdout)		
+					print('-' * 60)
