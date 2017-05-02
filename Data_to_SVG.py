@@ -144,7 +144,7 @@ def data_call():
 				     'tide_next_time'	: tides['Feet'][now.strftime("%Y-%m-%d %H:%M:%S"):].index[0],
 				     'tide_next_level'	: tides['Feet'][now.strftime("%Y-%m-%d %H:%M:%S"):][0],
 				     'tide_next_type'	: tides['High/Low'][now.strftime("%Y-%m-%d %H:%M:%S"):][0],
-				     'tide_next_count'  : tide_data['tide_next_time'] - now
+				     'tide_next_count'  : tide_data['tide_next_time'] - now,
 				     'tide_after_time'	: tides['Feet'][now.strftime("%Y-%m-%d %H:%M:%S"):].index[1],
 				     'tide_after_level'	: tides['Feet'][now.strftime("%Y-%m-%d %H:%M:%S"):][1],
 				     'tide_after_type'	: tides['High/Low'][now.strftime("%Y-%m-%d %H:%M:%S"):][1],
