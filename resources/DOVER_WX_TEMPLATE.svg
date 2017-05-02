@@ -311,8 +311,8 @@
 		c-0.658-0.439-1.532-0.66-2.299-0.66c0,0,0,0-0.111,0h-24.012c-2.412,0-4.387,1.975-4.387,4.386c0,2.413,1.975,4.39,4.387,4.39
 		h13.486l-21.163,21.159c-1.753,1.756-1.753,4.494,0,6.25c1.756,1.756,4.496,1.756,6.249,0l21.164-21.161v13.485
 		c0,2.411,1.973,4.386,4.387,4.386C306.885,537.293,308.861,535.319,308.861,532.907z"/>
-	<text transform="matrix(1 0 0 1 188.6909 611.8887)" font-family="'ArialMT'" font-size="85.524">WSP</text>
-	<text transform="matrix(1 0 0 1 188.6909 688.6562)" font-family="'ArialMT'" font-size="85.524">WGUS</text>
+	<text transform="matrix(1 0 0 1 188.6909 611.8887)" font-family="'ArialMT'" font-size="85.524" text-anchor="middle">WSP</text>
+	<text transform="matrix(1 0 0 1 188.6909 688.6562)" font-family="'ArialMT'" font-size="85.524" text-anchor="middle">WGUS</text>
 	<text transform="matrix(1 0 0 1 149.0122 541.8838)" font-family="'ArialMT'" font-size="19.7363">Wind (mph)</text>
 	<text transform="matrix(1 0 0 1 150.314 707.8525)" font-family="'ArialMT'" font-size="19.7363">Gust (mph)</text>
 	<text transform="matrix(1 0 0 1 34.0073 625.5752)" font-family="'ArialMT'" font-size="15.3505">W</text>
