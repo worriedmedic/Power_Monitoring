@@ -48,7 +48,7 @@ with serial.Serial(addr,9600, timeout=300) as pt:
         	spb = io.TextIOWrapper(io.BufferedRWPair(pt,pt,1), encoding='utf8', errors='strict',line_buffering=True)
         	spb.readline()
         	spb.readline()
-        	spb.readline()
+        	#spb.readline()
     	except Exception:
         	print("SERIAL READ ERROR")
         	traceback.print_exc(file=sys.stdout)
