@@ -44,7 +44,7 @@ elif os.path.isfile('/home/pi/Power_Monitoring/cuttyhunk.location'):
 
 with serial.Serial(addr,9600, timeout=300) as pt:
     	try:
-		spb = io.TextIOWrapper(io.BufferedRWPair(pt,pt,1), errors='strict',line_buffering=True)
+		spb = io.TextIOWrapper(io.BufferedRWPair(pt,pt,1), encoding='utf8', errors='strict',line_buffering=True)
 		spb.readline()
 		spb.readline()
 		spb.readline()
