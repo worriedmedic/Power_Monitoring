@@ -140,15 +140,15 @@ def data_call():
 			tide_data = {'tide_prior_time'	: tides['Feet'][:now.strftime("%Y-%m-%d %H:%M:%S")].index[-1],
 				     'tide_prior_level'	: tides['Feet'][:now.strftime("%Y-%m-%d %H:%M:%S")][-1],
 				     'tide_prior_type'	: tides['High/Low'][:now.strftime("%Y-%m-%d %H:%M:%S")][-1],
-				     'tide_prior_count' : now - tide_data['tide_prior_time'],
+				     'tide_prior_count' : now - tides['Feet'][:now.strftime("%Y-%m-%d %H:%M:%S")].index[-1],
 				     'tide_next_time'	: tides['Feet'][now.strftime("%Y-%m-%d %H:%M:%S"):].index[0],
 				     'tide_next_level'	: tides['Feet'][now.strftime("%Y-%m-%d %H:%M:%S"):][0],
 				     'tide_next_type'	: tides['High/Low'][now.strftime("%Y-%m-%d %H:%M:%S"):][0],
-				     'tide_next_count'  : tide_data['tide_next_time'] - now,
+				     'tide_next_count'  : tides['Feet'][now.strftime("%Y-%m-%d %H:%M:%S"):].index[0] - now,
 				     'tide_after_time'	: tides['Feet'][now.strftime("%Y-%m-%d %H:%M:%S"):].index[1],
 				     'tide_after_level'	: tides['Feet'][now.strftime("%Y-%m-%d %H:%M:%S"):][1],
 				     'tide_after_type'	: tides['High/Low'][now.strftime("%Y-%m-%d %H:%M:%S"):][1],
-				     'tide_after_count' : tide_data['tide_after_time'] - now}
+				     'tide_after_count' : tides['Feet'][now.strftime("%Y-%m-%d %H:%M:%S"):].index[1] - now}
 			if verbose:
 				print "Previous Tide:", tide_data['tide_prior_time'], tide_data['tide_prior_level'], tide_data['tide_prior_count']
 				print "Next Tide:", tide_data['tide_next_time'], tide_data['tide_next_level'], tide_data['tide_next_count']
