@@ -150,9 +150,9 @@ def data_call():
 				     'tide_after_type'	: tides['High/Low'][now.strftime("%Y-%m-%d %H:%M:%S"):][1],
 				     'tide_after_count' : tides['Feet'][now.strftime("%Y-%m-%d %H:%M:%S"):].index[1] - now}
 			if verbose:
-				print "Previous Tide:", tide_data['tide_prior_time'], tide_data['tide_prior_level'], tide_data['tide_prior_count'].strftime('%H:%M')
-				print "Next Tide:", tide_data['tide_next_time'], tide_data['tide_next_level'], tide_data['tide_next_count'].strftime('%H:%M')
-				print "Following Tide:", tide_data['tide_after_time'], tide_data['tide_after_level'], tide_data['tide_after_count'].strftime('%H:%M')
+				print "Previous Tide:", tide_data['tide_prior_time'], tide_data['tide_prior_level'], str(tide_data['tide_prior_count'])[:7]
+				print "Next Tide:", tide_data['tide_next_time'], tide_data['tide_next_level'], str(tide_data['tide_next_count'])[:7]
+				print "Following Tide:", tide_data['tide_after_time'], tide_data['tide_after_level'], str(tide_data['tide_after_count'])[:7]
 		except Exception:
 			print("TIDES ERROR", now.strftime("%Y-%m-%d %H:%M:%S"))
 			traceback.print_exc(file=sys.stdout)
@@ -988,15 +988,15 @@ def svg_update():
 			output = output.replace('TDLSTM', str(tide_data['tide_prior_time'].strftime('%H:%M')))
 			output = output.replace('TDLSHGT', str(tide_data['tide_prior_level']))
 			output = output.replace('TDLSTYP', str(tide_data['tide_prior_type']))
-			output = output.replace('TDLSCNT', str(tide_data['tide_prior_count'].strftime('%H:%M')))
+			output = output.replace('TDLSCNT', str(tide_data['tide_prior_count'])[:4])
 			output = output.replace('TDNXTM', str(tide_data['tide_next_time'].strftime('%H:%M')))
 			output = output.replace('TDNXHGT', str(tide_data['tide_next_level']))
 			output = output.replace('TDNXTYP', str(tide_data['tide_next_type']))
-			output = output.replace('TDNXCNT', str(tide_data['tide_next_count'].strftime('%H:%M')))
+			output = output.replace('TDNXCNT', str(tide_data['tide_next_count'])[:4])
 			output = output.replace('TDAFTM', str(tide_data['tide_after_time'].strftime('%H:%M')))
 			output = output.replace('TDAFHGT', str(tide_data['tide_after_level']))
 			output = output.replace('TDAFTYP', str(tide_data['tide_after_type']))
-			output = output.replace('TDAFCNT', str(tide_data['tide_after_count'].strftime('%H:%M')))
+			output = output.replace('TDAFCNT', str(tide_data['tide_after_count'])[:4])
 		codecs.open('/home/pi/Power_Monitoring/output/weather-script-output.svg', 'w', encoding='utf-8').write(output)
 	except Exception:
 		print("CODECS TO SVG ERROR", now.strftime("%Y-%m-%d %H:%M:%S"))
