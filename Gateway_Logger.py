@@ -37,106 +37,97 @@ for arg in sys.argv:
 		print("Options:  [-e EMONCMS UPDATING ON (default)] [-l LOGGING TO FILE (default)]")
 		print("[-t THINGSPEAK UPDATING ON (default)] [-v VERBOSE] [-h HELP]")
 		sys.exit()
-	
+
 if os.path.isfile('/home/pi/Power_Monitoring/dover.location'):
-    addr = '/dev/ttyUSB0'
+    	addr = '/dev/ttyUSB0'
 elif os.path.isfile('/home/pi/Power_Monitoring/cuttyhunk.location'):
-    addr = '/dev/ttyACM0'
+    	addr = '/dev/ttyUSB0'
 
 with serial.Serial(addr,9600, timeout=300) as pt:
-    try:
-        spb = io.TextIOWrapper(io.BufferedRWPair(pt,pt,1), encoding='ascii', errors='strict',line_buffering=True)
-        spb.readline()
-        spb.readline()
-        spb.readline()
-    except Exception:
-        print("SERIAL READ ERROR")
-        traceback.print_exc(file=sys.stdout)
-        print('-' * 60)
-
-    while (1):
-        now = time.strftime("%H:%M:%S") # Call time of serial read
-        today = datetime.date.today() # Call date of serial read
-
+    	try:
+        	spb = io.TextIOWrapper(io.BufferedRWPair(pt,pt,1), encoding='utf8', errors='strict',line_buffering=True)
+        	spb.readline()
+        	spb.readline()
+        	spb.readline()
+    	except Exception:
+        	print("SERIAL READ ERROR")
+        	traceback.print_exc(file=sys.stdout)
+        	print('-' * 60)
+    	while (1):
+        	now = time.strftime("%H:%M:%S") # Call time of serial read
+        	today = datetime.date.today() # Call date of serial read
         try:
-            buffer = spb.readline()  # read one line of text from serial port
-            buffer = buffer.strip("\n")
+            	buffer = spb.readline()  # read one line of text from serial port
+            	buffer = buffer.strip("\n")
 	except Exception:
-            print("SERIAL READ ERROR", today, now)
-            traceback.print_exc(file=sys.stdout)
-            print('-' * 60)
+            	print("SERIAL READ ERROR", today, now)
+            	traceback.print_exc(file=sys.stdout)
+            	print('-' * 60)
 
         x = str(today) + ',' + str(now) + ',' + str(buffer) + '\n'
 
         if verbose:
-            print (x,end='')    # echo line of text on-screen
+		print (x,end='')    # echo line of text on-screen
 
         try:
-            addr  = buffer[0:2]
+		addr  = buffer[0:2]
         except Exception:
-            print("ADDRESS ERROR", today, now, buffer)
-            traceback.print_exc(file=sys.stdout)
-            print('-' * 60)
+            	print("ADDRESS ERROR", today, now, buffer)
+            	traceback.print_exc(file=sys.stdout)
+          	print('-' * 60)
 
 
         if addr[0].isdigit():
-            try:
-                buffer.split(',')
-                temp = buffer.split(',')[1].strip('T')
-                press = buffer.split(',')[2].strip('P')
-                humid = buffer.split(',')[3].strip('H')
-                volt = buffer.split(',')[4].strip('V')
-                rssi = buffer.split(',')[5]
-                
-                dew = float(temp) - (0.36 * (100 - float(humid))) ##FROM DATA PROCESSING PYTHON SCRIPT
-                
-            except Exception:
-                print("DATA SPLIT ERROR", today, now, buffer)
-                traceback.print_exc(file=sys.stdout)
-                print('-' * 60)
+            	try:
+                	buffer.split(',')
+                	temp = buffer.split(',')[1].strip('T')
+                	press = buffer.split(',')[2].strip('P')
+                	humid = buffer.split(',')[3].strip('H')
+                	volt = buffer.split(',')[4].strip('V')
+                	rssi = buffer.split(',')[5]
+                	dew = float(temp) - (0.36 * (100 - float(humid))) ##FROM DATA PROCESSING PYTHON SCRIPT
+            	except Exception:
+                	print("DATA SPLIT ERROR", today, now, buffer)
+                	traceback.print_exc(file=sys.stdout)
+                	print('-' * 60)
 
         if txt_logging:
-            try:
-                if not os.path.exists('data_log'):
-                    os.makedirs('data_log')
-                
-                fname = str(today) + '.log'  # log file to save data in
-                fdirectory = '/home/pi/Power_Monitoring/data_log/' + time.strftime("%Y-%m")
-                fmode = 'a'  # log file mode = append
-
-                if not os.path.exists(fdirectory):
-                    os.makedirs(fdirectory)
-
-                outf = open(os.path.join(fdirectory, fname), fmode)
-                outf.write(x)  # write line of text to file
-                outf.flush()  # make sure it actually gets written out
-            except Exception:
-                print("DATA LOG ERROR", today, now, buffer)
-                traceback.print_exc(file=sys.stdout)
-                print('-' * 60)
-
+            	try:
+                	if not os.path.exists('data_log'):
+                    		os.makedirs('data_log')
+                	fname = str(today) + '.log'  # log file to save data in
+                	fdirectory = '/home/pi/Power_Monitoring/data_log/' + time.strftime("%Y-%m")
+                	fmode = 'a'  # log file mode = append
+                		if not os.path.exists(fdirectory):
+                    	os.makedirs(fdirectory)
+                	outf = open(os.path.join(fdirectory, fname), fmode)
+                	outf.write(x)  # write line of text to file
+                	outf.flush()  # make sure it actually gets written out
+            	except Exception:
+                	print("DATA LOG ERROR", today, now, buffer)
+                	traceback.print_exc(file=sys.stdout)
+                	print('-' * 60)
         if emoncms_update:
-            try:
-                url = 'https://emoncms.org/input/post.json?node=%s&json={T:%s,P:%s,H:%s,V:%s,R:%s,D:%s}&apikey=4e6eff5d047580696f0e2a7ae9323983' % (addr, temp, press, humid, volt, rssi, dew)
-                r = requests.post(url, timeout=req_timeout)
-                if verbose:
-                    print(r.text)
-                    if "ok" in r:
-                        print("EMONCMS Update OK")
-                    else:
-                        print("EMCONMS Update FAILED")
-                        
-            except requests.exceptions.Timeout:
-            	print("REQUESTS TIMEOUT ERROR", today, now, buffer)
-            	print('-' * 60)
-            except requests.exceptions.RequestException:
-                print("EMONCMS REQUESTS ERROR", today, now, buffer)
-                traceback.print_exc(file=sys.stdout)
-                print('-' * 60)
-            except Exception:
-                print("EMONCMS GENERAL ERROR", today, now, buffer)
-                traceback.print_exc(file=sys.stdout)
-                print('-' * 60)
+            	try:
+                	url = 'https://emoncms.org/input/post.json?node=%s&json={T:%s,P:%s,H:%s,V:%s,R:%s,D:%s}&apikey=4e6eff5d047580696f0e2a7ae9323983' % (addr, temp, press, humid, volt, rssi, dew)
+                	r = requests.post(url, timeout=req_timeout)
+                	if verbose:
+                    		print(r.text)
+                    		if "ok" in r:
+                        		print("EMONCMS Update OK")
+                    		else:
+                        		print("EMCONMS Update FAILED")
+            	except requests.exceptions.Timeout:
+            		print("REQUESTS TIMEOUT ERROR", today, now, buffer)
+            		print('-' * 60)
+            	except requests.exceptions.RequestException:
+                	print("EMONCMS REQUESTS ERROR", today, now, buffer)
+                	traceback.print_exc(file=sys.stdout)
+                	print('-' * 60)
+            	except Exception:
+                	print("EMONCMS GENERAL ERROR", today, now, buffer)
+                	traceback.print_exc(file=sys.stdout)
+                	print('-' * 60)
         
         if thingspeak_update:
             url = 'https://api.thingspeak.com/update.json'
