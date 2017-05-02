@@ -150,9 +150,9 @@ def data_call():
 				     'tide_after_type'	: tides['High/Low'][now.strftime("%Y-%m-%d %H:%M:%S"):][1],
 				     'tide_after_count' : tides['Feet'][now.strftime("%Y-%m-%d %H:%M:%S"):].index[1] - now}
 			if verbose:
-				print "Previous Tide:", tide_data['tide_prior_time'], tide_data['tide_prior_level'], tide_data['tide_prior_count']
-				print "Next Tide:", tide_data['tide_next_time'], tide_data['tide_next_level'], tide_data['tide_next_count']
-				print "Following Tide:", tide_data['tide_after_time'], tide_data['tide_after_level'], tide_data['tide_after_count']
+				print "Previous Tide:", tide_data['tide_prior_time'], tide_data['tide_prior_level'], tide_data['tide_prior_count'].strftime('%H:%M')
+				print "Next Tide:", tide_data['tide_next_time'], tide_data['tide_next_level'], tide_data['tide_next_count'].strftime('%H:%M')
+				print "Following Tide:", tide_data['tide_after_time'], tide_data['tide_after_level'], tide_data['tide_after_count'].strftime('%H:%M')
 		except Exception:
 			print("TIDES ERROR", now.strftime("%Y-%m-%d %H:%M:%S"))
 			traceback.print_exc(file=sys.stdout)
