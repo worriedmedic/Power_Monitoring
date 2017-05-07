@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 import time, datetime
 import traceback
 import sys, os.path
-from scipy.interpolate import interp1d
+#from scipy.interpolate import interp1d
 
 temp_plot = True
 press_plot = True
@@ -74,19 +74,19 @@ if (1):
 	now_minus_eight = now + datetime.timedelta(hours=-8)
 	try:
 		try:
-			data_today = pd.read_csv('/home/pi/Power_Monitoring/data_log/' + today.strftime("%Y-%m") + '/' + str(today) + '.log', names = ["Date", "Time", "Address", "Temperature", "Pressure", "Humidity", "Voltage", "RSSI"], dtype=str, encoding="ascii")
+			data_today = pd.read_csv('/home/pi/Power_Monitoring/data_log/' + today.strftime("%Y-%m") + '/' + str(today) + '.log', names = ["Date", "Time", "Address", "Temperature", "Pressure", "Humidity", "Voltage", "RSSI"], dtype=str)
 			data_today_valid = True
 		except Exception:
 			data_today_valid = False
 			print("No logfile for today found...")
 		try:
-			data_yest = pd.read_csv('/home/pi/Power_Monitoring/data_log/' + yesterday.strftime("%Y-%m") + '/' + str(yesterday) + '.log', names = ["Date", "Time", "Address", "Temperature", "Pressure", "Humidity", "Voltage", "RSSI"], dtype=str, encoding="ascii")
+			data_yest = pd.read_csv('/home/pi/Power_Monitoring/data_log/' + yesterday.strftime("%Y-%m") + '/' + str(yesterday) + '.log', names = ["Date", "Time", "Address", "Temperature", "Pressure", "Humidity", "Voltage", "RSSI"], dtype=str)
 			data_yest_valid = True
 		except Exception:
 			data_yest_valid = False
 			print("No logfile for yesterday found...")
 		try:
-			data_2prior = pd.read_csv('/home/pi/Power_Monitoring/data_log/' + prior2.strftime("%Y-%m") + '/' + str(prior2) + '.log', names = ["Date", "Time", "Address", "Temperature", "Pressure", "Humidity", "Voltage", "RSSI"], dtype=str, encoding="ascii")
+			data_2prior = pd.read_csv('/home/pi/Power_Monitoring/data_log/' + prior2.strftime("%Y-%m") + '/' + str(prior2) + '.log', names = ["Date", "Time", "Address", "Temperature", "Pressure", "Humidity", "Voltage", "RSSI"], dtype=str)
 			data_2prior_valid = True
 		except Exception:
 			data_2prior_valid = False
