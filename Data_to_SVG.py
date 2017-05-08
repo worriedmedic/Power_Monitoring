@@ -105,6 +105,7 @@ def daily_wunder_update():
 			print("DAILY WUNDER UPDATE ERROR", now.strftime("%Y-%m-%d %H:%M:%S"))
 			traceback.print_exc(file=sys.stdout)
 			print('-' * 60)
+			time.sleep(10)
 			continue
 		break
 
@@ -117,6 +118,7 @@ def hourly_wunder_update():
 			print("DAILY WUNDER UPDATE ERROR", now.strftime("%Y-%m-%d %H:%M:%S"))
 			traceback.print_exc(file=sys.stdout)
 			print('-' * 60)
+			time.sleep(10)
 			continue
 		break
 
