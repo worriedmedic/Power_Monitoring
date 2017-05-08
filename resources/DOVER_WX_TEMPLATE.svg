@@ -6,40 +6,40 @@
 <g id="layout">
 	<line fill="none" stroke="#000000" stroke-width="3" stroke-miterlimit="10" x1="393.12" y1="51.48" x2="393.12" y2="796.5"/>
 	<line fill="none" stroke="#000000" stroke-width="3" stroke-miterlimit="10" x1="393.12" y1="405.5" x2="0" y2="405.5"/>
-	<line fill="none" stroke="#000000" stroke-width="3" stroke-miterlimit="10" x1="393.12" y1="486.497" x2="0" y2="486.497"/>
+	<line fill="none" stroke="#000000" stroke-width="3" stroke-miterlimit="10" x1="393.12" y1="492.497" x2="0" y2="492.497"/>
 	<line fill="none" stroke="#000000" stroke-width="3" stroke-miterlimit="10" x1="0" y1="51.48" x2="612" y2="51.48"/>
-	<line fill="none" stroke="#000000" stroke-width="3" stroke-miterlimit="10" x1="393.12" y1="626.83" x2="0" y2="626.83"/>
+	<line fill="none" stroke="#000000" stroke-width="3" stroke-miterlimit="10" x1="393.12" y1="637.83" x2="0" y2="637.83"/>
 </g>
 <g id="wind_x5F_display">
 	<g id="Windmill_x5F_Gfx">
-		<circle cx="49.567" cy="545.33" r="5.146"/>
-		<path d="M58.287,540.183c14.012-25.165,16.299-35.172,15.013-36.032c-1.289-0.714-8.868,6.292-23.587,30.887
-			C53.281,535.181,56.573,537.182,58.287,540.183z"/>
-		<path d="M39.414,545.332c0-1.858,0.433-3.573,1.289-5.005c-28.736,0.572-38.604,3.43-38.604,5.005
-			c0,1.571,9.868,4.43,38.604,5.001C39.847,548.762,39.414,547.044,39.414,545.332z"/>
-		<path d="M58.287,550.333c-1.714,3.007-5.01,5.009-8.574,5.009c14.863,24.589,22.298,31.737,23.587,30.882
-			C74.586,585.646,72.154,575.495,58.287,550.333z"/>
-		<path d="M44.421,556.624v2.146v67.764h10.148v-53.755C51.709,568.491,48.279,563.199,44.421,556.624z"/>
+		<circle cx="51.567" cy="556.33" r="5.146"/>
+		<path d="M60.287,551.183c14.012-25.165,16.299-35.172,15.013-36.032c-1.289-0.714-8.868,6.292-23.587,30.887
+			C55.281,546.181,58.573,548.182,60.287,551.183z"/>
+		<path d="M41.414,556.332c0-1.858,0.433-3.573,1.289-5.005c-28.736,0.572-38.604,3.43-38.604,5.005
+			c0,1.571,9.868,4.43,38.604,5.001C41.847,559.762,41.414,558.044,41.414,556.332z"/>
+		<path d="M60.287,561.333c-1.714,3.007-5.01,5.009-8.574,5.009c14.863,24.589,22.298,31.737,23.587,30.882
+			C76.586,596.646,74.154,586.495,60.287,561.333z"/>
+		<path d="M46.421,567.624v2.146v67.764h10.148v-53.755C53.709,579.491,50.279,574.199,46.421,567.624z"/>
 	</g>
-	<text transform="matrix(1 0 0 1 220.5601 537.9971)" font-family="'ArialMT'" font-size="60">WSP</text>
-	<text transform="matrix(1 0 0 1 220.5601 581.0234)" font-family="'ArialMT'" font-size="48">WGUS</text>
-	<text transform="matrix(1 0 0 1 85.1328 540.7207)" font-family="'ArialMT'" font-size="19.7363">Wind (mph):</text>
-	<text transform="matrix(1 0 0 1 87.1328 582.0234)" font-family="'ArialMT'" font-size="19.7363">Gust (mph):</text>
-	<text transform="matrix(1 0 0 1 87.1328 620.9854)" font-family="'ArialMT'" font-size="19.7363">Direction:</text>
-	<text transform="matrix(1 0 0 1 220.5601 620.9854)" font-family="'ArialMT'" font-size="48">WDIRECT</text>
+	<text transform="matrix(1 0 0 1 227.5601 548.9971)" font-family="'Arial-BoldMT'" font-size="60">WSP</text>
+	<text transform="matrix(1 0 0 1 227.5601 593.0234)" font-family="'ArialMT'" font-size="45">WGUS</text>
+	<text transform="matrix(1 0 0 1 87.1328 551.7207)" font-family="'ArialMT'" font-size="19.7363">Wind (mph):</text>
+	<text transform="matrix(1 0 0 1 89.1328 593.0234)" font-family="'ArialMT'" font-size="19.7363">Gust (mph):</text>
+	<text transform="matrix(1 0 0 1 89.1328 631.9854)" font-family="'ArialMT'" font-size="19.7363">Direction:</text>
+	<text transform="matrix(1 0 0 1 227.5601 631.9854)" font-family="'ArialMT'" font-size="45">WDIRECT</text>
 </g>
 <g id="temp_x5F_display">
 	<text transform="matrix(1 0 0 1 16.9199 253.9111)" font-family="'ArialMT'" font-size="17.82">TMP1LABEL (F)</text>
 	<text transform="matrix(1 0 0 1 401.04 281.9238)" font-family="'ArialMT'" font-size="17.82">TMP4LABEL (F)</text>
 	<text transform="matrix(1 0 0 1 401.04 329.5498)" font-family="'ArialMT'" font-size="55">TMP4TMP</text>
-	<text transform="matrix(1 0 0 1 406.0234 661.7119)" font-family="'ArialMT'" font-size="14">Dew Point (F)</text>
+	<text transform="matrix(1 0 0 1 406.0234 660.7119)" font-family="'ArialMT'" font-size="18">Dew Point (F)</text>
 	<text transform="matrix(1 0 0 1 403.0234 709.9854)" font-family="'ArialMT'" font-size="60">DWPNT</text>
-	<text transform="matrix(1 0 0 1 403.04 590.0449)" font-family="'ArialMT'" font-size="14">Rel Hum (%)</text>
-	<text transform="matrix(1 0 0 1 402.1992 639.9854)" font-family="'ArialMT'" font-size="60">RELHUM</text>
-	<text transform="matrix(1 0 0 1 406.04 734.6641)" font-family="'ArialMT'" font-size="17.82">Pressure (hPa)</text>
+	<text transform="matrix(1 0 0 1 403.04 588.0449)" font-family="'ArialMT'" font-size="18">Rel Hum (%)</text>
+	<text transform="matrix(1 0 0 1 402.1992 636.9854)" font-family="'ArialMT'" font-size="60">RELHUM</text>
+	<text transform="matrix(1 0 0 1 406.04 734.6641)" font-family="'ArialMT'" font-size="18">Pressure (hPa)</text>
 	<text transform="matrix(1 0 0 1 402.04 782.8857)" font-family="'ArialMT'" font-size="60">PRESS</text>
-	<text transform="matrix(1 0 0 1 85.1328 480.4336)" font-family="'ArialMT'" font-size="60">FORHI</text>
-	<text transform="matrix(1 0 0 1 268.1475 480.4336)" font-family="'ArialMT'" font-size="60">FORLO</text>
+	<text transform="matrix(1 0 0 1 85.1328 483.4336)" font-family="'ArialMT'" font-size="60">FORHI</text>
+	<text transform="matrix(1 0 0 1 268.1475 483.4336)" font-family="'ArialMT'" font-size="60">FORLO</text>
 	<text transform="matrix(1 0 0 1 16.9199 70.6914)" font-family="'ArialMT'" font-size="17.82">TMP0LABEL (F)</text>
 	<text transform="matrix(1 0 0 1 16.9199 201.3916)" font-family="'ArialMT'" font-size="17.82">TMP0TIME</text>
 	<text transform="matrix(1 0 0 1 16.9199 225.1318)" font-family="'ArialMT'" font-size="23.76">H:</text>
