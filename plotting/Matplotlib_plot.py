@@ -15,7 +15,7 @@ volt_plot = True
 rssi_plot = True
 
 ######## GLOBAL VAR #######
-td = '30m'
+td = '48H'
 line_width = 2
 rssi_line_width = 1
 label_offset = 3
