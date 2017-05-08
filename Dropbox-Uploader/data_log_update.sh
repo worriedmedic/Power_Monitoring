@@ -14,12 +14,6 @@ if [ -f '/home/pi/Power_Monitoring/dover.location' ]; then
   find /home/pi/Power_Monitoring/data_log/* -mtime +8 -exec cp {} /home/pi/Power_Monitoring/data_archive/  \; #Copies any files older than 7 days old to an archive location
   find /home/pi/Power_Monitoring/data_log/* -mtime +8 -delete #Deletes files older than 7 days to prevent extensive dropbox uploads
   find /home/pi/Power_Monitoring/data_log/* -type d -empty -delete #Deletes empty directories left over
-  dropbox_uploader.sh -p download /Programming/logs/cuttyhunk/ ~/Power_Monitoring/
-  sudo cp /home/pi/Power_Monitoring/cuttyhunk/weather_output.txt /var/www/html/cutty/
-  sudo cp /home/pi/Power_Monitoring/cuttyhunk/weather-script-output.png /var/www/html/cutty/
-  sudo cp /home/pi/Power_Monitoring/cuttyhunk/weather-script-output.svg /var/www/html/cutty/
-  sudo cp /home/pi/Power_Monitoring/cuttyhunk/plots/* /var/www/html/cutty/
-  sudo chmod 755 /var/www/html/cutty/*
 elif [ -f '/home/pi/Power_Monitoring/cuttyhunk.location' ]; then
   /usr/local/bin/dropbox_uploader.sh -p upload ~/Power_Monitoring/data_log/* /Programming/logs/cuttyhunk/
   /usr/local/bin/dropbox_uploader.sh -p upload /var/log/network_restart.log /Programming/logs/cuttyhunk/data_log/sys_log/network_restart.log
