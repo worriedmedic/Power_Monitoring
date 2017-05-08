@@ -15,7 +15,7 @@ baud                = 9600   # baud rate for serial port
 emoncms_update      = True # Turn on/off updating to Emoncms
 txt_logging         = True # Enable/Disable logging to TXT file
 verbose             = False
-thingspeak_update   = True
+thingspeak_update   = False
 req_timeout         = 5
 
 for arg in sys.argv:
@@ -116,7 +116,6 @@ with serial.Serial(addr,9600, timeout=300) as pt:
 				print('-' * 60)
 			except requests.exceptions.RequestException:
 				print("EMONCMS REQUESTS ERROR", today, now, buffer)
-				traceback.print_exc(file=sys.stdout)
 				print('-' * 60)
 			except Exception:
 				print("EMONCMS GENERAL ERROR", today, now, buffer)
@@ -139,7 +138,6 @@ with serial.Serial(addr,9600, timeout=300) as pt:
 					print('-' * 60)		
 				except requests.exceptions.RequestException:		
 					print("THINGSPEAK REQUESTS ERROR", today, now, buffer)		
-					traceback.print_exc(file=sys.stdout)		
 					print('-' * 60)		
 				except Exception:		
 					print("THINGSPEAK GENERAL ERROR", today, now, buffer)		
@@ -160,8 +158,7 @@ with serial.Serial(addr,9600, timeout=300) as pt:
 					print("REQUESTS TIMEOUT ERROR", today, now, buffer)		
 					print('-' * 60)		
 				except requests.exceptions.RequestException:		
-					print("THINGSPEAK REQUESTS ERROR", today, now, buffer)		
-					traceback.print_exc(file=sys.stdout)		
+					print("THINGSPEAK REQUESTS ERROR", today, now, buffer)	
 					print('-' * 60)		
 				except Exception:		
 					print("THINGSPEAK GENERAL ERROR", today, now, buffer)		
@@ -182,9 +179,8 @@ with serial.Serial(addr,9600, timeout=300) as pt:
 					print("REQUESTS TIMEOUT ERROR", today, now, buffer)		
 					print('-' * 60)		
 				except requests.exceptions.RequestException:		
-					print("THINGSPEAK REQUESTS ERROR", today, now, buffer)		
-					traceback.print_exc(file=sys.stdout)		
-					print('-' * 60)		
+					print("THINGSPEAK REQUESTS ERROR", today, now, buffer)
+					print('-' * 60)
 				except Exception:		
 					print("THINGSPEAK GENERAL ERROR", today, now, buffer)		
 					traceback.print_exc(file=sys.stdout)		
@@ -204,8 +200,7 @@ with serial.Serial(addr,9600, timeout=300) as pt:
 					print("REQUESTS TIMEOUT ERROR", today, now, buffer)		
 					print('-' * 60)		
 				except requests.exceptions.RequestException:		
-					print("THINGSPEAK REQUESTS ERROR", today, now, buffer)		
-					traceback.print_exc(file=sys.stdout)		
+					print("THINGSPEAK REQUESTS ERROR", today, now, buffer)
 					print('-' * 60)		
 				except Exception:		
 					print("THINGSPEAK GENERAL ERROR", today, now, buffer)		
@@ -226,8 +221,7 @@ with serial.Serial(addr,9600, timeout=300) as pt:
 					print("REQUESTS TIMEOUT ERROR", today, now, buffer)		
 					print('-' * 60)		
 				except requests.exceptions.RequestException:		
-					print("THINGSPEAK REQUESTS ERROR", today, now, buffer)		
-					traceback.print_exc(file=sys.stdout)		
+					print("THINGSPEAK REQUESTS ERROR", today, now, buffer)
 					print('-' * 60)		
 				except Exception:		
 					print("THINGSPEAK GENERAL ERROR", today, now, buffer)		
@@ -248,8 +242,7 @@ with serial.Serial(addr,9600, timeout=300) as pt:
 					print("REQUESTS TIMEOUT ERROR", today, now, buffer)		
 					print('-' * 60)		
 				except requests.exceptions.RequestException:		
-					print("THINGSPEAK REQUESTS ERROR", today, now, buffer)		
-					traceback.print_exc(file=sys.stdout)		
+					print("THINGSPEAK REQUESTS ERROR", today, now, buffer)
 					print('-' * 60)		
 				except Exception:		
 					print("THINGSPEAK GENERAL ERROR", today, now, buffer)		
@@ -270,8 +263,7 @@ with serial.Serial(addr,9600, timeout=300) as pt:
 					print("REQUESTS TIMEOUT ERROR", today, now, buffer)		
 					print('-' * 60)		
 				except requests.exceptions.RequestException:		
-					print("THINGSPEAK REQUESTS ERROR", today, now, buffer)		
-					traceback.print_exc(file=sys.stdout)		
+					print("THINGSPEAK REQUESTS ERROR", today, now, buffer)
 					print('-' * 60)		
 				except Exception:		
 					print("THINGSPEAK GENERAL ERROR", today, now, buffer)		
@@ -292,8 +284,7 @@ with serial.Serial(addr,9600, timeout=300) as pt:
 					print("REQUESTS TIMEOUT ERROR", today, now, buffer)		
 					print('-' * 60)		
 				except requests.exceptions.RequestException:		
-					print("THINGSPEAK REQUESTS ERROR", today, now, buffer)		
-					traceback.print_exc(file=sys.stdout)		
+					print("THINGSPEAK REQUESTS ERROR", today, now, buffer)
 					print('-' * 60)		
 				except Exception:		
 					print("THINGSPEAK GENERAL ERROR", today, now, buffer)		
@@ -314,8 +305,7 @@ with serial.Serial(addr,9600, timeout=300) as pt:
 					print("REQUESTS TIMEOUT ERROR", today, now, buffer)		
 					print('-' * 60)		
 				except requests.exceptions.RequestException:		
-					print("THINGSPEAK REQUESTS ERROR", today, now, buffer)		
-					traceback.print_exc(file=sys.stdout)		
+					print("THINGSPEAK REQUESTS ERROR", today, now, buffer)
 					print('-' * 60)		
 				except Exception:		
 					print("THINGSPEAK GENERAL ERROR", today, now, buffer)		
@@ -336,8 +326,7 @@ with serial.Serial(addr,9600, timeout=300) as pt:
 					print("REQUESTS TIMEOUT ERROR", today, now, buffer)		
 					print('-' * 60)		
 				except requests.exceptions.RequestException:		
-					print("THINGSPEAK REQUESTS ERROR", today, now, buffer)		
-					traceback.print_exc(file=sys.stdout)		
+					print("THINGSPEAK REQUESTS ERROR", today, now, buffer)
 					print('-' * 60)		
 				except Exception:		
 					print("THINGSPEAK GENERAL ERROR", today, now, buffer)		
