@@ -89,9 +89,9 @@ elif os.path.isfile('/home/pi/Power_Monitoring/cuttyhunk.location'):
 	sensor5		= '99'
 	sensor5label	= 'TEST'
 	sensor6		= None
-	sensor6label	= None
+	sensor6label	= 'None'
 	sensor7		= None
-	sensor7label	= None
+	sensor7label	= 'None'
 	if verbose:
 		print(location)
 
