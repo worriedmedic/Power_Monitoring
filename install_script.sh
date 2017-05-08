@@ -176,6 +176,7 @@ while true; do
                 echo "*/15 * * * * /home/pi/Power_Monitoring/Dropbox-Uploader/data_log_update.sh" >> mycron
                 echo "*/15 * * * * python /home/pi/Power_Monitoring/plotting/Matplotlib_plot.py >> /home/pi/Power_Monitoring/data_log/Matplotlib-plot.log 2>&1" >> mycron
                 echo "*/15 * * * * /home/pi/Power_Monitoring/plotting/PNG_Processing.sh" >> mycron
+                echo "*/5 * * * * /home/pi/Power_Monitoring/Dropbox-Uploader/cuttyhunk-data-dl.sh" >> mycron
                
             elif [ $location=dover ]; then
                 echo "@reboot /home/pi/Power_Monitoring/Gateway_Logger.sh" >> mycron
