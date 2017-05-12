@@ -33,9 +33,6 @@ if os.path.isfile('/home/pi/Power_Monitoring/dover.location'):
 	template_svg_filename = '/home/pi/Power_Monitoring/resources/DOVER_WX_TEMPLATE.svg'
 	
 	tide = False
-	tide_begin_date = today_minus_one.strftime('%Y%m%d')
-	tide_end_date = today_plus_one.strftime('%Y%m%d')
-	tide_csv = 'https://tidesandcurrents.noaa.gov/api/datagetter?product=predictions&application=NOS.COOPS.TAC.WL&begin_date=%s&end_date=%s&datum=MLLW&station=8448376&time_zone=lst_ldt&units=english&interval=hilo&format=csv' %(tide_begin_date, tide_end_date)
 	
 	wunder_site_forecast_json = 'http://api.wunderground.com/api/1f86b1c989ac268c/forecast/q/ny/carmel.json'
 	wunder_site_astronomy_json = 'http://api.wunderground.com/api/1f86b1c989ac268c/astronomy/q/ny/carmel.json'
@@ -66,9 +63,6 @@ elif os.path.isfile('/home/pi/Power_Monitoring/cuttyhunk.location'):
 	today_plus_one = datetime.date.today() + datetime.timedelta(days=1)
 	
 	tide = True
-	tide_begin_date = today_minus_one.strftime('%Y%m%d')
-	tide_end_date = today_plus_one.strftime('%Y%m%d')
-	tide_csv = 'https://tidesandcurrents.noaa.gov/api/datagetter?product=predictions&application=NOS.COOPS.TAC.WL&begin_date=%s&end_date=%s&datum=MLLW&station=8448376&time_zone=lst_ldt&units=english&interval=hilo&format=csv' %(tide_begin_date, tide_end_date)
 	
 	template_svg_filename = '/home/pi/Power_Monitoring/resources/CUTTY_WX_TEMPLATE.svg'
 	
@@ -98,6 +92,7 @@ elif os.path.isfile('/home/pi/Power_Monitoring/cuttyhunk.location'):
 def daily_wunder_update():
 	while True:
 		global forecast_data, astronomy_data
+		now = datetime.datetime.now()
 		try:
 			forecast_data = pd.read_json(wunder_site_forecast_json, typ='series')
 			astronomy_data = pd.read_json(wunder_site_astronomy_json, typ='series')
@@ -112,6 +107,7 @@ def daily_wunder_update():
 def hourly_wunder_update():
 	while True:
 		global condition_data
+		now = datetime.datetime.now()
 		try:
 			condition_data = pd.read_json(wunder_site_conditions_json, typ='series')
 		except Exception:
@@ -135,6 +131,9 @@ def data_call():
 	if tide:
 		try:
 			global tide_data
+			tide_begin_date = today_minus_one.strftime('%Y%m%d')
+			tide_end_date = today_plus_one.strftime('%Y%m%d')
+			tide_csv = 'https://tidesandcurrents.noaa.gov/api/datagetter?product=predictions&application=NOS.COOPS.TAC.WL&begin_date=%s&end_date=%s&datum=MLLW&station=8448376&time_zone=lst_ldt&units=english&interval=hilo&format=csv' %(tide_begin_date, tide_end_date)
 			tides = pd.read_table(tide_csv, sep=',', skiprows=1, names = ["Datetime","Feet","High/Low"], dtype=str)
 			tides['Datetime'] = pd.to_datetime(tides['Datetime'])
 			tides = tides.set_index('Datetime')
@@ -144,8 +143,7 @@ def data_call():
 				     'tide_prior_type'	: tides['High/Low'][:now.strftime("%Y-%m-%d %H:%M:%S")][-1],
 				     'tide_prior_count' : now - tides['Feet'][:now.strftime("%Y-%m-%d %H:%M:%S")].index[-1],
 				     'tide_next_time'	: tides['Feet'][now.strftime("%Y-%m-%d %H:%M:%S"):].index[0],
-				     'tide_next_level'	: tides['Feet'][now.strftime("%Y-%m-%d %H:%M:%S"):][0],
-				     'tide_next_type'	: tides['High/Low'][now.strftime("%Y-%m-%d %H:%M:%S"):][0],
+				     'tide_next_level'	: tides['Feet'][now.strftime("%Y-%m-%d %H:%M:%S"):][0],				      ][0],
 				     'tide_next_count'  : tides['Feet'][now.strftime("%Y-%m-%d %H:%M:%S"):].index[0] - now,
 				     'tide_after_time'	: tides['Feet'][now.strftime("%Y-%m-%d %H:%M:%S"):].index[1],
 				     'tide_after_level'	: tides['Feet'][now.strftime("%Y-%m-%d %H:%M:%S"):][1],
