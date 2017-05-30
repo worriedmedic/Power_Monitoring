@@ -87,6 +87,10 @@ while(True):
 				print("DATA SPLIT ERROR", today, now, buffer)
 				traceback.print_exc(file=sys.stdout)
 				print('-' * 60)
+		else:
+			print("ISDIGIT ERROR", today, now, buffer)
+			print('-' * 60)
+		
 		if txt_logging:
 			try:
 				if not os.path.exists('data_log'):
