@@ -288,7 +288,7 @@ if (1):
 			fig.text(0.5, 0.5, '%s Weather Station' %location, fontsize=25, color='gray', ha='center', va='center', alpha=0.35)
 			fig.savefig('/home/pi/Power_Monitoring/output/plot_humid.png', bbox_inches='tight')
 			subprocess.call(["sudo", "chmod", "+x", "/home/pi/Power_Monitoring/output/plot_humid.png"])
-			subprocess.call(["sudo", "cp", "/home/pi/Power_Monitoring/output/plot_temp.humid", "/var/www/html/"])
+			subprocess.call(["sudo", "cp", "/home/pi/Power_Monitoring/output/plot_humid.png", "/var/www/html/"])
 		if volt_plot:
 			fig = plt.figure(figsize=(plt_size_x, plt_size_y), dpi=plt_size_dpi)
 			plt.style.use(plot_style)
@@ -336,7 +336,7 @@ if (1):
 			fig.text(0.5, 0.5, '%s Weather Station' %location, fontsize=25, color='gray', ha='center', va='center', alpha=0.35)
 			fig.savefig('/home/pi/Power_Monitoring/output/plot_volt.png', bbox_inches='tight')
 			subprocess.call(["sudo", "chmod", "+x", "/home/pi/Power_Monitoring/output/plot_volt.png"])
-			subprocess.call(["sudo", "cp", "/home/pi/Power_Monitoring/output/plot_temp.volt", "/var/www/html/"])
+			subprocess.call(["sudo", "cp", "/home/pi/Power_Monitoring/output/plot_volt.png", "/var/www/html/"])
 		if rssi_plot:
 			fig = plt.figure(figsize=(plt_size_x, plt_size_y), dpi=plt_size_dpi)
 			plt.style.use(plot_style)
