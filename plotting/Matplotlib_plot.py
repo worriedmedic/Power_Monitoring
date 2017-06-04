@@ -3,10 +3,11 @@ import numpy as np
 import matplotlib
 matplotlib.use('Agg')
 import matplotlib.pyplot as plt
+import matplotlib.dates as mdates
 import time, datetime
 import traceback
 import sys, os.path
-#from scipy.interpolate import interp1d
+import subprocess
 
 temp_plot = True
 press_plot = True
@@ -185,9 +186,13 @@ if (1):
 			plt.ylabel('Temp (F)')
 			plt.grid(True)
 			plt.tight_layout()
+			myFmt = mdates.DateFormatter('%m-%d %H:%M')
+			fig.axes[0].get_xaxis().set_major_formatter(myFmt)
 			fig.autofmt_xdate()
 			fig.text(0.5, 0.5, '%s Weather Station' %location, fontsize=25, color='gray', ha='center', va='center', alpha=0.35)
 			fig.savefig('/home/pi/Power_Monitoring/output/plot_temp.png', bbox_inches='tight')
+			subprocess.call(["sudo", "chmod", "+x", "/home/pi/Power_Monitoring/output/plot_temp.png"])
+			subprocess.call(["sudo", "cp", "/home/pi/Power_Monitoring/output/plot_temp.png", "/var/www/html/"])
 		if press_plot:
 			fig = plt.figure(figsize=(plt_size_x, plt_size_y), dpi=plt_size_dpi)
 			plt.style.use(plot_style)
@@ -229,9 +234,13 @@ if (1):
 			plt.ylabel('Pressure (hPa)')
 			plt.grid(True)
 			plt.tight_layout()
+			myFmt = mdates.DateFormatter('%m-%d %H:%M')
+			fig.axes[0].get_xaxis().set_major_formatter(myFmt)
 			fig.autofmt_xdate()
 			fig.text(0.5, 0.5, '%s Weather Station' %location, fontsize=25, color='gray', ha='center', va='center', alpha=0.35)
 			fig.savefig('/home/pi/Power_Monitoring/output/plot_press.png', bbox_inches='tight')
+			subprocess.call(["sudo", "chmod", "+x", "/home/pi/Power_Monitoring/output/plot_press.png"])
+			subprocess.call(["sudo", "cp", "/home/pi/Power_Monitoring/output/plot_press.png", "/var/www/html/"])
 		if humid_plot:
 			fig = plt.figure(figsize=(plt_size_x, plt_size_y), dpi=plt_size_dpi)
 			plt.style.use(plot_style)
@@ -273,9 +282,13 @@ if (1):
 			plt.ylabel('Humid (%)')
 			plt.grid(True)
 			plt.tight_layout()
+			myFmt = mdates.DateFormatter('%m-%d %H:%M')
+			fig.axes[0].get_xaxis().set_major_formatter(myFmt)
 			fig.autofmt_xdate()
 			fig.text(0.5, 0.5, '%s Weather Station' %location, fontsize=25, color='gray', ha='center', va='center', alpha=0.35)
 			fig.savefig('/home/pi/Power_Monitoring/output/plot_humid.png', bbox_inches='tight')
+			subprocess.call(["sudo", "chmod", "+x", "/home/pi/Power_Monitoring/output/plot_humid.png"])
+			subprocess.call(["sudo", "cp", "/home/pi/Power_Monitoring/output/plot_temp.humid", "/var/www/html/"])
 		if volt_plot:
 			fig = plt.figure(figsize=(plt_size_x, plt_size_y), dpi=plt_size_dpi)
 			plt.style.use(plot_style)
@@ -317,9 +330,13 @@ if (1):
 			plt.ylabel('Voltage (%)')
 			plt.grid(True)
 			plt.tight_layout()
+			myFmt = mdates.DateFormatter('%m-%d %H:%M')
+			fig.axes[0].get_xaxis().set_major_formatter(myFmt)
 			fig.autofmt_xdate()
 			fig.text(0.5, 0.5, '%s Weather Station' %location, fontsize=25, color='gray', ha='center', va='center', alpha=0.35)
 			fig.savefig('/home/pi/Power_Monitoring/output/plot_volt.png', bbox_inches='tight')
+			subprocess.call(["sudo", "chmod", "+x", "/home/pi/Power_Monitoring/output/plot_volt.png"])
+			subprocess.call(["sudo", "cp", "/home/pi/Power_Monitoring/output/plot_temp.volt", "/var/www/html/"])
 		if rssi_plot:
 			fig = plt.figure(figsize=(plt_size_x, plt_size_y), dpi=plt_size_dpi)
 			plt.style.use(plot_style)
@@ -361,9 +378,13 @@ if (1):
 			plt.ylabel('Voltage (%)')
 			plt.grid(True)
 			plt.tight_layout()
+			myFmt = mdates.DateFormatter('%m-%d %H:%M')
+			fig.axes[0].get_xaxis().set_major_formatter(myFmt)
 			fig.autofmt_xdate()
 			fig.text(0.5, 0.5, '%s Weather Station' %location, fontsize=25, color='gray', ha='center', va='center', alpha=0.35)
 			fig.savefig('/home/pi/Power_Monitoring/output/plot_rssi.png', bbox_inches='tight')
+			subprocess.call(["sudo", "chmod", "+x", "/home/pi/Power_Monitoring/output/plot_rssi.png"])
+			subprocess.call(["sudo", "cp", "/home/pi/Power_Monitoring/output/plot_rssi.png", "/var/www/html/"])
 	except Exception:
 		print("MATPLOTLIB ERROR")
 		traceback.print_exc(file=sys.stdout)
