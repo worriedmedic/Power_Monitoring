@@ -93,8 +93,8 @@ try:
   fig.autofmt_xdate()
   fig.text(0.5, 0.5, 'Dover Power Monitoring', fontsize=25, color='gray', ha='center', va='center', alpha=0.35)
   fig.savefig('/home/pi/Power_Monitoring/output/%spower.png' %td1, bbox_inches='tight')
-  subprocess.call(["sudo", "chmod", "+x", "/home/pi/data_log/%spower.png" %td1])
-  subprocess.call(["sudo", "cp", "/home/pi/data_log/%spower.png" %td1, "/var/www/html/"])
+  subprocess.call(["sudo", "chmod", "+x", "/home/pi/Power_Monitoring/output/%spower.png" %td1])
+  subprocess.call(["sudo", "cp", "/home/pi/Power_Monitoring/output/%spower.png" %td1, "/var/www/html/"])
 except Exception:
   print "%s Error" %td1
   traceback.print_exc(file=sys.stdout)
@@ -116,8 +116,8 @@ try:
   fig.autofmt_xdate()
   fig.text(0.5, 0.5, 'Dover Power Monitoring', fontsize=25, color='gray', ha='center', va='center', alpha=0.35)
   fig.savefig('/home/pi/Power_Monitoring/output/%spower.png' %td2, bbox_inches='tight')
-  subprocess.call(["sudo", "chmod", "+x", "/home/pi/data_log/%spower.png" %td2])
-  subprocess.call(["sudo", "cp", "/home/pi/data_log/%spower.png" %td2, "/var/www/html/"])
+  subprocess.call(["sudo", "chmod", "+x", "/home/pi/Power_Monitoring/output/%spower.png" %td2])
+  subprocess.call(["sudo", "cp", "/home/pi/Power_Monitoring/output/%spower.png" %td2, "/var/www/html/"])
 except Exception:
   print "%s Error" %td2
   traceback.print_exc(file=sys.stdout)
@@ -137,8 +137,8 @@ try:
   fig.autofmt_xdate()
   fig.text(0.5, 0.5, 'Dover Power Monitoring', fontsize=25, color='gray', ha='center', va='center', alpha=0.35)
   fig.savefig('/home/pi/Power_Monitoring/output/%spower.png' %td3, bbox_inches='tight')
-  subprocess.call(["sudo", "chmod", "+x", "/home/pi/data_log/%spower.png" %td3])
-  subprocess.call(["sudo", "cp", "/home/pi/data_log/%spower.png" %td3, "/var/www/html/"])
+  subprocess.call(["sudo", "chmod", "+x", "/home/pi/Power_Monitoring/output/%spower.png" %td3])
+  subprocess.call(["sudo", "cp", "/home/pi/Power_Monitoring/output/%spower.png" %td3, "/var/www/html/"])
 except Exception:
   print "%s Error" %td2
   traceback.print_exc(file=sys.stdout)
