@@ -74,8 +74,8 @@ while(True):
 			print("ADDRESS ERROR", today, now, buffer)
 			traceback.print_exc(file=sys.stdout)
 			print('-' * 60)
-		if addr[0].isdigit():
-			try:
+		try:
+			if addr[0].isdigit():
 				buffer.split(',')
 				temp = buffer.split(',')[1].strip('T')
 				press = buffer.split(',')[2].strip('P')
@@ -83,14 +83,10 @@ while(True):
 				volt = buffer.split(',')[4].strip('V')
 				rssi = buffer.split(',')[5]
 				dew = float(temp) - (0.36 * (100 - float(humid))) ##FROM DATA PROCESSING PYTHON SCRIPT
-			except Exception:
-				print("DATA SPLIT ERROR", today, now, buffer)
-				traceback.print_exc(file=sys.stdout)
-				print('-' * 60)
-		else:
-			print("ISDIGIT ERROR", today, now, buffer)
+		except Exception:
+			print("DATA SPLIT ERROR", today, now, buffer)
+			traceback.print_exc(file=sys.stdout)
 			print('-' * 60)
-		
 		if txt_logging:
 			try:
 				if not os.path.exists('data_log'):
