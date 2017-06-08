@@ -65,6 +65,7 @@ while(True):
 			print("SERIAL READ ERROR", today, now)
 			traceback.print_exc(file=sys.stdout)
 			print('-' * 60)
+			break
 		x = str(today) + ',' + str(now) + ',' + str(buffer) + '\n'
 		if verbose:
 			print (x,end='')    # echo line of text on-screen
