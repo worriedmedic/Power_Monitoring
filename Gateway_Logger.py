@@ -88,6 +88,7 @@ while(True):
 			print("DATA SPLIT ERROR", today, now, buffer)
 			traceback.print_exc(file=sys.stdout)
 			print('-' * 60)
+			break
 		if txt_logging:
 			try:
 				if not os.path.exists('data_log'):
