@@ -6,6 +6,7 @@ import traceback
 import sys, os.path
 import codecs
 import traceback
+import subprocess
 from apscheduler.schedulers.blocking import BlockingScheduler
 import logging
 logging.basicConfig()
@@ -690,181 +691,6 @@ def svg_update():
 		traceback.print_exc(file=sys.stdout)
 		print('-' * 60)
 	try:
-		tree = etree.parse(open('/home/pi/Power_Monitoring/output/weather-script-output.svg', 'r'))
-		if weather_data['wind_direction'] in ['NNW', 'N', 'NNE', 'North']:
-			for element in tree.iter():
-				if element.tag.split("}")[1] == "path":
-					if element.get("id") == "wdno":
-						element.attrib['class'] = ''
-						if verbose:
-							print weather_data['wind_direction'], "NORTH"
-					elif element.get("id") == "wdne":
-						element.attrib['class'] = 'st3'
-					elif element.get("id") == "wdea":
-						element.attrib['class'] = 'st3'
-					elif element.get("id") == "wdse":
-						element.attrib['class'] = 'st3'
-					elif element.get("id") == "wdso":
-						element.attrib['class'] = 'st3'
-					elif element.get("id") == "wdsw":
-						element.attrib['class'] = 'st3'
-					elif element.get("id") == "wdwe":
-						element.attrib['class'] = 'st3'
-					elif element.get("id") == "wdnw":
-						element.attrib['class'] = 'st3'
-		elif weather_data['wind_direction'] in ['NE']:
-			for element in tree.iter():
-				if element.tag.split("}")[1] == "path":
-					if element.get("id") == "wdno":
-						element.attrib['class'] = 'st3'
-					elif element.get("id") == "wdne":
-						element.attrib['class'] = ''
-						if verbose:
-							print weather_data['wind_direction'], "NORTH EAST"
-					elif element.get("id") == "wdea":
-						element.attrib['class'] = 'st3'
-					elif element.get("id") == "wdse":
-						element.attrib['class'] = 'st3'
-					elif element.get("id") == "wdso":
-						element.attrib['class'] = 'st3'
-					elif element.get("id") == "wdsw":
-						element.attrib['class'] = 'st3'
-					elif element.get("id") == "wdwe":
-						element.attrib['class'] = 'st3'
-					elif element.get("id") == "wdnw":
-						element.attrib['class'] = 'st3'
-		elif weather_data['wind_direction'] in ['ENE', 'E', 'ESE', 'East']:
-			for element in tree.iter():
-				if element.tag.split("}")[1] == "path":
-					if element.get("id") == "wdno":
-						element.attrib['class'] = 'st3'
-					elif element.get("id") == "wdne":
-						element.attrib['class'] = 'st3'
-					elif element.get("id") == "wdea":
-						element.attrib['class'] = ''
-						if verbose:
-							print weather_data['wind_direction'], "EAST"
-					elif element.get("id") == "wdse":
-						element.attrib['class'] = 'st3'
-					elif element.get("id") == "wdso":
-						element.attrib['class'] = 'st3'
-					elif element.get("id") == "wdsw":
-						element.attrib['class'] = 'st3'
-					elif element.get("id") == "wdwe":
-						element.attrib['class'] = 'st3'
-					elif element.get("id") == "wdnw":
-						element.attrib['class'] = 'st3'
-		elif weather_data['wind_direction'] in ['SE']:
-			for element in tree.iter():
-				if element.tag.split("}")[1] == "path":
-					if element.get("id") == "wdno":
-						element.attrib['class'] = 'st3'
-					elif element.get("id") == "wdne":
-						element.attrib['class'] = 'st3'
-					elif element.get("id") == "wdea":
-						element.attrib['class'] = 'st3'
-					elif element.get("id") == "wdse":
-						element.attrib['class'] = ''
-						if verbose:
-							print weather_data['wind_direction'], "SOUTH EAST"
-					elif element.get("id") == "wdso":
-						element.attrib['class'] = 'st3'
-					elif element.get("id") == "wdsw":
-						element.attrib['class'] = 'st3'
-					elif element.get("id") == "wdwe":
-						element.attrib['class'] = 'st3'
-					elif element.get("id") == "wdnw":
-						element.attrib['class'] = 'st3'
-		elif weather_data['wind_direction'] in ['SSE', 'S', 'SSW', 'South']:
-			for element in tree.iter():
-				if element.tag.split("}")[1] == "path":
-					if element.get("id") == "wdno":
-						element.attrib['class'] = 'st3'
-					elif element.get("id") == "wdne":
-						element.attrib['class'] = 'st3'
-					elif element.get("id") == "wdea":
-						element.attrib['class'] = 'st3'
-					elif element.get("id") == "wdse":
-						element.attrib['class'] = 'st3'
-					elif element.get("id") == "wdso":
-						element.attrib['class'] = ''
-						if verbose:
-							print weather_data['wind_direction'], "SOUTH"
-					elif element.get("id") == "wdsw":
-						element.attrib['class'] = 'st3'
-					elif element.get("id") == "wdwe":
-						element.attrib['class'] = 'st3'
-					elif element.get("id") == "wdnw":
-						element.attrib['class'] = 'st3'
-		elif weather_data['wind_direction'] in ['SW']:
-			for element in tree.iter():
-				if element.tag.split("}")[1] == "path":
-					if element.get("id") == "wdno":
-						element.attrib['class'] = 'st3'
-					elif element.get("id") == "wdne":
-						element.attrib['class'] = 'st3'
-					elif element.get("id") == "wdea":
-						element.attrib['class'] = 'st3'
-					elif element.get("id") == "wdse":
-						element.attrib['class'] = 'st3'
-					elif element.get("id") == "wdso":
-						element.attrib['class'] = 'st3'
-					elif element.get("id") == "wdsw":
-						element.attrib['class'] = ''
-						if verbose:
-							print weather_data['wind_direction'], "SOUTH WEST"
-					elif element.get("id") == "wdwe":
-						element.attrib['class'] = 'st3'
-					elif element.get("id") == "wdnw":
-						element.attrib['class'] = 'st3'
-		elif weather_data['wind_direction'] in ['WSW', 'W', 'WNW', 'West']:
-			for element in tree.iter():
-				if element.tag.split("}")[1] == "path":
-					if element.get("id") == "wdno":
-						element.attrib['class'] = 'st3'
-					elif element.get("id") == "wdne":
-						element.attrib['class'] = 'st3'
-					elif element.get("id") == "wdea":
-						element.attrib['class'] = 'st3'
-					elif element.get("id") == "wdse":
-						element.attrib['class'] = 'st3'
-					elif element.get("id") == "wdso":
-						element.attrib['class'] = 'st3'
-					elif element.get("id") == "wdsw":
-						element.attrib['class'] = 'st3'
-					elif element.get("id") == "wdwe":
-						element.attrib['class'] = ''
-						if verbose:
-							print weather_data['wind_direction'], "WEST"
-					elif element.get("id") == "wdnw":
-						element.attrib['class'] = 'st3'
-		elif weather_data['wind_direction'] in ['NW']:
-			for element in tree.iter():
-				if element.tag.split("}")[1] == "path":
-					if element.get("id") == "wdno":
-						element.attrib['class'] = 'st3'
-					elif element.get("id") == "wdne":
-						element.attrib['class'] = 'st3'
-					elif element.get("id") == "wdea":
-						element.attrib['class'] = 'st3'
-					elif element.get("id") == "wdse":
-						element.attrib['class'] = 'st3'
-					elif element.get("id") == "wdso":
-						element.attrib['class'] = 'st3'
-					elif element.get("id") == "wdsw":
-						element.attrib['class'] = 'st3'
-					elif element.get("id") == "wdwe":
-						element.attrib['class'] = 'st3'
-					elif element.get("id") == "wdnw":
-						element.attrib['class'] = ''
-						if verbose:
-							print weather_data['wind_direction'], "NORTH WEST"
-		tree.write('/home/pi/Power_Monitoring/output/weather-script-output.svg')
-	except Exception:
-		print("WIND_DIR TO SVG ERROR", now.strftime("%Y-%m-%d %H:%M:%S"))
-		traceback.print_exc(file=sys.stdout)
-		print('-' * 60)
-	try:
 		output = codecs.open('/home/pi/Power_Monitoring/output/weather-script-output.svg', 'r', encoding='utf-8').read()
 		output = output.replace('CURDATE', today.strftime("%m/%d/%Y"))
 		output = output.replace('CURTIME', now.strftime("%H:%M"))
@@ -999,6 +825,8 @@ def svg_update():
 			output = output.replace('TDAFTYP', str(tide_data['tide_after_type']))
 			output = output.replace('TDAFCNT', str(tide_data['tide_after_count'])[:4])
 		codecs.open('/home/pi/Power_Monitoring/output/weather-script-output.svg', 'w', encoding='utf-8').write(output)
+		subprocess.call(["sudo", "chmod", "+x", "/home/pi/Power_Monitoring/output/weather-script-output.svg"])
+		subprocess.call(["sudo", "cp", "/home/pi/Power_Monitoring/output/weather-script-output.svg", "/var/www/html/"])
 	except Exception:
 		print("CODECS TO SVG ERROR", now.strftime("%Y-%m-%d %H:%M:%S"))
 		traceback.print_exc(file=sys.stdout)
@@ -1081,6 +909,8 @@ def txt_output():
 				text_file.write("%s Dewpoint:\t\t %s\t\t  H: %s L: %s\n" %(sensor7label, data7_global['dewpoint'], data7_global['dewpoint_max'], data7_global['dewpoint_min']))
 				text_file.write("%s Voltage:\t\t %s\t\t  H: %s L: %s\n" %(sensor7label, data7_global['voltage'], data7_global['voltage_max'], data7_global['voltage_min']))
 				text_file.write("%s RSSI:\t\t\t %s\t\t\t  H: %s L: %s\n" %(sensor7label, data7_global['rssi'], data7_global['rssi_max'], data7_global['rssi_min']))
+		subprocess.call(["sudo", "chmod", "+x", "/home/pi/Power_Monitoring/output/weather_output.txt"])
+		subprocess.call(["sudo", "cp", "/home/pi/Power_Monitoring/output/weather_output.txt", "/var/www/html/"])
 	except Exception:
 		print("TXT_OUTPUT ERROR", now.strftime("%Y-%m-%d %H:%M:%S"))
 		traceback.print_exc(file=sys.stdout)
