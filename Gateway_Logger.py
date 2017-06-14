@@ -54,7 +54,7 @@ while(True):
 		print("SERIAL READ ERROR")
 		traceback.print_exc(file=sys.stdout)
 		print('-' * 60)
-		sys.exit(1)
+		break
 	while (1):
 		now = time.strftime("%H:%M:%S") # Call time of serial read
 		today = datetime.date.today() # Call date of serial read
