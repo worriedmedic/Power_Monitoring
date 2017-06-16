@@ -45,14 +45,14 @@ elif os.path.isfile('/home/pi/Power_Monitoring/cuttyhunk.location'):
 
 while(True):
     	try:
-		now = time.strftime("%H:%M:%S")
-		today = datetime.date.today()
 		pt = serial.Serial(addr,9600, timeout=300)
 		spb = io.TextIOWrapper(io.BufferedRWPair(pt,pt,1), errors='strict',line_buffering=True)
 		spb.readline()
 		spb.readline()
 		spb.readline()
 	except Exception:
+		now = time.strftime("%H:%M:%S")
+		today = datetime.date.today()
 		print("SERIAL READ ERROR", today, now)
 		traceback.print_exc(file=sys.stdout)
 		print('-' * 60)
