@@ -41,7 +41,7 @@ for arg in sys.argv:
 if os.path.isfile('/home/pi/Power_Monitoring/dover.location'):
     	addr = '/dev/ttyUSB0'
 elif os.path.isfile('/home/pi/Power_Monitoring/cuttyhunk.location'):
-    	addr = '/dev/ttyUSB0'
+    	addr = '/dev/serial/by-id/usb-FTDI_FT232R_USB_UART_AL02CC7C-if00-port0'
 
 while(True):
     	try:
