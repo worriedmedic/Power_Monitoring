@@ -50,14 +50,24 @@ while(True):
 		spb.readline()
 		spb.readline()
 		spb.readline()
+		serial_present = True
+	except SerialException:
+		now = time.strftime("%H:%M:%S")
+		today = datetime.date.today()
+		print("SERIALEXCEPTION", today, now)
+		traceback.print_exc(file=sys.stdout)
+		print('-' * 60)
+		serial_present = False
+		time.sleep(15)
 	except Exception:
 		now = time.strftime("%H:%M:%S")
 		today = datetime.date.today()
 		print("SERIAL READ ERROR", today, now)
 		traceback.print_exc(file=sys.stdout)
 		print('-' * 60)
-		break
-	while (1):
+		serial_present = False
+		time.sleep(15)
+	while serial_present:
 		now = time.strftime("%H:%M:%S") # Call time of serial read
 		today = datetime.date.today() # Call date of serial read
 		try:
