@@ -45,7 +45,7 @@ elif os.path.isfile('/home/pi/Power_Monitoring/cuttyhunk.location'):
 
 while(True):
     	try:
-		pt = serial.Serial(addr,9600, timeout=300)
+		pt = serial.Serial(addr,9600)
 		spb = io.TextIOWrapper(io.BufferedRWPair(pt,pt,1), errors='strict',line_buffering=True)
 		spb.readline()
 		spb.readline()
@@ -58,6 +58,7 @@ while(True):
 		traceback.print_exc(file=sys.stdout)
 		print('-' * 60)
 		serial_present = False
+		pt.close()
 		time.sleep(15)
 	except Exception:
 		now = time.strftime("%H:%M:%S")
@@ -66,6 +67,7 @@ while(True):
 		traceback.print_exc(file=sys.stdout)
 		print('-' * 60)
 		serial_present = False
+		pt.close()
 		time.sleep(15)
 	while serial_present:
 		now = time.strftime("%H:%M:%S") # Call time of serial read
