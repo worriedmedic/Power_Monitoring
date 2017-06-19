@@ -921,6 +921,7 @@ def txt_output():
 		print("TXT_OUTPUT ERROR", now.strftime("%Y-%m-%d %H:%M:%S"))
 		traceback.print_exc(file=sys.stdout)
 		print('-' * 60)
+
 def dropbox_update():
 	try:
 		subprocess.call(["dropbox_uploader.sh", "upload", "/home/pi/Power_Monitoring/output/weather-script-output.png", "/Programming/logs/%s/" %location])
@@ -943,6 +944,7 @@ if(1):
 		daily_wunder_update()
 		hourly_wunder_update()
 		data_call()
+		dropbox_update()
 		scheduler.start()
 	except (KeyboardInterrupt, SystemExit):
 		scheduler.shutdown()
