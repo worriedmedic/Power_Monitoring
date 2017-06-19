@@ -17,6 +17,9 @@ line_width = 0.5
 rssi_line_width = 1
 label_offset = 3
 
+location = 'dover'
+dropbox_upload = True
+
 today = datetime.date.today()
 yesterday = datetime.date.today() + datetime.timedelta(days=-1)
 prior2 = datetime.date.today() + datetime.timedelta(days=-2)
@@ -95,6 +98,8 @@ try:
   fig.savefig('/home/pi/Power_Monitoring/output/%spower.png' %td1, bbox_inches='tight')
   subprocess.call(["sudo", "chmod", "+x", "/home/pi/Power_Monitoring/output/%spower.png" %td1])
   subprocess.call(["sudo", "cp", "/home/pi/Power_Monitoring/output/%spower.png" %td1, "/var/www/html/"])
+  if dropbox_upload:
+				subprocess.call(["dropbox_uploader.sh", "upload", "/home/pi/Power_Monitoring/output/%spower.png" %td1, "/Programming/logs/%s/plots/" %location])
 except Exception:
   print "%s Error" %td1
   traceback.print_exc(file=sys.stdout)
@@ -118,6 +123,8 @@ try:
   fig.savefig('/home/pi/Power_Monitoring/output/%spower.png' %td2, bbox_inches='tight')
   subprocess.call(["sudo", "chmod", "+x", "/home/pi/Power_Monitoring/output/%spower.png" %td2])
   subprocess.call(["sudo", "cp", "/home/pi/Power_Monitoring/output/%spower.png" %td2, "/var/www/html/"])
+  if dropbox_upload:
+				subprocess.call(["dropbox_uploader.sh", "upload", "/home/pi/Power_Monitoring/output/%spower.png" %td1, "/Programming/logs/%s/plots/" %location])
 except Exception:
   print "%s Error" %td2
   traceback.print_exc(file=sys.stdout)
@@ -139,6 +146,8 @@ try:
   fig.savefig('/home/pi/Power_Monitoring/output/%spower.png' %td3, bbox_inches='tight')
   subprocess.call(["sudo", "chmod", "+x", "/home/pi/Power_Monitoring/output/%spower.png" %td3])
   subprocess.call(["sudo", "cp", "/home/pi/Power_Monitoring/output/%spower.png" %td3, "/var/www/html/"])
+  if dropbox_upload:
+				subprocess.call(["dropbox_uploader.sh", "upload", "/home/pi/Power_Monitoring/output/%spower.png" %td1, "/Programming/logs/%s/plots/" %location])
 except Exception:
   print "%s Error" %td2
   traceback.print_exc(file=sys.stdout)
