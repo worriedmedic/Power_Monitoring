@@ -1,0 +1,400 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 16.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 width="612px" height="792px" viewBox="0 0 612 792" enable-background="new 0 0 612 792" xml:space="preserve">
+<g id="layout">
+	<line fill="none" stroke="#000000" stroke-width="3" stroke-miterlimit="10" x1="393.12" y1="51.48" x2="393.12" y2="670"/>
+	<line fill="none" stroke="#000000" stroke-width="3" stroke-miterlimit="10" x1="393.12" y1="405.5" x2="0" y2="405.5"/>
+	<line fill="none" stroke="#000000" stroke-width="3" stroke-miterlimit="10" x1="234.72" y1="492.497" x2="0" y2="492.497"/>
+	<line fill="none" stroke="#000000" stroke-width="3" stroke-miterlimit="10" x1="0" y1="51.48" x2="612" y2="51.48"/>
+	<line fill="none" stroke="#000000" stroke-width="3" stroke-miterlimit="10" x1="393.12" y1="670" x2="0" y2="670"/>
+	<line fill="none" stroke="#000000" stroke-width="3" stroke-miterlimit="10" x1="234.72" y1="494.049" x2="234.72" y2="405.5"/>
+	<rect fill="none" stroke="#000000" stroke-width="4" stroke-miterlimit="10" width="612" height="792"/>
+</g>
+<g id="wind_x5F_display">
+	<g id="BatSens00">
+		<path id="b00Bat4" fill-opacity="0" d="M15.199,586.374v2.494h-4.986c-2.74,0-4.984,2.244-4.984,4.991v65.172
+			c-0.13,2.74,2.119,4.98,4.861,4.98h39.996c2.742,0,4.991-2.24,4.991-4.98v-64.924c0-2.742-2.249-4.984-4.991-4.984h-4.984v-2.491
+			c0-1.371-1.123-2.494-2.494-2.494H17.565C16.322,583.885,15.199,585.005,15.199,586.374z M47.596,593.979
+			c1.367,0,2.487,1.119,2.487,2.481v59.944c0,1.366-1.121,2.484-2.487,2.484H12.577c-1.362,0-2.482-1.119-2.482-2.484v-60.067
+			c0-1.362,1.121-2.487,2.482-2.487H47.6L47.596,593.979L47.596,593.979z M43.86,643.945c0.747,0,1.246,0.498,1.246,1.253v7.478
+			c0,0.747-0.499,1.246-1.246,1.246H16.442c-0.751,0-1.25-0.499-1.25-1.246v-7.478c0-0.755,0.499-1.253,1.25-1.253H43.86z
+			 M43.86,628.868c0.747,0,1.246,0.499,1.246,1.246v7.474c0,0.756-0.499,1.258-1.246,1.258H16.442c-0.751,0-1.25-0.499-1.25-1.258
+			v-7.474c0-0.747,0.499-1.246,1.25-1.246H43.86z M43.86,613.917c0.747,0,1.246,0.492,1.246,1.246v7.478
+			c0,0.747-0.499,1.246-1.246,1.246H16.442c-0.751,0-1.25-0.499-1.25-1.246v-7.478c0-0.754,0.499-1.246,1.25-1.246H43.86z
+			 M43.86,598.961c0.747,0,1.246,0.499,1.246,1.253v7.479c0,0.747-0.499,1.244-1.246,1.244H16.442c-0.751,0-1.25-0.497-1.25-1.244
+			v-7.479c0-0.754,0.499-1.253,1.25-1.253H43.86z M16.442,628.868h27.541c0.747,0,1.246,0.499,1.246,1.246v7.474
+			c0,0.756-0.499,1.258-1.246,1.258H16.442c-0.751,0-1.25-0.499-1.25-1.258v-7.474C15.199,629.49,15.698,628.868,16.442,628.868z
+			 M16.442,643.945h27.541c0.747,0,1.246,0.498,1.246,1.253v7.478c0,0.747-0.499,1.246-1.246,1.246H16.442
+			c-0.751,0-1.25-0.499-1.25-1.246v-7.478C15.199,644.443,15.698,643.945,16.442,643.945z M16.442,598.961h27.541
+			c0.747,0,1.246,0.499,1.246,1.253v7.479c0,0.747-0.499,1.244-1.246,1.244H16.442c-0.751,0-1.25-0.497-1.25-1.244v-7.479
+			C15.199,599.46,15.698,598.961,16.442,598.961z M16.442,613.917h27.541c0.747,0,1.246,0.492,1.246,1.246v7.478
+			c0,0.747-0.499,1.246-1.246,1.246H16.442c-0.751,0-1.25-0.499-1.25-1.246v-7.478C15.199,614.536,15.698,613.917,16.442,613.917z"
+			/>
+		<path id="b00Bat3" d="M15.074,637.715v-7.478c0-0.747,0.499-1.246,1.253-1.246h27.541c0.747,0,1.246,0.499,1.246,1.246v7.478
+			c0,0.755-0.499,1.253-1.246,1.253H16.327C15.573,638.961,15.074,638.339,15.074,637.715z M45.106,652.669v-7.479
+			c0-0.757-0.499-1.253-1.246-1.253H16.312c-0.747,0-1.246,0.496-1.246,1.253v7.479c0,0.747,0.499,1.246,1.246,1.246H43.86
+			C44.482,653.915,45.106,653.293,45.106,652.669z M45.106,622.639v-7.479c0-0.754-0.499-1.253-1.246-1.253H16.312
+			c-0.747,0-1.246,0.499-1.246,1.253v7.479c0,0.747,0.499,1.246,1.246,1.246H43.86C44.482,623.885,45.106,623.386,45.106,622.639z
+			 M15.074,586.502v2.482H10.09c-2.742,0-4.991,2.25-4.991,4.99v64.914c0,2.749,2.249,4.993,4.991,4.993h39.996
+			c2.742,0,4.991-2.244,4.991-4.993V594.09c0-2.742-2.249-4.98-4.991-4.98h-4.984v-2.492c0-1.371-1.123-2.494-2.494-2.494H17.565
+			C16.197,584.008,15.074,585.128,15.074,586.502z M47.596,593.979c1.367,0,2.487,1.119,2.487,2.481v59.944
+			c0,1.366-1.121,2.484-2.487,2.484H12.577c-1.362,0-2.482-1.119-2.482-2.484V596.46c0-1.362,1.121-2.481,2.482-2.481H47.596z"/>
+		<path id="b00Bat2" fill-opacity="0" d="M15.074,637.715v-7.478c0-0.747,0.499-1.246,1.253-1.246h27.541
+			c0.747,0,1.246,0.499,1.246,1.246v7.478c0,0.755-0.499,1.253-1.246,1.253H16.327C15.573,638.961,15.074,638.339,15.074,637.715z
+			 M45.106,652.669v-7.479c0-0.757-0.499-1.253-1.246-1.253H16.312c-0.747,0-1.246,0.496-1.246,1.253v7.479
+			c0,0.747,0.499,1.246,1.246,1.246H43.86C44.482,653.915,45.106,653.293,45.106,652.669z M15.074,586.502v2.482H10.09
+			c-2.742,0-4.991,2.25-4.991,4.99v64.914c0,2.749,2.249,4.993,4.991,4.993h39.996c2.742,0,4.991-2.244,4.991-4.993V594.09
+			c0-2.742-2.249-4.98-4.991-4.98h-4.984v-2.492c0-1.371-1.123-2.494-2.494-2.494H17.565
+			C16.197,584.008,15.074,585.128,15.074,586.502z M47.596,593.979c1.367,0,2.487,1.119,2.487,2.481v59.944
+			c0,1.366-1.121,2.484-2.487,2.484H12.577c-1.362,0-2.482-1.119-2.482-2.484V596.46c0-1.362,1.121-2.481,2.482-2.481H47.596z"/>
+		<path id="b00Bat1" fill-opacity="0" d="M45.106,652.669v-7.479c0-0.757-0.499-1.253-1.246-1.253H16.312
+			c-0.747,0-1.246,0.496-1.246,1.253v7.479c0,0.747,0.499,1.246,1.246,1.246H43.86C44.607,653.915,45.106,653.293,45.106,652.669z
+			 M15.074,586.502v2.482H10.09c-2.742,0-4.991,2.25-4.991,4.99v64.914c0,2.749,2.249,4.993,4.991,4.993h39.996
+			c2.742,0,4.991-2.244,4.991-4.993V594.09c0-2.742-2.249-4.98-4.991-4.98h-4.984v-2.492c0-1.371-1.123-2.494-2.494-2.494H17.565
+			C16.322,584.008,15.074,585.128,15.074,586.502z M47.596,593.979c1.367,0,2.487,1.119,2.487,2.481v59.944
+			c0,1.366-1.121,2.484-2.487,2.484H12.577c-1.362,0-2.482-1.119-2.482-2.484V596.46c0-1.362,1.121-2.481,2.482-2.481H47.596z"/>
+		<path id="b00Bat0" fill-opacity="0" d="M15.074,586.502v2.482H10.09c-2.742,0-4.991,2.25-4.991,4.99v64.914
+			c0,2.749,2.249,4.993,4.991,4.993h39.996c2.742,0,4.991-2.244,4.991-4.993V594.09c0-2.742-2.249-4.98-4.991-4.98h-4.984v-2.492
+			c0-1.371-1.123-2.494-2.494-2.494H17.565C16.322,584.008,15.074,585.128,15.074,586.502z M47.596,593.979
+			c1.367,0,2.487,1.119,2.487,2.481v59.944c0,1.366-1.121,2.484-2.487,2.484H12.577c-1.362,0-2.482-1.119-2.482-2.484V596.46
+			c0-1.362,1.121-2.481,2.482-2.481H47.596z"/>
+	</g>
+	<g id="Windmill_x5F_Gfx">
+		<circle cx="373.684" cy="530.188" r="2.939"/>
+		<path d="M378.664,527.249c8.004-14.375,9.311-20.091,8.576-20.581c-0.736-0.408-5.065,3.594-13.476,17.643
+			C375.805,524.392,377.686,525.534,378.664,527.249z"/>
+		<path d="M367.885,530.189c0-1.062,0.247-2.041,0.736-2.858c-16.414,0.327-22.051,1.959-22.051,2.858
+			c0,0.896,5.637,2.527,22.051,2.854C368.132,532.149,367.885,531.168,367.885,530.189z"/>
+		<path d="M378.664,533.047c-0.979,1.717-2.861,2.86-4.896,2.86c8.489,14.045,12.736,18.129,13.476,17.64
+			C387.975,553.218,386.586,547.419,378.664,533.047z"/>
+		<path d="M370.744,536.64v1.229v38.707h5.797V545.87C374.907,543.418,372.948,540.396,370.744,536.64z"/>
+	</g>
+	<text transform="matrix(1 0 0 1 7.0098 572.3311)" font-family="'Arial-BoldMT'" font-size="75">WSP</text>
+	<text transform="matrix(1 0 0 1 63.3433 606.9971)" font-family="'Arial-BoldMT'" font-size="18">TMP0VOLT</text>
+	<text transform="matrix(1 0 0 1 185.1328 569.3311)" font-family="'ArialMT'" font-size="62">WGUS</text>
+	<text transform="matrix(1 0 0 1 8.0098 513.0537)" font-family="'ArialMT'" font-size="19.7363">Wind (mph):</text>
+	<text transform="matrix(1 0 0 1 63.3433 591.0537)" font-family="'ArialMT'" font-size="14">TMP0LABEL:</text>
+	<text transform="matrix(1 0 0 1 63.3433 637.4023)" font-family="'Arial-BoldMT'" font-size="18">TMP1VOLT</text>
+	<text transform="matrix(1 0 0 1 63.3433 621.459)" font-family="'ArialMT'" font-size="14">TMP1LABEL:</text>
+	<text transform="matrix(1 0 0 1 63.3433 665.9971)" font-family="'Arial-BoldMT'" font-size="18">TMP2VOLT</text>
+	<text transform="matrix(1 0 0 1 63.3433 650.0537)" font-family="'ArialMT'" font-size="14">TMP2LABEL:</text>
+	<text transform="matrix(1 0 0 1 174.3433 606.9971)" font-family="'Arial-BoldMT'" font-size="18">TMP3VOLT</text>
+	<text transform="matrix(1 0 0 1 174.3433 591.0537)" font-family="'ArialMT'" font-size="14">TMP3LABEL:</text>
+	<text transform="matrix(1 0 0 1 174.3433 637.4023)" font-family="'Arial-BoldMT'" font-size="18">TMP4VOLT</text>
+	<text transform="matrix(1 0 0 1 174.3433 621.459)" font-family="'ArialMT'" font-size="14">TMP4LABEL:</text>
+	<text transform="matrix(1 0 0 1 174.3433 665.9971)" font-family="'Arial-BoldMT'" font-size="18">TMP5VOLT</text>
+	<text transform="matrix(1 0 0 1 174.3433 650.0537)" font-family="'ArialMT'" font-size="14">TMP5LABEL:</text>
+	<text transform="matrix(1 0 0 1 290.6763 606.9971)" font-family="'Arial-BoldMT'" font-size="18">TMP6VOLT</text>
+	<text transform="matrix(1 0 0 1 290.6763 591.0537)" font-family="'ArialMT'" font-size="14">TMP6LABEL:</text>
+	<text transform="matrix(1 0 0 1 290.6763 637.4023)" font-family="'Arial-BoldMT'" font-size="18">TMP7VOLT</text>
+	<text transform="matrix(1 0 0 1 290.6763 621.459)" font-family="'ArialMT'" font-size="14">TMP7LABEL:</text>
+	<text transform="matrix(1 0 0 1 180.1328 513.0537)" font-family="'ArialMT'" font-size="19.7363">Gust (mph):</text>
+	<text transform="matrix(1 0 0 1 238.8931 427.6914)" font-family="'ArialMT'" font-size="19.7363">Direction:</text>
+	<text transform="matrix(1 0 0 1 237.8931 480.8047)" font-family="'ArialMT'" font-size="59">WDIRECT</text>
+	<line fill="none" stroke="#000000" stroke-width="3" stroke-miterlimit="10" x1="393.12" y1="576.572" x2="0" y2="576.572"/>
+</g>
+<g id="temp_x5F_display">
+	<g>
+		<g>
+			<g>
+				<g>
+					<defs>
+						<rect id="SVGID_1_" x="430.75" y="673.83" width="118.17" height="118.17"/>
+					</defs>
+					<clipPath id="SVGID_2_">
+						<use xlink:href="#SVGID_1_"  overflow="visible"/>
+					</clipPath>
+					<path clip-path="url(#SVGID_2_)" fill="#010101" d="M503.764,726.219c3.941,0,7.14,3.195,7.14,7.139
+						c0,3.94-3.195,7.138-7.14,7.138c-3.938,0-7.137-3.195-7.137-7.138C496.627,729.414,499.823,726.219,503.764,726.219"/>
+				</g>
+			</g>
+		</g>
+		<g>
+			<g>
+				<g>
+					<defs>
+						<rect id="SVGID_3_" x="430.75" y="673.83" width="118.17" height="118.17"/>
+					</defs>
+					<clipPath id="SVGID_4_">
+						<use xlink:href="#SVGID_3_"  overflow="visible"/>
+					</clipPath>
+					<path clip-path="url(#SVGID_4_)" fill="#010101" d="M515.856,726.219c19.429-34.892,22.601-48.768,20.813-49.958
+						c-1.784-0.989-12.292,8.727-32.711,42.822C508.918,719.279,513.479,722.056,515.856,726.219"/>
+				</g>
+			</g>
+		</g>
+		<g>
+			<g>
+				<g>
+					<defs>
+						<rect id="SVGID_5_" x="430.75" y="673.83" width="118.17" height="118.17"/>
+					</defs>
+					<clipPath id="SVGID_6_">
+						<use xlink:href="#SVGID_5_"  overflow="visible"/>
+					</clipPath>
+					<path clip-path="url(#SVGID_6_)" fill="#010101" d="M489.688,733.354c0-2.574,0.598-4.952,1.784-6.938
+						c-39.847,0.794-53.523,4.759-53.523,6.938c0,2.185,13.68,6.146,53.523,6.939C490.283,738.112,489.688,735.734,489.688,733.354"
+						/>
+				</g>
+			</g>
+		</g>
+		<g>
+			<g>
+				<g>
+					<defs>
+						<rect id="SVGID_7_" x="430.75" y="673.83" width="118.17" height="118.17"/>
+					</defs>
+					<clipPath id="SVGID_8_">
+						<use xlink:href="#SVGID_7_"  overflow="visible"/>
+					</clipPath>
+					<path clip-path="url(#SVGID_8_)" fill="#010101" d="M515.856,740.294c-2.378,4.163-6.938,6.938-11.896,6.938
+						c20.618,34.099,30.927,44.011,32.711,42.817C538.457,789.261,535.087,775.185,515.856,740.294"/>
+				</g>
+			</g>
+		</g>
+		<g>
+			<g>
+				<g>
+					<defs>
+						<rect id="SVGID_9_" x="430.75" y="673.83" width="118.17" height="118.17"/>
+					</defs>
+					<clipPath id="SVGID_10_">
+						<use xlink:href="#SVGID_9_"  overflow="visible"/>
+					</clipPath>
+					<path clip-path="url(#SVGID_10_)" fill="#010101" d="M496.627,749.017v2.976v93.97h14.076V771.42
+						C506.737,765.471,501.979,758.136,496.627,749.017"/>
+				</g>
+			</g>
+		</g>
+		<g>
+			<g>
+				<g>
+					<defs>
+						<rect id="SVGID_11_" x="430.75" y="673.83" width="118.17" height="118.17"/>
+					</defs>
+					<clipPath id="SVGID_12_">
+						<use xlink:href="#SVGID_11_"  overflow="visible"/>
+					</clipPath>
+					<rect x="457.018" y="687.471" clip-path="url(#SVGID_12_)" fill="#FFFFFF" width="17.5" height="66.116"/>
+				</g>
+			</g>
+		</g>
+		<g>
+			<g>
+				<g>
+					<defs>
+						<rect id="SVGID_13_" x="430.75" y="673.83" width="118.17" height="118.17"/>
+					</defs>
+					<clipPath id="SVGID_14_">
+						<use xlink:href="#SVGID_13_"  overflow="visible"/>
+					</clipPath>
+					<rect x="463.369" y="701.972" clip-path="url(#SVGID_14_)" fill="#010101" width="6.312" height="1.725"/>
+				</g>
+			</g>
+		</g>
+		<g>
+			<g>
+				<g>
+					<defs>
+						<rect id="SVGID_15_" x="430.75" y="673.83" width="118.17" height="118.17"/>
+					</defs>
+					<clipPath id="SVGID_16_">
+						<use xlink:href="#SVGID_15_"  overflow="visible"/>
+					</clipPath>
+					<rect x="463.369" y="718.162" clip-path="url(#SVGID_16_)" fill="#010101" width="6.312" height="1.722"/>
+				</g>
+			</g>
+		</g>
+		<g>
+			<g>
+				<g>
+					<defs>
+						<rect id="SVGID_17_" x="430.75" y="673.83" width="118.17" height="118.17"/>
+					</defs>
+					<clipPath id="SVGID_18_">
+						<use xlink:href="#SVGID_17_"  overflow="visible"/>
+					</clipPath>
+					<rect x="463.369" y="734.467" clip-path="url(#SVGID_18_)" fill="#010101" width="6.312" height="1.727"/>
+				</g>
+			</g>
+		</g>
+		<g>
+			<g>
+				<g>
+					<defs>
+						<rect id="SVGID_19_" x="430.75" y="673.83" width="118.17" height="118.17"/>
+					</defs>
+					<clipPath id="SVGID_20_">
+						<use xlink:href="#SVGID_19_"  overflow="visible"/>
+					</clipPath>
+					<path clip-path="url(#SVGID_20_)" fill="#010101" d="M478.413,749.625v-55.461c0-6.546-5.283-11.944-11.942-11.944
+						c-6.545,0-12.4,5.283-12.4,11.944v55.919c-4.136,3.561-6.773,8.727-6.773,14.583c0,10.564,8.611,19.062,19.062,19.062
+						c10.562,0,19.061-8.609,19.061-19.062C485.646,758.581,482.774,753.184,478.413,749.625 M466.584,777.298
+						c-7.002,0-12.631-5.627-12.631-12.632c0-4.707,2.642-8.727,6.432-10.907v-57.3c0-3.444,2.87-6.2,6.314-6.2
+						c3.442,0,6.313,2.756,6.313,6.2v57.3c3.788,2.184,6.315,6.2,6.315,10.907C479.216,771.671,473.589,777.298,466.584,777.298"/>
+				</g>
+			</g>
+		</g>
+		<g>
+			<g>
+				<g>
+					<defs>
+						<rect id="SVGID_21_" x="430.75" y="673.83" width="118.17" height="118.17"/>
+					</defs>
+					<clipPath id="SVGID_22_">
+						<use xlink:href="#SVGID_21_"  overflow="visible"/>
+					</clipPath>
+					<path clip-path="url(#SVGID_22_)" fill="#010101" d="M469.915,756.285v-12.287h-6.774v12.287
+						c-3.33,1.378-5.627,4.593-5.627,8.266c0,4.939,4.021,8.957,8.957,8.957c4.938,0,8.955-4.018,8.955-8.957
+						C475.541,760.878,473.245,757.663,469.915,756.285"/>
+				</g>
+			</g>
+		</g>
+	</g>
+	<text transform="matrix(1 0 0 1 216.4326 720.4902)" font-family="'Arial-BoldMT'" font-size="36">TMP1RELHUM</text>
+	<text transform="matrix(1 0 0 1 4.0991 720.4902)" font-family="'Arial-BoldMT'" font-size="36">TMP0RELHUM</text>
+	<text transform="matrix(1 0 0 1 16.9199 253.9111)" font-family="'ArialMT'" font-size="17.82">TMP1LABEL (F)</text>
+	<text transform="matrix(1 0 0 1 401.04 281.9238)" font-family="'ArialMT'" font-size="17.82">TMP4LABEL (F)</text>
+	<text transform="matrix(1 0 0 1 401.04 329.5498)" font-family="'Arial-BoldMT'" font-size="55">TMP4TMP</text>
+	<text transform="matrix(1 0 0 1 111.8521 689.21)" font-family="'ArialMT'" font-size="18">Dew Pnt (F)</text>
+	<text transform="matrix(1 0 0 1 109.8687 720.4834)" font-family="'Arial-BoldMT'" font-size="36">TMP0DWPNT</text>
+	<text transform="matrix(1 0 0 1 4.9399 689.21)" font-family="'ArialMT'" font-size="18">Rel Hum (%)</text>
+	<text transform="matrix(1 0 0 1 4.4595 740.1621)" font-family="'ArialMT'" font-size="18">Pressure (hPa)</text>
+	<text transform="matrix(1 0 0 1 2.4194 787.3838)" font-family="'Arial-BoldMT'" font-size="62">TMP0PRESS</text>
+	<text transform="matrix(1 0 0 1 330.1855 689.21)" font-family="'ArialMT'" font-size="18">Dew Pnt (F)</text>
+	<text transform="matrix(1 0 0 1 329.2021 720.4834)" font-family="'Arial-BoldMT'" font-size="36">TMP1DWPNT</text>
+	<text transform="matrix(1 0 0 1 217.2734 689.21)" font-family="'ArialMT'" font-size="18">Rel Hum (%)</text>
+	<text transform="matrix(-4.371139e-08 1 -1 -4.371139e-08 583.0352 678.5723)" font-family="'Arial-BoldMT'" font-size="18">Dover Wx St</text>
+	<text transform="matrix(-4.371139e-08 1 -1 -4.371139e-08 565.0352 679.5723)" font-family="'Arial-BoldMT'" font-size="20">LWH | NHH</text>
+	<text transform="matrix(1 0 0 1 216.793 740.1621)" font-family="'ArialMT'" font-size="18">Pressure (hPa)</text>
+	<text transform="matrix(1 0 0 1 214.7529 787.3838)" font-family="'Arial-BoldMT'" font-size="62">TMP1PRESS</text>
+	<text transform="matrix(1 0 0 1 8.0098 459.4336)" font-family="'Arial-BoldMT'" font-size="60">FORHI</text>
+	<text transform="matrix(1 0 0 1 127.5518 483.4336)" font-family="'Arial-BoldMT'" font-size="60">FORLO</text>
+	<text transform="matrix(1 0 0 1 16.9199 70.6914)" font-family="'ArialMT'" font-size="17.82">TMP0LABEL (F)</text>
+	<text transform="matrix(1 0 0 1 16.9199 201.3916)" font-family="'ArialMT'" font-size="17.82">TMP0TIME</text>
+	<text transform="matrix(1 0 0 1 16.9199 225.1318)" font-family="'ArialMT'" font-size="23.76">H:</text>
+	<text transform="matrix(1 0 0 1 46.6201 225.1318)" font-family="'ArialMT'" font-size="23.76">TMP0HI</text>
+	<text transform="matrix(1 0 0 1 205.02 225.1318)" font-family="'ArialMT'" font-size="23.76">L:</text>
+	<text transform="matrix(1 0 0 1 234.7202 225.1318)" font-family="'ArialMT'" font-size="23.76">TMP0LO</text>
+	<text transform="matrix(1 0 0 1 405 344.2129)" font-family="'ArialMT'" font-size="13.86">TMP4TIME</text>
+	<text transform="matrix(1 0 0 1 405 358.0732)" font-family="'ArialMT'" font-size="13.86">H:</text>
+	<text transform="matrix(1 0 0 1 419.8496 358.0732)" font-family="'ArialMT'" font-size="13.86">TMP4HI</text>
+	<text transform="matrix(1 0 0 1 507.96 358.0732)" font-family="'ArialMT'" font-size="13.86">L:</text>
+	<text transform="matrix(1 0 0 1 520.8301 358.0732)" font-family="'ArialMT'" font-size="13.86">TMP4LO</text>
+	<text transform="matrix(1 0 0 1 401.04 386.292)" font-family="'ArialMT'" font-size="17.82">TMP5LABEL (F)</text>
+	<text transform="matrix(1 0 0 1 401.04 433.918)" font-family="'Arial-BoldMT'" font-size="55">TMP5TMP</text>
+	<text transform="matrix(1 0 0 1 405 448.5811)" font-family="'ArialMT'" font-size="13.86">TMP5TIME</text>
+	<text transform="matrix(1 0 0 1 405 462.4414)" font-family="'ArialMT'" font-size="13.86">H:</text>
+	<text transform="matrix(1 0 0 1 419.8496 462.4414)" font-family="'ArialMT'" font-size="13.86">TMP5HI</text>
+	<text transform="matrix(1 0 0 1 507.96 462.4414)" font-family="'ArialMT'" font-size="13.86">L:</text>
+	<text transform="matrix(1 0 0 1 520.8301 462.4414)" font-family="'ArialMT'" font-size="13.86">TMP5LO</text>
+	<text transform="matrix(1 0 0 1 401.04 487.8047)" font-family="'ArialMT'" font-size="17.82">TMP6LABEL (F)</text>
+	<text transform="matrix(1 0 0 1 401.04 536.4307)" font-family="'Arial-BoldMT'" font-size="55">TMP6TMP</text>
+	<text transform="matrix(1 0 0 1 405 551.0938)" font-family="'ArialMT'" font-size="13.86">TMP6TIME</text>
+	<text transform="matrix(1 0 0 1 405 564.9541)" font-family="'ArialMT'" font-size="13.86">H:</text>
+	<text transform="matrix(1 0 0 1 419.8496 564.9541)" font-family="'ArialMT'" font-size="13.86">TMP6HI</text>
+	<text transform="matrix(1 0 0 1 507.96 564.9541)" font-family="'ArialMT'" font-size="13.86">L:</text>
+	<text transform="matrix(1 0 0 1 520.8301 564.9541)" font-family="'ArialMT'" font-size="13.86">TMP6LO</text>
+	<text transform="matrix(1 0 0 1 405 588.3047)" font-family="'ArialMT'" font-size="17.82">TMP7LABEL (F)</text>
+	<text transform="matrix(1 0 0 1 405 636.9307)" font-family="'Arial-BoldMT'" font-size="55">TMP7TMP</text>
+	<text transform="matrix(1 0 0 1 408.96 651.5938)" font-family="'ArialMT'" font-size="13.86">TMP7TIME</text>
+	<text transform="matrix(1 0 0 1 408.96 665.4541)" font-family="'ArialMT'" font-size="13.86">H:</text>
+	<text transform="matrix(1 0 0 1 423.8096 665.4541)" font-family="'ArialMT'" font-size="13.86">TMP7HI</text>
+	<text transform="matrix(1 0 0 1 511.9199 665.4541)" font-family="'ArialMT'" font-size="13.86">L:</text>
+	<text transform="matrix(1 0 0 1 524.79 665.4541)" font-family="'ArialMT'" font-size="13.86">TMP7LO</text>
+	<text transform="matrix(1 0 0 1 401.04 181.9639)" font-family="'ArialMT'" font-size="17.82">TMP3LABEL (F)</text>
+	<text transform="matrix(1 0 0 1 401.04 229.5898)" font-family="'Arial-BoldMT'" font-size="55">TMP3TMP</text>
+	<text transform="matrix(1 0 0 1 405 244.2529)" font-family="'ArialMT'" font-size="13.86">TMP3TIME</text>
+	<text transform="matrix(1 0 0 1 405 258.1133)" font-family="'ArialMT'" font-size="13.86">H:</text>
+	<text transform="matrix(1 0 0 1 419.8496 258.1133)" font-family="'ArialMT'" font-size="13.86">TMP3HI</text>
+	<text transform="matrix(1 0 0 1 507.96 258.1133)" font-family="'ArialMT'" font-size="13.86">L:</text>
+	<text transform="matrix(1 0 0 1 520.8301 258.1133)" font-family="'ArialMT'" font-size="13.86">TMP3LO</text>
+	<text transform="matrix(1 0 0 1 401.04 72.043)" font-family="'ArialMT'" font-size="17.82">TMP2LABEL (F)</text>
+	<text transform="matrix(1 0 0 1 8.0098 483.4336)" font-family="'ArialMT'" font-size="17.82">Forcast High:</text>
+	<text transform="matrix(1 0 0 1 127.5522 426.6914)" font-family="'ArialMT'" font-size="17.82">Forcast Low:</text>
+	<text transform="matrix(1 0 0 1 401.04 120.6699)" font-family="'Arial-BoldMT'" font-size="55">TMP2TMP</text>
+	<text transform="matrix(1 0 0 1 405 135.333)" font-family="'ArialMT'" font-size="13.86">TMP2TIME</text>
+	<text transform="matrix(1 0 0 1 405 149.1934)" font-family="'ArialMT'" font-size="13.86">H:</text>
+	<text transform="matrix(1 0 0 1 419.8496 149.1934)" font-family="'ArialMT'" font-size="13.86">TMP2HI</text>
+	<text transform="matrix(1 0 0 1 507.96 149.1934)" font-family="'ArialMT'" font-size="13.86">L:</text>
+	<text transform="matrix(1 0 0 1 520.8301 149.1934)" font-family="'ArialMT'" font-size="13.86">TMP2LO</text>
+	<text transform="matrix(1 0 0 1 16.9199 365.7812)" font-family="'ArialMT'" font-size="17.82">TMP1TIME</text>
+	<text transform="matrix(1 0 0 1 16.9199 391.5215)" font-family="'ArialMT'" font-size="23.76">H:</text>
+	<text transform="matrix(1 0 0 1 46.6201 391.5215)" font-family="'ArialMT'" font-size="23.76">TMP1HI</text>
+	<text transform="matrix(1 0 0 1 205.02 391.5215)" font-family="'ArialMT'" font-size="23.76">L:</text>
+	<text transform="matrix(1 0 0 1 234.7202 391.5215)" font-family="'ArialMT'" font-size="23.76">TMP1LO</text>
+	<text transform="matrix(1 0 0 1 8.0098 180.1777)" font-family="'Arial-BoldMT'" font-size="144">TMP0TMP</text>
+	<text transform="matrix(1 0 0 1 8.0098 344.835)" font-family="'Arial-BoldMT'" font-size="113.85">TMP1TMP</text>
+	<g>
+		<rect x="365.994" y="323.612" width="5.445" height="1.485"/>
+		<rect x="365.994" y="337.571" width="5.445" height="1.485"/>
+		<rect x="365.994" y="351.629" width="5.445" height="1.485"/>
+		<path d="M378.963,364.697V316.88c0-5.643-4.554-10.296-10.296-10.296c-5.643,0-10.692,4.554-10.692,10.296v48.213
+			c-3.562,3.069-5.841,7.524-5.841,12.573c0,9.107,7.425,16.434,16.438,16.434c9.104,0,16.434-7.425,16.434-16.434
+			C385.2,372.419,382.725,367.766,378.963,364.697z M368.766,388.557c-6.039,0-10.89-4.852-10.89-10.891
+			c0-4.059,2.277-7.524,5.544-9.405V318.86c0-2.97,2.475-5.346,5.445-5.346c2.97,0,5.438,2.376,5.438,5.346v49.401
+			c3.271,1.881,5.445,5.346,5.445,9.405C379.656,383.705,374.805,388.557,368.766,388.557z"/>
+		<path d="M371.637,370.439v-10.593h-5.841v10.593c-2.871,1.188-4.851,3.96-4.851,7.127c0,4.258,3.465,7.723,7.722,7.723
+			s7.722-3.465,7.722-7.723C376.488,374.399,374.508,371.627,371.637,370.439z"/>
+	</g>
+	<line fill="none" stroke="#000000" stroke-width="3" stroke-miterlimit="10" x1="393.12" y1="670" x2="612" y2="670"/>
+	<line fill="none" stroke="#000000" stroke-width="3" stroke-miterlimit="10" x1="212.5" y1="670" x2="212.5" y2="792"/>
+	<line fill="none" stroke="#000000" stroke-width="3" stroke-miterlimit="10" x1="428.502" y1="670" x2="428.502" y2="792"/>
+</g>
+<g id="time_x5F_display">
+	<text transform="matrix(1 0 0 1 363.5225 38.8564)" font-family="'ArialMT'" font-size="32.67">SNRISE</text>
+	<text transform="matrix(1 0 0 1 16.9199 39.4531)" font-family="'Arial-BoldMT'" font-size="35.64">CURTIME</text>
+	<text transform="matrix(1 0 0 1 127.5522 36.4834)" font-family="'ArialMT'" font-size="29.7">CURDATE</text>
+	<text transform="matrix(1 0 0 1 508.9502 38.8564)" font-family="'ArialMT'" font-size="32.67">SNSET</text>
+	<path d="M496.179,29.304c-0.594,0-1.287,0-1.979,0.297c-0.693-4.752-4.854-8.316-9.604-8.316c-0.982,0-1.881,0.198-2.771,0.495
+		c0-0.495,0.099-0.891,0.099-1.386c0-4.95-3.168-9.999-7.623-12.375c-0.396-0.198-0.688-0.099-0.99,0.099
+		c-0.297,0.297-0.396,0.594-0.297,0.99c0,0,0.792,2.079,0.792,4.158c0,5.841-5.346,10.692-11.583,10.692
+		c-2.871,0-5.841-1.584-5.841-1.683c-0.297-0.198-0.688-0.198-0.99,0.099c-0.297,0.198-0.487,0.495-0.396,0.891
+		c0.792,3.168,2.97,6.138,5.841,8.118c-1.386,1.485-2.277,3.465-2.277,5.643c0,4.059,3.271,7.623,7.136,7.623h30.393
+		c3.861,0,7.128-3.564,7.128-7.623C503.406,32.769,500.04,29.304,496.179,29.304z M457.569,24.75c1.287,0.495,2.97,0.99,4.752,0.99
+		c7.227,0,13.357-5.742,13.357-12.474c0-0.792-0.099-1.584-0.297-2.277c2.871,2.277,4.752,5.94,4.752,9.504
+		c0,0.693-0.099,1.386-0.19,2.079c-1.394,0.693-2.479,1.683-3.366,2.97c-0.792-0.396-1.688-0.594-2.673-0.594
+		c-2.978,0-5.354,1.979-6.039,4.752c-0.601-0.099-1.287-0.198-1.98-0.198c-1.287,0-2.271,0.396-3.363,0.891
+		C460.341,28.908,458.559,26.928,457.569,24.75z M496.179,42.669h-30.393c-2.871,0-5.346-2.673-5.346-5.841s2.475-5.841,5.346-5.841
+		c0.792,0,1.584,0.198,2.271,0.495c0.305,0.099,0.602,0.099,0.8,0c0.297-0.198,0.487-0.495,0.487-0.693
+		c0.104-2.277,2.079-4.158,4.455-4.158c0.896,0,1.782,0.297,2.479,0.693c0.19,0.099,0.495,0.099,0.688,0.099
+		c0.297-0.099,0.495-0.198,0.495-0.495c1.386-2.475,4.158-4.059,6.935-4.059c4.26,0,7.816,3.564,8.021,7.821
+		c0,0.396,0.198,0.594,0.495,0.792c0.297,0.198,0.594,0.099,0.891-0.099c0.495-0.396,1.089-0.495,2.186-0.495
+		c2.863,0,5.346,2.673,5.346,5.841S499.05,42.669,496.179,42.669z"/>
+	<g>
+		<path d="M355.599,35.442h-8.312c0.099-0.693,0.099-1.287,0.099-1.98c0-8.712-7.021-15.741-15.741-15.741
+			c-8.712,0-15.733,7.029-15.733,15.741c0,0.693,0,1.287,0.099,1.98h-8.611c-0.396,0-0.688,0.297-0.688,0.693
+			c0,0.396,0.297,0.693,0.688,0.693h48.216c0.396,0,0.688-0.297,0.688-0.693C356.193,35.739,355.896,35.442,355.599,35.442z
+			 M317.286,35.442c-0.104-0.693-0.104-1.287-0.104-1.98c0-7.92,6.438-14.454,14.454-14.454c7.92,0,14.454,6.435,14.454,14.454
+			c0,0.693,0,1.287-0.099,1.98H317.286z"/>
+		<path d="M351.045,39.303h-39.501c-0.396,0-0.693,0.297-0.693,0.693s0.305,0.693,0.693,0.693h39.501
+			c0.396,0,0.693-0.297,0.693-0.693C351.639,39.6,351.342,39.303,351.045,39.303z"/>
+		<path d="M344.115,43.263H318.87c-0.396,0-0.693,0.297-0.693,0.693s0.297,0.693,0.693,0.693h25.245
+			c0.396,0,0.688-0.297,0.688-0.693C344.709,43.56,344.412,43.263,344.115,43.263z"/>
+		<path d="M331.443,15.939c0.396,0,0.688-0.297,0.688-0.693V8.613c0-0.396-0.297-0.693-0.688-0.693
+			c-0.396,0-0.693,0.297-0.693,0.693v6.732C330.849,15.642,331.146,15.939,331.443,15.939z"/>
+		<path d="M356.49,30.888h-5.841c-0.396,0-0.693,0.297-0.693,0.693s0.297,0.693,0.693,0.693h5.841c0.396,0,0.688-0.297,0.688-0.693
+			S356.886,30.888,356.49,30.888z"/>
+		<path d="M312.93,31.581c0-0.396-0.297-0.693-0.688-0.693H306.4c-0.396,0-0.693,0.297-0.693,0.693s0.297,0.693,0.693,0.693h5.841
+			C312.633,32.175,312.93,31.878,312.93,31.581z"/>
+		<path d="M344.709,21.186c0.198,0,0.297-0.099,0.495-0.198l4.752-4.752c0.297-0.297,0.297-0.693,0-0.891
+			c-0.297-0.297-0.693-0.297-0.891,0l-4.752,4.752c-0.305,0.297-0.305,0.693,0,0.891C344.412,21.087,344.61,21.186,344.709,21.186z"
+			/>
+		<path d="M317.88,20.988c0.099,0.099,0.297,0.198,0.495,0.198s0.297-0.099,0.495-0.198c0.297-0.297,0.297-0.693,0-0.891
+			l-4.752-4.752c-0.297-0.297-0.693-0.297-0.896,0c-0.297,0.297-0.297,0.693,0,0.891L317.88,20.988z"/>
+		<path d="M324.018,16.731c0.104,0.198,0.305,0.396,0.602,0.396c0.099,0,0.19,0,0.297-0.099c0.297-0.198,0.495-0.594,0.297-0.891
+			l-2.079-4.158c-0.198-0.297-0.594-0.495-0.891-0.297c-0.297,0.198-0.495,0.594-0.297,0.891L324.018,16.731z"/>
+		<path d="M338.274,17.028c0.099,0,0.19,0.099,0.297,0.099c0.19,0,0.495-0.099,0.594-0.396l2.079-4.158
+			c0.198-0.297,0-0.693-0.297-0.891c-0.297-0.198-0.693,0-0.896,0.297l-2.079,4.158C337.779,16.533,337.878,16.929,338.274,17.028z"
+			/>
+		<path d="M348.273,26.136c0.099,0.297,0.396,0.396,0.594,0.396c0.099,0,0.198,0,0.198,0l4.354-1.584
+			c0.297-0.099,0.495-0.495,0.396-0.792c-0.104-0.297-0.495-0.495-0.792-0.396l-4.356,1.584
+			C348.372,25.443,348.174,25.839,348.273,26.136z"/>
+		<path d="M309.663,24.948l4.354,1.584c0.104,0,0.104,0,0.198,0c0.297,0,0.495-0.198,0.594-0.396
+			c0.104-0.297-0.099-0.693-0.396-0.792l-4.356-1.584c-0.297-0.099-0.688,0.099-0.792,0.396
+			C309.168,24.453,309.366,24.849,309.663,24.948z"/>
+	</g>
+</g>
+</svg>
