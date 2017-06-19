@@ -538,119 +538,9 @@ def data_call():
 		traceback.print_exc(file=sys.stdout)
 		print('-' * 60)
 
-def element_upd_80(x):
-	for element in tree.iter():
-		if element.tag.split("}")[1] == "path":
-			if element.get("id") == "b%sBat4" %x:
-				element.attrib['class'] = 'st3'
-			if element.get("id") == "b%sBat3" %x:
-				element.attrib['class'] = 'st3'
-			if element.get("id") == "b%sBat2" %x:
-				element.attrib['class'] = 'st3'
-			if element.get("id") == "b%sBat1" %x:
-				element.attrib['class'] = 'st3'
-			if element.get("id") == "b%sBat0" %x:
-				element.attrib['class'] = ''
-
-def element_upd_85(x):
-	for element in tree.iter():
-		if element.tag.split("}")[1] == "path":
-			if element.get("id") == "b%sBat4" %x:
-				element.attrib['class'] = 'st3'
-			if element.get("id") == "b%sBat3" %x:
-				element.attrib['class'] = 'st3'
-			if element.get("id") == "b%sBat2" %x:
-				element.attrib['class'] = 'st3'
-			if element.get("id") == "b%sBat1" %x:
-				element.attrib['class'] = ''
-			if element.get("id") == "b%sBat0" %x:
-				element.attrib['class'] = 'st3'
-
-def element_upd_90(x):
-	for element in tree.iter():
-		if element.tag.split("}")[1] == "path":
-			if element.get("id") == "b%sBat4" %x:
-				element.attrib['class'] = 'st3'
-			if element.get("id") == "b%sBat3" %x:
-				element.attrib['class'] = 'st3'
-			if element.get("id") == "b%sBat2" %x:
-				element.attrib['class'] = ''
-			if element.get("id") == "b%sBat1" %x:
-				element.attrib['class'] = 'st3'
-			if element.get("id") == "b%sBat0" %x:
-				element.attrib['class'] = 'st3'
-
-def element_upd_95(x):
-	for element in tree.iter():
-		if element.tag.split("}")[1] == "path":
-			if element.get("id") == "b%sBat4" %x:
-				element.attrib['class'] = 'st3'
-			if element.get("id") == "b%sBat3" %x:
-				element.attrib['class'] = ''
-			if element.get("id") == "b%sBat2" %x:
-				element.attrib['class'] = 'st3'
-			if element.get("id") == "b%sBat1" %x:
-				element.attrib['class'] = 'st3'
-			if element.get("id") == "b%sBat0" %x:
-				element.attrib['class'] = 'st3'
-
-def element_upd_100(x):
-	for element in tree.iter():
-		if element.tag.split("}")[1] == "path":
-			if element.get("id") == "b%sBat4" %x:
-				element.attrib['class'] = ''
-			if element.get("id") == "b%sBat3" %x:
-				element.attrib['class'] = 'st3'
-			if element.get("id") == "b%sBat2" %x:
-				element.attrib['class'] = 'st3'
-			if element.get("id") == "b%sBat1" %x:
-				element.attrib['class'] = 'st3'
-			if element.get("id") == "b%sBat0" %x:
-				element.attrib['class'] = 'st3'
-
-def battery_update(bat, dataglobal, datalabel):
-	if (0 <= dataglobal['voltage'] < 80):
-		element_upd_80(bat)
-		if verbose:
-			print datalabel, dataglobal['voltage'], " - 0 to 80"
-	elif (80 <= dataglobal['voltage'] < 85): 
-		element_upd_85(bat)
-		if verbose:
-			print datalabel, dataglobal['voltage'], " - 80 to 85"
-	elif (85 <= dataglobal['voltage'] < 90):
-		element_upd_90(bat)
-		if verbose:
-			print datalabel, dataglobal['voltage'], " - 85 to 90"
-	elif (90 <= dataglobal['voltage'] < 95):
-		element_upd_95(bat)
-		if verbose:
-			print datalabel, dataglobal['voltage'], " - 90 to 95"
-	elif (95 <= dataglobal['voltage']):
-		element_upd_100(bat)
-		if verbose:
-			print datalabel, dataglobal['voltage'], " - 95 to 100"
-
 def svg_update():
 	today = datetime.date.today()
 	now = datetime.datetime.now()
-	try:
-		global tree
-		tree = etree.parse(open(template_svg_filename, 'r'))
-		if data0_global:
-			battery_update('00', data0_global, sensor0label)
-		if data1_global:
-			battery_update('01', data1_global, sensor1label)
-		if data2_global:
-			battery_update('02', data2_global, sensor2label)
-		if data3_global:
-			battery_update('03', data3_global, sensor3label)
-		if data4_global:
-			battery_update('04', data4_global, sensor4label)
-		tree.write('/home/pi/Power_Monitoring/output/weather-script-output.svg')
-	except Exception:
-		print("BATTERY TO SVG ERROR", now.strftime("%Y-%m-%d %H:%M:%S"))
-		traceback.print_exc(file=sys.stdout)
-		print('-' * 60)
 	try:
 		tree = etree.parse(open('/home/pi/Power_Monitoring/output/weather-script-output.svg', 'r'))
 		if weather_data['pressure_trend'] in ['+']:
@@ -718,22 +608,24 @@ def svg_update():
 			output = output.replace('TMP0HI', "{0:.2f}".format(float(data0_global['temperature_max'])))
 			output = output.replace('TMP0LO', "{0:.2f}".format(float(data0_global['temperature_min'])))
 			if data0_global['pressure'] >= 1000:
-				output = output.replace('PRESS', "{0:.0f}".format(float(data0_global['pressure'])))
+				output = output.replace('TMP0PRESS', "{0:.0f}".format(float(data0_global['pressure'])))
 			elif data0_global['pressure'] < 1000:
-				output = output.replace('PRESS', "{0:.1f}".format(float(data0_global['pressure'])))
+				output = output.replace('TMP0PRESS', "{0:.1f}".format(float(data0_global['pressure'])))
 			if data0_global['humidity'] == 100:
-				output = output.replace('RELHUM', "{0:.1f}".format(float(data0_global['humidity'])))
+				output = output.replace('TMP0RELHUM', "{0:.1f}".format(float(data0_global['humidity'])))
 			elif data0_global['humidity'] < 100:
-				output = output.replace('RELHUM', "{0:.2f}".format(float(data0_global['humidity'])))
-			output = output.replace('DWPNT', "{0:.2f}".format(float(data0_global['dewpoint'])))
+				output = output.replace('TMP0RELHUM', "{0:.2f}".format(float(data0_global['humidity'])))
+			output = output.replace('TMP0DWPNT', "{0:.2f}".format(float(data0_global['dewpoint'])))
+			output = output.replace('TMP0VOLT', str(data0_global['voltage']))
 		else:
 			output = output.replace('TMP0TMP', '00.00')
 			output = output.replace('TMP0TIME', '00:00:00')
 			output = output.replace('TMP0HI', '00.00')
 			output = output.replace('TMP0LO', '00.00')
-			output = output.replace('PRESS', '00.00')
-			output = output.replace('RELHUM', '00.00')
-			output = output.replace('DWPNT', '00.00')
+			output = output.replace('TMP0PRESS', '00.00')
+			output = output.replace('TMP0RELHUM', '00.00')
+			output = output.replace('TMP0DWPNT', '00.00')
+			output = output.replace('TMP0VOLT', '00.00')
 		if data1_global:
 			if data1_global['temperature'] >= 100:
 				output = output.replace('TMP1TMP', "{0:.1f}".format(float(data1_global['temperature'])))
@@ -742,11 +634,25 @@ def svg_update():
 			output = output.replace('TMP1TIME', str(data1_global['time']))
 			output = output.replace('TMP1HI', "{0:.2f}".format(float(data1_global['temperature_max'])))
 			output = output.replace('TMP1LO', "{0:.2f}".format(float(data1_global['temperature_min'])))
+			if data1_global['pressure'] >= 1000:
+				output = output.replace('TMP1PRESS', "{0:.0f}".format(float(data1_global['pressure'])))
+			elif data1_global['pressure'] < 1000:
+				output = output.replace('TMP1PRESS', "{0:.1f}".format(float(data1_global['pressure'])))
+			if data1_global['humidity'] == 100:
+				output = output.replace('TMP1RELHUM', "{0:.1f}".format(float(data1_global['humidity'])))
+			elif data1_global['humidity'] < 100:
+				output = output.replace('TMP1RELHUM', "{0:.2f}".format(float(data1_global['humidity'])))
+			output = output.replace('TMP1DWPNT', "{0:.2f}".format(float(data1_global['dewpoint'])))
+			output = output.replace('TMP1VOLT', str(data1_global['voltage']))
 		else:
 			output = output.replace('TMP1TMP', '00.00')
 			output = output.replace('TMP1TIME', '00:00:00')
 			output = output.replace('TMP1HI', '00.00')
 			output = output.replace('TMP1LO', '00.00')
+			output = output.replace('TMP1PRESS', '00.00')
+			output = output.replace('TMP1RELHUM', '00.00')
+			output = output.replace('TMP1DWPNT', '00.00')
+			output = output.replace('TMP1VOLT', '00.00')
 		if data2_global:
 			if data2_global['temperature'] >= 100:
 				output = output.replace('TMP2TMP', "{0:.1f}".format(float(data2_global['temperature'])))
@@ -755,11 +661,13 @@ def svg_update():
 			output = output.replace('TMP2TIME', str(data2_global['time']))
 			output = output.replace('TMP2HI', "{0:.2f}".format(float(data2_global['temperature_max'])))
 			output = output.replace('TMP2LO', "{0:.2f}".format(float(data2_global['temperature_min'])))
+			output = output.replace('TMP2VOLT', str(data2_global['voltage']))
 		else:
 			output = output.replace('TMP2TMP', '00.00')
 			output = output.replace('TMP2TIME', '00:00:00')
 			output = output.replace('TMP2HI', '00.00')
 			output = output.replace('TMP2LO', '00.00')
+			output = output.replace('TMP2VOLT', '00.00')
 		if data3_global:
 			if data3_global['temperature'] >= 100:
 				output = output.replace('TMP3TMP', "{0:.1f}".format(float(data3_global['temperature'])))
@@ -768,11 +676,13 @@ def svg_update():
 			output = output.replace('TMP3TIME', str(data3_global['time']))
 			output = output.replace('TMP3HI', "{0:.2f}".format(float(data3_global['temperature_max'])))
 			output = output.replace('TMP3LO', "{0:.2f}".format(float(data3_global['temperature_min'])))
+			output = output.replace('TMP3VOLT', str(data3_global['voltage']))
 		else:
 			output = output.replace('TMP3TMP', '00.00')
 			output = output.replace('TMP3TIME', '00:00:00')
 			output = output.replace('TMP3HI', '00.00')
 			output = output.replace('TMP3LO', '00.00')
+			output = output.replace('TMP3VOLT', '00.00')
 		if data4_global:
 			if data4_global['temperature'] >= 100:
 				output = output.replace('TMP4TMP', "{0:.1f}".format(float(data4_global['temperature'])))
@@ -781,11 +691,13 @@ def svg_update():
 			output = output.replace('TMP4TIME', str(data4_global['time']))
 			output = output.replace('TMP4HI', "{0:.2f}".format(float(data4_global['temperature_max'])))
 			output = output.replace('TMP4LO', "{0:.2f}".format(float(data4_global['temperature_min'])))
+			output = output.replace('TMP4VOLT', str(data4_global['voltage']))
 		else:
 			output = output.replace('TMP4TMP', '00.00')
 			output = output.replace('TMP4TIME', '00:00:00')
 			output = output.replace('TMP4HI', '00.00')
 			output = output.replace('TMP4LO', '00.00')
+			output = output.replace('TMP4VOLT', '00.00')
 		if data5_global:
 			if data5_global['temperature'] >= 100:
 				output = output.replace('TMP5TMP', "{0:.1f}".format(float(data5_global['temperature'])))
@@ -794,11 +706,13 @@ def svg_update():
 			output = output.replace('TMP5TIME', str(data5_global['time']))
 			output = output.replace('TMP5HI', "{0:.2f}".format(float(data5_global['temperature_max'])))
 			output = output.replace('TMP5LO', "{0:.2f}".format(float(data5_global['temperature_min'])))
+			output = output.replace('TMP5VOLT', str(data5_global['voltage']))
 		else:
 			output = output.replace('TMP5TMP', '00.00')
 			output = output.replace('TMP5TIME', '00:00:00')
 			output = output.replace('TMP5HI', '00.00')
 			output = output.replace('TMP5LO', '00.00')
+			output = output.replace('TMP5VOLT', '00.00')
 		if data6_global:
 			if data6_global['temperature'] >= 100:
 				output = output.replace('TMP6TMP', "{0:.1f}".format(float(data6_global['temperature'])))
@@ -807,11 +721,28 @@ def svg_update():
 			output = output.replace('TMP6TIME', str(data6_global['time']))
 			output = output.replace('TMP6HI', "{0:.2f}".format(float(data6_global['temperature_max'])))
 			output = output.replace('TMP6LO', "{0:.2f}".format(float(data6_global['temperature_min'])))
+			output = output.replace('TMP6VOLT', str(data6_global['voltage']))
 		else:
 			output = output.replace('TMP6TMP', '00.00')
 			output = output.replace('TMP6TIME', '00:00:00')
 			output = output.replace('TMP6HI', '00.00')
 			output = output.replace('TMP6LO', '00.00')
+			output = output.replace('TMP6VOLT', '00.00')
+		if data7_global:
+			if data7_global['temperature'] >= 100:
+				output = output.replace('TMP7TMP', "{0:.1f}".format(float(data7_global['temperature'])))
+			elif data7_global['temperature'] < 100:
+				output = output.replace('TMP7TMP', "{0:.2f}".format(float(data7_global['temperature'])))
+			output = output.replace('TMP7TIME', str(data7_global['time']))
+			output = output.replace('TMP7HI', "{0:.2f}".format(float(data7_global['temperature_max'])))
+			output = output.replace('TMP7LO', "{0:.2f}".format(float(data7_global['temperature_min'])))
+			output = output.replace('TMP7VOLT', str(data7_global['voltage']))
+		else:
+			output = output.replace('TMP7TMP', '00.00')
+			output = output.replace('TMP7TIME', '00:00:00')
+			output = output.replace('TMP7HI', '00.00')
+			output = output.replace('TMP7LO', '00.00')
+			output = output.replace('TMP7VOLT', '00.00')
 		if tide:
 			output = output.replace('TDLSTM', str(tide_data['tide_prior_time'].strftime('%H:%M')))
 			output = output.replace('TDLSHGT', str(tide_data['tide_prior_level']))
@@ -831,8 +762,7 @@ def svg_update():
 		subprocess.call(["sudo", "chmod", "+x", "/home/pi/Power_Monitoring/output/weather-script-output.png"])
 		subprocess.call(["sudo", "chmod", "+x", "/home/pi/Power_Monitoring/output/weather-script-output.svg"])
 		subprocess.call(["sudo", "cp", "/home/pi/Power_Monitoring/output/weather-script-output.png", "/var/www/html/"])
-		subprocess.call(["sudo", "cp", "/home/pi/Power_Monitoring/output/weather-script-output.svg", "/var/www/html/"])
-		 
+		subprocess.call(["sudo", "cp", "/home/pi/Power_Monitoring/output/weather-script-output.svg", "/var/www/html/"])	 
 	except Exception:
 		print("CODECS TO SVG ERROR", now.strftime("%Y-%m-%d %H:%M:%S"))
 		traceback.print_exc(file=sys.stdout)
