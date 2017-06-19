@@ -827,9 +827,11 @@ def svg_update():
 			output = output.replace('TDAFCNT', str(tide_data['tide_after_count'])[:4])
 		codecs.open('/home/pi/Power_Monitoring/output/weather-script-output.svg', 'w', encoding='utf-8').write(output)
 		subprocess.call(["rsvg-convert", "-b", "white", "-o", "/home/pi/Power_Monitoring/output/weather-script-output.png", "/home/pi/Power_Monitoring/output/weather-script-output.svg"])
-		subprocess.call(["pngcrush", "-c", "0", "-ow /home/pi/Power_Monitoring/output/weather-script-output.png"])
+		subprocess.call(["pngcrush", "-q", "-c", "0", "-ow /home/pi/Power_Monitoring/output/weather-script-output.png"])
 		subprocess.call(["sudo", "chmod", "+x", "/home/pi/Power_Monitoring/output/weather-script-output.png"])
+		subprocess.call(["sudo", "chmod", "+x", "/home/pi/Power_Monitoring/output/weather-script-output.svg"])
 		subprocess.call(["sudo", "cp", "/home/pi/Power_Monitoring/output/weather-script-output.png", "/var/www/html/"])
+		subprocess.call(["sudo", "cp", "/home/pi/Power_Monitoring/output/weather-script-output.svg", "/var/www/html/"])
 		 
 	except Exception:
 		print("CODECS TO SVG ERROR", now.strftime("%Y-%m-%d %H:%M:%S"))
