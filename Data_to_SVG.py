@@ -14,6 +14,7 @@ logging.basicConfig()
 verbose = False
 sensordata = True
 weatherdata = True
+dropbox_upload = True
 now = datetime.datetime.now()
 
 for arg in sys.argv:
@@ -918,13 +919,23 @@ def txt_output():
 		print("TXT_OUTPUT ERROR", now.strftime("%Y-%m-%d %H:%M:%S"))
 		traceback.print_exc(file=sys.stdout)
 		print('-' * 60)
-
+def dropbox_update():
+	try:
+		subprocess.call(["dropbox_uploader.sh", "upload", "/home/pi/Power_Monitoring/output/weather-script-output.png", "/Programming/logs/%s/" %location])
+		subprocess.call(["dropbox_uploader.sh", "upload", "/home/pi/Power_Monitoring/output/weather-script-output.svg", "/Programming/logs/%s/" %location])
+		subprocess.call(["dropbox_uploader.sh", "upload", "/home/pi/Power_Monitoring/output/weather_output.txt", "/Programming/logs/%s/" %location])
+	except Exception:
+		print("DROPBOX UPLOADER ERROR", now.strftime("%Y-%m-%d %H:%M:%S"))
+		traceback.print_exc(file=sys.stdout)
+		print('-' * 60)
 if(1):
 	scheduler = BlockingScheduler()
 	scheduler.add_job(daily_wunder_update, 'cron', hour=0, minute=5)
 	scheduler.add_job(hourly_wunder_update, 'cron', hour='*/1')
 	scheduler.add_job(svg_update, 'interval', seconds=5)
 	scheduler.add_job(data_call, 'interval', seconds=30)
+	if dropbox_upload:
+		scheduler.add_job(dropbox_update, 'interval', mintutes=5)
 	try:
 		time.sleep(5)
 		daily_wunder_update()
