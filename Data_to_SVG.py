@@ -924,9 +924,9 @@ def txt_output():
 
 def dropbox_update():
 	try:
-		subprocess.call(["dropbox_uploader.sh", "upload", "/home/pi/Power_Monitoring/output/weather-script-output.png", "/Programming/logs/%s/" %location])
-		subprocess.call(["dropbox_uploader.sh", "upload", "/home/pi/Power_Monitoring/output/weather-script-output.svg", "/Programming/logs/%s/" %location])
-		subprocess.call(["dropbox_uploader.sh", "upload", "/home/pi/Power_Monitoring/output/weather_output.txt", "/Programming/logs/%s/" %location])
+		subprocess.call(["/usr/local/bin/dropbox_uploader.sh", "upload", "/home/pi/Power_Monitoring/output/weather-script-output.png", "/Programming/logs/%s/" %location])
+		subprocess.call(["/usr/local/bin/dropbox_uploader.sh", "upload", "/home/pi/Power_Monitoring/output/weather-script-output.svg", "/Programming/logs/%s/" %location])
+		subprocess.call(["/usr/local/bin/dropbox_uploader.sh", "upload", "/home/pi/Power_Monitoring/output/weather_output.txt", "/Programming/logs/%s/" %location])
 	except Exception:
 		print("DROPBOX UPLOADER ERROR", now.strftime("%Y-%m-%d %H:%M:%S"))
 		traceback.print_exc(file=sys.stdout)
