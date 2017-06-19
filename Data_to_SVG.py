@@ -599,6 +599,7 @@ def svg_update():
 		output = output.replace('TMP4LABEL', sensor4label)
 		output = output.replace('TMP5LABEL', sensor5label)
 		output = output.replace('TMP6LABEL', sensor6label)
+		output = output.replace('TMP7LABEL', sensor7label)
 		if data0_global:
 			if data0_global['temperature'] >= 100:
 				output = output.replace('TMP0TMP', "{0:.1f}".format(float(data0_global['temperature'])))
