@@ -195,7 +195,7 @@ if (1):
 			subprocess.call(["sudo", "chmod", "+x", "/home/pi/Power_Monitoring/output/plot_temp.png"])
 			subprocess.call(["sudo", "cp", "/home/pi/Power_Monitoring/output/plot_temp.png", "/var/www/html/"])
 			if dropbox_upload:
-				subprocess.call(["dropbox_uploader.sh", "upload", "/home/pi/Power_Monitoring/output/plot_temp.png", "/Programming/logs/%s/plots/" %location])
+				subprocess.call(["/usr/local/bin/dropbox_uploader.sh", "upload", "/home/pi/Power_Monitoring/output/plot_temp.png", "/Programming/logs/%s/plots/" %location])
 		if press_plot:
 			fig = plt.figure(figsize=(plt_size_x, plt_size_y), dpi=plt_size_dpi)
 			plt.style.use(plot_style)
@@ -245,7 +245,7 @@ if (1):
 			subprocess.call(["sudo", "chmod", "+x", "/home/pi/Power_Monitoring/output/plot_press.png"])
 			subprocess.call(["sudo", "cp", "/home/pi/Power_Monitoring/output/plot_press.png", "/var/www/html/"])
 			if dropbox_upload:
-				subprocess.call(["dropbox_uploader.sh", "upload", "/home/pi/Power_Monitoring/output/plot_press.png", "/Programming/logs/%s/plots/" %location])
+				subprocess.call(["/usr/local/bin/dropbox_uploader.sh", "upload", "/home/pi/Power_Monitoring/output/plot_press.png", "/Programming/logs/%s/plots/" %location])
 		if humid_plot:
 			fig = plt.figure(figsize=(plt_size_x, plt_size_y), dpi=plt_size_dpi)
 			plt.style.use(plot_style)
@@ -295,7 +295,7 @@ if (1):
 			subprocess.call(["sudo", "chmod", "+x", "/home/pi/Power_Monitoring/output/plot_humid.png"])
 			subprocess.call(["sudo", "cp", "/home/pi/Power_Monitoring/output/plot_humid.png", "/var/www/html/"])
 			if dropbox_upload:
-				subprocess.call(["dropbox_uploader.sh", "upload", "/home/pi/Power_Monitoring/output/plot_humid.png", "/Programming/logs/%s/plots/" %location])
+				subprocess.call(["/usr/local/bin/dropbox_uploader.sh", "upload", "/home/pi/Power_Monitoring/output/plot_humid.png", "/Programming/logs/%s/plots/" %location])
 		if volt_plot:
 			fig = plt.figure(figsize=(plt_size_x, plt_size_y), dpi=plt_size_dpi)
 			plt.style.use(plot_style)
@@ -345,7 +345,7 @@ if (1):
 			subprocess.call(["sudo", "chmod", "+x", "/home/pi/Power_Monitoring/output/plot_volt.png"])
 			subprocess.call(["sudo", "cp", "/home/pi/Power_Monitoring/output/plot_volt.png", "/var/www/html/"])
 			if dropbox_upload:
-				subprocess.call(["dropbox_uploader.sh", "upload", "/home/pi/Power_Monitoring/output/plot_volt.png", "/Programming/logs/%s/plots/" %location])
+				subprocess.call(["/usr/local/bin/dropbox_uploader.sh", "upload", "/home/pi/Power_Monitoring/output/plot_volt.png", "/Programming/logs/%s/plots/" %location])
 		if rssi_plot:
 			fig = plt.figure(figsize=(plt_size_x, plt_size_y), dpi=plt_size_dpi)
 			plt.style.use(plot_style)
@@ -395,7 +395,7 @@ if (1):
 			subprocess.call(["sudo", "chmod", "+x", "/home/pi/Power_Monitoring/output/plot_rssi.png"])
 			subprocess.call(["sudo", "cp", "/home/pi/Power_Monitoring/output/plot_rssi.png", "/var/www/html/"])
 			if dropbox_upload:
-				subprocess.call(["dropbox_uploader.sh", "upload", "/home/pi/Power_Monitoring/output/plot_rssi.png", "/Programming/logs/%s/plots/" %location])
+				subprocess.call(["/usr/local/bin/dropbox_uploader.sh", "upload", "/home/pi/Power_Monitoring/output/plot_rssi.png", "/Programming/logs/%s/plots/" %location])
 	except Exception:
 		print("MATPLOTLIB ERROR")
 		traceback.print_exc(file=sys.stdout)
