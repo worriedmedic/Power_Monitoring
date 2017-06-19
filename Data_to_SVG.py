@@ -617,7 +617,7 @@ def svg_update():
 			elif data0_global['humidity'] < 100:
 				output = output.replace('TMP0RELHUM', "{0:.2f}".format(float(data0_global['humidity'])))
 			output = output.replace('TMP0DWPNT', "{0:.2f}".format(float(data0_global['dewpoint'])))
-			output = output.replace('TMP0VOLT', float(data0_global['voltage']))
+			output = output.replace('TMP0VOLT', "{0:.1f}".format(float(data0_global['voltage'])))
 		else:
 			output = output.replace('TMP0TMP', '00.00')
 			output = output.replace('TMP0TIME', '00:00:00')
@@ -644,7 +644,7 @@ def svg_update():
 			elif data1_global['humidity'] < 100:
 				output = output.replace('TMP1RELHUM', "{0:.2f}".format(float(data1_global['humidity'])))
 			output = output.replace('TMP1DWPNT', "{0:.2f}".format(float(data1_global['dewpoint'])))
-			output = output.replace('TMP1VOLT', float(data1_global['voltage']))
+			output = output.replace('TMP1VOLT', "{0:.1f}".format(float(data1_global['voltage'])))
 		else:
 			output = output.replace('TMP1TMP', '00.00')
 			output = output.replace('TMP1TIME', '00:00:00')
@@ -662,7 +662,7 @@ def svg_update():
 			output = output.replace('TMP2TIME', str(data2_global['time']))
 			output = output.replace('TMP2HI', "{0:.2f}".format(float(data2_global['temperature_max'])))
 			output = output.replace('TMP2LO', "{0:.2f}".format(float(data2_global['temperature_min'])))
-			output = output.replace('TMP2VOLT', float(data2_global['voltage']))
+			output = output.replace('TMP2VOLT', "{0:.1f}".format(float(data2_global['voltage'])))
 		else:
 			output = output.replace('TMP2TMP', '00.00')
 			output = output.replace('TMP2TIME', '00:00:00')
@@ -677,7 +677,7 @@ def svg_update():
 			output = output.replace('TMP3TIME', str(data3_global['time']))
 			output = output.replace('TMP3HI', "{0:.2f}".format(float(data3_global['temperature_max'])))
 			output = output.replace('TMP3LO', "{0:.2f}".format(float(data3_global['temperature_min'])))
-			output = output.replace('TMP3VOLT', float(data3_global['voltage']))
+			output = output.replace('TMP3VOLT', "{0:.1f}".format(float(data3_global['voltage'])))
 		else:
 			output = output.replace('TMP3TMP', '00.00')
 			output = output.replace('TMP3TIME', '00:00:00')
@@ -692,7 +692,7 @@ def svg_update():
 			output = output.replace('TMP4TIME', str(data4_global['time']))
 			output = output.replace('TMP4HI', "{0:.2f}".format(float(data4_global['temperature_max'])))
 			output = output.replace('TMP4LO', "{0:.2f}".format(float(data4_global['temperature_min'])))
-			output = output.replace('TMP4VOLT', float(data4_global['voltage']))
+			output = output.replace('TMP4VOLT', "{0:.1f}".format(float(data4_global['voltage'])))
 		else:
 			output = output.replace('TMP4TMP', '00.00')
 			output = output.replace('TMP4TIME', '00:00:00')
@@ -707,7 +707,7 @@ def svg_update():
 			output = output.replace('TMP5TIME', str(data5_global['time']))
 			output = output.replace('TMP5HI', "{0:.2f}".format(float(data5_global['temperature_max'])))
 			output = output.replace('TMP5LO', "{0:.2f}".format(float(data5_global['temperature_min'])))
-			output = output.replace('TMP5VOLT', float(data5_global['voltage']))
+			output = output.replace('TMP5VOLT', "{0:.1f}".format(float(data5_global['voltage'])))
 		else:
 			output = output.replace('TMP5TMP', '00.00')
 			output = output.replace('TMP5TIME', '00:00:00')
@@ -722,7 +722,7 @@ def svg_update():
 			output = output.replace('TMP6TIME', str(data6_global['time']))
 			output = output.replace('TMP6HI', "{0:.2f}".format(float(data6_global['temperature_max'])))
 			output = output.replace('TMP6LO', "{0:.2f}".format(float(data6_global['temperature_min'])))
-			output = output.replace('TMP6VOLT', float(data6_global['voltage']))
+			output = output.replace('TMP6VOLT', "{0:.1f}".format(float(data6_global['voltage'])))
 		else:
 			output = output.replace('TMP6TMP', '00.00')
 			output = output.replace('TMP6TIME', '00:00:00')
@@ -737,7 +737,7 @@ def svg_update():
 			output = output.replace('TMP7TIME', str(data7_global['time']))
 			output = output.replace('TMP7HI', "{0:.2f}".format(float(data7_global['temperature_max'])))
 			output = output.replace('TMP7LO', "{0:.2f}".format(float(data7_global['temperature_min'])))
-			output = output.replace('TMP7VOLT', float(data7_global['voltage']))
+			output = output.replace('TMP7VOLT', "{0:.1f}".format(float(data7_global['voltage'])))
 		else:
 			output = output.replace('TMP7TMP', '00.00')
 			output = output.replace('TMP7TIME', '00:00:00')
