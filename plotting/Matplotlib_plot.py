@@ -295,7 +295,7 @@ if (1):
 			subprocess.call(["sudo", "chmod", "+x", "/home/pi/Power_Monitoring/output/plot_humid.png"])
 			subprocess.call(["sudo", "cp", "/home/pi/Power_Monitoring/output/plot_humid.png", "/var/www/html/"])
 			if dropbox_upload:
-				subprocess.call(["/usr/local/bin/dropbox_uploader.sh", "upload", "/home/pi/Power_Monitoring/output/plot_humid.png", "/Programming/logs/%s/plots/" %location])
+				subprocess.call(["/usr/local/bin/dropbox_uploader.sh", "-q", "upload", "/home/pi/Power_Monitoring/output/plot_humid.png", "/Programming/logs/%s/plots/" %location])
 		if volt_plot:
 			fig = plt.figure(figsize=(plt_size_x, plt_size_y), dpi=plt_size_dpi)
 			plt.style.use(plot_style)
