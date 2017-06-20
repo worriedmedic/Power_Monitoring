@@ -21,10 +21,16 @@ for arg in sys.argv:
 	if arg == '-v':
 		verbose = True
 		print("VERBOSE IS ON")
+	elif arg == '-drop_on':
+		dropbox_upload = True
+		print("DROPBOX UPLOADER IS ENABLED")
+	elif arg == '-drop_off':
+		dropbox_upload = False
+		print("DROPBOX UPLOAD IS DISABLED")
 	elif arg == '-h':
 		print("SVG_Processing.py script - LWH & NHH")
 		print("Backend processing of data collected by Arduino based sensors for output to SVG/PNG file")
-		print("Options: [-v VERBOSE] [-h HELP]")
+		print("Options: [-v VERBOSE] [-h HELP] [-drop_on DROPBOX ENABLED] [-drop_off DROPBOX DISABLED")
 		sys.exit()
 
 if os.path.isfile('/home/pi/Power_Monitoring/dover.location'):
@@ -855,9 +861,9 @@ def txt_output():
 
 def dropbox_update():
 	try:
-		subprocess.call(["/usr/local/bin/dropbox_uploader.sh", "upload", "/home/pi/Power_Monitoring/output/weather-script-output.png", "/Programming/logs/%s/" %location])
-		subprocess.call(["/usr/local/bin/dropbox_uploader.sh", "upload", "/home/pi/Power_Monitoring/output/weather-script-output.svg", "/Programming/logs/%s/" %location])
-		subprocess.call(["/usr/local/bin/dropbox_uploader.sh", "upload", "/home/pi/Power_Monitoring/output/weather_output.txt", "/Programming/logs/%s/" %location])
+		subprocess.call(["/usr/local/bin/dropbox_uploader.sh", "-q", "upload", "/home/pi/Power_Monitoring/output/weather-script-output.png", "/Programming/logs/%s/" %location])
+		subprocess.call(["/usr/local/bin/dropbox_uploader.sh", "-q", "upload", "/home/pi/Power_Monitoring/output/weather-script-output.svg", "/Programming/logs/%s/" %location])
+		subprocess.call(["/usr/local/bin/dropbox_uploader.sh", "-q", "upload", "/home/pi/Power_Monitoring/output/weather_output.txt", "/Programming/logs/%s/" %location])
 	except Exception:
 		print("DROPBOX UPLOADER ERROR", now.strftime("%Y-%m-%d %H:%M:%S"))
 		traceback.print_exc(file=sys.stdout)
