@@ -548,7 +548,7 @@ def svg_update():
 	today = datetime.date.today()
 	now = datetime.datetime.now()
 	try:
-		tree = etree.parse(open('/home/pi/Power_Monitoring/resources/DOVER_WX_TEMPLATE.svg', 'r'))
+		tree = etree.parse(open(template_svg_filename, 'r'))
 		if weather_data['pressure_trend'] in ['+']:
 			for element in tree.iter():
 				if element.tag.split("}")[1] == "path":
