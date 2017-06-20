@@ -99,7 +99,7 @@ try:
   subprocess.call(["sudo", "chmod", "+x", "/home/pi/Power_Monitoring/output/%spower.png" %td1])
   subprocess.call(["sudo", "cp", "/home/pi/Power_Monitoring/output/%spower.png" %td1, "/var/www/html/"])
   if dropbox_upload:
-    subprocess.call(["/usr/local/bin/dropbox_uploader.sh", "upload", "/home/pi/Power_Monitoring/output/%spower.png" %td1, "/Programming/logs/%s/plots/" %location])
+    subprocess.call(["/usr/local/bin/dropbox_uploader.sh", "-q", "upload", "/home/pi/Power_Monitoring/output/%spower.png" %td1, "/Programming/logs/%s/plots/" %location])
 except Exception:
   print "%s Error" %td1
   traceback.print_exc(file=sys.stdout)
@@ -124,7 +124,7 @@ try:
   subprocess.call(["sudo", "chmod", "+x", "/home/pi/Power_Monitoring/output/%spower.png" %td2])
   subprocess.call(["sudo", "cp", "/home/pi/Power_Monitoring/output/%spower.png" %td2, "/var/www/html/"])
   if dropbox_upload:
-    subprocess.call(["/usr/local/bin/dropbox_uploader.sh", "upload", "/home/pi/Power_Monitoring/output/%spower.png" %td1, "/Programming/logs/%s/plots/" %location])
+    subprocess.call(["/usr/local/bin/dropbox_uploader.sh", "-q", "upload", "/home/pi/Power_Monitoring/output/%spower.png" %td1, "/Programming/logs/%s/plots/" %location])
 except Exception:
   print "%s Error" %td2
   traceback.print_exc(file=sys.stdout)
@@ -147,7 +147,7 @@ try:
   subprocess.call(["sudo", "chmod", "+x", "/home/pi/Power_Monitoring/output/%spower.png" %td3])
   subprocess.call(["sudo", "cp", "/home/pi/Power_Monitoring/output/%spower.png" %td3, "/var/www/html/"])
   if dropbox_upload:
-    subprocess.call(["/usr/local/bin/dropbox_uploader.sh", "upload", "/home/pi/Power_Monitoring/output/%spower.png" %td1, "/Programming/logs/%s/plots/" %location])
+    subprocess.call(["/usr/local/bin/dropbox_uploader.sh", "-q", "upload", "/home/pi/Power_Monitoring/output/%spower.png" %td1, "/Programming/logs/%s/plots/" %location])
 except Exception:
   print "%s Error" %td2
   traceback.print_exc(file=sys.stdout)
