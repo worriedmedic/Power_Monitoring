@@ -548,47 +548,7 @@ def svg_update():
 	today = datetime.date.today()
 	now = datetime.datetime.now()
 	try:
-		tree = etree.parse(open(template_svg_filename, 'r'))
-		if weather_data['pressure_trend'] in ['+']:
-			for element in tree.iter():
-				if element.tag.split("}")[1] == "path":
-					if element.get("id") == "ple":
-						element.attrib['class'] = 'st3'
-					if element.get("id") == "pup":
-						element.attrib['class'] = ''
-					if element.get("id") == "pdn":
-						element.attrib['class'] = 'st3'
-			if verbose:
-				print "Pressure Up"
-		elif weather_data['pressure_trend'] in ['0']:
-			for element in tree.iter():
-				if element.tag.split("}")[1] == "path":
-					if element.get("id") == "ple":
-						element.attrib['class'] = ''
-					if element.get("id") == "pup":
-						element.attrib['class'] = 'st3'
-					if element.get("id") == "pdn":
-						element.attrib['class'] = 'st3'
-			if verbose:
-				print "Pressure Neutral"
-		elif weather_data['pressure_trend'] in ['-']:
-			for element in tree.iter():
-				if element.tag.split("}")[1] == "path":
-					if element.get("id") == "ple":
-						element.attrib['class'] = 'st3'
-					if element.get("id") == "pup":
-						element.attrib['class'] = 'st3'
-					if element.get("id") == "pdn":
-						element.attrib['class'] = ''
-			if verbose:
-				print "Pressure Down"
-		tree.write('/home/pi/Power_Monitoring/output/weather-script-output.svg')
-	except Exception:
-		print("PRESSURE TO SVG ERROR", now.strftime("%Y-%m-%d %H:%M:%S"))
-		traceback.print_exc(file=sys.stdout)
-		print('-' * 60)
-	try:
-		output = codecs.open('/home/pi/Power_Monitoring/output/weather-script-output.svg', 'r', encoding='utf-8').read()
+		output = codecs.open('template_svg_filename', 'r', encoding='utf-8').read()
 		output = output.replace('CURDATE', today.strftime("%m/%d/%Y"))
 		output = output.replace('CURTIME', now.strftime("%H:%M"))
 		output = output.replace('SNRISE', str(weather_data['sunrise']))
