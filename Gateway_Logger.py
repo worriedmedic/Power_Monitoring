@@ -72,7 +72,7 @@ while(True):
 		try:
             		buffer = spb.readline()  # read one line of text from serial port
 			if verbose_verbose:
-				rawout = open(os.path('/home/pi/Power_Monitoring/data_log/rawoutput.log', 'a'))
+				rawout = open('/home/pi/Power_Monitoring/data_log/rawoutput.log', 'a')
 				rawout.write(buffer)
 				rawout.flush()
 				print(buffer)
