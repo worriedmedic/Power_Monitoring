@@ -56,7 +56,7 @@ while(True):
 		spb.readline()
 		serial_present = True
 		if verbose_verbose:
-			print("SERIAL PRESENT", serail_present)
+			print("SERIAL PRESENT", serial_present)
 	except Exception:
 		now = time.strftime("%H:%M:%S")
 		today = datetime.date.today()
