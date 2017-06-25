@@ -45,18 +45,19 @@ for arg in sys.argv:
 if os.path.isfile('/home/pi/Power_Monitoring/dover.location'):
     	addr = '/dev/ttyUSB0'
 elif os.path.isfile('/home/pi/Power_Monitoring/cuttyhunk.location'):
-    	addr = '/dev/ttyUSB0'
+    	addr = '/dev/serial/by-id/usb-FTDI_FT232R_USB_UART_AL02CC7C-if00-port0'
 
 while(True):
     	try:
 		pt = serial.Serial(addr,9600)
 		spb = io.TextIOWrapper(io.BufferedRWPair(pt,pt,1), errors='strict',line_buffering=True)
-		spb.readline()
-		spb.readline()
-		spb.readline()
+		b1 = spb.readline()
+		b2 = spb.readline()
+		b3 = spb.readline()
 		serial_present = True
-		if verbose_verbose:
+		if verbose:
 			print("SERIAL PRESENT", serial_present)
+			print(b1, b2, b3)
 	except Exception:
 		now = time.strftime("%H:%M:%S")
 		today = datetime.date.today()
@@ -64,23 +65,25 @@ while(True):
 		traceback.print_exc(file=sys.stdout)
 		print('-' * 60)
 		serial_present = False
-		pt.close()
+		#pt.close()
 		time.sleep(10)
 	while serial_present:
-		now = time.strftime("%H:%M:%S") # Call time of serial read
-		today = datetime.date.today() # Call date of serial read
+		now = time.strftime("%H:%M:%S")
+		today = datetime.date.today()
 		try:
-            		buffer = spb.readline()  # read one line of text from serial port
+            		buffer = spb.readline()
 			if verbose_verbose:
 				rawout = open('/home/pi/Power_Monitoring/data_log/rawoutput.log', 'a')
 				rawout.write(buffer)
 				rawout.flush()
+			if verbose:
 				print(buffer)
             		buffer = buffer.strip("\n")
 		except Exception:
 			print("SERIAL READ ERROR", today, now)
 			traceback.print_exc(file=sys.stdout)
 			print('-' * 60)
+			pt.close()
 			break
 		x = str(today) + ',' + str(now) + ',' + str(buffer) + '\n'
 		if verbose:
@@ -92,11 +95,12 @@ while(True):
 			humid = buffer.split(',')[3].strip('H')
 			volt = buffer.split(',')[4].strip('V')
 			rssi = buffer.split(',')[5]
-			dew = float(temp) - (0.36 * (100 - float(humid))) ##FROM DATA PROCESSING PYTHON SCRIPT
+			dew = float(temp) - (0.36 * (100 - float(humid)))
 		except Exception:
 			print("DATA SPLIT ERROR", today, now, buffer)
 			traceback.print_exc(file=sys.stdout)
 			print('-' * 60)
+			pt.close()
 			break
 		if txt_logging:
 			try:
@@ -108,8 +112,8 @@ while(True):
 				if not os.path.exists(fdirectory):
 					os.makedirs(fdirectory)
 				outf = open(os.path.join(fdirectory, fname), fmode)
-				outf.write(x)  # write line of text to file
-				outf.flush()  # make sure it actually gets written out
+				outf.write(x)
+				outf.flush()
 			except Exception:
 				print("DATA LOG ERROR", today, now, buffer)
 				traceback.print_exc(file=sys.stdout)
