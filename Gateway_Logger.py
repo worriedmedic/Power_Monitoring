@@ -15,6 +15,7 @@ baud                = 9600   # baud rate for serial port
 emoncms_update      = True # Turn on/off updating to Emoncms
 txt_logging         = True # Enable/Disable logging to TXT file
 verbose             = False
+verbose_verbose	    = False
 thingspeak_update   = False
 req_timeout         = 5
 
@@ -54,6 +55,8 @@ while(True):
 		spb.readline()
 		spb.readline()
 		serial_present = True
+		if verbose_verbose:
+			print("SERIAL PRESENT", serail_present)
 	except Exception:
 		now = time.strftime("%H:%M:%S")
 		today = datetime.date.today()
@@ -72,6 +75,7 @@ while(True):
 				rawout = open(os.path('/home/pi/Power_Monitoring/data_log/rawoutput.log', 'a'))
 				rawout.write(buffer)
 				rawout.flush()
+				print(buffer)
             		buffer = buffer.strip("\n")
 		except Exception:
 			print("SERIAL READ ERROR", today, now)
@@ -80,7 +84,7 @@ while(True):
 			break
 		x = str(today) + ',' + str(now) + ',' + str(buffer) + '\n'
 		if verbose:
-			print (x,end='')    # echo line of text on-screen
+			print (x)
 		try:
 			addr = buffer.split(',')[0]
 			temp = buffer.split(',')[1].strip('T')
