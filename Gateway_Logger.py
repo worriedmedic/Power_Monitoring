@@ -31,6 +31,9 @@ for arg in sys.argv:
 	elif arg == '-v':
 		verbose = True
 		print("VERBOSE is ON")
+	elif arg == '-vv':
+		verbose_verbose = True
+		print("VVVVVERBOSE is ON")
 	elif arg == '-h':
 		print("Gateway_Logger.py script - LWH & NHH")
 		print("Backend processing of data collected by Arduino based sensors for output to SVG/PNG file")
@@ -51,15 +54,6 @@ while(True):
 		spb.readline()
 		spb.readline()
 		serial_present = True
-	except SerialException:
-		now = time.strftime("%H:%M:%S")
-		today = datetime.date.today()
-		print("SERIALEXCEPTION", today, now)
-		traceback.print_exc(file=sys.stdout)
-		print('-' * 60)
-		serial_present = False
-		pt.close()
-		time.sleep(15)
 	except Exception:
 		now = time.strftime("%H:%M:%S")
 		today = datetime.date.today()
@@ -68,12 +62,16 @@ while(True):
 		print('-' * 60)
 		serial_present = False
 		pt.close()
-		time.sleep(15)
+		time.sleep(10)
 	while serial_present:
 		now = time.strftime("%H:%M:%S") # Call time of serial read
 		today = datetime.date.today() # Call date of serial read
 		try:
             		buffer = spb.readline()  # read one line of text from serial port
+			if verbose_verbose:
+				rawout = open(os.path('/home/pi/Power_Monitoring/data_log/rawoutput.log', 'a'))
+				rawout.write(buffer)
+				rawout.flush()
             		buffer = buffer.strip("\n")
 		except Exception:
 			print("SERIAL READ ERROR", today, now)
