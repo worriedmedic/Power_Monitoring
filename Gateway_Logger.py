@@ -15,7 +15,7 @@ baud                = 9600   # baud rate for serial port
 emoncms_update      = True # Turn on/off updating to Emoncms
 txt_logging         = True # Enable/Disable logging to TXT file
 verbose             = False
-verbose_verbose	    = False
+verbose_verbose	    = True
 thingspeak_update   = False
 req_timeout         = 5
 
