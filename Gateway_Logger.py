@@ -93,7 +93,7 @@ while(True):
 			rssi = buffer.split(',')[5]
 			dew = float(temp) - (0.36 * (100 - float(humid)))
 		except Exception:
-			print("DATA PROCESSING ERROR", today, now, buffer)
+			print("DATA PROCESSING ERROR", today, now, "STRING:", buffer, ":END")
 			traceback.print_exc(file=sys.stdout)
 			print('-' * 60)
 			pt.close()
