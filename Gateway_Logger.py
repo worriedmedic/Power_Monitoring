@@ -2,7 +2,7 @@
 # get lines of text from serial port, save them to a file, upload to ThingSpeak
 # Base source (highly modified): https://www.raspberrypi.org/forums/viewtopic.php?f=44&t=64545
 
-from __future__ import print_function
+#from __future__ import print_function
 import serial, io
 import time
 import datetime
@@ -72,7 +72,7 @@ while(True):
 			buffer = spb.readline()
 			if verbose_verbose:
 				rawout = open('/home/pi/Power_Monitoring/data_log/rawoutput.log', 'a')
-				rawout.write(buffer)
+				rawout.write(str(today) + ',' + str(now) + ',' + buffer)
 				rawout.flush()
 			if verbose:
 				print(buffer)
