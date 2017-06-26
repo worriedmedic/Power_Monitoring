@@ -51,12 +51,12 @@ while(True):
 		pt = serial.Serial(addr,9600, timeout=150)
 		spb = io.TextIOWrapper(io.BufferedRWPair(pt,pt,1), errors='strict',line_buffering=True)
 		b1 = spb.readline()
-		#b2 = spb.readline()
+		b2 = spb.readline()
 		#b3 = spb.readline()
 		serial_present = True
 		if verbose:
 			print("SERIAL PRESENT", serial_present)
-			print(b1)
+			print(b1, b2)
 	except Exception:
 		now = time.strftime("%H:%M:%S")
 		today = datetime.date.today()
