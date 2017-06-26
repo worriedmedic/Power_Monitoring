@@ -350,7 +350,7 @@
 	<text transform="matrix(1 0 0 1 396.04 643.3789)" font-family="'ArialMT'" font-size="14">Rel Hum (%)</text>
 	<text transform="matrix(1 0 0 1 394.1992 674.9854)" font-family="'ArialMT'" font-size="33">TMP0RELHUM</text>
 	<text transform="matrix(1 0 0 1 456 701.6641)" font-family="'ArialMT'" font-size="17.82">Pressure (hPa)</text>
-	<text transform="matrix(1 0 0 1 452 738.8857)" font-family="'ArialMT'" font-size="44">TEMP0PRESS</text>
+	<text transform="matrix(1 0 0 1 452 738.8857)" font-family="'ArialMT'" font-size="44">TMP0PRESS</text>
 	<text transform="matrix(1 0 0 1 401.2383 116.4346)" font-family="'ArialMT'" font-size="48">FORHI</text>
 	<text transform="matrix(1 0 0 1 511.376 116.4346)" font-family="'ArialMT'" font-size="48">FORLO</text>
 	<text transform="matrix(1 0 0 1 16.9199 72.6914)" font-family="'ArialMT'" font-size="17.82">TMP0LABEL (F)</text>
