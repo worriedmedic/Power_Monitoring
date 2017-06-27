@@ -102,6 +102,9 @@ while(True):
 			print("DATA PROCESSING ERROR", today, now, "STRING:", buffer, ":END")
 			traceback.print_exc(file=sys.stdout)
 			print('-' * 60)
+			pt.close()
+			time.sleep(2)
+			break
 		if txt_logging:
 			try:
 				x = str(today) + ',' + str(now) + ',' + str(buffer) + '\n'
