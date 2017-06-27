@@ -52,11 +52,11 @@ while(True):
 		spb = io.TextIOWrapper(io.BufferedRWPair(pt,pt,1), errors='strict',line_buffering=True)
 		b1 = spb.readline()
 		b2 = spb.readline()
-		#b3 = spb.readline()
+		b3 = spb.readline()
 		serial_present = True
 		if verbose:
 			print("SERIAL PRESENT", serial_present)
-			print(b1, b2)
+			print(b1, b2, b3)
 	except Exception:
 		now = time.strftime("%H:%M:%S")
 		today = datetime.date.today()
@@ -96,9 +96,6 @@ while(True):
 			print("DATA PROCESSING ERROR", today, now, "STRING:", buffer, ":END")
 			traceback.print_exc(file=sys.stdout)
 			print('-' * 60)
-			pt.close()
-			time.sleep(2)
-			break
 		if txt_logging:
 			try:
 				x = str(today) + ',' + str(now) + ',' + str(buffer) + '\n'
