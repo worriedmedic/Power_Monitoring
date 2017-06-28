@@ -19,6 +19,7 @@ label_offset = 3
 
 location = 'dover'
 dropbox_upload = True
+verbose = True
 
 today = datetime.date.today()
 yesterday = datetime.date.today() + datetime.timedelta(days=-1)
@@ -34,12 +35,16 @@ now = datetime.datetime.now()
 try:
   data_today = pd.read_csv('/home/pi/Power_Monitoring/data_log/' + today.strftime("%Y-%m") + '/' + str(today) + 'POWER.log', names = ["Date", "Time", "CT1", "CT2", "CT3", "CT4", "VRMS", "Pulse"])
   data_today_valid = True
+  if verbose:
+    print("DATA_TODAY")
 except Exception:
   data_today_valid = False
 
 try:
   data_yesterday = pd.read_csv('/home/pi/Power_Monitoring/data_log/' + yesterday.strftime("%Y-%m") + '/' + str(yesterday) + 'POWER.log', names = ["Date", "Time", "CT1", "CT2", "CT3", "CT4", "VRMS", "Pulse"])
   data_yesterday_valid = True
+  if verbose:
+    print("DATA_YESTERDAY")
 except Exception:
   data_yesterday_valid = False
 
@@ -51,6 +56,8 @@ try:
   data_6prior = pd.read_csv('/home/pi/Power_Monitoring/data_log/' + prior6.strftime("%Y-%m") + '/' + str(prior6) + 'POWER.log', names = ["Date", "Time", "CT1", "CT2", "CT3", "CT4", "VRMS", "Pulse"])
   data_7prior = pd.read_csv('/home/pi/Power_Monitoring/data_log/' + prior7.strftime("%Y-%m") + '/' + str(prior7) + 'POWER.log', names = ["Date", "Time", "CT1", "CT2", "CT3", "CT4", "VRMS", "Pulse"])
   data_week_valid = True
+  if verbose:
+    print("EXTENDED_DATA")
 except Exception:
   data_week_valid = False
 
