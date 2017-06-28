@@ -124,7 +124,7 @@ try:
   subprocess.call(["sudo", "chmod", "+x", "/home/pi/Power_Monitoring/output/%spower.png" %td2])
   subprocess.call(["sudo", "cp", "/home/pi/Power_Monitoring/output/%spower.png" %td2, "/var/www/html/"])
   if dropbox_upload:
-    subprocess.call(["/usr/local/bin/dropbox_uploader.sh", "-q", "upload", "/home/pi/Power_Monitoring/output/%spower.png" %td1, "/Programming/logs/%s/plots/" %location])
+    subprocess.call(["/usr/local/bin/dropbox_uploader.sh", "-q", "upload", "/home/pi/Power_Monitoring/output/%spower.png" %td2, "/Programming/logs/%s/plots/" %location])
 except Exception:
   print "%s Error" %td2
   traceback.print_exc(file=sys.stdout)
@@ -141,13 +141,15 @@ try:
   plt.ylabel('Watts')
   plt.grid(False)
   plt.tight_layout()
+  myFmt = mdates.DateFormatter('%m-%d')
+  fig.axes[0].get_xaxis().set_major_formatter(myFmt)
   fig.autofmt_xdate()
   fig.text(0.5, 0.5, 'Dover Power Monitoring', fontsize=25, color='gray', ha='center', va='center', alpha=0.35)
   fig.savefig('/home/pi/Power_Monitoring/output/%spower.png' %td3, bbox_inches='tight')
   subprocess.call(["sudo", "chmod", "+x", "/home/pi/Power_Monitoring/output/%spower.png" %td3])
   subprocess.call(["sudo", "cp", "/home/pi/Power_Monitoring/output/%spower.png" %td3, "/var/www/html/"])
   if dropbox_upload:
-    subprocess.call(["/usr/local/bin/dropbox_uploader.sh", "-q", "upload", "/home/pi/Power_Monitoring/output/%spower.png" %td1, "/Programming/logs/%s/plots/" %location])
+    subprocess.call(["/usr/local/bin/dropbox_uploader.sh", "-q", "upload", "/home/pi/Power_Monitoring/output/%spower.png" %td3, "/Programming/logs/%s/plots/" %location])
 except Exception:
-  print "%s Error" %td2
+  print "%s Error" %td3
   traceback.print_exc(file=sys.stdout)
