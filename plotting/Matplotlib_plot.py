@@ -17,13 +17,14 @@ rssi_plot = True
 dropbox_upload = True
 
 ######## GLOBAL VAR #######
-td = '48H'
+#td = '48H'
 line_width = 2
 rssi_line_width = 1
 label_offset = 3
 
 if os.path.isfile('/home/pi/Power_Monitoring/dover.location'):
 	location     = 'Dover'
+	td           = '48H'
 	plt_size_x   = 10
 	plt_size_y   = 8
 	plt_size_dpi = 100
@@ -46,6 +47,7 @@ if os.path.isfile('/home/pi/Power_Monitoring/dover.location'):
 	sensor7label = 'Liam'
 elif os.path.isfile('/home/pi/Power_Monitoring/cuttyhunk.location'):
 	location     = 'Cuttyhunk'
+	td           = '96H'
 	plt_size_x   = 10
 	plt_size_y   = 8
 	plt_size_dpi = 100
@@ -72,6 +74,7 @@ if (1):
 	yesterday = datetime.date.today() + datetime.timedelta(days=-1)
 	prior2 = datetime.date.today() + datetime.timedelta(days=-2)
 	prior3 = datetime.date.today() + datetime.timedelta(days=-3)
+	prior4 = datetime.date.today() + datetime.timedelta(days=-4)
 	now = datetime.datetime.now()
 	now_minus_eight = now + datetime.timedelta(hours=-8)
 	try:
@@ -80,20 +83,36 @@ if (1):
 			data_today_valid = True
 		except Exception:
 			data_today_valid = False
-			print("No logfile for today found...")
+			print("No logfile for today found...", str(today))
 		try:
 			data_yest = pd.read_csv('/home/pi/Power_Monitoring/data_log/' + yesterday.strftime("%Y-%m") + '/' + str(yesterday) + '.log', names = ["Date", "Time", "Address", "Temperature", "Pressure", "Humidity", "Voltage", "RSSI"], dtype=str)
 			data_yest_valid = True
 		except Exception:
 			data_yest_valid = False
-			print("No logfile for yesterday found...")
+			print("No logfile for yesterday found...", str(yesterday))
 		try:
 			data_2prior = pd.read_csv('/home/pi/Power_Monitoring/data_log/' + prior2.strftime("%Y-%m") + '/' + str(prior2) + '.log', names = ["Date", "Time", "Address", "Temperature", "Pressure", "Humidity", "Voltage", "RSSI"], dtype=str)
 			data_2prior_valid = True
 		except Exception:
 			data_2prior_valid = False
-			print("No logfile for two days ago found...")
-		if (data_today_valid and data_yest_valid and data_2prior_valid):
+			print("No logfile for TWO days ago found...", str(prior2))
+		try:
+			data_3prior = pd.read_csv('/home/pi/Power_Monitoring/data_log/' + prior3.strftime("%Y-%m") + '/' + str(prior3) + '.log', names = ["Date", "Time", "Address", "Temperature", "Pressure", "Humidity", "Voltage", "RSSI"], dtype=str)
+			data_3prior_valid = True
+		except Exception:
+			data_3prior_valid = False
+			print("No logfile for THREE days ago found...", str(prior3))
+		try:
+			data_4prior = pd.read_csv('/home/pi/Power_Monitoring/data_log/' + prior4.strftime("%Y-%m") + '/' + str(prior4) + '.log', names = ["Date", "Time", "Address", "Temperature", "Pressure", "Humidity", "Voltage", "RSSI"], dtype=str)
+			data_4prior_valid = True
+		except Exception:
+			data_4prior_valid = False
+			print("No logfile for FOUR days ago found...", str(prior4))
+		if (data_today_valid and data_yest_valid and data_2prior_valid and data_3prior_valid and data_4prior_valid):
+			data = pd.concat([data_4prior, data_3prior, data_2prior, data_yest, data_today])
+		elif (data_today_valid and data_yest_valid and data_2prior_valid and data_3prior_valid):
+			data = pd.concat([data_3prior, data_2prior, data_yest, data_today])
+		elif (data_today_valid and data_yest_valid and data_2prior_valid):
 			data = pd.concat([data_2prior, data_yest, data_today])
 		elif (data_today_valid and data_yest_valid):
 			data = pd.concat([data_yest, data_today])
@@ -101,6 +120,7 @@ if (1):
 			data = data_today
 		else:
 			print("No data logfiles found...")
+			sys.exit(1)
 		data['Datetime'] = pd.to_datetime(data['Date'] + ' ' + data['Time'])
 		data = data.drop(['Date', 'Time'], 1)
 		data = data.set_index('Datetime')
@@ -384,7 +404,7 @@ if (1):
 			plt.legend(loc=2, ncol=2, fontsize=8).set_visible(True)
 			plt.title('RSSI Plot: Past %s' %td)
 			plt.xlabel('Time')
-			plt.ylabel('Voltage (%)')
+			plt.ylabel('RSSI')
 			plt.grid(True)
 			plt.tight_layout()
 			myFmt = mdates.DateFormatter('%m-%d %H:%M')
