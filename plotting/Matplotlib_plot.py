@@ -69,7 +69,8 @@ elif os.path.isfile('/home/pi/Power_Monitoring/cuttyhunk.location'):
 	sensor7		= 92
 	sensor7label	= 'None'
 
-if (1):
+def datainput():
+	global data0, data1, data2, data3, data4, data5, data6, data7
 	today = datetime.date.today()
 	yesterday = datetime.date.today() + datetime.timedelta(days=-1)
 	prior2 = datetime.date.today() + datetime.timedelta(days=-2)
@@ -129,6 +130,7 @@ if (1):
 		data['Humidity'] = data['Humidity'].str.replace('H', '')
 		data['Voltage'] = data['Voltage'].str.replace('V', '')
 		data = data.convert_objects(convert_numeric=True)
+		data['Dewpoint'] = data['Temperature'].values - (0.36 * (100 - data['Humidity'].values))
 		try:
 			data0 = data.loc[data['Address'] == sensor0]
 		except Exception:
@@ -165,258 +167,61 @@ if (1):
 		print("TODAY READ CSV ERROR")
 		traceback.print_exc(file=sys.stdout)
 		print('-' * 60)
+
+def dataplot(datatype, timedelta):
 	try:
-		if temp_plot:
-			fig = plt.figure(figsize=(plt_size_x, plt_size_y), dpi=plt_size_dpi)
-			plt.style.use(plot_style)
-			plt.rcParams['axes.facecolor']='w'
-			if not data0.empty:
-				plt.plot_date(data0.last(td).index, data0['Temperature'].last(td).values, linestyle="solid", linewidth=line_width, marker='None', color=plt.rcParams['axes.color_cycle'][0], label=sensor0label)
-				plt.text(data0.index[-1:][0], data0['Temperature'][-1], data0['Temperature'][-1], fontsize=8, horizontalalignment='left', verticalalignment='top', rotation=45, backgroundcolor='w', color=plt.rcParams['axes.color_cycle'][0])
-				#plt.text(data0.index[-1:][0], data0['Temperature'][-1] + label_offset, sensor0label, fontsize=12, color=plt.rcParams['axes.color_cycle'][0])
-			if not data1.empty:
-				plt.plot_date(data1.last(td).index, data1['Temperature'].last(td).values, linestyle="solid", linewidth=line_width, marker='None', color=plt.rcParams['axes.color_cycle'][1], label=sensor1label)
-				plt.text(data1.index[-1:][0], data1['Temperature'][-1], data1['Temperature'][-1], fontsize=8, horizontalalignment='left', verticalalignment='top', rotation=45, backgroundcolor='w', color=plt.rcParams['axes.color_cycle'][1])
-				#plt.text(data1.index[-1:][0], data1['Temperature'][-1] + label_offset, sensor1label, fontsize=12, color=plt.rcParams['axes.color_cycle'][1])
-			if not data2.empty:
-				plt.plot_date(data2.last(td).index, data2['Temperature'].last(td).values, linestyle="solid", linewidth=line_width, marker='None', color=plt.rcParams['axes.color_cycle'][2], label=sensor2label)
-				plt.text(data2.index[-1:][0], data2['Temperature'][-1], data2['Temperature'][-1], fontsize=8, horizontalalignment='left', verticalalignment='top', rotation=45, backgroundcolor='w', color=plt.rcParams['axes.color_cycle'][2])
-				#plt.text(data2.index[-1:][0], data2['Temperature'][-1] + label_offset, sensor2label, fontsize=12, color=plt.rcParams['axes.color_cycle'][2])
-			if not data3.empty:
-				plt.plot_date(data3.last(td).index, data3['Temperature'].last(td).values, linestyle="solid", linewidth=line_width, marker='None', color=plt.rcParams['axes.color_cycle'][3], label=sensor3label)
-				plt.text(data3.index[-1:][0], data3['Temperature'][-1], data3['Temperature'][-1], fontsize=8, horizontalalignment='left', verticalalignment='top', rotation=45, backgroundcolor='w', color=plt.rcParams['axes.color_cycle'][3])
-				#plt.text(data3.index[-1:][0], data3['Temperature'][-1] + label_offset, sensor3label, fontsize=12, color=plt.rcParams['axes.color_cycle'][3])
-			if not data4.empty:
-				plt.plot_date(data4.last(td).index, data4['Temperature'].last(td).values, linestyle="solid", linewidth=line_width, marker='None', color=plt.rcParams['axes.color_cycle'][4], label=sensor4label)
-				plt.text(data4.index[-1:][0], data4['Temperature'][-1], data4['Temperature'][-1], fontsize=8, horizontalalignment='left', verticalalignment='top', rotation=45, backgroundcolor='w', color=plt.rcParams['axes.color_cycle'][4])
-				#plt.text(data4.index[-1:][0], data4['Temperature'][-1] + label_offset, sensor4label, fontsize=12, color=plt.rcParams['axes.color_cycle'][4])
-			if not data5.empty:
-				plt.plot_date(data5.last(td).index, data5['Temperature'].last(td).values, linestyle="solid", linewidth=line_width, marker='None', color=plt.rcParams['axes.color_cycle'][5], label=sensor5label)
-				plt.text(data5.index[-1:][0], data5['Temperature'][-1], data5['Temperature'][-1], fontsize=8, horizontalalignment='left', verticalalignment='top', rotation=45, backgroundcolor='w', color=plt.rcParams['axes.color_cycle'][5])
-				#plt.text(data5.index[-1:][0], data5['Temperature'][-1] + label_offset, sensor5label, fontsize=12, color=plt.rcParams['axes.color_cycle'][5])
-			if not data6.empty:
-				plt.plot_date(data6.last(td).index, data6['Temperature'].last(td).values, linestyle="solid", linewidth=line_width, marker='None', color=plt.rcParams['axes.color_cycle'][6], label=sensor6label)
-				plt.text(data6.index[-1:][0], data6['Temperature'][-1], data6['Temperature'][-1], fontsize=8, horizontalalignment='left', verticalalignment='top', rotation=45, backgroundcolor='w', color=plt.rcParams['axes.color_cycle'][6])
-				#plt.text(data6.index[-1:][0], data6['Temperature'][-1] + label_offset, sensor6label, fontsize=12, color=plt.rcParams['axes.color_cycle'][6])
-			if not data7.empty:
-				plt.plot_date(data7.last(td).index, data7['Temperature'].last(td).values, linestyle="solid", linewidth=line_width, marker='None', color=plt.rcParams['axes.color_cycle'][7], label=sensor7label)
-				plt.text(data7.index[-1:][0], data7['Temperature'][-1], data7['Temperature'][-1], fontsize=8, horizontalalignment='left', verticalalignment='top', rotation=45, backgroundcolor='w', color=plt.rcParams['axes.color_cycle'][7])
-			plt.legend(loc=2, ncol=2, fontsize=8).set_visible(True)
-			plt.title('Temperature Plot: Past %s' %td)
-			plt.xlabel('Time')
-			plt.ylabel('Temp (F)')
-			plt.grid(True)
-			plt.tight_layout()
-			myFmt = mdates.DateFormatter('%m-%d %H:%M')
-			fig.axes[0].get_xaxis().set_major_formatter(myFmt)
-			fig.autofmt_xdate()
-			fig.text(0.5, 0.5, '%s Weather Station' %location, fontsize=25, color='gray', ha='center', va='center', alpha=0.35)
-			fig.savefig('/home/pi/Power_Monitoring/output/plot_temp.png', bbox_inches='tight')
-			subprocess.call(["sudo", "chmod", "+x", "/home/pi/Power_Monitoring/output/plot_temp.png"])
-			subprocess.call(["sudo", "cp", "/home/pi/Power_Monitoring/output/plot_temp.png", "/var/www/html/"])
-			if dropbox_upload:
-				subprocess.call(["/usr/local/bin/dropbox_uploader.sh", "-q", "upload", "/home/pi/Power_Monitoring/output/plot_temp.png", "/Programming/logs/%s/plots/" %location])
-		if press_plot:
-			fig = plt.figure(figsize=(plt_size_x, plt_size_y), dpi=plt_size_dpi)
-			plt.style.use(plot_style)
-			plt.rcParams['axes.facecolor']='w'
-			if not data0.empty:
-				plt.plot_date(data0.last(td).index, data0['Pressure'].last(td).values, linestyle="solid", linewidth=line_width, marker='None', color=plt.rcParams['axes.color_cycle'][0], label=sensor0label)
-				plt.text(data0.index[-1:][0], data0['Pressure'][-1], data0['Pressure'][-1], fontsize=8, horizontalalignment='left', verticalalignment='top', rotation=45, backgroundcolor='w', color=plt.rcParams['axes.color_cycle'][0])
-				#plt.text(data0.index[-1:][0], data0['Pressure'][-1] + label_offset, sensor0label, fontsize=12, color=plt.rcParams['axes.color_cycle'][0])
-			if not data1.empty:
-				plt.plot_date(data1.last(td).index, data1['Pressure'].last(td).values, linestyle="solid", linewidth=line_width, marker='None', color=plt.rcParams['axes.color_cycle'][1], label=sensor1label)
-				plt.text(data1.index[-1:][0], data1['Pressure'][-1], data1['Pressure'][-1], fontsize=8, horizontalalignment='left', verticalalignment='top', rotation=45, backgroundcolor='w', color=plt.rcParams['axes.color_cycle'][1])
-				#plt.text(data1.index[-1:][0], data1['Pressure'][-1] + label_offset, sensor1label, fontsize=12, color=plt.rcParams['axes.color_cycle'][1])
-			if not data2.empty:
-				plt.plot_date(data2.last(td).index, data2['Pressure'].last(td).values, linestyle="solid", linewidth=line_width, marker='None', color=plt.rcParams['axes.color_cycle'][2], label=sensor2label)
-				plt.text(data2.index[-1:][0], data2['Pressure'][-1], data2['Pressure'][-1], fontsize=8, horizontalalignment='left', verticalalignment='top', rotation=45, backgroundcolor='w', color=plt.rcParams['axes.color_cycle'][2])
-				#plt.text(data2.index[-1:][0], data2['Pressure'][-1] + label_offset, sensor2label, fontsize=12, color=plt.rcParams['axes.color_cycle'][2])
-			if not data3.empty:
-				plt.plot_date(data3.last(td).index, data3['Pressure'].last(td).values, linestyle="solid", linewidth=line_width, marker='None', color=plt.rcParams['axes.color_cycle'][3], label=sensor3label)
-				plt.text(data3.index[-1:][0], data3['Pressure'][-1], data3['Pressure'][-1], fontsize=8, horizontalalignment='left', verticalalignment='top', rotation=45, backgroundcolor='w', color=plt.rcParams['axes.color_cycle'][3])
-				#plt.text(data3.index[-1:][0], data3['Pressure'][-1] + label_offset, sensor3label, fontsize=12, color=plt.rcParams['axes.color_cycle'][3])
-			if not data4.empty:
-				plt.plot_date(data4.last(td).index, data4['Pressure'].last(td).values, linestyle="solid", linewidth=line_width, marker='None', color=plt.rcParams['axes.color_cycle'][4], label=sensor4label)
-				plt.text(data4.index[-1:][0], data4['Pressure'][-1], data4['Pressure'][-1], fontsize=8, horizontalalignment='left', verticalalignment='top', rotation=45, backgroundcolor='w', color=plt.rcParams['axes.color_cycle'][4])
-				#plt.text(data4.index[-1:][0], data4['Pressure'][-1] + label_offset, sensor4label, fontsize=12, color=plt.rcParams['axes.color_cycle'][4])
-			if not data5.empty:
-				plt.plot_date(data5.last(td).index, data5['Pressure'].last(td).values, linestyle="solid", linewidth=line_width, marker='None', color=plt.rcParams['axes.color_cycle'][5], label=sensor5label)
-				plt.text(data5.index[-1:][0], data5['Pressure'][-1], data5['Pressure'][-1], fontsize=8, horizontalalignment='left', verticalalignment='top', rotation=45, backgroundcolor='w', color=plt.rcParams['axes.color_cycle'][5])
-				#plt.text(data5.index[-1:][0], data5['Pressure'][-1] + label_offset, sensor5label, fontsize=12, color=plt.rcParams['axes.color_cycle'][5])
-			if not data6.empty:
-				plt.plot_date(data6.last(td).index, data6['Pressure'].last(td).values, linestyle="solid", linewidth=line_width, marker='None', color=plt.rcParams['axes.color_cycle'][6], label=sensor6label)
-				plt.text(data6.index[-1:][0], data6['Pressure'][-1], data6['Pressure'][-1], fontsize=8, horizontalalignment='left', verticalalignment='top', rotation=45, backgroundcolor='w', color=plt.rcParams['axes.color_cycle'][6])
-				#plt.text(data6.index[-1:][0], data6['Pressure'][-1] + label_offset, sensor6label, fontsize=12, color=plt.rcParams['axes.color_cycle'][6])
-			if not data7.empty:
-				plt.plot_date(data7.last(td).index, data7['Pressure'].last(td).values, linestyle="solid", linewidth=line_width, marker='None', color=plt.rcParams['axes.color_cycle'][7], label=sensor7label)
-				plt.text(data7.index[-1:][0], data7['Pressure'][-1], data7['Pressure'][-1], fontsize=8, horizontalalignment='left', verticalalignment='top', rotation=45, backgroundcolor='w', color=plt.rcParams['axes.color_cycle'][7])
-			plt.legend(loc=2, ncol=2, fontsize=8).set_visible(True)
-			plt.title('Pressure Plot: Past %s' %td)
-			plt.xlabel('Time')
-			plt.ylabel('Pressure (hPa)')
-			plt.grid(True)
-			plt.tight_layout()
-			myFmt = mdates.DateFormatter('%m-%d %H:%M')
-			fig.axes[0].get_xaxis().set_major_formatter(myFmt)
-			fig.autofmt_xdate()
-			fig.text(0.5, 0.5, '%s Weather Station' %location, fontsize=25, color='gray', ha='center', va='center', alpha=0.35)
-			fig.savefig('/home/pi/Power_Monitoring/output/plot_press.png', bbox_inches='tight')
-			subprocess.call(["sudo", "chmod", "+x", "/home/pi/Power_Monitoring/output/plot_press.png"])
-			subprocess.call(["sudo", "cp", "/home/pi/Power_Monitoring/output/plot_press.png", "/var/www/html/"])
-			if dropbox_upload:
-				subprocess.call(["/usr/local/bin/dropbox_uploader.sh", "-q", "upload", "/home/pi/Power_Monitoring/output/plot_press.png", "/Programming/logs/%s/plots/" %location])
-		if humid_plot:
-			fig = plt.figure(figsize=(plt_size_x, plt_size_y), dpi=plt_size_dpi)
-			plt.style.use(plot_style)
-			plt.rcParams['axes.facecolor']='w'
-			if not data0.empty:
-				plt.plot_date(data0.last(td).index, data0['Humidity'].last(td).values, linestyle="solid", linewidth=line_width, marker='None', color=plt.rcParams['axes.color_cycle'][0], label=sensor0label)
-				plt.text(data0.index[-1:][0], data0['Humidity'][-1], data0['Humidity'][-1], fontsize=8, horizontalalignment='left', verticalalignment='top', rotation=45, backgroundcolor='w', color=plt.rcParams['axes.color_cycle'][0])
-				#plt.text(data0.index[-1:][0], data0['Humidity'][-1] + label_offset, sensor0label, fontsize=12, color=plt.rcParams['axes.color_cycle'][0])
-			if not data1.empty:
-				plt.plot_date(data1.last(td).index, data1['Humidity'].last(td).values, linestyle="solid", linewidth=line_width, marker='None', color=plt.rcParams['axes.color_cycle'][1], label=sensor1label)
-				plt.text(data1.index[-1:][0], data1['Humidity'][-1], data1['Humidity'][-1], fontsize=8, horizontalalignment='left', verticalalignment='top', rotation=45, backgroundcolor='w', color=plt.rcParams['axes.color_cycle'][1])
-				#plt.text(data1.index[-1:][0], data1['Humidity'][-1] + label_offset, sensor1label, fontsize=12, color=plt.rcParams['axes.color_cycle'][1])
-			if not data2.empty:
-				plt.plot_date(data2.last(td).index, data2['Humidity'].last(td).values, linestyle="solid", linewidth=line_width, marker='None', color=plt.rcParams['axes.color_cycle'][2], label=sensor2label)
-				plt.text(data2.index[-1:][0], data2['Humidity'][-1], data2['Humidity'][-1], fontsize=8, horizontalalignment='left', verticalalignment='top', rotation=45, backgroundcolor='w', color=plt.rcParams['axes.color_cycle'][2])
-				#plt.text(data2.index[-1:][0], data2['Humidity'][-1] + label_offset, sensor2label, fontsize=12, color=plt.rcParams['axes.color_cycle'][2])
-			if not data3.empty:
-				plt.plot_date(data3.last(td).index, data3['Humidity'].last(td).values, linestyle="solid", linewidth=line_width, marker='None', color=plt.rcParams['axes.color_cycle'][3], label=sensor3label)
-				plt.text(data3.index[-1:][0], data3['Humidity'][-1], data3['Humidity'][-1], fontsize=8, horizontalalignment='left', verticalalignment='top', rotation=45, backgroundcolor='w', color=plt.rcParams['axes.color_cycle'][3])
-				#plt.text(data3.index[-1:][0], data3['Humidity'][-1] + label_offset, sensor3label, fontsize=12, color=plt.rcParams['axes.color_cycle'][3])
-			if not data4.empty:
-				plt.plot_date(data4.last(td).index, data4['Humidity'].last(td).values, linestyle="solid", linewidth=line_width, marker='None', color=plt.rcParams['axes.color_cycle'][4], label=sensor4label)
-				plt.text(data4.index[-1:][0], data4['Humidity'][-1], data4['Humidity'][-1], fontsize=8, horizontalalignment='left', verticalalignment='top', rotation=45, backgroundcolor='w', color=plt.rcParams['axes.color_cycle'][4])
-				#plt.text(data4.index[-1:][0], data4['Humidity'][-1] + label_offset, sensor4label, fontsize=12, color=plt.rcParams['axes.color_cycle'][4])
-			if not data5.empty:
-				plt.plot_date(data5.last(td).index, data5['Humidity'].last(td).values, linestyle="solid", linewidth=line_width, marker='None', color=plt.rcParams['axes.color_cycle'][5], label=sensor5label)
-				plt.text(data5.index[-1:][0], data5['Humidity'][-1], data5['Humidity'][-1], fontsize=8, horizontalalignment='left', verticalalignment='top', rotation=45, backgroundcolor='w', color=plt.rcParams['axes.color_cycle'][5])
-				#plt.text(data5.index[-1:][0], data5['Humidity'][-1] + label_offset, sensor5label, fontsize=12, color=plt.rcParams['axes.color_cycle'][5])
-			if not data6.empty:
-				plt.plot_date(data6.last(td).index, data6['Humidity'].last(td).values, linestyle="solid", linewidth=line_width, marker='None', color=plt.rcParams['axes.color_cycle'][6], label=sensor6label)
-				plt.text(data6.index[-1:][0], data6['Humidity'][-1], data6['Humidity'][-1], fontsize=8, horizontalalignment='left', verticalalignment='top', rotation=45, backgroundcolor='w', color=plt.rcParams['axes.color_cycle'][6])
-				#plt.text(data6.index[-1:][0], data6['Humidity'][-1] + label_offset, sensor6label, fontsize=12, color=plt.rcParams['axes.color_cycle'][6])
-			if not data7.empty:
-				plt.plot_date(data7.last(td).index, data7['Humidity'].last(td).values, linestyle="solid", linewidth=line_width, marker='None', color=plt.rcParams['axes.color_cycle'][7], label=sensor7label)
-				plt.text(data7.index[-1:][0], data7['Humidity'][-1], data7['Humidity'][-1], fontsize=8, horizontalalignment='left', verticalalignment='top', rotation=45, backgroundcolor='w', color=plt.rcParams['axes.color_cycle'][7])
-			plt.legend(loc=2, ncol=2, fontsize=8).set_visible(True)
-			plt.title('Humidity Plot: Past %s' %td)
-			plt.xlabel('Time')
-			plt.ylabel('Humid (%)')
-			plt.grid(True)
-			plt.tight_layout()
-			myFmt = mdates.DateFormatter('%m-%d %H:%M')
-			fig.axes[0].get_xaxis().set_major_formatter(myFmt)
-			fig.autofmt_xdate()
-			fig.text(0.5, 0.5, '%s Weather Station' %location, fontsize=25, color='gray', ha='center', va='center', alpha=0.35)
-			fig.savefig('/home/pi/Power_Monitoring/output/plot_humid.png', bbox_inches='tight')
-			subprocess.call(["sudo", "chmod", "+x", "/home/pi/Power_Monitoring/output/plot_humid.png"])
-			subprocess.call(["sudo", "cp", "/home/pi/Power_Monitoring/output/plot_humid.png", "/var/www/html/"])
-			if dropbox_upload:
-				subprocess.call(["/usr/local/bin/dropbox_uploader.sh", "-q", "upload", "/home/pi/Power_Monitoring/output/plot_humid.png", "/Programming/logs/%s/plots/" %location])
-		if volt_plot:
-			fig = plt.figure(figsize=(plt_size_x, plt_size_y), dpi=plt_size_dpi)
-			plt.style.use(plot_style)
-			plt.rcParams['axes.facecolor']='w'
-			if not data0.empty:
-				plt.plot_date(data0.last(td).index, data0['Voltage'].last(td).values, linestyle="solid", linewidth=line_width, marker='None', color=plt.rcParams['axes.color_cycle'][0], label=sensor0label)
-				plt.text(data0.index[-1:][0], data0['Voltage'][-1], data0['Voltage'][-1], fontsize=8, horizontalalignment='left', verticalalignment='top', rotation=45, backgroundcolor='w', color=plt.rcParams['axes.color_cycle'][0])
-				#plt.text(data0.index[-1:][0], data0['Voltage'][-1] + label_offset, sensor0label, fontsize=12, color=plt.rcParams['axes.color_cycle'][0])
-			if not data1.empty:
-				plt.plot_date(data1.last(td).index, data1['Voltage'].last(td).values, linestyle="solid", linewidth=line_width, marker='None', color=plt.rcParams['axes.color_cycle'][1], label=sensor1label)
-				plt.text(data1.index[-1:][0], data1['Voltage'][-1], data1['Voltage'][-1], fontsize=8, horizontalalignment='left', verticalalignment='top', rotation=45, backgroundcolor='w', color=plt.rcParams['axes.color_cycle'][1])
-				#plt.text(data1.index[-1:][0], data1['Voltage'][-1] + label_offset, sensor1label, fontsize=12, color=plt.rcParams['axes.color_cycle'][1])
-			if not data2.empty:
-				plt.plot_date(data2.last(td).index, data2['Voltage'].last(td).values, linestyle="solid", linewidth=line_width, marker='None', color=plt.rcParams['axes.color_cycle'][2], label=sensor2label)
-				plt.text(data2.index[-1:][0], data2['Voltage'][-1], data2['Voltage'][-1], fontsize=8, horizontalalignment='left', verticalalignment='top', rotation=45, backgroundcolor='w', color=plt.rcParams['axes.color_cycle'][2])
-				#plt.text(data2.index[-1:][0], data2['Voltage'][-1] + label_offset, sensor2label, fontsize=12, color=plt.rcParams['axes.color_cycle'][2])
-			if not data3.empty:
-				plt.plot_date(data3.last(td).index, data3['Voltage'].last(td).values, linestyle="solid", linewidth=line_width, marker='None', color=plt.rcParams['axes.color_cycle'][3], label=sensor3label)
-				plt.text(data3.index[-1:][0], data3['Voltage'][-1], data3['Voltage'][-1], fontsize=8, horizontalalignment='left', verticalalignment='top', rotation=45, backgroundcolor='w', color=plt.rcParams['axes.color_cycle'][3])
-				#plt.text(data3.index[-1:][0], data3['Voltage'][-1] + label_offset, sensor3label, fontsize=12, color=plt.rcParams['axes.color_cycle'][3])
-			if not data4.empty:
-				plt.plot_date(data4.last(td).index, data4['Voltage'].last(td).values, linestyle="solid", linewidth=line_width, marker='None', color=plt.rcParams['axes.color_cycle'][4], label=sensor4label)
-				plt.text(data4.index[-1:][0], data4['Voltage'][-1], data4['Voltage'][-1], fontsize=8, horizontalalignment='left', verticalalignment='top', rotation=45, backgroundcolor='w', color=plt.rcParams['axes.color_cycle'][4])
-				#plt.text(data4.index[-1:][0], data4['Voltage'][-1] + label_offset, sensor4label, fontsize=12, color=plt.rcParams['axes.color_cycle'][4])
-			if not data5.empty:
-				plt.plot_date(data5.last(td).index, data5['Voltage'].last(td).values, linestyle="solid", linewidth=line_width, marker='None', color=plt.rcParams['axes.color_cycle'][5], label=sensor5label)
-				plt.text(data5.index[-1:][0], data5['Voltage'][-1], data5['Voltage'][-1], fontsize=8, horizontalalignment='left', verticalalignment='top', rotation=45, backgroundcolor='w', color=plt.rcParams['axes.color_cycle'][5])
-				#plt.text(data5.index[-1:][0], data5['Voltage'][-1] + label_offset, sensor5label, fontsize=12, color=plt.rcParams['axes.color_cycle'][5])
-			if not data6.empty:
-				plt.plot_date(data6.last(td).index, data6['Voltage'].last(td).values, linestyle="solid", linewidth=line_width, marker='None', color=plt.rcParams['axes.color_cycle'][6], label=sensor6label)
-				plt.text(data6.index[-1:][0], data6['Voltage'][-1], data6['Voltage'][-1], fontsize=8, horizontalalignment='left', verticalalignment='top', rotation=45, backgroundcolor='w', color=plt.rcParams['axes.color_cycle'][6])
-				#plt.text(data6.index[-1:][0], data6['Voltage'][-1] + label_offset, sensor6label, fontsize=12, color=plt.rcParams['axes.color_cycle'][6])
-			if not data7.empty:
-				plt.plot_date(data7.last(td).index, data7['Voltage'].last(td).values, linestyle="solid", linewidth=line_width, marker='None', color=plt.rcParams['axes.color_cycle'][7], label=sensor7label)
-				plt.text(data7.index[-1:][0], data7['Voltage'][-1], data7['Voltage'][-1], fontsize=8, horizontalalignment='left', verticalalignment='top', rotation=45, backgroundcolor='w', color=plt.rcParams['axes.color_cycle'][7])
-			plt.legend(loc=2, ncol=2, fontsize=8).set_visible(True)
-			plt.title('Voltage Plot: Past %s' %td)
-			plt.xlabel('Time')
-			plt.ylabel('Voltage (%)')
-			plt.grid(True)
-			plt.tight_layout()
-			myFmt = mdates.DateFormatter('%m-%d %H:%M')
-			fig.axes[0].get_xaxis().set_major_formatter(myFmt)
-			fig.autofmt_xdate()
-			fig.text(0.5, 0.5, '%s Weather Station' %location, fontsize=25, color='gray', ha='center', va='center', alpha=0.35)
-			fig.savefig('/home/pi/Power_Monitoring/output/plot_volt.png', bbox_inches='tight')
-			subprocess.call(["sudo", "chmod", "+x", "/home/pi/Power_Monitoring/output/plot_volt.png"])
-			subprocess.call(["sudo", "cp", "/home/pi/Power_Monitoring/output/plot_volt.png", "/var/www/html/"])
-			if dropbox_upload:
-				subprocess.call(["/usr/local/bin/dropbox_uploader.sh", "-q", "upload", "/home/pi/Power_Monitoring/output/plot_volt.png", "/Programming/logs/%s/plots/" %location])
-		if rssi_plot:
-			fig = plt.figure(figsize=(plt_size_x, plt_size_y), dpi=plt_size_dpi)
-			plt.style.use(plot_style)
-			plt.rcParams['axes.facecolor']='w'
-			if not data0.empty:
-				plt.plot_date(data0.last(td).index, data0['RSSI'].last(td).values, linestyle="solid", linewidth=rssi_line_width, marker='None', color=plt.rcParams['axes.color_cycle'][0], label=sensor0label)
-				plt.text(data0.index[-1:][0], data0['RSSI'][-1], data0['RSSI'][-1], fontsize=8, horizontalalignment='left', verticalalignment='top', rotation=45, backgroundcolor='w', color=plt.rcParams['axes.color_cycle'][0])
-				#plt.text(data0.index[-1:][0], data0['RSSI'][-1] + label_offset, sensor0label, fontsize=12, color=plt.rcParams['axes.color_cycle'][0])
-			if not data1.empty:
-				plt.plot_date(data1.last(td).index, data1['RSSI'].last(td).values, linestyle="solid", linewidth=rssi_line_width, marker='None', color=plt.rcParams['axes.color_cycle'][1], label=sensor1label)
-				plt.text(data1.index[-1:][0], data1['RSSI'][-1], data1['RSSI'][-1], fontsize=8, horizontalalignment='left', verticalalignment='top', rotation=45, backgroundcolor='w', color=plt.rcParams['axes.color_cycle'][1])
-				#plt.text(data1.index[-1:][0], data1['RSSI'][-1] + label_offset, sensor1label, fontsize=12, color=plt.rcParams['axes.color_cycle'][1])
-			if not data2.empty:
-				plt.plot_date(data2.last(td).index, data2['RSSI'].last(td).values, linestyle="solid", linewidth=rssi_line_width, marker='None', color=plt.rcParams['axes.color_cycle'][2], label=sensor2label)
-				plt.text(data2.index[-1:][0], data2['RSSI'][-1], data2['RSSI'][-1], fontsize=8, horizontalalignment='left', verticalalignment='top', rotation=45, backgroundcolor='w', color=plt.rcParams['axes.color_cycle'][2])
-				#plt.text(data2.index[-1:][0], data2['RSSI'][-1] + label_offset, sensor2label, fontsize=12, color=plt.rcParams['axes.color_cycle'][2])
-			if not data3.empty:
-				plt.plot_date(data3.last(td).index, data3['RSSI'].last(td).values, linestyle="solid", linewidth=rssi_line_width, marker='None', color=plt.rcParams['axes.color_cycle'][3], label=sensor3label)
-				plt.text(data3.index[-1:][0], data3['RSSI'][-1], data3['RSSI'][-1], fontsize=8, horizontalalignment='left', verticalalignment='top', rotation=45, backgroundcolor='w', color=plt.rcParams['axes.color_cycle'][3])
-				#plt.text(data3.index[-1:][0], data3['RSSI'][-1] + label_offset, sensor3label, fontsize=12, color=plt.rcParams['axes.color_cycle'][3])
-			if not data4.empty:
-				plt.plot_date(data4.last(td).index, data4['RSSI'].last(td).values, linestyle="solid", linewidth=rssi_line_width, marker='None', color=plt.rcParams['axes.color_cycle'][4], label=sensor4label)
-				plt.text(data4.index[-1:][0], data4['RSSI'][-1], data4['RSSI'][-1], fontsize=8, horizontalalignment='left', verticalalignment='top', rotation=45, backgroundcolor='w', color=plt.rcParams['axes.color_cycle'][4])
-				#plt.text(data4.index[-1:][0], data4['RSSI'][-1] + label_offset, sensor4label, fontsize=12, color=plt.rcParams['axes.color_cycle'][4])
-			if not data5.empty:
-				plt.plot_date(data5.last(td).index, data5['RSSI'].last(td).values, linestyle="solid", linewidth=rssi_line_width, marker='None', color=plt.rcParams['axes.color_cycle'][5], label=sensor5label)
-				plt.text(data5.index[-1:][0], data5['RSSI'][-1], data5['RSSI'][-1], fontsize=8, horizontalalignment='left', verticalalignment='top', rotation=45, backgroundcolor='w', color=plt.rcParams['axes.color_cycle'][5])
-				#plt.text(data5.index[-1:][0], data5['RSSI'][-1] + label_offset, sensor5label, fontsize=12, color=plt.rcParams['axes.color_cycle'][5])
-			if not data6.empty:
-				plt.plot_date(data6.last(td).index, data6['RSSI'].last(td).values, linestyle="solid", linewidth=rssi_line_width, marker='None', color=plt.rcParams['axes.color_cycle'][6], label=sensor6label)
-				plt.text(data6.index[-1:][0], data6['RSSI'][-1], data6['RSSI'][-1], fontsize=8, horizontalalignment='left', verticalalignment='top', rotation=45, backgroundcolor='w', color=plt.rcParams['axes.color_cycle'][6])
-				#plt.text(data6.index[-1:][0], data6['RSSI'][-1] + label_offset, sensor6label, fontsize=12, color=plt.rcParams['axes.color_cycle'][6])
-			if not data7.empty:
-				plt.plot_date(data7.last(td).index, data7['RSSI'].last(td).values, linestyle="solid", linewidth=rssi_line_width, marker='None', color=plt.rcParams['axes.color_cycle'][7], label=sensor7label)
-				plt.text(data7.index[-1:][0], data7['RSSI'][-1], data7['RSSI'][-1], fontsize=8, horizontalalignment='left', verticalalignment='top', rotation=45, backgroundcolor='w', color=plt.rcParams['axes.color_cycle'][7])
-			plt.legend(loc=2, ncol=2, fontsize=8).set_visible(True)
-			plt.title('RSSI Plot: Past %s' %td)
-			plt.xlabel('Time')
-			plt.ylabel('RSSI')
-			plt.grid(True)
-			plt.tight_layout()
-			myFmt = mdates.DateFormatter('%m-%d %H:%M')
-			fig.axes[0].get_xaxis().set_major_formatter(myFmt)
-			fig.autofmt_xdate()
-			fig.text(0.5, 0.5, '%s Weather Station' %location, fontsize=25, color='gray', ha='center', va='center', alpha=0.35)
-			fig.savefig('/home/pi/Power_Monitoring/output/plot_rssi.png', bbox_inches='tight')
-			subprocess.call(["sudo", "chmod", "+x", "/home/pi/Power_Monitoring/output/plot_rssi.png"])
-			subprocess.call(["sudo", "cp", "/home/pi/Power_Monitoring/output/plot_rssi.png", "/var/www/html/"])
-			if dropbox_upload:
-				subprocess.call(["/usr/local/bin/dropbox_uploader.sh", "-q", "upload", "/home/pi/Power_Monitoring/output/plot_rssi.png", "/Programming/logs/%s/plots/" %location])
+		fig = plt.figure(figsize=(plt_size_x, plt_size_y), dpi=plt_size_dpi)
+		plt.style.use(plot_style)
+		plt.rcParams['axes.facecolor']='w'
+		if not data0.empty:
+			plt.plot_date(data0.last(timedelta).index, data0[datatype].last(timedelta).values, linestyle="solid", linewidth=line_width, marker='None', color=plt.rcParams['axes.color_cycle'][0], label=sensor0label)
+			plt.text(data0.index[-1:][0], data0[datatype][-1], data0[datatype][-1], fontsize=8, horizontalalignment='left', verticalalignment='top', rotation=45, backgroundcolor='w', color=plt.rcParams['axes.color_cycle'][0])
+		if not data1.empty:
+			plt.plot_date(data1.last(timedelta).index, data1[datatype].last(timedelta).values, linestyle="solid", linewidth=line_width, marker='None', color=plt.rcParams['axes.color_cycle'][1], label=sensor1label)
+			plt.text(data1.index[-1:][0], data1[datatype][-1], data1[datatype][-1], fontsize=8, horizontalalignment='left', verticalalignment='top', rotation=45, backgroundcolor='w', color=plt.rcParams['axes.color_cycle'][1])
+		if not data2.empty:
+			plt.plot_date(data2.last(timedelta).index, data2[datatype].last(timedelta).values, linestyle="solid", linewidth=line_width, marker='None', color=plt.rcParams['axes.color_cycle'][2], label=sensor2label)
+			plt.text(data2.index[-1:][0], data2[datatype][-1], data2[datatype][-1], fontsize=8, horizontalalignment='left', verticalalignment='top', rotation=45, backgroundcolor='w', color=plt.rcParams['axes.color_cycle'][2])
+		if not data3.empty:
+			plt.plot_date(data3.last(timedelta).index, data3[datatype].last(timedelta).values, linestyle="solid", linewidth=line_width, marker='None', color=plt.rcParams['axes.color_cycle'][3], label=sensor3label)
+			plt.text(data3.index[-1:][0], data3[datatype][-1], data3[datatype][-1], fontsize=8, horizontalalignment='left', verticalalignment='top', rotation=45, backgroundcolor='w', color=plt.rcParams['axes.color_cycle'][3])
+		if not data4.empty:
+			plt.plot_date(data4.last(timedelta).index, data4[datatype].last(timedelta).values, linestyle="solid", linewidth=line_width, marker='None', color=plt.rcParams['axes.color_cycle'][4], label=sensor4label)
+			plt.text(data4.index[-1:][0], data4[datatype][-1], data4[datatype][-1], fontsize=8, horizontalalignment='left', verticalalignment='top', rotation=45, backgroundcolor='w', color=plt.rcParams['axes.color_cycle'][4])
+		if not data5.empty:
+			plt.plot_date(data5.last(timedelta).index, data5[datatype].last(timedelta).values, linestyle="solid", linewidth=line_width, marker='None', color=plt.rcParams['axes.color_cycle'][5], label=sensor5label)
+			plt.text(data5.index[-1:][0], data5[datatype][-1], data5[datatype][-1], fontsize=8, horizontalalignment='left', verticalalignment='top', rotation=45, backgroundcolor='w', color=plt.rcParams['axes.color_cycle'][5])
+		if not data6.empty:
+			plt.plot_date(data6.last(timedelta).index, data6[datatype].last(timedelta).values, linestyle="solid", linewidth=line_width, marker='None', color=plt.rcParams['axes.color_cycle'][6], label=sensor6label)
+			plt.text(data6.index[-1:][0], data6[datatype][-1], data6[datatype][-1], fontsize=8, horizontalalignment='left', verticalalignment='top', rotation=45, backgroundcolor='w', color=plt.rcParams['axes.color_cycle'][6])
+		if not data7.empty:
+			plt.plot_date(data7.last(timedelta).index, data7[datatype].last(timedelta).values, linestyle="solid", linewidth=line_width, marker='None', color=plt.rcParams['axes.color_cycle'][7], label=sensor7label)
+			plt.text(data7.index[-1:][0], data7[datatype][-1], data7[datatype][-1], fontsize=8, horizontalalignment='left', verticalalignment='top', rotation=45, backgroundcolor='w', color=plt.rcParams['axes.color_cycle'][7])
+		plt.legend(loc=2, ncol=2, fontsize=8).set_visible(True)
+		plt.title('%s Plot: Past %s' %(datatype, timedelta))
+		plt.xlabel('Time')
+		plt.ylabel(datatype)
+		plt.grid(True)
+		plt.tight_layout()
+		myFmt = mdates.DateFormatter('%m-%d %H:%M')
+		fig.axes[0].get_xaxis().set_major_formatter(myFmt)
+		fig.autofmt_xdate()
+		fig.text(0.5, 0.5, '%s Weather Station' %location, fontsize=25, color='gray', ha='center', va='center', alpha=0.35)
+		fig.savefig('/home/pi/Power_Monitoring/output/plot_%s.png' %datatype, bbox_inches='tight')
+		subprocess.call(["sudo", "chmod", "+x", "/home/pi/Power_Monitoring/output/plot_%s.png" %datatype])
+		subprocess.call(["sudo", "cp", "/home/pi/Power_Monitoring/output/plot_%s.png" %datatype, "/var/www/html/"])
+		if dropbox_upload:
+			subprocess.call(["/usr/local/bin/dropbox_uploader.sh", "-q", "upload", "/home/pi/Power_Monitoring/output/plot_%s.png" %datatype, "/Programming/logs/%s/plots/" %location])
 	except Exception:
-		print("MATPLOTLIB ERROR")
+		print("PLOTTING %s ERROR" %datatype)
 		traceback.print_exc(file=sys.stdout)
 		print('-' * 60)
+
+if (1):
+	datainput()
+	dataplot('Temperature', td)
+	dataplot('Pressure', td)
+	dataplot('Humidity', td)
+	dataplot('Voltage', td)
+	dataplot('RSSI', td)
+	dataplot('Dewpoint', td)
