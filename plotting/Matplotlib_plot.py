@@ -18,7 +18,7 @@ dropbox_upload = True
 
 ######## GLOBAL VAR #######
 #td = '48H'
-line_width = 2
+line_width = 1.5
 rssi_line_width = 1
 label_offset = 3
 
