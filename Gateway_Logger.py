@@ -12,7 +12,7 @@ import traceback
 import sys
 
 baud                = 9600   # baud rate for serial port
-verbose             = True
+verbose             = False
 req_timeout         = 5
 
 for arg in sys.argv:
