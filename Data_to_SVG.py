@@ -1,6 +1,5 @@
 import pandas as pd
 import numpy as np
-from lxml import etree
 import datetime, time
 import traceback
 import sys, os.path
