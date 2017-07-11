@@ -65,11 +65,6 @@ for buffer in serial_data(addr, 9600):
 		volt = buffer.split(',')[4].strip('V')
 		rssi = buffer.split(',')[5]
 		dew = float(temp) - (0.36 * (100 - float(humid)))
-	except Exception:
-		print("DATA PROCESSING ERROR", today, now, "STRING:", buffer, ":END")
-		traceback.print_exc(file=sys.stdout)
-		print('-' * 60)
-	try:
 		x = str(today) + ',' + str(now) + ',' + str(buffer) + '\n'
 		if verbose:
 			print(x)
@@ -84,7 +79,7 @@ for buffer in serial_data(addr, 9600):
 		outf.write(x)
 		outf.flush()
 	except Exception:
-		print("DATA LOG WRITE ERROR", today, now, buffer)
+		print("DATA PROCESSING ERROR", today, now, "STRING:", buffer, ":END")
 		traceback.print_exc(file=sys.stdout)
 		print('-' * 60)
 	try:
