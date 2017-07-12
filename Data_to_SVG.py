@@ -827,6 +827,7 @@ def dropbox_update():
 		print("DROPBOX UPLOADER ERROR", now.strftime("%Y-%m-%d %H:%M:%S"))
 		traceback.print_exc(file=sys.stdout)
 		print('-' * 60)
+
 if(1):
 	scheduler = BlockingScheduler()
 	scheduler.add_job(daily_wunder_update, 'cron', hour=0, minute=5)
