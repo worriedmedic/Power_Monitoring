@@ -39,9 +39,9 @@ for buffer in serial_data(addr, 9600):
 	today = datetime.date.today() # Call date of serial read
 	x = str(today) + ',' + str(now) + ',' + str(buffer) + '\n'
 	if verbose:
-	print (x,end='')    # echo line of text on-screen
+		print(x,end='')    # echo line of text on-screen
 	addr = '10'
-	try:
+	try:((
 		buffer.split(',')
 		ct1p = buffer.split(',')[0].strip('ct1:')
 		ct2p = buffer.split(',')[1].strip('ct2:')
