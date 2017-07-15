@@ -78,7 +78,7 @@ for buffer in serial_data(addr, baud):
 		print('-' * 60)        
 	if data_valid:
 		try:
-			x = str(today) + ',' + str(now) + ',' + str(buffer)
+			x = str(today) + ',' + str(now) + ',' + str(buffer) + '\n'
 			if verbose:
 				print(x)
 			if not os.path.exists('data_log'):
