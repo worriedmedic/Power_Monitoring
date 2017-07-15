@@ -17,6 +17,26 @@ emoncms_update      = True # Turn on/off updating to Emoncms
 verbose             = False
 req_timeout         = 5
 
+for arg in sys.argv:
+	if arg == '-e':
+		emoncms_update = True
+		print("EMONCMS Updating is ON")
+	elif arg == '-t':
+		thingspeak_update = True
+		print("THINGSPEAK Updating is ON")
+	elif arg == '-v':
+		verbose = True
+		print("VERBOSE is ON")
+	elif arg == '-vv':
+		verbose_verbose = True
+		print("VVVVVERBOSE is ON")
+	elif arg == '-h':
+		print("Gateway_Logger.py script - LWH & NHH")
+		print("Backend processing of data collected by Arduino based sensors for output to SVG/PNG file")
+		print("Options:  [-e EMONCMS UPDATING ON (default)] [-l LOGGING TO FILE (default)]")
+		print("[-t THINGSPEAK UPDATING ON (default)] [-v VERBOSE] [-h HELP]")
+		sys.exit()
+
 def serial_data(port, baudrate):
 	while True:
 		pt = serial.Serial(port, baudrate, timeout=600)
