@@ -39,11 +39,11 @@ for buffer in serial_data(addr, baud):
 	today = datetime.date.today() # Call date of serial read
 	addr = '10'
 	try:
-		ct1p = buffer.split(',')[0].strip('ct1:')
-		ct2p = buffer.split(',')[1].strip('ct2:')
-		ct3p = buffer.split(',')[2].strip('ct3:')
-		ct4p = buffer.split(',')[3].strip('ct4:')
-		volt = buffer.split(',')[4].strip('vrms:')
+		ct1p = buffer.split(',')[0][4:]
+		ct2p = buffer.split(',')[1][4:]
+		ct3p = buffer.split(',')[2][4:]
+		ct4p = buffer.split(',')[3][4:]
+		volt = buffer.split(',')[4][5:]
 		if verbose:
 			print(ct1p,ct2p,ct3p,ct4p,volt)
 		volt = float(volt) / 100
