@@ -58,7 +58,6 @@ for buffer in serial_data(addr, baud):
 	today = datetime.date.today() # Call date of serial read
 	addr = '10'
 	try:
-		buffer.strip('\n')
 		ct1p = buffer.split(',')[0][4:]
 		ct2p = buffer.split(',')[1][4:]
 		ct3p = buffer.split(',')[2][4:]
@@ -78,7 +77,7 @@ for buffer in serial_data(addr, baud):
 		print('-' * 60)        
 	if data_valid:
 		try:
-			x = str(today) + ',' + str(now) + ',' + str(buffer) + '\n'
+			x = str(today) + ',' + str(now) + ',' + str(buffer)
 			if verbose:
 				print(x)
 			if not os.path.exists('data_log'):
