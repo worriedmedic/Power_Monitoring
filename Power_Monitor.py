@@ -34,7 +34,7 @@ def serial_data(port, baudrate):
 				break
 		pt.close()
 
-for buffer in serial_data(addr, 9600):
+for buffer in serial_data(addr, baud):
 	now = time.strftime("%H:%M:%S") # Call time of serial read
 	today = datetime.date.today() # Call date of serial read
 	x = str(today) + ',' + str(now) + ',' + str(buffer) + '\n'
