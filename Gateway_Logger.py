@@ -45,7 +45,11 @@ def serial_data(port, baudrate):
 		buffer = spb.readline()
 		if buffer:
 			yield buffer
+			if verbose:
+				print("TEILDING DATA")
 		else:
+			if verbose:
+				print("ELSE, BREAKING")
 			break
 	pt.close()
 
