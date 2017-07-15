@@ -42,11 +42,11 @@ def serial_data(port, baudrate):
 	pt = serial.Serial(port, baudrate, timeout=300)
 	spb = io.TextIOWrapper(io.BufferedRWPair(pt,pt,1), errors='strict',line_buffering=True)
 	while True:
-      buffer = spb.readline()
+		buffer = spb.readline()
 		if buffer:
-        yeild buffer
-      else:
-        break
+			yeild buffer
+		else:
+			break
 	pt.close()
 
 if os.path.isfile('/home/pi/Power_Monitoring/dover.location'):
