@@ -37,9 +37,6 @@ def serial_data(port, baudrate):
 for buffer in serial_data(addr, baud):
 	now = time.strftime("%H:%M:%S") # Call time of serial read
 	today = datetime.date.today() # Call date of serial read
-	x = str(today) + ',' + str(now) + ',' + str(buffer) + '\n'
-	if verbose:
-		print(x,end='')    # echo line of text on-screen
 	addr = '10'
 	try:
 		buffer.split(',')
@@ -54,40 +51,44 @@ for buffer in serial_data(addr, baud):
 		cttotal = float(ct1p) + float(ct2p)
 		if verbose:
 			print(volt,cttotal)
+		data_valid = True
 	except Exception:
+		data_valid = False
 		print("DATA SPLIT ERROR", today, now, buffer)
 		traceback.print_exc(file=sys.stdout)
 		print('-' * 60)        
-	try:
-		if not os.path.exists('data_log'):
-			os.makedirs('data_log')
-		fname = str(today) + 'POWER.log'  # log file to save data in
-		fdirectory = '/home/pi/Power_Monitoring/data_log/' + time.strftime("%Y-%m")
-		fmode = 'a'  # log file mode = append
-		if not os.path.exists(fdirectory):
-			os.makedirs(fdirectory)
-		outf = open(os.path.join(fdirectory, fname), fmode)
-		outf.write(x)  # write line of text to file
-		outf.flush()  # make sure it actually gets written out
-	except Exception:
-		print("DATA LOG ERROR", today, now, buffer)
-		traceback.print_exc(file=sys.stdout)
-		print('-' * 60)
-	if emoncms_update:
+	if data_valid:
 		try:
-			url = 'https://emoncms.org/input/post.json?node=%s&json={CTT:%s,CT1:%s,CT2:%s,CT3:%s,CT4:%s,VOLT:%s}&apikey=4e6eff5d047580696f0e2a7ae9323983' % (addr, cttotal, ct1p, ct2p, ct3p, ct4p, volt)
-			r = requests.post(url, timeout=req_timeout)
-			if verbose == 'true':
-				print(r.text)
-				if "ok" in r:
-					print("EMONCMS Update OK", r)
-				else:
-					print("EMCONMS Update FAILED", r)
-		except requests.exceptions.RequestException:
-			print("EMONCMS REQUESTS ERROR", today, now, buffer)
-			traceback.print_exc(file=sys.stdout)
-			print('-' * 60)
+			x = str(today) + ',' + str(now) + ',' + str(buffer) + '\n'
+			if not os.path.exists('data_log'):
+				os.makedirs('data_log')
+			fname = str(today) + 'POWER.log'  # log file to save data in
+			fdirectory = '/home/pi/Power_Monitoring/data_log/' + time.strftime("%Y-%m")
+			fmode = 'a'  # log file mode = append
+			if not os.path.exists(fdirectory):
+				os.makedirs(fdirectory)
+			outf = open(os.path.join(fdirectory, fname), fmode)
+			outf.write(x)  # write line of text to file
+			outf.flush()  # make sure it actually gets written out
 		except Exception:
-			print("EMONCMS GENERAL ERROR", today, now, buffer)
+			print("DATA LOG ERROR", today, now, buffer)
 			traceback.print_exc(file=sys.stdout)
 			print('-' * 60)
+		if emoncms_update:
+			try:
+				url = 'https://emoncms.org/input/post.json?node=%s&json={CTT:%s,CT1:%s,CT2:%s,CT3:%s,CT4:%s,VOLT:%s}&apikey=4e6eff5d047580696f0e2a7ae9323983' % (addr, cttotal, ct1p, ct2p, ct3p, ct4p, volt)
+				r = requests.post(url, timeout=req_timeout)
+				if verbose == 'true':
+					print(r.text)
+					if "ok" in r:
+						print("EMONCMS Update OK", r)
+					else:
+						print("EMCONMS Update FAILED", r)
+			except requests.exceptions.RequestException:
+				print("EMONCMS REQUESTS ERROR", today, now, buffer)
+				traceback.print_exc(file=sys.stdout)
+				print('-' * 60)
+			except Exception:
+				print("EMONCMS GENERAL ERROR", today, now, buffer)
+				traceback.print_exc(file=sys.stdout)
+				print('-' * 60)
