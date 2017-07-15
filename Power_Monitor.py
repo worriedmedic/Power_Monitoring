@@ -39,7 +39,6 @@ for buffer in serial_data(addr, baud):
 	today = datetime.date.today() # Call date of serial read
 	addr = '10'
 	try:
-		buffer.split(',')
 		ct1p = buffer.split(',')[0].strip('ct1:')
 		ct2p = buffer.split(',')[1].strip('ct2:')
 		ct3p = buffer.split(',')[2].strip('ct3:')
@@ -60,6 +59,8 @@ for buffer in serial_data(addr, baud):
 	if data_valid:
 		try:
 			x = str(today) + ',' + str(now) + ',' + str(buffer) + '\n'
+			if verbose:
+				print(x)
 			if not os.path.exists('data_log'):
 				os.makedirs('data_log')
 			fname = str(today) + 'POWER.log'  # log file to save data in
