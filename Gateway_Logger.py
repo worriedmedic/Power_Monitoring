@@ -39,19 +39,20 @@ for arg in sys.argv:
 		sys.exit()
 
 def serial_data(port, baudrate):
-	pt = serial.Serial(port, baudrate, timeout=10)
-	spb = io.TextIOWrapper(io.BufferedRWPair(pt,pt,1), errors='strict',line_buffering=True)
 	while True:
-		buffer = spb.readline()
-		if buffer:
-			yield buffer
-			if verbose:
-				print("TEILDING DATA")
-		else:
-			if verbose:
-				print("ELSE, BREAKING")
-			break
-	pt.close()
+		pt = serial.Serial(port, baudrate, timeout=10)
+		spb = io.TextIOWrapper(io.BufferedRWPair(pt,pt,1), errors='strict',line_buffering=True)
+		while True:
+			buffer = spb.readline()
+			if buffer:
+				yield buffer
+				if verbose:
+					print("TEILDING DATA")
+			else:
+				if verbose:
+					print("ELSE, BREAKING")
+				break
+		pt.close()
 
 if os.path.isfile('/home/pi/Power_Monitoring/dover.location'):
 	location = 'dover'
