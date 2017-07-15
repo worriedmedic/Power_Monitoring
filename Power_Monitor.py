@@ -47,9 +47,9 @@ for buffer in serial_data(addr, baud):
 		if verbose:
 			print(ct1p,ct2p,ct3p,ct4p,volt)
 		volt = float(volt) / 100
-		#cttotal = float(ct1p) + float(ct2p)
-		#if verbose:
-		#	print(volt,cttotal)
+		cttotal = int(ct1p) + int(ct2p)
+		if verbose:
+			print(volt,cttotal)
 		data_valid = True
 	except Exception:
 		data_valid = False
