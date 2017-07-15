@@ -44,7 +44,7 @@ def serial_data(port, baudrate):
 	while True:
 		buffer = spb.readline()
 		if buffer:
-			yeild buffer
+			yield buffer
 		else:
 			break
 	pt.close()
