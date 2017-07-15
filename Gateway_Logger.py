@@ -40,7 +40,7 @@ for arg in sys.argv:
 
 def serial_data(port, baudrate):
 	while True:
-		pt = serial.Serial(port, baudrate, timeout=10)
+		pt = serial.Serial(port, baudrate, timeout=600)
 		spb = io.TextIOWrapper(io.BufferedRWPair(pt,pt,1), errors='strict',line_buffering=True)
 		while True:
 			buffer = spb.readline()
