@@ -24,7 +24,7 @@ label_offset = 3
 
 if os.path.isfile('/home/pi/Power_Monitoring/dover.location'):
 	location     = 'Dover'
-	td           = '2H'
+	td           = '48H'
 	plt_size_x   = 10
 	plt_size_y   = 8
 	plt_size_dpi = 100
