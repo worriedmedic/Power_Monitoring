@@ -86,7 +86,7 @@ def datainput():
 			data_today_valid = False
 			print("No logfile for today found...", str(today))
 		try:
-			data_yest = pd.read_csv('/home/pi/Power_Monitoring/data_log/' + yesterday.strftime("%Y-%m") + '/' + str(yesterday) + '.log', names = ["Date", "Time", "Address", "Temperature", "Pressure", "Humidity", "Voltage", "RSSI"], dtype=str, error='coerce') )
+			data_yest = pd.read_csv('/home/pi/Power_Monitoring/data_log/' + yesterday.strftime("%Y-%m") + '/' + str(yesterday) + '.log', names = ["Date", "Time", "Address", "Temperature", "Pressure", "Humidity", "Voltage", "RSSI"], dtype=str, error='coerce')
 			data_yest_valid = True
 		except Exception:
 			data_yest_valid = False
