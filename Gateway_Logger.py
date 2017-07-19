@@ -56,7 +56,7 @@ def serial_data(port, baudrate):
 
 if os.path.isfile('/home/pi/Power_Monitoring/dover.location'):
 	location = 'dover'
-	addr = '/dev/ttyUSB0'
+	addr = '/dev/serial/by-id/usb-FTDI_FT232R_USB_UART_A104VAFG-if00-port0'
 elif os.path.isfile('/home/pi/Power_Monitoring/cuttyhunk.location'):
 	location = 'cuttyhunk'
 	addr = '/dev/serial/by-id/usb-FTDI_FT232R_USB_UART_AL02CC7C-if00-port0'
