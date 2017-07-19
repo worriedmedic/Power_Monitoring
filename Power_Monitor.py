@@ -10,7 +10,7 @@ import os.path
 import traceback
 import sys
 
-addr                = '/dev/ttyUSB1'  # serial port to read data from
+addr                = '/dev/serial/by-id/usb-FTDI_FT232R_USB_UART_A800HQ6P-if00-port0'  # serial port to read data from
 baud                = 115200   # baud rate for serial port
 thingspeak_update   = True # Turn on/off updating to ThingSpeak
 emoncms_update      = True # Turn on/off updating to Emoncms
