@@ -835,7 +835,7 @@ if(1):
 	scheduler.add_job(svg_update, 'interval', seconds=5)
 	scheduler.add_job(data_call, 'interval', seconds=30)
 	if dropbox_upload:
-		scheduler.add_job(dropbox_update, 'interval', minutes=3)
+		scheduler.add_job(dropbox_update, 'interval', minutes=15)
 	try:
 		time.sleep(5)
 		daily_wunder_update()
