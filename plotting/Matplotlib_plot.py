@@ -47,7 +47,7 @@ if os.path.isfile('/home/pi/Power_Monitoring/dover.location'):
 	sensor7label = 'Liam'
 elif os.path.isfile('/home/pi/Power_Monitoring/cuttyhunk.location'):
 	location     = 'Cuttyhunk'
-	td           = '96H'
+	td           = '72H'
 	plt_size_x   = 10
 	plt_size_y   = 8
 	plt_size_dpi = 100
