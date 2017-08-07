@@ -47,7 +47,7 @@ def serial_data(port, baudrate):
 			if buffer:
 				yield buffer
 				if verbose:
-					print("TEILDING DATA")
+					print("YIELDING DATA")
 			else:
 				if verbose:
 					print("ELSE, BREAKING")
