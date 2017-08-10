@@ -77,7 +77,7 @@ elif os.path.isfile('/home/pi/Power_Monitoring/cuttyhunk.location'):
 	wunder_site_astronomy_json = 'http://api.wunderground.com/api/1f86b1c989ac268c/astronomy/q/ma/cuttyhunk.json'
 	wunder_site_conditions_json = 'http://api.wunderground.com/api/1f86b1c989ac268c/conditions/q/ma/cuttyhunk.json'
 	
-	sensor0		= '94'
+	sensor0		= '98'
 	sensor0label	= 'Outside'
 	sensor1		= '95'
 	sensor1label	= 'Upstairs'
@@ -87,8 +87,8 @@ elif os.path.isfile('/home/pi/Power_Monitoring/cuttyhunk.location'):
 	sensor3label	= 'Barn'
 	sensor4		= '99'
 	sensor4label	= 'TEST'
-	sensor5		= '98'
-	sensor5label	= 'Barn Upstairs'
+	sensor5		= None
+	sensor5label	= 'None'
 	sensor6		= None
 	sensor6label	= 'None'
 	sensor7		= None
