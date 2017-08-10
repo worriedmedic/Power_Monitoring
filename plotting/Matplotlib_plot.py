@@ -52,21 +52,21 @@ elif os.path.isfile('/home/pi/Power_Monitoring/cuttyhunk.location'):
 	plt_size_y   = 8
 	plt_size_dpi = 100
 	plot_style   = 'bmh'
-	sensor0      = 94
-	sensor0label = 'Outside'
-	sensor1      = 95
-	sensor1label = 'Upstairs'
-	sensor2      = 96
-	sensor2label = 'Reeds Room'
-	sensor3      = 97
-	sensor3label = 'Barn'
-	sensor4      = 98
-	sensor4label = 'Barn Upstairs' 
-	sensor5		= 99
-	sensor5label	= 'TEST'
-	sensor6		= 93
+	sensor0		= '98'
+	sensor0label	= 'Outside'
+	sensor1		= '95'
+	sensor1label	= 'Upstairs'
+	sensor2		= '96'
+	sensor2label	= 'Reeds Room'
+	sensor3		= '97'
+	sensor3label	= 'Barn'
+	sensor4		= '99'
+	sensor4label	= 'TEST'
+	sensor5		= None
+	sensor5label	= 'None'
+	sensor6		= None
 	sensor6label	= 'None'
-	sensor7		= 92
+	sensor7		= None
 	sensor7label	= 'None'
 
 def datainput():
