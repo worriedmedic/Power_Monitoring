@@ -79,9 +79,9 @@ elif os.path.isfile('/home/pi/Power_Monitoring/cuttyhunk.location'):
 	
 	sensor0		= '98'
 	sensor0label	= 'Outside'
-	sensor1		= '95'
+	sensor1		= '96'
 	sensor1label	= 'Upstairs'
-	sensor2		= '96'
+	sensor2		= '95'
 	sensor2label	= 'Reeds Room'
 	sensor3		= '97'
 	sensor3label	= 'Barn'
