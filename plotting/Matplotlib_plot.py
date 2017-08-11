@@ -181,28 +181,28 @@ def dataplot(datatype, timedelta):
 		fig = plt.figure(figsize=(plt_size_x, plt_size_y), dpi=plt_size_dpi)
 		plt.style.use(plot_style)
 		plt.rcParams['axes.facecolor']='w'
-		if not data0.empty:
+		if data0:
 			plt.plot_date(data0.last(timedelta).index, data0[datatype].last(timedelta).values, linestyle="solid", linewidth=line_width, marker='None', color=plt.rcParams['axes.color_cycle'][0], label=sensor0label)
 			plt.text(data0.index[-1:][0], data0[datatype][-1], data0[datatype][-1], fontsize=8, horizontalalignment='left', verticalalignment='top', rotation=45, backgroundcolor='w', color=plt.rcParams['axes.color_cycle'][0])
-		if not data1.empty:
+		if data1:
 			plt.plot_date(data1.last(timedelta).index, data1[datatype].last(timedelta).values, linestyle="solid", linewidth=line_width, marker='None', color=plt.rcParams['axes.color_cycle'][1], label=sensor1label)
 			plt.text(data1.index[-1:][0], data1[datatype][-1], data1[datatype][-1], fontsize=8, horizontalalignment='left', verticalalignment='top', rotation=45, backgroundcolor='w', color=plt.rcParams['axes.color_cycle'][1])
-		if not data2.empty:
+		if data2:
 			plt.plot_date(data2.last(timedelta).index, data2[datatype].last(timedelta).values, linestyle="solid", linewidth=line_width, marker='None', color=plt.rcParams['axes.color_cycle'][2], label=sensor2label)
 			plt.text(data2.index[-1:][0], data2[datatype][-1], data2[datatype][-1], fontsize=8, horizontalalignment='left', verticalalignment='top', rotation=45, backgroundcolor='w', color=plt.rcParams['axes.color_cycle'][2])
-		if not data3.empty:
+		if data3:
 			plt.plot_date(data3.last(timedelta).index, data3[datatype].last(timedelta).values, linestyle="solid", linewidth=line_width, marker='None', color=plt.rcParams['axes.color_cycle'][3], label=sensor3label)
 			plt.text(data3.index[-1:][0], data3[datatype][-1], data3[datatype][-1], fontsize=8, horizontalalignment='left', verticalalignment='top', rotation=45, backgroundcolor='w', color=plt.rcParams['axes.color_cycle'][3])
-		if not data4.empty:
+		if data4:
 			plt.plot_date(data4.last(timedelta).index, data4[datatype].last(timedelta).values, linestyle="solid", linewidth=line_width, marker='None', color=plt.rcParams['axes.color_cycle'][4], label=sensor4label)
 			plt.text(data4.index[-1:][0], data4[datatype][-1], data4[datatype][-1], fontsize=8, horizontalalignment='left', verticalalignment='top', rotation=45, backgroundcolor='w', color=plt.rcParams['axes.color_cycle'][4])
-		if not data5.empty:
+		if data5:
 			plt.plot_date(data5.last(timedelta).index, data5[datatype].last(timedelta).values, linestyle="solid", linewidth=line_width, marker='None', color=plt.rcParams['axes.color_cycle'][5], label=sensor5label)
 			plt.text(data5.index[-1:][0], data5[datatype][-1], data5[datatype][-1], fontsize=8, horizontalalignment='left', verticalalignment='top', rotation=45, backgroundcolor='w', color=plt.rcParams['axes.color_cycle'][5])
-		if not data6.empty:
+		if data6:
 			plt.plot_date(data6.last(timedelta).index, data6[datatype].last(timedelta).values, linestyle="solid", linewidth=line_width, marker='None', color=plt.rcParams['axes.color_cycle'][6], label=sensor6label)
 			plt.text(data6.index[-1:][0], data6[datatype][-1], data6[datatype][-1], fontsize=8, horizontalalignment='left', verticalalignment='top', rotation=45, backgroundcolor='w', color=plt.rcParams['axes.color_cycle'][6])
-		if not data7.empty:
+		if data7:
 			plt.plot_date(data7.last(timedelta).index, data7[datatype].last(timedelta).values, linestyle="solid", linewidth=line_width, marker='None', color=plt.rcParams['axes.color_cycle'][7], label=sensor7label)
 			plt.text(data7.index[-1:][0], data7[datatype][-1], data7[datatype][-1], fontsize=8, horizontalalignment='left', verticalalignment='top', rotation=45, backgroundcolor='w', color=plt.rcParams['axes.color_cycle'][7])
 		plt.legend(loc=2, ncol=2, fontsize=8).set_visible(True)
