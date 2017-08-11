@@ -135,34 +135,42 @@ def datainput():
 			data0 = data.loc[data['Address'] == sensor0]
 		except Exception:
 			print("Data0 Error")
+			data0 = None
 		try:
 			data1 = data.loc[data['Address'] == sensor1]
 		except Exception:
 			print("Data1 Error")
+			data1 = None
 		try:
 			data2 = data.loc[data['Address'] == sensor2]
 		except Exception:
 			print("Data2 Error")
+			data2 = None
 		try:
 			data3 = data.loc[data['Address'] == sensor3]
 		except Exception:
 			print("Data3 Error")
+			data3 = None
 		try:
 			data4 = data.loc[data['Address'] == sensor4]
 		except Exception:
 			print("Data4 Error")
+			data4 = None
 		try:
 			data5 = data.loc[data['Address'] == sensor5]
 		except Exception:
 			print("Data5 Error")
+			data5 = None
 		try:
 			data6 = data.loc[data['Address'] == sensor6]
 		except Exception:
 			print("Data6 Error")
+			data6 = None
 		try:
 			data7 = data.loc[data['Address'] == sensor7]
 		except Exception:
-			print("Data7 Error")		
+			print("Data7 Error")
+			data7 = None
 	except Exception:
 		print("TODAY READ CSV ERROR")
 		traceback.print_exc(file=sys.stdout)
