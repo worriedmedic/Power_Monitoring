@@ -9,8 +9,8 @@ def follow(thefile):
 			continue
 		yield line
 
-logfile = open("access-log")
-loglines = follow(logfile)
-
-for line in loglines:
-	print line
+def logfollower(filepath):
+	logfile = open(filepath)
+	loglines = follow(logfile)
+	for line in loglines:
+		print line
