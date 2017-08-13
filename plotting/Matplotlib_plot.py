@@ -62,11 +62,11 @@ elif os.path.isfile('/home/pi/Power_Monitoring/cuttyhunk.location'):
 	sensor3label = 'Barn'
 	sensor4	     = 99
 	sensor4label = 'TEST'
-	sensor5	     = None
+	sensor5	     = 90
 	sensor5label = 'None'
-	sensor6	     = None
+	sensor6	     = 89
 	sensor6label = 'None'
-	sensor7	     = None
+	sensor7	     = 88
 	sensor7label = 'None'
 
 def datainput():
