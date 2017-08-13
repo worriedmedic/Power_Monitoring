@@ -1,16 +1,16 @@
 import time
 
-def tail_f(file):
-	interval = 1.0
-
+def follow(thefile):
+	thefile.seek(0,2) # Go to the end of the file
 	while True:
-		where = file.tell()
-		line = file.readline()
+		line = thefile.readline()
 		if not line:
-			time.sleep(interval)
-			file.seek(where)
-		else:
-			yield line
+			time.sleep(0.1) # Sleep briefly
+			continue
+		yield line
 
-for line in tail_f(open('/home/pi/Power_Monitoring/data_log/Gateway_Logger.log', 'r'))
+logfile = open("access-log")
+loglines = follow(logfile)
+
+for line in loglines:
 	print line
