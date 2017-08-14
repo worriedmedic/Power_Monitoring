@@ -186,7 +186,7 @@ def datainput():
 				print("Data7 Error")
 			data7 = None
 	except Exception:
-		print("TODAY READ CSV ERROR")
+		print("ERROR: CSV IMPORT/DATA INPUT", today, now)
 		traceback.print_exc(file=sys.stdout)
 
 def dataplot(datatype, timedelta):
@@ -234,7 +234,7 @@ def dataplot(datatype, timedelta):
 		if dropbox_upload:
 			subprocess.call(["/usr/local/bin/dropbox_uploader.sh", "-q", "upload", "/home/pi/Power_Monitoring/output/plot_%s.png" %datatype, "/Programming/logs/%s/plots/" %location])
 	except Exception:
-		print("PLOTTING %s ERROR" %datatype)
+		print("ERROR: PLOTTING %s ERROR" %datatype, today, now)
 		traceback.print_exc(file=sys.stdout)
 
 if (1):
