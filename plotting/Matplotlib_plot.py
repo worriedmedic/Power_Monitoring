@@ -190,6 +190,8 @@ def datainput():
 		traceback.print_exc(file=sys.stdout)
 
 def dataplot(datatype, timedelta):
+	now = datetime.datetime.now()
+	today = datetime.date.today()
 	try:
 		fig = plt.figure(figsize=(plt_size_x, plt_size_y), dpi=plt_size_dpi)
 		plt.style.use(plot_style)
