@@ -15,6 +15,7 @@ humid_plot = True
 volt_plot = True
 rssi_plot = True
 dropbox_upload = True
+verbose = False
 
 ######## GLOBAL VAR #######
 #td = '48H'
@@ -84,31 +85,36 @@ def datainput():
 			data_today_valid = True
 		except Exception:
 			data_today_valid = False
-			print("No logfile for today found...", str(today))
+			if verbose:
+				print("No logfile for today found...", str(today))
 		try:
 			data_yest = pd.read_csv('/home/pi/Power_Monitoring/data_log/' + yesterday.strftime("%Y-%m") + '/' + str(yesterday) + '.log', names = ["Date", "Time", "Address", "Temperature", "Pressure", "Humidity", "Voltage", "RSSI"], dtype=str)
 			data_yest_valid = True
 		except Exception:
 			data_yest_valid = False
-			print("No logfile for yesterday found...", str(yesterday))
+			if verbose:
+				print("No logfile for yesterday found...", str(yesterday))
 		try:
 			data_2prior = pd.read_csv('/home/pi/Power_Monitoring/data_log/' + prior2.strftime("%Y-%m") + '/' + str(prior2) + '.log', names = ["Date", "Time", "Address", "Temperature", "Pressure", "Humidity", "Voltage", "RSSI"], dtype=str)
 			data_2prior_valid = True
 		except Exception:
 			data_2prior_valid = False
-			print("No logfile for TWO days ago found...", str(prior2))
+			if verbose:
+				print("No logfile for TWO days ago found...", str(prior2))
 		try:
 			data_3prior = pd.read_csv('/home/pi/Power_Monitoring/data_log/' + prior3.strftime("%Y-%m") + '/' + str(prior3) + '.log', names = ["Date", "Time", "Address", "Temperature", "Pressure", "Humidity", "Voltage", "RSSI"], dtype=str)
 			data_3prior_valid = True
 		except Exception:
 			data_3prior_valid = False
-			print("No logfile for THREE days ago found...", str(prior3))
+			if verbose:
+				print("No logfile for THREE days ago found...", str(prior3))
 		try:
 			data_4prior = pd.read_csv('/home/pi/Power_Monitoring/data_log/' + prior4.strftime("%Y-%m") + '/' + str(prior4) + '.log', names = ["Date", "Time", "Address", "Temperature", "Pressure", "Humidity", "Voltage", "RSSI"], dtype=str)
 			data_4prior_valid = True
 		except Exception:
 			data_4prior_valid = False
-			print("No logfile for FOUR days ago found...", str(prior4))
+			if verbose:
+				print("No logfile for FOUR days ago found...", str(prior4))
 		if (data_today_valid and data_yest_valid and data_2prior_valid and data_3prior_valid and data_4prior_valid):
 			data = pd.concat([data_4prior, data_3prior, data_2prior, data_yest, data_today])
 		elif (data_today_valid and data_yest_valid and data_2prior_valid and data_3prior_valid):
@@ -134,42 +140,50 @@ def datainput():
 		try:
 			data0 = data.loc[data['Address'] == sensor0]
 		except Exception:
-			print("Data0 Error")
+			if verbose:
+				print("Data0 Error")
 			data0 = None
 		try:
 			data1 = data.loc[data['Address'] == sensor1]
 		except Exception:
-			print("Data1 Error")
+			if verbose:
+				print("Data1 Error")
 			data1 = None
 		try:
 			data2 = data.loc[data['Address'] == sensor2]
 		except Exception:
-			print("Data2 Error")
+			if verbose:
+				print("Data2 Error")
 			data2 = None
 		try:
 			data3 = data.loc[data['Address'] == sensor3]
 		except Exception:
-			print("Data3 Error")
+			if verbose:
+				print("Data3 Error")
 			data3 = None
 		try:
 			data4 = data.loc[data['Address'] == sensor4]
 		except Exception:
-			print("Data4 Error")
+			if verbose:
+				print("Data4 Error")
 			data4 = None
 		try:
 			data5 = data.loc[data['Address'] == sensor5]
 		except Exception:
-			print("Data5 Error")
+			if verbose:
+				print("Data5 Error")
 			data5 = None
 		try:
 			data6 = data.loc[data['Address'] == sensor6]
 		except Exception:
-			print("Data6 Error")
+			if verbose:
+				print("Data6 Error")
 			data6 = None
 		try:
 			data7 = data.loc[data['Address'] == sensor7]
 		except Exception:
-			print("Data7 Error")
+			if verbose:
+				print("Data7 Error")
 			data7 = None
 	except Exception:
 		print("TODAY READ CSV ERROR")
@@ -184,43 +198,27 @@ def dataplot(datatype, timedelta):
 		if not data0.empty:
 			plt.plot_date(data0.last(timedelta).index, data0[datatype].last(timedelta).values, linestyle="solid", linewidth=line_width, marker='None', color=plt.rcParams['axes.color_cycle'][0], label=sensor0label)
 			plt.text(data0.index[-1:][0], data0[datatype][-1], data0[datatype][-1], fontsize=8, horizontalalignment='left', verticalalignment='top', rotation=45, backgroundcolor='w', color=plt.rcParams['axes.color_cycle'][0])
-		else:
-			print("Data0 %s Empty" %datatype)
 		if not data1.empty:
 			plt.plot_date(data1.last(timedelta).index, data1[datatype].last(timedelta).values, linestyle="solid", linewidth=line_width, marker='None', color=plt.rcParams['axes.color_cycle'][1], label=sensor1label)
 			plt.text(data1.index[-1:][0], data1[datatype][-1], data1[datatype][-1], fontsize=8, horizontalalignment='left', verticalalignment='top', rotation=45, backgroundcolor='w', color=plt.rcParams['axes.color_cycle'][1])
-		else:
-			print("Data1 %s Empty" %datatype)
 		if not data2.empty:
 			plt.plot_date(data2.last(timedelta).index, data2[datatype].last(timedelta).values, linestyle="solid", linewidth=line_width, marker='None', color=plt.rcParams['axes.color_cycle'][2], label=sensor2label)
 			plt.text(data2.index[-1:][0], data2[datatype][-1], data2[datatype][-1], fontsize=8, horizontalalignment='left', verticalalignment='top', rotation=45, backgroundcolor='w', color=plt.rcParams['axes.color_cycle'][2])
-		else:
-			print("Data2 %s Empty" %datatype)
 		if not data3.empty:
 			plt.plot_date(data3.last(timedelta).index, data3[datatype].last(timedelta).values, linestyle="solid", linewidth=line_width, marker='None', color=plt.rcParams['axes.color_cycle'][3], label=sensor3label)
 			plt.text(data3.index[-1:][0], data3[datatype][-1], data3[datatype][-1], fontsize=8, horizontalalignment='left', verticalalignment='top', rotation=45, backgroundcolor='w', color=plt.rcParams['axes.color_cycle'][3])
-		else:
-			print("Data3 %s Empty" %datatype)
 		if not data4.empty:
 			plt.plot_date(data4.last(timedelta).index, data4[datatype].last(timedelta).values, linestyle="solid", linewidth=line_width, marker='None', color=plt.rcParams['axes.color_cycle'][4], label=sensor4label)
 			plt.text(data4.index[-1:][0], data4[datatype][-1], data4[datatype][-1], fontsize=8, horizontalalignment='left', verticalalignment='top', rotation=45, backgroundcolor='w', color=plt.rcParams['axes.color_cycle'][4])
-		else:
-			print("Data4 %s Empty" %datatype)
 		if not data5.empty:
 			plt.plot_date(data5.last(timedelta).index, data5[datatype].last(timedelta).values, linestyle="solid", linewidth=line_width, marker='None', color=plt.rcParams['axes.color_cycle'][5], label=sensor5label)
 			plt.text(data5.index[-1:][0], data5[datatype][-1], data5[datatype][-1], fontsize=8, horizontalalignment='left', verticalalignment='top', rotation=45, backgroundcolor='w', color=plt.rcParams['axes.color_cycle'][5])
-		else:
-			print("Data5 %s Empty" %datatype)
 		if not data6.empty:
 			plt.plot_date(data6.last(timedelta).index, data6[datatype].last(timedelta).values, linestyle="solid", linewidth=line_width, marker='None', color=plt.rcParams['axes.color_cycle'][6], label=sensor6label)
 			plt.text(data6.index[-1:][0], data6[datatype][-1], data6[datatype][-1], fontsize=8, horizontalalignment='left', verticalalignment='top', rotation=45, backgroundcolor='w', color=plt.rcParams['axes.color_cycle'][6])
-		else:
-			print("Data6 %s Empty" %datatype)
 		if not data7.empty:
 			plt.plot_date(data7.last(timedelta).index, data7[datatype].last(timedelta).values, linestyle="solid", linewidth=line_width, marker='None', color=plt.rcParams['axes.color_cycle'][7], label=sensor7label)
 			plt.text(data7.index[-1:][0], data7[datatype][-1], data7[datatype][-1], fontsize=8, horizontalalignment='left', verticalalignment='top', rotation=45, backgroundcolor='w', color=plt.rcParams['axes.color_cycle'][7])
-		else:
-			print("Data7 %s Empty" %datatype)
 		plt.legend(loc=2, ncol=2, fontsize=8).set_visible(True)
 		plt.title('%s Plot: Past %s' %(datatype, timedelta))
 		plt.xlabel('Time')
