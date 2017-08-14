@@ -2,7 +2,6 @@
 # get lines of text from serial port, save them to a file, upload to ThingSpeak
 # Base source (highly modified): https://www.raspberrypi.org/forums/viewtopic.php?f=44&t=64545
 
-#from __future__ import print_function
 import serial, io
 import time
 import datetime
@@ -88,7 +87,7 @@ for buffer in serial_data(addr, 9600):
 		outf.write(x)
 		outf.flush()
 	except Exception:
-		print("DATA PROCESSING ERROR", today, now, "STRING:", buffer, ":END")
+		print("ERROR: DATA PROCESSING", today, now, "STRING:", buffer, ":END")
 		traceback.print_exc(file=sys.stdout)
 	try:
 		url = 'https://emoncms.org/input/post.json?node=%s&json={T:%s,P:%s,H:%s,V:%s,R:%s,D:%s}&apikey=4e6eff5d047580696f0e2a7ae9323983' % (addr, temp, press, humid, volt, rssi, dew)
@@ -99,9 +98,9 @@ for buffer in serial_data(addr, 9600):
 			else:
 				print("EMCONMS Update FAILED")
 	except requests.exceptions.Timeout:
-		print("REQUESTS GENERAL TIMEOUT ERROR", today, now, buffer)
+		print("ERROR: REQUESTS TIMEOUT", today, now, buffer)
 	except requests.exceptions.RequestException:
-		print("EMONCMS REQUESTS ERROR", today, now, buffer)
+		print("ERROR: EMONCMS REQUESTS", today, now, buffer)
 	except Exception:
-		print("EMONCMS OTHER GENERAL ERROR", today, now, buffer)
+		print("ERROR: EMONCMS OTHER", today, now, buffer)
 		traceback.print_exc(file=sys.stdout)
