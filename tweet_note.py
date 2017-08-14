@@ -1,5 +1,5 @@
 import time
-from twitter_creds.py import *
+from twitter_creds import *
 import tweepy
 import threading
 
