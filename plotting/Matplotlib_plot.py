@@ -188,7 +188,6 @@ def datainput():
 	except Exception:
 		print("TODAY READ CSV ERROR")
 		traceback.print_exc(file=sys.stdout)
-		print('-' * 60)
 
 def dataplot(datatype, timedelta):
 	try:
@@ -237,7 +236,6 @@ def dataplot(datatype, timedelta):
 	except Exception:
 		print("PLOTTING %s ERROR" %datatype)
 		traceback.print_exc(file=sys.stdout)
-		print('-' * 60)
 
 if (1):
 	datainput()
