@@ -21,20 +21,20 @@ def follow(thefile):
 		yield line
 
 
-def logfollower(filepath):
+def logfollower(filepath,loc):
 	logfile = open(filepath)
 	loglines = follow(logfile)
 	for line in loglines:
 		print line
 		try:
 			if line != '\n':
-      				api.update_status(line)
+      				api.update_status(loc + line)
 		except tweepy.TweepError as e:
 			print(e.reason)
 
-tgateway = threading.Thread(target=logfollower, args=(gatewaylog,))
-tdataproc = threading.Thread(target=logfollower, args=(dataprocesslog,))
-tplotting = threading.Thread(target=logfollower, args=(plottinglog,))
+tgateway = threading.Thread(target=logfollower, args=(gatewaylog,'Gate:',))
+tdataproc = threading.Thread(target=logfollower, args=(dataprocesslog,'Data:',))
+tplotting = threading.Thread(target=logfollower, args=(plottinglog,'Plot:'))
 
 tgateway.start()
 tdataproc.start()
