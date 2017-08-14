@@ -87,11 +87,11 @@ elif os.path.isfile('/home/pi/Power_Monitoring/cuttyhunk.location'):
 	sensor3label	= 'Barn'
 	sensor4		= '99'
 	sensor4label	= 'TEST'
-	sensor5		= None
+	sensor5		= '88'
 	sensor5label	= 'None'
-	sensor6		= None
+	sensor6		= '87'
 	sensor6label	= 'None'
-	sensor7		= None
+	sensor7		= '86'
 	sensor7label	= 'None'
 	if verbose:
 		print(location)
@@ -106,7 +106,6 @@ def daily_wunder_update():
 		except Exception:
 			print("DAILY WUNDER UPDATE ERROR", now.strftime("%Y-%m-%d %H:%M:%S"))
 			traceback.print_exc(file=sys.stdout)
-			print('-' * 60)
 			time.sleep(10)
 			continue
 		break
@@ -120,7 +119,6 @@ def hourly_wunder_update():
 		except Exception:
 			print("DAILY WUNDER UPDATE ERROR", now.strftime("%Y-%m-%d %H:%M:%S"))
 			traceback.print_exc(file=sys.stdout)
-			print('-' * 60)
 			time.sleep(10)
 			continue
 		break
@@ -164,7 +162,6 @@ def data_call():
 		except Exception:
 			print("TIDES ERROR", now.strftime("%Y-%m-%d %H:%M:%S"))
 			traceback.print_exc(file=sys.stdout)
-			print('-' * 60)
 	if weatherdata:
 		try:			
 			global weather_data
@@ -183,7 +180,6 @@ def data_call():
 		except Exception:
 			print("WEATHER DATA ERROR", now.strftime("%Y-%m-%d %H:%M:%S"))
 			traceback.print_exc(file=sys.stdout)
-			print('-' * 60)
 	if sensordata:
 		try:
 			if verbose:
@@ -193,22 +189,22 @@ def data_call():
 				data_today_valid = True
 			except Exception:
 				data_today_valid = False
-				print("NO TODAY LOG FILE", now.strftime("%Y-%m-%d %H:%M:%S"))
-				print('-' * 60)
+				if verbose:
+					print("NO TODAY LOG FILE", now.strftime("%Y-%m-%d %H:%M:%S"))
 			try:
 				data_yest = pd.read_csv('/home/pi/Power_Monitoring/data_log/' + today_minus_one.strftime("%Y-%m") + '/' + str(today_minus_one) + '.log', names = ["Date", "Time", "Address", "Temperature", "Pressure", "Humidity", "Voltage", "RSSI"], dtype=str)
 				data_yest_valid = True
 			except Exception:
 				data_yest_valid = False
-				print("NO YESTERDAY LOG FILE", now.strftime("%Y-%m-%d %H:%M:%S"))
-				print('-' * 60)
+				if verbose:
+					print("NO YESTERDAY LOG FILE", now.strftime("%Y-%m-%d %H:%M:%S"))
 			try:
 				data_2prior = pd.read_csv('/home/pi/Power_Monitoring/data_log/' + today_minus_two.strftime("%Y-%m") + '/' + str(today_minus_two) + '.log', names = ["Date", "Time", "Address", "Temperature", "Pressure", "Humidity", "Voltage", "RSSI"], dtype=str)
 				data_2prior_valid = True
 			except Exception:
 				data_2prior_valid = False
-				print("NO 2DAYPRIOR LOG FILE", now.strftime("%Y-%m-%d %H:%M:%S"))
-				print('-' * 60)
+				if verbose:
+					print("NO 2DAYPRIOR LOG FILE", now.strftime("%Y-%m-%d %H:%M:%S"))
 			if (data_today_valid and data_yest_valid and data_2prior_valid):
 				data = pd.concat([data_2prior, data_yest, data_today])
 				if verbose:
@@ -247,7 +243,6 @@ def data_call():
 		except Exception:
 			print("Main Data Aggragate PANDAS ERROR", now.strftime("%Y-%m-%d %H:%M:%S"))
 			traceback.print_exc(file=sys.stdout)
-			print('-' * 60)
 	try:
 		if not data0.empty:
 			global data0_global
@@ -283,7 +278,7 @@ def data_call():
 	except Exception:
 		print("DATA0 ERROR", now.strftime("%Y-%m-%d %H:%M:%S"))
 		traceback.print_exc(file=sys.stdout)
-		print('-' * 60)
+
 	try:
 		if not data1.empty:
 			global data1_global
@@ -319,7 +314,6 @@ def data_call():
 	except Exception:
 		print("DATA1 ERROR", now.strftime("%Y-%m-%d %H:%M:%S"))
 		traceback.print_exc(file=sys.stdout)
-		print('-' * 60)
 	try:
 		if not data2.empty:
 			global data2_global
@@ -355,7 +349,6 @@ def data_call():
 	except Exception:
 		print("DATA2 ERROR", now.strftime("%Y-%m-%d %H:%M:%S"))
 		traceback.print_exc(file=sys.stdout)
-		print('-' * 60)
 	try:
 		if not data3.empty:
 			global data3_global
@@ -391,7 +384,6 @@ def data_call():
 	except Exception:
 		print("DATA3 ERROR", now.strftime("%Y-%m-%d %H:%M:%S"))
 		traceback.print_exc(file=sys.stdout)
-		print('-' * 60)
 	try:
 		if not data4.empty:
 			global data4_global
@@ -427,7 +419,6 @@ def data_call():
 	except Exception:
 		print("DATA4 ERROR", now.strftime("%Y-%m-%d %H:%M:%S"))
 		traceback.print_exc(file=sys.stdout)
-		print('-' * 60)
 	try:
 		if not data5.empty:
 			global data5_global
@@ -463,7 +454,6 @@ def data_call():
 	except Exception:
 		print("DATA5 ERROR", now.strftime("%Y-%m-%d %H:%M:%S"))
 		traceback.print_exc(file=sys.stdout)
-		print('-' * 60)
 	try:
 		if not data6.empty:
 			global data6_global
@@ -499,7 +489,6 @@ def data_call():
 	except Exception:
 		print("DATA6 ERROR", now.strftime("%Y-%m-%d %H:%M:%S"))
 		traceback.print_exc(file=sys.stdout)
-		print('-' * 60)
 	try:
 		if not data7.empty:
 			global data7_global
@@ -535,13 +524,8 @@ def data_call():
 	except Exception:
 		print("DATA7 ERROR", now.strftime("%Y-%m-%d %H:%M:%S"))
 		traceback.print_exc(file=sys.stdout)
-		print('-' * 60)
-	try:
-		txt_output()
-	except Exception:
-		print("TXT_OUTPUT ERROR", now.strftime("%Y-%m-%d %H:%M:%S"))
-		traceback.print_exc(file=sys.stdout)
-		print('-' * 60)
+	txt_output()
+
 
 def svg_update():
 	today = datetime.date.today()
@@ -732,7 +716,6 @@ def svg_update():
 	except Exception:
 		print("CODECS TO SVG ERROR", now.strftime("%Y-%m-%d %H:%M:%S"))
 		traceback.print_exc(file=sys.stdout)
-		print('-' * 60)
 
 def txt_output():
 	try:
@@ -816,7 +799,6 @@ def txt_output():
 	except Exception:
 		print("TXT_OUTPUT ERROR", now.strftime("%Y-%m-%d %H:%M:%S"))
 		traceback.print_exc(file=sys.stdout)
-		print('-' * 60)
 
 def dropbox_update():
 	try:
@@ -826,7 +808,6 @@ def dropbox_update():
 	except Exception:
 		print("DROPBOX UPLOADER ERROR", now.strftime("%Y-%m-%d %H:%M:%S"))
 		traceback.print_exc(file=sys.stdout)
-		print('-' * 60)
 
 if(1):
 	scheduler = BlockingScheduler()
