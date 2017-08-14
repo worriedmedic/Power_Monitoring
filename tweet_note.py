@@ -38,6 +38,7 @@ tgateway = threading.Thread(target=logfollower, args=(gatewaylog,))
 tdataproc = threading.Thread(target=logfollower, args=(dataprocesslog,))
 tplotting = threading.Thread(target=logfollower, args=(plottinglog,))
 
+tweepy_int()
 tgateway.start()
 tdataproc.start()
 tplotting.start()
