@@ -1,6 +1,7 @@
 import time
 from twitter_creds.py import *
 import tweepy
+import threading
 
 gatewaylog = '/home/pi/Power_Monitoring/data_log/Gateway_Logger.log'
 dataprocesslog = '/home/pi/Power_Monitoring/data_log/Data_to_SVG.log'
@@ -33,3 +34,10 @@ def logfollower(filepath):
 		except tweepy.TweepError as e:
 			print(e.reason)
 
+tgateway = threading.Thread(target=logfollower, args=(gatewaylog,))
+tdataproc = threading.Thread(target=logfollower, args=(dataprocesslog,))
+tplotting = threading.Thread(target=logfollower, args=(plottinglog,))
+
+tgateway.start()
+tdataproc.start()
+tplotting.start()
