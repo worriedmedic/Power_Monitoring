@@ -27,7 +27,7 @@ def logfollower(filepath,loc):
 	for line in loglines:
 		print line
 		try:
-			if line.startswith('(''):
+			if line.startswith('WARNING'):
 				api.update_status(loc + line[:130])
 			if line.startswith('ERROR'):
 				api.update_status(loc + line[:130])
