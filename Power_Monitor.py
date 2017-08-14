@@ -73,7 +73,7 @@ for buffer in serial_data(addr, baud):
 		data_valid = True
 	except Exception:
 		data_valid = False
-		print("DATA SPLIT ERROR", today, now, buffer)
+		print("ERROR: POWER DATA SPLIT", today, now, buffer)
 		traceback.print_exc(file=sys.stdout)
 		print('-' * 60)        
 	if data_valid:
@@ -92,7 +92,7 @@ for buffer in serial_data(addr, baud):
 			outf.write(x)  # write line of text to file
 			outf.flush()  # make sure it actually gets written out
 		except Exception:
-			print("DATA LOG ERROR", today, now, buffer)
+			print("ERORR: POWER DATA LOG", today, now, buffer)
 			traceback.print_exc(file=sys.stdout)
 			print('-' * 60)
 		if emoncms_update:
@@ -106,10 +106,10 @@ for buffer in serial_data(addr, baud):
 					else:
 						print("EMCONMS Update FAILED", r)
 			except requests.exceptions.RequestException:
-				print("EMONCMS REQUESTS ERROR", today, now, buffer)
+				print("ERROR: EMONCMS REQUESTS", today, now, buffer)
 				traceback.print_exc(file=sys.stdout)
 				print('-' * 60)
 			except Exception:
-				print("EMONCMS GENERAL ERROR", today, now, buffer)
+				print("ERROR: EMONCMS GENERAL", today, now, buffer)
 				traceback.print_exc(file=sys.stdout)
 				print('-' * 60)
