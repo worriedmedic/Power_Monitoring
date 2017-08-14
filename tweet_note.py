@@ -7,10 +7,9 @@ gatewaylog = '/home/pi/Power_Monitoring/data_log/Gateway_Logger.log'
 dataprocesslog = '/home/pi/Power_Monitoring/data_log/Data_to_SVG.log'
 plottinglog = '/home/pi/Power_Monitoring/data_log/Matplotlib-plot.log'
 
-def tweepy_int():
-	api_auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
-	auth.set_access_token(access_token, access_token_secret)
-	api = tweepy.API(auth)
+api_auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
+auth.set_access_token(access_token, access_token_secret)
+api = tweepy.API(auth)
 
 
 def follow(thefile):
