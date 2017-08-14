@@ -90,7 +90,6 @@ for buffer in serial_data(addr, 9600):
 	except Exception:
 		print("DATA PROCESSING ERROR", today, now, "STRING:", buffer, ":END")
 		traceback.print_exc(file=sys.stdout)
-		print('-' * 60)
 	try:
 		url = 'https://emoncms.org/input/post.json?node=%s&json={T:%s,P:%s,H:%s,V:%s,R:%s,D:%s}&apikey=4e6eff5d047580696f0e2a7ae9323983' % (addr, temp, press, humid, volt, rssi, dew)
 		r = requests.post(url, timeout=req_timeout)
@@ -101,11 +100,8 @@ for buffer in serial_data(addr, 9600):
 				print("EMCONMS Update FAILED")
 	except requests.exceptions.Timeout:
 		print("REQUESTS GENERAL TIMEOUT ERROR", today, now, buffer)
-		print('-' * 60)
 	except requests.exceptions.RequestException:
 		print("EMONCMS REQUESTS ERROR", today, now, buffer)
-		print('-' * 60)
 	except Exception:
 		print("EMONCMS OTHER GENERAL ERROR", today, now, buffer)
 		traceback.print_exc(file=sys.stdout)
-		print('-' * 60)
