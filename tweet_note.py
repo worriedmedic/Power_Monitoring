@@ -28,13 +28,13 @@ def logfollower(filepath,loc):
 		print line
 		try:
 			if line != '\n':
-      				api.update_status(loc + line)
+      				api.update_status(loc + line[:130])
 		except tweepy.TweepError as e:
 			print(e.reason)
 
-tgateway = threading.Thread(target=logfollower, args=(gatewaylog,'Gate:',))
-tdataproc = threading.Thread(target=logfollower, args=(dataprocesslog,'Data:',))
-tplotting = threading.Thread(target=logfollower, args=(plottinglog,'Plot:'))
+tgateway = threading.Thread(target=logfollower, args=(gatewaylog,'GATE:',))
+tdataproc = threading.Thread(target=logfollower, args=(dataprocesslog,'DATA:',))
+tplotting = threading.Thread(target=logfollower, args=(plottinglog,'PLOT:'))
 
 tgateway.start()
 tdataproc.start()
