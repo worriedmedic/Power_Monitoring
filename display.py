@@ -164,4 +164,4 @@ while True:
 	if s is not time.localtime().tm_sec:
 		s = time.localtime().tm_sec
 		d.pickle_update()
-		d.display_update()
+		d.wx1_disp_update()
