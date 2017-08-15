@@ -27,9 +27,7 @@ def logfollower(filepath,loc):
 	for line in loglines:
 		print line
 		try:
-			if line.startswith('WARNING'):
-				api.update_status(loc + line[:130])
-			if line.startswith('ERROR'):
+			if line.startswith('ERROR') or line.startswith('WARNING') or line.startswith('serial'):
 				api.update_status(loc + line[:130])
 		except tweepy.TweepError as e:
 			print(e.reason)
