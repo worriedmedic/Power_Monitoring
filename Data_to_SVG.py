@@ -8,6 +8,7 @@ import traceback
 import subprocess
 from apscheduler.schedulers.blocking import BlockingScheduler
 import logging
+import cPickle
 logging.basicConfig()
 from standards import *
 
@@ -463,6 +464,7 @@ def data_call():
 		print("ERROR: DATA7", now.strftime("%Y-%m-%d %H:%M:%S"))
 		traceback.print_exc(file=sys.stdout)
 	txt_output()
+	pickle_data()
 
 
 def svg_update():
@@ -745,6 +747,14 @@ def dropbox_update():
 		subprocess.call(["/usr/local/bin/dropbox_uploader.sh", "-q", "upload", "/home/pi/Power_Monitoring/output/weather_output.txt", "/Programming/logs/%s/" %location])
 	except Exception:
 		print("ERROR: DROPBOX UPLOADING", now.strftime("%Y-%m-%d %H:%M:%S"))
+		traceback.print_exc(file=sys.stdout)
+		
+def pickle_data():
+	try:
+		pickle.dump(data0_global, open("data0_pickle.p", "wb"))
+		pickle.dump(data1_global, open("data1_pickle.p", "wb"))
+	except Exception:
+		print("ERROR: PICKLE", now.strftime("%Y-%m-%d %H:%M:%S"))
 		traceback.print_exc(file=sys.stdout)
 
 if(1):
