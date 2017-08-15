@@ -8,7 +8,10 @@ import time, datetime
 import traceback
 import sys, os.path
 import subprocess
-from Power_Monitoring import standards
+
+sys.path.append('/home/pi/Power_Monitoring/')
+
+from standards import *
 
 temp_plot = True
 press_plot = True
