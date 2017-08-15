@@ -46,12 +46,13 @@ class SmDisplay:
 		display.scaleicon = False
 		display.iconscale = 1.0
 		display.subwinTh = 0.065
-		display.tmdateTh = 0.115
-		display.tmdateLTh = 0.4
-		display.tmdateSmTh = 0.1
-		display.tmdateSmerTh = 0.065
-		display.tmdateYPos = 1
-		display.tmdateYPosSm = 8
+		display.txth = 0.115
+		display.lrgtxth = 0.4
+		display.smtxth = 0.1
+		display.smrtxth = 0.065
+		display.tinytxth = 0.04
+		display.dateYPos = 1
+		display.dateYPosSm = 8
 	
 	def __del___(display):
 		'''DESTRUCTOR'''
@@ -84,6 +85,12 @@ class SmDisplay:
 	def pickle_update(display):
 		display.data0 = pickle.load(open("data0_pickle.p", "rb"))
 		display.data1 = pickle.load(open("data1_pickle.p", "rb"))
+		display.data2 = pickle.load(open("data2_pickle.p", "rb"))
+		display.data3 = pickle.load(open("data3_pickle.p", "rb"))
+		display.data4 = pickle.load(open("data4_pickle.p", "rb"))
+		display.data5 = pickle.load(open("data5_pickle.p", "rb"))
+		display.data6 = pickle.load(open("data6_pickle.p", "rb"))
+		display.data7 = pickle.load(open("data7_pickle.p", "rb"))
 	
 	def wx1_disp_update(display):
 		display.screen.fill(black)
@@ -99,31 +106,23 @@ class SmDisplay:
 		pygame.draw.line( display.screen, lc, (xmin,0),(xmin,ymax), lines ) #Left Line
 		pygame.draw.line( display.screen, lc, (xmin,ymax),(xmax,ymax), lines ) #Bottom Line
 		pygame.draw.line( display.screen, lc, (xmax,0),(xmax,ymax), lines ) #Right Line
-		pygame.draw.line( display.screen, lc, (xmin,ymax*0.14),(xmax,ymax*0.14), lines ) #Horizontal Line Under Top
+		pygame.draw.line( display.screen, lc, (xmin,ymax*0.15),(xmax,ymax*0.15), lines ) #Horizontal Line Under Top
 		#pygame.draw.line( display.screen, lc, (xmin,ymax*0.5),(xmax,ymax*0.5), lines ) #Horizontal Line at Middle
 		#pygame.draw.line( display.screen, lc, (xmax*0.25,ymax*0.5),(xmax*0.25,ymax), lines )
 		#pygame.draw.line( display.screen, lc, (xmax*0.5,ymax*0.15),(xmax*0.5,ymax), lines )
 		#pygame.draw.line( display.screen, lc, (xmax*0.75,ymax*0.5),(xmax*0.75,ymax), lines )
 		
-		th = display.tmdateTh
-		lth = display.tmdateLTh
-		sh = display.tmdateSmTh
-		smh = display.tmdateSmerTh
-		font = pygame.font.SysFont( fn, int(ymax*th), bold=1 )
-		lfont = pygame.font.SysFont( fn, int(ymax*lth), bold=1 )
-		sfont = pygame.font.SysFont( fn, int(ymax*sh), bold=1 )
-		smfont = pygame.font.SysFont(fn, int(ymax*smh), bold=1)
+		font = pygame.font.SysFont( fn, int(ymax*(display.txth)), bold=1 )
+		lfont = pygame.font.SysFont( fn, int(ymax*(display.lrgtxth)), bold=1 )
+		sfont = pygame.font.SysFont( fn, int(ymax*(display.smtxth)), bold=1 )
+		smfont = pygame.font.SysFont(fn, int(ymax*(display.smrtxth)), bold=1)
+		tinyfont = pygame.font.SysFont(fn, int(ymax*(display.tinytxth)), bold=1)
 		
 		tm1 = time.strftime("%a, %b %d %H:%M:%S", time.localtime() )
-		#tm2 = time.strftime( ":%S", time.localtime() )
 		
-		rtm1 = font.render( tm1, True, lc )
-		(tx1,ty1) = rtm1.get_size() #Returns size of object
-		#rtm2 = sfont.render( tm2, True, lc )
-		#(tx2,ty2) = rtm2.get_size()
+		rtm1 = font.render(tm1, True, lc )
 		
-		display.screen.blit( rtm1, (15,display.tmdateYPos) )
-		#display.screen.blit( rtm2, (322,5))
+		display.screen.blit(rtm1, (15,display.dateYPos))
 		
 		weather_data = {'sunrise'	: '5:42',
 				'sunset'	: '19:42'}
@@ -147,9 +146,10 @@ class SmDisplay:
 			temp0 = str(display.data0['temperature'][0])[:3]
 		dfont = pygame.font.SysFont( fn, int(ymax*(0.5-0.15)*0.5), bold=1 )
 		
+		rsensor0label = tinyfont.render(sensor0label, True, lc)
+		display.screen.blit(rsensor0label, (18,27))
 		rtemp0 = lfont.render(temp0, True, lc)
-		(tx1, ty1) = rtemp0.get_size()
-		display.screen.blit(rtemp0, (18, 27))
+		display.screen.blit(rtemp0, (18, 32))
 		
 		dtxt = dfont.render(uniTmp, True, lc )
 		display.screen.blit(dtxt, (255, 40))
