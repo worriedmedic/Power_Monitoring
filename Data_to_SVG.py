@@ -8,7 +8,7 @@ import traceback
 import subprocess
 from apscheduler.schedulers.blocking import BlockingScheduler
 import logging
-import cPickle
+import cPickle as pickle
 logging.basicConfig()
 from standards import *
 
