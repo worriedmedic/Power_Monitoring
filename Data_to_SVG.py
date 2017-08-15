@@ -217,7 +217,6 @@ def data_call():
 	except Exception:
 		print("ERROR: DATA0", now.strftime("%Y-%m-%d %H:%M:%S"))
 		traceback.print_exc(file=sys.stdout)
-
 	try:
 		if not data1.empty:
 			global data1_global
@@ -748,11 +747,18 @@ def dropbox_update():
 	except Exception:
 		print("ERROR: DROPBOX UPLOADING", now.strftime("%Y-%m-%d %H:%M:%S"))
 		traceback.print_exc(file=sys.stdout)
-		
+
+
 def pickle_data():
 	try:
-		pickle.dump(data0_global, open("data0_pickle.p", "wb"))
-		pickle.dump(data1_global, open("data1_pickle.p", "wb"))
+		pickle.dump(data0_global, open("pickle/data0_pickle.p", "wb"))
+		pickle.dump(data1_global, open("pickle/data1_pickle.p", "wb"))
+		pickle.dump(data2_global, open("pickle/data2_pickle.p", "wb"))
+		pickle.dump(data3_global, open("pickle/data3_pickle.p", "wb"))
+		pickle.dump(data4_global, open("pickle/data4_pickle.p", "wb"))
+		pickle.dump(data5_global, open("pickle/data5_pickle.p", "wb"))
+		pickle.dump(data6_global, open("pickle/data6_pickle.p", "wb"))
+		pickle.dump(data7_global, open("pickle/data7_pickle.p", "wb"))
 	except Exception:
 		print("ERROR: PICKLE", now.strftime("%Y-%m-%d %H:%M:%S"))
 		traceback.print_exc(file=sys.stdout)
