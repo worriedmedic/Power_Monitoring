@@ -1,5 +1,6 @@
 sd = 'icons/'
 
 icons	=	[
-			'SunRiseSet.png',
+			'SunRise.png',
+			'SunSet.png'
 			]
