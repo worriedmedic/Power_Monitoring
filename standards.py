@@ -3,21 +3,21 @@ import sys, os.path
 if os.path.isfile('/home/pi/Power_Monitoring/dover.location'):
 	######## GLOBAL VARS ########
 	location = 'dover'
-	sensor0		= '09'
+	sensor0		= 9
 	sensor0label	= 'Outside'
-	sensor1		= '08'
+	sensor1		= 8
 	sensor1label	= 'Upstairs'
-	sensor2		= '07'
+	sensor2		= 7
 	sensor2label	= 'Master Bedroom'
-	sensor3		= '05'
+	sensor3		= 5
 	sensor3label	= 'Guest Room'
-	sensor4		= '06'
+	sensor4		= 6
 	sensor4label	= 'Garage'
-	sensor5		= '04'
+	sensor5		= 4
 	sensor5label	= 'Downstairs'
-	sensor6		= '03'
+	sensor6		= 3
 	sensor6label	= 'Laundry'
-	sensor7		= '02'
+	sensor7		= 2
 	sensor7label	= 'Liam'
 	######## GATEWAY VARS ########
 	gateway_addr = '/dev/serial/by-id/usb-FTDI_FT232R_USB_UART_A104VAFG-if00-port0'
@@ -36,21 +36,21 @@ if os.path.isfile('/home/pi/Power_Monitoring/dover.location'):
 elif os.path.isfile('/home/pi/Power_Monitoring/cuttyhunk.location'):
 	######## GLOBAL VARS ########
 	location = 'cuttyhunk'
-	sensor0		= '98'
+	sensor0		= 98
 	sensor0label	= 'Outside'
-	sensor1		= '96'
+	sensor1		= 96
 	sensor1label	= 'Upstairs'
-	sensor2		= '95'
+	sensor2		= 95
 	sensor2label	= 'Reeds Room'
-	sensor3		= '97'
+	sensor3		= 97
 	sensor3label	= 'Barn'
-	sensor4		= '99'
+	sensor4		= 99
 	sensor4label	= 'TEST'
-	sensor5		= '88'
+	sensor5		= 88
 	sensor5label	= 'None'
-	sensor6		= '87'
+	sensor6		= 87
 	sensor6label	= 'None'
-	sensor7		= '86'
+	sensor7		= 86
 	sensor7label	= 'None'
 	######## GATEWAY VARS ########
 	gateway_addr = '/dev/serial/by-id/usb-FTDI_FT232R_USB_UART_AL02CC7C-if00-port0'
