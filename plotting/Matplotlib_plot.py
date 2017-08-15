@@ -8,6 +8,7 @@ import time, datetime
 import traceback
 import sys, os.path
 import subprocess
+from standards import *
 
 temp_plot = True
 press_plot = True
@@ -22,53 +23,6 @@ verbose = False
 line_width = 1.5
 rssi_line_width = 1
 label_offset = 3
-
-if os.path.isfile('/home/pi/Power_Monitoring/dover.location'):
-	location     = 'Dover'
-	td           = '48H'
-	plt_size_x   = 10
-	plt_size_y   = 8
-	plt_size_dpi = 100
-	plot_style   = 'bmh' 
-	sensor0      = 9
-	sensor0label = 'Outside'
-	sensor1      = 8
-	sensor1label = 'Upstairs'
-	sensor2      = 7
-	sensor2label = 'MBedroom'
-	sensor3      = 6
-	sensor3label = 'Garage'
-	sensor4      = 5
-	sensor4label = 'Guest'
-	sensor5      = 4
-	sensor5label = 'Downstairs'
-	sensor6	     = 3
-	sensor6label = 'Laundry'
-	sensor7      = 2
-	sensor7label = 'Liam'
-elif os.path.isfile('/home/pi/Power_Monitoring/cuttyhunk.location'):
-	location     = 'Cuttyhunk'
-	td           = '72H'
-	plt_size_x   = 10
-	plt_size_y   = 8
-	plt_size_dpi = 100
-	plot_style   = 'bmh'
-	sensor0	     = 98
-	sensor0label = 'Outside'
-	sensor1	     = 96
-	sensor1label = 'Upstairs'
-	sensor2	     = 95
-	sensor2label = 'Reeds Room'
-	sensor3	     = 97
-	sensor3label = 'Barn'
-	sensor4	     = 99
-	sensor4label = 'TEST'
-	sensor5	     = 90
-	sensor5label = 'None'
-	sensor6	     = 89
-	sensor6label = 'None'
-	sensor7	     = 88
-	sensor7label = 'None'
 
 def datainput():
 	global data0, data1, data2, data3, data4, data5, data6, data7
