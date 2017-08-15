@@ -141,7 +141,10 @@ class SmDisplay:
 		icon2_sunrise = pygame.transform.scale(icon_sunrise, (int(ix*.12), int(iy*.14)))
 		display.screen.blit(icon2_sunrise, (370,4))
 		################################################################################
-		temp0 = str(display.data0['temperature'][0])
+		if display.data0['temperature'][0] < 100:
+			temp0 = str(display.data0['temperature'][0])[:4]
+		elif display.data0['temperature'][0] >= 100:
+			temp0 = str(display.data0['temperature'][0])[:3]
 		dfont = pygame.font.SysFont( fn, int(ymax*(0.5-0.15)*0.5), bold=1 )
 		
 		rtemp0 = lfont.render(temp0, True, lc)
