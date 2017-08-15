@@ -9,6 +9,7 @@ import requests
 import os.path
 import traceback
 import sys
+from standards import *
 
 baud                = 9600   # baud rate for serial port
 verbose             = False
@@ -53,15 +54,7 @@ def serial_data(port, baudrate):
 				break
 		pt.close()
 
-if os.path.isfile('/home/pi/Power_Monitoring/dover.location'):
-	location = 'dover'
-	addr = '/dev/serial/by-id/usb-FTDI_FT232R_USB_UART_A104VAFG-if00-port0'
-elif os.path.isfile('/home/pi/Power_Monitoring/cuttyhunk.location'):
-	location = 'cuttyhunk'
-	addr = '/dev/serial/by-id/usb-FTDI_FT232R_USB_UART_AL02CC7C-if00-port0'
-
-
-for buffer in serial_data(addr, 9600):
+for buffer in serial_data(gateway_addr, 9600):
 	try:
 		now = time.strftime("%H:%M:%S")
 		today = datetime.date.today()
