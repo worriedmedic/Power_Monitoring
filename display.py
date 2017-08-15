@@ -2,8 +2,12 @@
 
 import os, sys
 import pygame
-import time
+import time, datetime
+import pandas as pd
+import numpy as np
 from pygame.locals import *
+from standards import *
+from icon_def import *
 
 black = (0,0,0)
 white = (255,255,255)
@@ -34,60 +38,97 @@ class SmDisplay:
 		pygame.display.update()
 		
 		display.xmax = pygame.display.Info().current_w - 10
-		display.ymax = pygame.display.Info().current_h - 5
+		display.ymax = pygame.display.Info().current_h - 6
 		display.scaleicon = False
 		display.iconscale = 1.0
 		display.subwinTh = 0.065
-		display.tmdateTh = 0.125
-		display.tmdateSmTh = 0.09
+		display.tmdateTh = 0.115
+		display.tmdateSmTh = 0.1
+		display.tmdateSmerTh = 0.065
 		display.tmdateYPos = 1
 		display.tmdateYPosSm = 8
 	
-	def display_update(display):
+	def __del___(display):
+		'''DESTRUCTOR'''
+	
+	def daily_wunder_update(display):
+		while True:
+			now = datetime.datetime.now()
+			try:
+				display.forecast_data = pd.read_json(wunder_site_forecast_json, typ='series')
+				display.astronomy_data = pd.read_json(wunder_site_astronomy_json, typ='series')
+			except Exception:
+				print("ERROR: DAILY WUNDER UPDATE", now.strftime("%Y-%m-%d %H:%M:%S"))
+				traceback.print_exc(file=sys.stdout)
+				time.sleep(10)
+				continue
+			break
+	
+	def hourly_wunder_update(display):
+		while True:
+			now = datetime.datetime.now()
+			try:
+				display.condition_data = pd.read_json(wunder_site_conditions_json, typ='series')
+			except Exception:
+				print("ERROR: DAILY WUNDER UPDATE", now.strftime("%Y-%m-%d %H:%M:%S"))
+				traceback.print_exc(file=sys.stdout)
+				time.sleep(10)
+				continue
+			break
+	
+	def wx1_disp_update(display):
 		display.screen.fill(black)
 		xmin = 10
 		xmax = display.xmax
 		ymax = display.ymax
 		fn = "freesans"
-		lines = 5
+		lines = 2
 		lc = (255,255,255)
 		
 		pygame.draw.line( display.screen, lc, (xmin,0),(xmax,0), lines ) #Top Line
 		pygame.draw.line( display.screen, lc, (xmin,0),(xmin,ymax), lines ) #Left Line
 		pygame.draw.line( display.screen, lc, (xmin,ymax),(xmax,ymax), lines ) #Bottom Line
 		pygame.draw.line( display.screen, lc, (xmax,0),(xmax,ymax), lines ) #Right Line
-		#pygame.draw.line( display.screen, lc, (xmin,ymax*0.15),(xmax,ymax*0.15), lines )
-		#pygame.draw.line( display.screen, lc, (xmin,ymax*0.5),(xmax,ymax*0.5), lines )
+		pygame.draw.line( display.screen, lc, (xmin,ymax*0.14),(xmax,ymax*0.14), lines ) #Horizontal Line Under Top
+		#pygame.draw.line( display.screen, lc, (xmin,ymax*0.5),(xmax,ymax*0.5), lines ) #Horizontal Line at Middle
 		#pygame.draw.line( display.screen, lc, (xmax*0.25,ymax*0.5),(xmax*0.25,ymax), lines )
 		#pygame.draw.line( display.screen, lc, (xmax*0.5,ymax*0.15),(xmax*0.5,ymax), lines )
 		#pygame.draw.line( display.screen, lc, (xmax*0.75,ymax*0.5),(xmax*0.75,ymax), lines )
 		
 		th = display.tmdateTh
 		sh = display.tmdateSmTh
+		smh = display.tmdateSmerTh
 		font = pygame.font.SysFont( fn, int(ymax*th), bold=1 )
 		sfont = pygame.font.SysFont( fn, int(ymax*sh), bold=1 )
+		smfont = pygame.font.SysFont(fn, int(ymax*smh), bold=1)
 		
-		tm1 = time.strftime( "%a, %b %d   %I:%M", time.localtime() )
-		tm2 = time.strftime( "%S", time.localtime() )
-		tm3 = time.strftime( " %P", time.localtime() )
+		tm1 = time.strftime("%a, %b %d %H:%M":%S, time.localtime() )
+		#tm2 = time.strftime( ":%S", time.localtime() )
 		
 		rtm1 = font.render( tm1, True, lc )
-		(tx1,ty1) = rtm1.get_size()
-		rtm2 = sfont.render( tm2, True, lc )
-		(tx2,ty2) = rtm2.get_size()
-		rtm3 = font.render( tm3, True, lc )
-		(tx3,ty3) = rtm3.get_size()
+		(tx1,ty1) = rtm1.get_size() #Returns size of object
+		#rtm2 = sfont.render( tm2, True, lc )
+		#(tx2,ty2) = rtm2.get_size()
 		
-		tp = xmax / 2 - (tx1 + tx2 + tx3) / 2
-		display.screen.blit( rtm1, (tp+10,display.tmdateYPos) )
-		display.screen.blit( rtm2, (tp+tx1+6,display.tmdateYPosSm) )
-		display.screen.blit( rtm3, (tp+tx1+tx2,display.tmdateYPos) )
+		display.screen.blit( rtm1, (15,display.tmdateYPos) )
+		#display.screen.blit( rtm2, (322,5))
+		
+		weather_data = {'sunrise'	: '5:42',
+				'sunset'	: '19:42'}
+		
+		sunrise = smfont.render(weather_data['sunrise'], True, lc)
+		(srx1, sry1) = sunrise.get_size()
+		sunset = smfont.render(weather_data['sunset'], True, lc)
+		(ssx1, ssy1) = sunset.get_size()
+		
+		display.screen.blit(sunrise, (426,2))
+		display.screen.blit(sunset, (415,17))
 		
 		pygame.display.update()
 
 
 d = SmDisplay()
-d.display_update()
+d.wx1_disp_update()
 s = time.localtime().tm_sec
 while True:
 	if s is not time.localtime().tm_sec:
