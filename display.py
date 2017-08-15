@@ -5,12 +5,14 @@ import pygame
 import time, datetime
 import pandas as pd
 import numpy as np
+import cPickle as pickle
 from pygame.locals import *
 from standards import *
 from icon_def import *
 
 black = (0,0,0)
 white = (255,255,255)
+uniTmp = unichr(0x2109)
 
 class SmDisplay:
 	def __init__(display):
@@ -37,12 +39,15 @@ class SmDisplay:
 		pygame.mouse.set_visible(0)
 		pygame.display.update()
 		
+		display.icon = [ 0, 0, 0, 0 ]
+		
 		display.xmax = pygame.display.Info().current_w - 10
 		display.ymax = pygame.display.Info().current_h - 6
 		display.scaleicon = False
 		display.iconscale = 1.0
 		display.subwinTh = 0.065
 		display.tmdateTh = 0.115
+		display.tmdateLTh = 0.4
 		display.tmdateSmTh = 0.1
 		display.tmdateSmerTh = 0.065
 		display.tmdateYPos = 1
@@ -75,6 +80,10 @@ class SmDisplay:
 				time.sleep(10)
 				continue
 			break
+			
+	def pickle_update(display):
+		display.data0 = pickle.load(open("data0_pickle.p", "rb"))
+		display.data1 = pickle.load(open("data1_pickle.p", "rb"))
 	
 	def wx1_disp_update(display):
 		display.screen.fill(black)
@@ -85,6 +94,7 @@ class SmDisplay:
 		lines = 2
 		lc = (255,255,255)
 		
+		################################################################################
 		pygame.draw.line( display.screen, lc, (xmin,0),(xmax,0), lines ) #Top Line
 		pygame.draw.line( display.screen, lc, (xmin,0),(xmin,ymax), lines ) #Left Line
 		pygame.draw.line( display.screen, lc, (xmin,ymax),(xmax,ymax), lines ) #Bottom Line
@@ -96,13 +106,15 @@ class SmDisplay:
 		#pygame.draw.line( display.screen, lc, (xmax*0.75,ymax*0.5),(xmax*0.75,ymax), lines )
 		
 		th = display.tmdateTh
+		lth = display.tmdateLTh
 		sh = display.tmdateSmTh
 		smh = display.tmdateSmerTh
 		font = pygame.font.SysFont( fn, int(ymax*th), bold=1 )
+		lfont = pygame.font.SysFont( fn, int(ymax*lth), bold=1 )
 		sfont = pygame.font.SysFont( fn, int(ymax*sh), bold=1 )
 		smfont = pygame.font.SysFont(fn, int(ymax*smh), bold=1)
 		
-		tm1 = time.strftime("%a, %b %d %H:%M":%S, time.localtime() )
+		tm1 = time.strftime("%a, %b %d %H:%M:%S", time.localtime() )
 		#tm2 = time.strftime( ":%S", time.localtime() )
 		
 		rtm1 = font.render( tm1, True, lc )
@@ -122,15 +134,34 @@ class SmDisplay:
 		(ssx1, ssy1) = sunset.get_size()
 		
 		display.screen.blit(sunrise, (426,2))
-		display.screen.blit(sunset, (415,17))
+		display.screen.blit(sunset, (415,18))
 		
+		icon_sunrise = pygame.image.load(sd + icons[0]).convert_alpha() #SunRise
+		(ix, iy) = icon_sunrise.get_size()
+		icon2_sunrise = pygame.transform.scale(icon_sunrise, (int(ix*.12), int(iy*.14)))
+		display.screen.blit(icon2_sunrise, (370,4))
+		################################################################################
+		temp0 = str(display.data0['temperature'][0])
+		dfont = pygame.font.SysFont( fn, int(ymax*(0.5-0.15)*0.5), bold=1 )
+		
+		rtemp0 = lfont.render(temp0, True, lc)
+		(tx1, ty1) = rtemp0.get_size()
+		display.screen.blit(rtemp0, (18, 27))
+		
+		dtxt = dfont.render(uniTmp, True, lc )
+		display.screen.blit(dtxt, (255, 40))
+		
+		################################################################################
 		pygame.display.update()
 
 
 d = SmDisplay()
+d.daily_wunder_update()
+d.pickle_update()
 d.wx1_disp_update()
 s = time.localtime().tm_sec
 while True:
 	if s is not time.localtime().tm_sec:
 		s = time.localtime().tm_sec
+		d.pickle_update()
 		d.display_update()
