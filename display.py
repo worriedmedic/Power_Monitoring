@@ -2,6 +2,7 @@
 
 import os, sys
 import pygame
+import time
 from pygame.locals import *
 
 black = (0,0,0)
@@ -38,9 +39,9 @@ class SmDisplay:
 		display.iconscale = 1.0
 		display.subwinTh = 0.065
 		display.tmdateTh = 0.125
-		display.tmdateSmTh = 0.075
+		display.tmdateSmTh = 0.09
 		display.tmdateYPos = 1
-		display.tmdateYosSm = 8
+		display.tmdateYPosSm = 8
 	
 	def display_update(display):
 		display.screen.fill(black)
@@ -49,16 +50,46 @@ class SmDisplay:
 		ymax = display.ymax
 		fn = "freesans"
 		lines = 5
-		white = (255,255,255)
+		lc = (255,255,255)
 		
-		pygame.draw.line( display.screen, white, (xmin,0),(xmax,0), lines )
-		pygame.draw.line( display.screen, white, (xmin,0),(xmin,ymax), lines )
-		pygame.draw.line( display.screen, white, (xmin,ymax),(xmax,ymax), lines )
-		pygame.draw.line( display.screen, white, (xmax,0),(xmax,ymax+2), lines )
-		pygame.draw.line( display.screen, white, (xmin,ymax*0.15),(xmax,ymax*0.15), lines )
-		pygame.draw.line( display.screen, white, (xmin,ymax*0.5),(xmax,ymax*0.5), lines )
-		pygame.draw.line( display.screen, white, (xmax*0.25,ymax*0.5),(xmax*0.25,ymax), lines )
-		pygame.draw.line( display.screen, white, (xmax*0.5,ymax*0.15),(xmax*0.5,ymax), lines )
-		pygame.draw.line( display.screen, white, (xmax*0.75,ymax*0.5),(xmax*0.75,ymax), lines )
+		pygame.draw.line( display.screen, lc, (xmin,0),(xmax,0), lines ) #Top Line
+		pygame.draw.line( display.screen, lc, (xmin,0),(xmin,ymax), lines ) #Left Line
+		pygame.draw.line( display.screen, lc, (xmin,ymax),(xmax,ymax), lines ) #Bottom Line
+		pygame.draw.line( display.screen, lc, (xmax,0),(xmax,ymax), lines ) #Right Line
+		#pygame.draw.line( display.screen, lc, (xmin,ymax*0.15),(xmax,ymax*0.15), lines )
+		#pygame.draw.line( display.screen, lc, (xmin,ymax*0.5),(xmax,ymax*0.5), lines )
+		#pygame.draw.line( display.screen, lc, (xmax*0.25,ymax*0.5),(xmax*0.25,ymax), lines )
+		#pygame.draw.line( display.screen, lc, (xmax*0.5,ymax*0.15),(xmax*0.5,ymax), lines )
+		#pygame.draw.line( display.screen, lc, (xmax*0.75,ymax*0.5),(xmax*0.75,ymax), lines )
 		
-	
+		th = display.tmdateTh
+		sh = display.tmdateSmTh
+		font = pygame.font.SysFont( fn, int(ymax*th), bold=1 )
+		sfont = pygame.font.SysFont( fn, int(ymax*sh), bold=1 )
+		
+		tm1 = time.strftime( "%a, %b %d   %I:%M", time.localtime() )
+		tm2 = time.strftime( "%S", time.localtime() )
+		tm3 = time.strftime( " %P", time.localtime() )
+		
+		rtm1 = font.render( tm1, True, lc )
+		(tx1,ty1) = rtm1.get_size()
+		rtm2 = sfont.render( tm2, True, lc )
+		(tx2,ty2) = rtm2.get_size()
+		rtm3 = font.render( tm3, True, lc )
+		(tx3,ty3) = rtm3.get_size()
+		
+		tp = xmax / 2 - (tx1 + tx2 + tx3) / 2
+		display.screen.blit( rtm1, (tp+10,display.tmdateYPos) )
+		display.screen.blit( rtm2, (tp+tx1+6,display.tmdateYPosSm) )
+		display.screen.blit( rtm3, (tp+tx1+tx2,display.tmdateYPos) )
+		
+		pygame.display.update()
+
+
+d = SmDisplay()
+d.display_update()
+s = time.localtime().tm_sec
+while True:
+	if s is not time.localtime().tm_sec:
+		s = time.localtime().tm_sec
+		d.display_update()
