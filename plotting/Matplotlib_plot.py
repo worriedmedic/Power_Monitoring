@@ -8,7 +8,7 @@ import time, datetime
 import traceback
 import sys, os.path
 import subprocess
-from .. import standards
+from ..standards import *
 
 temp_plot = True
 press_plot = True
