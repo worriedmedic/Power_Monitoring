@@ -1,3 +1,5 @@
+import sys, os.path
+
 if os.path.isfile('/home/pi/Power_Monitoring/dover.location'):
 	######## GLOBAL VARS ########
 	location = 'dover'
