@@ -162,6 +162,7 @@ def data_call():
 			data['Pressure'] = data['Pressure'].str.replace('P', '')
 			data['Humidity'] = data['Humidity'].str.replace('H', '')
 			data['Voltage'] = data['Voltage'].str.replace('V', '')
+			data['Address'] = data['Address'].astype(int)
 			data['Temperature'] = data['Temperature'].astype(float)
 			data['Pressure'] = data['Pressure'].astype(float)
 			data['Humidity'] = data['Humidity'].astype(float)
