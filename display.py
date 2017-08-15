@@ -83,14 +83,14 @@ class SmDisplay:
 			break
 			
 	def pickle_update(display):
-		display.data0 = pickle.load(open("data0_pickle.p", "rb"))
-		display.data1 = pickle.load(open("data1_pickle.p", "rb"))
-		display.data2 = pickle.load(open("data2_pickle.p", "rb"))
-		display.data3 = pickle.load(open("data3_pickle.p", "rb"))
-		display.data4 = pickle.load(open("data4_pickle.p", "rb"))
-		display.data5 = pickle.load(open("data5_pickle.p", "rb"))
-		display.data6 = pickle.load(open("data6_pickle.p", "rb"))
-		display.data7 = pickle.load(open("data7_pickle.p", "rb"))
+		display.data0 = pickle.load(open("pickle/data0_pickle.p", "rb"))
+		display.data1 = pickle.load(open("pickle/data1_pickle.p", "rb"))
+		display.data2 = pickle.load(open("pickle/data2_pickle.p", "rb"))
+		display.data3 = pickle.load(open("pickle/data3_pickle.p", "rb"))
+		display.data4 = pickle.load(open("pickle/data4_pickle.p", "rb"))
+		display.data5 = pickle.load(open("pickle/data5_pickle.p", "rb"))
+		display.data6 = pickle.load(open("pickle/data6_pickle.p", "rb"))
+		display.data7 = pickle.load(open("pickle/data7_pickle.p", "rb"))
 	
 	def wx1_disp_update(display):
 		display.screen.fill(black)
@@ -107,16 +107,14 @@ class SmDisplay:
 		pygame.draw.line( display.screen, lc, (xmin,ymax),(xmax,ymax), lines ) #Bottom Line
 		pygame.draw.line( display.screen, lc, (xmax,0),(xmax,ymax), lines ) #Right Line
 		pygame.draw.line( display.screen, lc, (xmin,ymax*0.15),(xmax,ymax*0.15), lines ) #Horizontal Line Under Top
-		#pygame.draw.line( display.screen, lc, (xmin,ymax*0.5),(xmax,ymax*0.5), lines ) #Horizontal Line at Middle
-		#pygame.draw.line( display.screen, lc, (xmax*0.25,ymax*0.5),(xmax*0.25,ymax), lines )
 		#pygame.draw.line( display.screen, lc, (xmax*0.5,ymax*0.15),(xmax*0.5,ymax), lines )
 		#pygame.draw.line( display.screen, lc, (xmax*0.75,ymax*0.5),(xmax*0.75,ymax), lines )
 		
 		font = pygame.font.SysFont( fn, int(ymax*(display.txth)), bold=1 )
-		lfont = pygame.font.SysFont( fn, int(ymax*(display.lrgtxth)), bold=1 )
+		lfont = pygame.font.SysFont( fn, int(120), bold=1 )
 		sfont = pygame.font.SysFont( fn, int(ymax*(display.smtxth)), bold=1 )
 		smfont = pygame.font.SysFont(fn, int(ymax*(display.smrtxth)), bold=1)
-		tinyfont = pygame.font.SysFont(fn, int(ymax*(display.tinytxth)), bold=1)
+		tinyfont = pygame.font.SysFont(fn, int(16), bold=1)
 		
 		tm1 = time.strftime("%a, %b %d %H:%M:%S", time.localtime() )
 		
@@ -132,34 +130,45 @@ class SmDisplay:
 		sunset = smfont.render(weather_data['sunset'], True, lc)
 		(ssx1, ssy1) = sunset.get_size()
 		
-		display.screen.blit(sunrise, (426,2))
-		display.screen.blit(sunset, (415,18))
+		display.screen.blit(sunrise, (428,2))
+		display.screen.blit(sunset, (417,18))
 		
 		icon_sunrise = pygame.image.load(sd + icons[0]).convert_alpha() #SunRise
 		(ix, iy) = icon_sunrise.get_size()
 		icon2_sunrise = pygame.transform.scale(icon_sunrise, (int(ix*.12), int(iy*.14)))
 		display.screen.blit(icon2_sunrise, (370,4))
 		################################################################################
+		pygame.draw.line( display.screen, lc, (310,ymax*0.15),(310,ymax), lines) #Vertical Line @x:310
+		pygame.draw.line( display.screen, lc, (xmin,ymax*0.6),(310,ymax*0.6), lines)
+		
 		if display.data0['temperature'][0] < 100:
 			temp0 = str(display.data0['temperature'][0])[:4]
 		elif display.data0['temperature'][0] >= 100:
 			temp0 = str(display.data0['temperature'][0])[:3]
-		dfont = pygame.font.SysFont( fn, int(ymax*(0.5-0.15)*0.5), bold=1 )
 		
 		rsensor0label = tinyfont.render(sensor0label, True, lc)
-		display.screen.blit(rsensor0label, (18,27))
+		display.screen.blit(rsensor0label, (18,50))
 		rtemp0 = lfont.render(temp0, True, lc)
-		display.screen.blit(rtemp0, (18, 32))
+		display.screen.blit(rtemp0, (18, 50))
 		
+		dfont = pygame.font.SysFont(fn, int(ymax*(0.5-0.15)*0.5), bold=1 )
 		dtxt = dfont.render(uniTmp, True, lc )
-		display.screen.blit(dtxt, (255, 40))
+		display.screen.blit(dtxt, (245, 65))
 		
+		rtemp0time = tinyfont.render(display.data0['time'].strftime("%y-%m-%d %H:%M:%S"), True, lc)
+		display.screen.blit(rtemp0time, (15, 165))
+		
+		rtemp0max = tinyfont.render('Max: ' + str(display.data0['temperature_max'])[:4], True, lc)
+		display.screen.blit(rtemp0max, (162, 165))
+		
+		rtemp0min = tinyfont.render('Min: ' + str(display.data0['temperature_min'])[:4], True, lc)
+		display.screen.blit(rtemp0min, (238, 165))
 		################################################################################
 		pygame.display.update()
 
 
 d = SmDisplay()
-d.daily_wunder_update()
+#d.daily_wunder_update()
 d.pickle_update()
 d.wx1_disp_update()
 s = time.localtime().tm_sec
