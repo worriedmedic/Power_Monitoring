@@ -196,6 +196,46 @@ def dataplot(datatype, timedelta):
 		print("ERROR: PLOTTING %s ERROR" %datatype, today, now)
 		traceback.print_exc(file=sys.stdout)
 
+def dataplot_sm(datatype, timedelta, sensor):
+	now = datetime.datetime.now()
+	today = datetime.date.today()
+	try:
+		fig = plt.figure(figsize=(4.5, 1.875))
+		plt.style.use('dark_background')
+		matplotlib.rcParams.update({'font.size': 4})
+		if not data0.empty and sensor == '0':
+			plt.plot_date(data0.last(timedelta).index, data0[datatype].last(timedelta).values, linestyle="solid", linewidth=line_width, marker='None', color='w', label=sensor0label)
+		if not data1.empty and sensor == '1':
+			plt.plot_date(data1.last(timedelta).index, data1[datatype].last(timedelta).values, linestyle="solid", linewidth=line_width, marker='None', color=plt.rcParams['axes.color_cycle'][1], label=sensor1label)
+		if not data2.empty and sensor == '2':
+			plt.plot_date(data2.last(timedelta).index, data2[datatype].last(timedelta).values, linestyle="solid", linewidth=line_width, marker='None', color=plt.rcParams['axes.color_cycle'][2], label=sensor2label)
+		if not data3.empty and sensor == '3':
+			plt.plot_date(data3.last(timedelta).index, data3[datatype].last(timedelta).values, linestyle="solid", linewidth=line_width, marker='None', color=plt.rcParams['axes.color_cycle'][3], label=sensor3label)
+		if not data4.empty and sensor == '4':
+			plt.plot_date(data4.last(timedelta).index, data4[datatype].last(timedelta).values, linestyle="solid", linewidth=line_width, marker='None', color=plt.rcParams['axes.color_cycle'][4], label=sensor4label)
+		if not data5.empty and sensor == '5':
+			plt.plot_date(data5.last(timedelta).index, data5[datatype].last(timedelta).values, linestyle="solid", linewidth=line_width, marker='None', color=plt.rcParams['axes.color_cycle'][5], label=sensor5label)
+		if not data6.empty and sensor == '6':
+			plt.plot_date(data6.last(timedelta).index, data6[datatype].last(timedelta).values, linestyle="solid", linewidth=line_width, marker='None', color=plt.rcParams['axes.color_cycle'][6], label=sensor6label)
+		if not data7.empty and sensor == '7':
+			plt.plot_date(data7.last(timedelta).index, data7[datatype].last(timedelta).values, linestyle="solid", linewidth=line_width, marker='None', color=plt.rcParams['axes.color_cycle'][7], label=sensor7label)
+		plt.xlabel('Time')
+		plt.ylabel(datatype)
+		plt.grid(True)
+		fig.text(0.5, 0.5, '%s ' %datatype, fontsize=8, color='white', ha='center', va='center', alpha=0.35)
+		myFmt = mdates.DateFormatter('%H:%M')
+		fig.axes[0].get_xaxis().set_major_formatter(myFmt)
+		fig.autofmt_xdate()
+		fig.savefig('/home/pi/Power_Monitoring/output/plot_sm_%s_sensor_%s.png' %(datatype, sensor), bbox_inches='tight')
+		subprocess.call(["sudo", "chmod", "+x", "/home/pi/Power_Monitoring/output/plot_%s.png" %datatype])
+		subprocess.call(["sudo", "cp", "/home/pi/Power_Monitoring/output/plot_%s.png" %datatype, "/var/www/html/"])
+		if dropbox_upload:
+			subprocess.call(["/usr/local/bin/dropbox_uploader.sh", "-q", "upload", "/home/pi/Power_Monitoring/output/plot_%s.png" %datatype, "/Programming/logs/%s/plots/" %location])
+	except Exception:
+		print("ERROR: PLOTTING %s ERROR" %datatype, today, now)
+		traceback.print_exc(file=sys.stdout)
+
+
 if (1):
 	datainput()
 	dataplot('Temperature', td)
@@ -204,3 +244,6 @@ if (1):
 	dataplot('Voltage', td)
 	dataplot('RSSI', td)
 	dataplot('Dewpoint', td)
+	dataplot_sm('Temperature', td, '0')
+	dataplot_sm('Temperature', td, '1')
+	dataplot_sm('Temperature', td, '2')
