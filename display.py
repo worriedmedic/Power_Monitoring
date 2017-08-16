@@ -92,7 +92,7 @@ class SmDisplay:
 		display.data6 = pickle.load(open("pickle/data6_pickle.p", "rb"))
 		display.data7 = pickle.load(open("pickle/data7_pickle.p", "rb"))
 	
-	def wx1_disp_update(display):
+	def wx0_disp_update(display):
 		display.screen.fill(black)
 		xmin = 10
 		xmax = display.xmax
@@ -111,7 +111,7 @@ class SmDisplay:
 		#pygame.draw.line( display.screen, lc, (xmax*0.75,ymax*0.5),(xmax*0.75,ymax), lines )
 		
 		font = pygame.font.SysFont( fn, int(ymax*(display.txth)), bold=1 )
-		lfont = pygame.font.SysFont( fn, int(120), bold=1 )
+		lfont = pygame.font.SysFont( fn, int(135), bold=1 )
 		sfont = pygame.font.SysFont( fn, int(ymax*(display.smtxth)), bold=1 )
 		smfont = pygame.font.SysFont(fn, int(ymax*(display.smrtxth)), bold=1)
 		tinyfont = pygame.font.SysFont(fn, int(16), bold=1)
@@ -131,29 +131,29 @@ class SmDisplay:
 		(ssx1, ssy1) = sunset.get_size()
 		
 		display.screen.blit(sunrise, (428,2))
-		display.screen.blit(sunset, (417,18))
+		display.screen.blit(sunset, (417,20))
 		
 		icon_sunrise = pygame.image.load(sd + icons[0]).convert_alpha() #SunRise
 		(ix, iy) = icon_sunrise.get_size()
 		icon2_sunrise = pygame.transform.scale(icon_sunrise, (int(ix*.12), int(iy*.14)))
 		display.screen.blit(icon2_sunrise, (370,4))
 		################################################################################
-		pygame.draw.line( display.screen, lc, (310,ymax*0.15),(310,ymax), lines) #Vertical Line @x:310
-		pygame.draw.line( display.screen, lc, (xmin,ymax*0.6),(310,ymax*0.6), lines)
+		pygame.draw.line( display.screen, lc, (310,ymax*0.15),(310,ymax*0.6), lines) #Vertical Line @x:310
+		pygame.draw.line( display.screen, lc, (xmin,ymax*0.6),(xmax,ymax*0.6), lines)
 		
 		if display.data0['temperature'][0] < 100:
 			temp0 = str(display.data0['temperature'][0])[:4]
 		elif display.data0['temperature'][0] >= 100:
 			temp0 = str(display.data0['temperature'][0])[:3]
-		
-		rsensor0label = tinyfont.render(sensor0label, True, lc)
-		display.screen.blit(rsensor0label, (18,50))
 		rtemp0 = lfont.render(temp0, True, lc)
-		display.screen.blit(rtemp0, (18, 50))
+		display.screen.blit(rtemp0, (18, 32))
 		
-		dfont = pygame.font.SysFont(fn, int(ymax*(0.5-0.15)*0.5), bold=1 )
+		rsensor0label = font.render(sensor0label, True, lc)
+		display.screen.blit(rsensor0label, (317,50))
+		
+		dfont = pygame.font.SysFont(fn, int(40), bold=1 )
 		dtxt = dfont.render(uniTmp, True, lc )
-		display.screen.blit(dtxt, (245, 65))
+		display.screen.blit(dtxt, (270, 50))
 		
 		rtemp0time = tinyfont.render(display.data0['time'].strftime("%y-%m-%d %H:%M:%S"), True, lc)
 		display.screen.blit(rtemp0time, (15, 165))
@@ -164,13 +164,56 @@ class SmDisplay:
 		rtemp0min = tinyfont.render('Min: ' + str(display.data0['temperature_min'])[:4], True, lc)
 		display.screen.blit(rtemp0min, (238, 165))
 		################################################################################
+		tempgraph = pygame.image.load('output/plot_sm_Temperature_sensor_0.png')
+		tempgraph2 = pygame.transform.scale(tempgraph, (455, 122))
+		display.screen.blit(tempgraph2, (12,192))
+		################################################################################
+		if display.data0['humidity'][0] == 100:
+			humid0 = str(display.data0['humidity'][0])[:3]
+		elif display.data0['humidity'][0] < 100:
+			humid0 = str(display.data0['humidity'][0])[:4]
+		rhumid0 = tinyfont.render(humid0 + '%', True, lc)
+		display.screen.blit(rhumid0, (400, 50+50))
+		rhumid_label = tinyfont.render('Humid:', True, lc)
+		display.screen.blit(rhumid_label, (317, 50+50))
+		
+		if display.data0['dewpoint'][0] == 100:
+			dew0 = str(display.data0['dewpoint'][0])[:3]
+		elif display.data0['dewpoint'][0] < 100:
+			dew0 = str(display.data0['dewpoint'][0])[:4]
+		rdew0 = tinyfont.render(dew0 + " " + uniTmp, True, lc)
+		display.screen.blit(rdew0, (400,67+50))
+		rdew_label = tinyfont.render('Dewpoint:', True, lc)
+		display.screen.blit(rdew_label, (317,67+50))
+		
+		if display.data0['pressure'][0] >= 1000:
+			press0 = str(display.data0['pressure'][0])[:4]
+		elif display.data0['dewpoint'][0] < 1000:
+			press0 = str(display.data0['pressure'][0])[:5]
+		rpress0 = tinyfont.render(press0 + "Hg", True, lc)
+		display.screen.blit(rpress0, (400,84+50))
+		rpress_label = tinyfont.render('Pressure:', True, lc)
+		display.screen.blit(rpress_label, (317,84+50))
+		
+		volt0 = str(display.data0['voltage'][0])[:4]
+		rvolt0 = tinyfont.render(volt0 + "vdc", True, lc)
+		display.screen.blit(rvolt0, (400,101+50))
+		rvolt_label = tinyfont.render('Voltage:', True, lc)
+		display.screen.blit(rvolt_label, (317,101+50))
+		
+		rssi0 = str(display.data0['rssi'][0])[:2]
+		rrssi0 = tinyfont.render(rssi0, True, lc)
+		display.screen.blit(rrssi0, (400,118+50))
+		rrssi_label = tinyfont.render('RSSI:', True, lc)
+		display.screen.blit(rrssi_label, (317,118+50))
+		
 		pygame.display.update()
 
 
 d = SmDisplay()
 #d.daily_wunder_update()
 d.pickle_update()
-d.wx1_disp_update()
+d.wx0_disp_update()
 s = time.localtime().tm_sec
 while True:
 	if s is not time.localtime().tm_sec:
