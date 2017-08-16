@@ -59,7 +59,7 @@ class SmDisplay:
 		location = '/home/pi/Power_Monitoring/pickle/'
 		self.data = pickle.load(open('total_pickle.p', "rb"))
 	
-	def wx_disp_up(self, data):
+	def wx_disp(self, data):
 		self.screen.fill(black)
 		xmin = 10
 		xmax = self.xmax
@@ -167,39 +167,130 @@ class SmDisplay:
 		rrssi_label = tinyfont.render('RSSI:', True, lc)
 		self.screen.blit(rrssi_label, (317,118+50))
 		
+		################################################################################
 		pygame.display.update()
+		################################################################################
+	
+	def tide_disp(self):
+		self.screen.fill(black)
+		xmin = 10
+		xmax = self.xmax
+		ymax = self.ymax
+		fn = "freesans"
+		lines = 2
+		lc = (255,255,255)
+		
+		################################################################################
+		pygame.draw.line( self.screen, lc, (xmin,0),(xmax,0), lines ) #Top Line
+		pygame.draw.line( self.screen, lc, (xmin,0),(xmin,ymax), lines ) #Left Line
+		pygame.draw.line( self.screen, lc, (xmin,ymax),(xmax,ymax), lines ) #Bottom Line
+		pygame.draw.line( self.screen, lc, (xmax,0),(xmax,ymax), lines ) #Right Line
+		pygame.draw.line( self.screen, lc, (xmin,ymax*0.15),(xmax,ymax*0.15), lines ) #Horizontal Line Under Top
+		
+		font = pygame.font.SysFont(fn, int(ymax*(self.txth)), bold=1 )
+		tidefont = pygame.font.SysFont(fn, int(75), bold=1 )
+		lfont = pygame.font.SysFont(fn, int(135), bold=1 )
+		sfont = pygame.font.SysFont(fn, int(40), bold=1 )
+		smfont = pygame.font.SysFont(fn, int(ymax*(self.smrtxth)), bold=1)
+		tinyfont = pygame.font.SysFont(fn, int(16), bold=1)
+		
+		tm1 = time.strftime("%a, %b %d %H:%M:%S", time.localtime() )
+		
+		rtm1 = font.render(tm1, True, lc)
+		
+		self.screen.blit(rtm1, (15,self.dateYPos))
+		
+		weather_data = {'sunrise'	: self.data[8]['sunrise'],
+				'sunset'	: self.data[8]['sunset']}
+		
+		sunrise = smfont.render(weather_data['sunrise'], True, lc)
+		(srx1, sry1) = sunrise.get_size()
+		sunset = smfont.render(weather_data['sunset'], True, lc)
+		(ssx1, ssy1) = sunset.get_size()
+		
+		self.screen.blit(sunrise, (428,2))
+		self.screen.blit(sunset, (417,20))
+		################################################################################
+		tide_title = tidefont.render('Tides', True, lc)
+		self.screen.blit(tide_title, (20, 50))
+		
+		icon_tide = pygame.image.load(os.path.join('/home/pi/Power_Monitoring/resources/', 'tide.png'))
+		icon_tide_2 = pygame.transform.scale(icon_tide, (155, 85))
+		self.screen.blit(icon_tide_2, (275, 60))
+		
+		td_pr_yh = 150
+		rtd_pr = tinyfont.render('Tide Prior', True, lc)
+		self.screen.blit(rtd_pr, (20, td_pr_yh - 15))
+		rtd_pr_tm = sfont.render(str(self.data[9]['tide_prior_time'].strftime("%H:%M")), True, lc)
+		self.screen.blit(rtd_pr_tm, (20, td_pr_yh))
+		rtd_pr_ty = sfont.render(self.data[9]['tide_prior_type'], True, lc)
+		self.screen.blit(rtd_pr_ty, (140, td_pr_yh))
+		rtd_pr_lv = sfont.render(str(self.data[9]['tide_prior_level'])[:4], True, lc)
+		self.screen.blit(rtd_pr_lv, (220, td_pr_yh))
+		td_pr_cn = datetime.datetime.now() - self.data[9]['tide_prior_time']
+		rtd_pr_cn = sfont.render(str(td_pr_cn)[:7], True, lc)
+		self.screen.blit(rtd_pr_cn, (320, td_pr_yh))
+		
+		td_nx_yh = 150 + 60
+		rtd_nx = tinyfont.render('Tide Next', True, lc)
+		self.screen.blit(rtd_nx, (20, td_nx_yh - 15))
+		rtd_nx_tm = sfont.render(str(self.data[9]['tide_next_time'].strftime("%H:%M")), True, lc)
+		self.screen.blit(rtd_nx_tm, (20, td_nx_yh))
+		rtd_nx_ty = sfont.render(self.data[9]['tide_next_type'], True, lc)
+		self.screen.blit(rtd_nx_ty, (140, td_nx_yh))
+		rtd_nx_lv = sfont.render(str(self.data[9]['tide_next_level'])[:4], True, lc)
+		self.screen.blit(rtd_nx_lv, (220, td_nx_yh))
+		td_nx_cn = self.data[9]['tide_next_time'] - datetime.datetime.now()
+		rtd_nx_cn = sfont.render(str(td_nx_cn)[:7], True, lc)
+		self.screen.blit(rtd_nx_cn, (320, td_nx_yh))
+		
+		td_af_yh = 150 + 120
+		rtd_af = tinyfont.render('Tide Next', True, lc)
+		self.screen.blit(rtd_af, (20, td_af_yh - 15))
+		rtd_af_tm = sfont.render(str(self.data[9]['tide_after_time'].strftime("%H:%M")), True, lc)
+		self.screen.blit(rtd_af_tm, (20, td_af_yh))
+		rtd_af_ty = sfont.render(self.data[9]['tide_after_type'], True, lc)
+		self.screen.blit(rtd_af_ty, (140, td_af_yh))
+		rtd_af_lv = sfont.render(str(self.data[9]['tide_after_level'])[:4], True, lc)
+		self.screen.blit(rtd_af_lv, (220, td_af_yh))
+		td_af_cn = self.data[9]['tide_after_time'] - datetime.datetime.now()
+		rtd_af_cn = sfont.render(str(td_af_cn)[:7], True, lc)
+		self.screen.blit(rtd_af_cn, (320, td_af_yh))
+		################################################################################
+		pygame.display.update()
+		################################################################################
 
 if (1):
 	d = SmDisplay()
 	d.pickle_update()
+	d.tide_disp()
 	running = True
-	disp0 = 0
-	disp1 = 0
-	disp2 = 0 
-	disp3 = 0
+	disp0, disp1, disp2, disp3, disp4 = 0, 0, 0, 0, 0
 	while running:
-		try:
-			while disp0 < 15:
-				d.pickle_update()
-				d.wx_disp_up(0)
-				disp0 +=1
-				pygame.time.wait(1000)
-			while disp1 < 15:
-				d.pickle_update()
-				d.wx_disp_up(1)
-				disp1 +=1
-				pygame.time.wait(1000)
-			while disp2 < 15:
-				d.pickle_update()
-				d.wx_disp_up(2)
-				disp2 +=1
-				pygame.time.wait(1000)
-			while disp3 < 15:
-				d.pickle_update()
-				d.wx_disp_up(3)
-				disp3 +=1
-				pygame.time.wait(1000)
-			disp0, disp1, disp2, disp3 = 0, 0, 0, 0
-			continue
-		except Exception:
-			break
+		while disp0 < 15:
+			d.pickle_update()
+			d.wx_disp(0)
+			disp0 +=1
+			pygame.time.wait(1000)
+		while disp1 < 15:
+			d.pickle_update()
+			d.wx_disp(1)
+			disp1 +=1
+			pygame.time.wait(1000)
+		while disp2 < 15:
+			d.pickle_update()
+			d.wx_disp(2)
+			disp2 +=1
+			pygame.time.wait(1000)
+		while disp3 < 15:
+			d.pickle_update()
+			d.wx_disp(3)
+			disp3 +=1
+			pygame.time.wait(1000)
+		while disp4 < 15:
+			d.pickle_update()
+			d.tide_disp()
+			disp4 += 1
+			pygame.time.wait(1000)
+		if disp0 >= 15 and disp1 >= 15 and disp2 >= 15 and disp3 >= 15 and disp4 >= 15:
+			disp0, disp1, disp2, disp3, disp4 = 0, 0, 0, 0, 0
