@@ -42,7 +42,7 @@ def daily_wunder_update():
 			forecast_data = pd.read_json(wunder_site_forecast_json, typ='series')
 			astronomy_data = pd.read_json(wunder_site_astronomy_json, typ='series')
 		except Exception:
-			print("ERROR: DAILY WUNDER UPDATE", now.strftime("%Y-%m-%d %H:%M:%S"))
+			print("ERROR: DAILY WUNDER UPDATE", time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()))
 			traceback.print_exc(file=sys.stdout)
 			time.sleep(10)
 			continue
@@ -55,7 +55,7 @@ def hourly_wunder_update():
 		try:
 			condition_data = pd.read_json(wunder_site_conditions_json, typ='series')
 		except Exception:
-			print("ERROR: DAILY WUNDER UPDATE", now.strftime("%Y-%m-%d %H:%M:%S"))
+			print("ERROR: DAILY WUNDER UPDATE", time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()))
 			traceback.print_exc(file=sys.stdout)
 			time.sleep(10)
 			continue
@@ -98,7 +98,7 @@ def data_call():
 				print "Next Tide:", tide_data['tide_next_time'], tide_data['tide_next_level'], str(tide_data['tide_next_count'])[:7]
 				print "Following Tide:", tide_data['tide_after_time'], tide_data['tide_after_level'], str(tide_data['tide_after_count'])[:7]
 		except Exception:
-			print("ERROR: TIDES", now.strftime("%Y-%m-%d %H:%M:%S"))
+			print("ERROR: TIDES", time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()))
 			traceback.print_exc(file=sys.stdout)
 	if weatherdata:
 		try:			
@@ -116,7 +116,7 @@ def data_call():
 				print "Forecast High:", weather_data['forecast_high'], "Forecast Low:", weather_data['forecast_low']
 				print "Sunrise: ", weather_data['sunrise'], "Sunset: ", weather_data['sunset']
 		except Exception:
-			print("ERROR: WEATHER DATA", now.strftime("%Y-%m-%d %H:%M:%S"))
+			print("ERROR: WEATHER DATA", time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()))
 			traceback.print_exc(file=sys.stdout)
 	if sensordata:
 		try:
@@ -128,21 +128,21 @@ def data_call():
 			except Exception:
 				data_today_valid = False
 				if verbose:
-					print("NO TODAY LOG FILE", now.strftime("%Y-%m-%d %H:%M:%S"))
+					print("NO TODAY LOG FILE", time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()))
 			try:
 				data_yest = pd.read_csv('/home/pi/Power_Monitoring/data_log/' + today_minus_one.strftime("%Y-%m") + '/' + str(today_minus_one) + '.log', names = ["Date", "Time", "Address", "Temperature", "Pressure", "Humidity", "Voltage", "RSSI"], dtype=str)
 				data_yest_valid = True
 			except Exception:
 				data_yest_valid = False
 				if verbose:
-					print("NO YESTERDAY LOG FILE", now.strftime("%Y-%m-%d %H:%M:%S"))
+					print("NO YESTERDAY LOG FILE", time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()))
 			try:
 				data_2prior = pd.read_csv('/home/pi/Power_Monitoring/data_log/' + today_minus_two.strftime("%Y-%m") + '/' + str(today_minus_two) + '.log', names = ["Date", "Time", "Address", "Temperature", "Pressure", "Humidity", "Voltage", "RSSI"], dtype=str)
 				data_2prior_valid = True
 			except Exception:
 				data_2prior_valid = False
 				if verbose:
-					print("NO 2DAYPRIOR LOG FILE", now.strftime("%Y-%m-%d %H:%M:%S"))
+					print("NO 2DAYPRIOR LOG FILE", time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()))
 			if (data_today_valid and data_yest_valid and data_2prior_valid):
 				data = pd.concat([data_2prior, data_yest, data_today])
 				if verbose:
@@ -180,12 +180,12 @@ def data_call():
 			data7 = data.loc[data['Address'] == sensor7]
 			
 		except Exception:
-			print("ERROR: Main Data Aggragate PANDAS", now.strftime("%Y-%m-%d %H:%M:%S"))
+			print("ERROR: Main Data Aggragate PANDAS", time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()))
 			traceback.print_exc(file=sys.stdout)
 	try:
 		if not data0.empty:
 			global data0_global
-			data0_global = {'name'		: sensor0lable,
+			data0_global = {'name'		: sensor0label,
 				      'time' 		: data0.index[-1:][0], 
 				      'temperature'	: data0['Temperature'][-1:].values, 
 				      'temperature_max'	: data0['Temperature'].max(),
@@ -216,7 +216,7 @@ def data_call():
 		else:
 			data0_global = None
 	except Exception:
-		print("ERROR: DATA0", now.strftime("%Y-%m-%d %H:%M:%S"))
+		print("ERROR: DATA0", time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()))
 		traceback.print_exc(file=sys.stdout)
 	try:
 		if not data1.empty:
@@ -252,7 +252,7 @@ def data_call():
 		else:
 			data1_global = None
 	except Exception:
-		print("ERROR: DATA1", now.strftime("%Y-%m-%d %H:%M:%S"))
+		print("ERROR: DATA1", time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()))
 		traceback.print_exc(file=sys.stdout)
 	try:
 		if not data2.empty:
@@ -288,7 +288,7 @@ def data_call():
 		else:
 			data2_global = None
 	except Exception:
-		print("ERROR: DATA2", now.strftime("%Y-%m-%d %H:%M:%S"))
+		print("ERROR: DATA2", time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()))
 		traceback.print_exc(file=sys.stdout)
 	try:
 		if not data3.empty:
@@ -324,7 +324,7 @@ def data_call():
 		else:
 			data3_global = None
 	except Exception:
-		print("ERROR: DATA3", now.strftime("%Y-%m-%d %H:%M:%S"))
+		print("ERROR: DATA3", time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()))
 		traceback.print_exc(file=sys.stdout)
 	try:
 		if not data4.empty:
@@ -360,7 +360,7 @@ def data_call():
 		else:
 			data4_global = None
 	except Exception:
-		print("ERROR: DATA4", now.strftime("%Y-%m-%d %H:%M:%S"))
+		print("ERROR: DATA4", time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()))
 		traceback.print_exc(file=sys.stdout)
 	try:
 		if not data5.empty:
@@ -396,7 +396,7 @@ def data_call():
 		else:
 			data5_global = None
 	except Exception:
-		print("ERROR: DATA5", now.strftime("%Y-%m-%d %H:%M:%S"))
+		print("ERROR: DATA5", time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()))
 		traceback.print_exc(file=sys.stdout)
 	try:
 		if not data6.empty:
@@ -432,7 +432,7 @@ def data_call():
 		else:
 			data6_global = None
 	except Exception:
-		print("ERROR: DATA6", now.strftime("%Y-%m-%d %H:%M:%S"))
+		print("ERROR: DATA6", time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()))
 		traceback.print_exc(file=sys.stdout)
 	try:
 		if not data7.empty:
@@ -468,15 +468,13 @@ def data_call():
 		else:
 			data7_global = None
 	except Exception:
-		print("ERROR: DATA7", now.strftime("%Y-%m-%d %H:%M:%S"))
+		print("ERROR: DATA7", time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()))
 		traceback.print_exc(file=sys.stdout)
 	txt_output()
 	pickle_data()
 
 
 def svg_update():
-	today = datetime.date.today()
-	now = datetime.datetime.now()
 	try:
 		output = codecs.open(template_svg_filename, 'r', encoding='utf-8').read()
 		output = output.replace('CURDATE', today.strftime("%m/%d/%Y"))
@@ -661,13 +659,12 @@ def svg_update():
 		subprocess.call(["sudo", "cp", "/home/pi/Power_Monitoring/output/weather-script-output.png", "/var/www/html/"])
 		subprocess.call(["sudo", "cp", "/home/pi/Power_Monitoring/output/weather-script-output.svg", "/var/www/html/"])	 
 	except Exception:
-		print("ERROR: CODECS TO SVG", now.strftime("%Y-%m-%d %H:%M:%S"))
+		print("ERROR: CODECS TO SVG", time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()))
 		traceback.print_exc(file=sys.stdout)
 
 def txt_output():
 	try:
 		with open("/home/pi/Power_Monitoring/output/weather_output.txt", "w") as text_file:
-			now = datetime.datetime.now()
 			text_file.write("Location: %s, Time: %s\n" %(location, now.strftime('%Y-%m-%d %H:%M:%S')))
 			text_file.write("Sunrise: %s, Sunset: %s\n" %(weather_data['sunrise'],weather_data['sunset']))
 			text_file.write("Forecast High: %s Forecast Low: %s\n" %(weather_data['forecast_high'], weather_data['forecast_low']))
@@ -744,7 +741,7 @@ def txt_output():
 		subprocess.call(["sudo", "chmod", "+x", "/home/pi/Power_Monitoring/output/weather_output.txt"])
 		subprocess.call(["sudo", "cp", "/home/pi/Power_Monitoring/output/weather_output.txt", "/var/www/html/"])
 	except Exception:
-		print("ERROR: TXT_OUTPUT()", now.strftime("%Y-%m-%d %H:%M:%S"))
+		print("ERROR: TXT_OUTPUT()", time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()))
 		traceback.print_exc(file=sys.stdout)
 
 def dropbox_update():
@@ -753,7 +750,7 @@ def dropbox_update():
 		subprocess.call(["/usr/local/bin/dropbox_uploader.sh", "-q", "upload", "/home/pi/Power_Monitoring/output/weather-script-output.svg", "/Programming/logs/%s/" %location])
 		subprocess.call(["/usr/local/bin/dropbox_uploader.sh", "-q", "upload", "/home/pi/Power_Monitoring/output/weather_output.txt", "/Programming/logs/%s/" %location])
 	except Exception:
-		print("ERROR: DROPBOX UPLOADING", now.strftime("%Y-%m-%d %H:%M:%S"))
+		print("ERROR: DROPBOX UPLOADING", time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()))
 		traceback.print_exc(file=sys.stdout)
 
 
@@ -771,7 +768,7 @@ def pickle_data():
 		pickle.dump(weather_data, open(os.path.join(location, 'weather_pickle.p'), "wb"))
 		pickle.dump(tide_data, open(os.path.join(location, 'tide_pickle.p'), "wb"))
 	except Exception:
-		print("ERROR: PICKLE", now.strftime("%Y-%m-%d %H:%M:%S"))
+		print("ERROR: PICKLE", time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()))
 		traceback.print_exc(file=sys.stdout)
 
 if(1):
