@@ -457,25 +457,27 @@ disp0 = 0
 disp1 = 0
 disp2 = 0
 while True:
-	if disp0 <= 300:
-		disp0 += 1
+	d.pickle_update()
+	while disp0 <= 30:
+		s = time.localtime().tm_sec
 		if s is not time.localtime().tm_sec:
 			s = time.localtime().tm_sec
-			d.pickle_update()
 			d.wx0_disp_update()
-	elif disp0 == 300 and disp1 <=300:
-		disp1 += 1
+			disp0 += 1
+	d.pickle_update()
+	while disp1 <=30:
+		s = time.localtime().tm_sec
 		if s is not time.localtime().tm_sec:
 			s = time.localtime().tm_sec
-			d.pickle_update()
 			d.wx1_disp_update()
-	elif disp0 == 300 and disp1 == 300 and disp2 <= 300:
-		disp2 += 1
+			disp1 += 1
+	d.pickle_update()
+	while disp2 <= 30:
+		s = time.localtime().tm_sec
 		if s is not time.localtime().tm_sec:
 			s = time.localtime().tm_sec
-			d.pickle_update()
 			d.wx2_disp_update()
-	elif disp0 == 300 and disp1 == 300 and disp3 == 300:
-		disp0 = 0
-		disp1 = 0
-		disp2 = 0
+			disp2 += 1
+	disp0 = 0
+	disp1 = 0
+	disp2 = 0
