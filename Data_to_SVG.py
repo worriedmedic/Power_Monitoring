@@ -758,17 +758,9 @@ def dropbox_update():
 
 def pickle_data():
 	try:
+		total_pickle = [data0_global, data1_global, data2_global, data3_global, data4_global, data5_global, data6_global, data7_global, weather_data, tide_data]
 		location = '/home/pi/Power_Monitoring/pickle/'
-		pickle.dump(data0_global, open(os.path.join(location, 'data0_pickle.p'), "wb"))
-		pickle.dump(data1_global, open(os.path.join(location, 'data1_pickle.p'), "wb"))
-		pickle.dump(data2_global, open(os.path.join(location, 'data2_pickle.p'), "wb"))
-		pickle.dump(data3_global, open(os.path.join(location, 'data3_pickle.p'), "wb"))
-		pickle.dump(data4_global, open(os.path.join(location, 'data4_pickle.p'), "wb"))
-		pickle.dump(data5_global, open(os.path.join(location, 'data5_pickle.p'), "wb"))
-		pickle.dump(data6_global, open(os.path.join(location, 'data6_pickle.p'), "wb"))
-		pickle.dump(data7_global, open(os.path.join(location, 'data7_pickle.p'), "wb"))
-		pickle.dump(weather_data, open(os.path.join(location, 'weather_pickle.p'), "wb"))
-		pickle.dump(tide_data, open(os.path.join(location, 'tide_pickle.p'), "wb"))
+		pickle.dump(total_pickle, open('total_pickle.p', 'wb'))
 	except Exception:
 		print("ERROR: PICKLE", time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()))
 		traceback.print_exc(file=sys.stdout)
