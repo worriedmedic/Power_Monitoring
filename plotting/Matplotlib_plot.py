@@ -222,7 +222,7 @@ def dataplot_sm(datatype, timedelta, sensor):
 		plt.xlabel('Time')
 		plt.ylabel(datatype)
 		plt.grid(True)
-		fig.text(0.5, 0.5, '%s ' %datatype, fontsize=14, color='white', ha='center', va='center', alpha=0.35)
+		fig.text(0.5, 0.5, '%s: %s' %(datatype, td), fontsize=16, color='white', ha='center', va='center', alpha=0.35)
 		myFmt = mdates.DateFormatter('%H:%M')
 		fig.axes[0].get_xaxis().set_major_formatter(myFmt)
 		fig.autofmt_xdate()
