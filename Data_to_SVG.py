@@ -759,7 +759,7 @@ def pickle_data():
 		pickle.dump(data6_global, open("pickle/data6_pickle.p", "wb"))
 		pickle.dump(data7_global, open("pickle/data7_pickle.p", "wb"))
 		pickle.dump(weather_data, open("pickle/weather_pickle.p", "wb"))
-		pickle.dump(tide_data, open("pickle/tide_data.p", "wb"))
+		pickle.dump(tide_data, open("pickle/tide_pickle.p", "wb"))
 	except Exception:
 		print("ERROR: PICKLE", now.strftime("%Y-%m-%d %H:%M:%S"))
 		traceback.print_exc(file=sys.stdout)
