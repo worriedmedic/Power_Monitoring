@@ -463,6 +463,7 @@ def data_call():
 		print("ERROR: DATA7", now.strftime("%Y-%m-%d %H:%M:%S"))
 		traceback.print_exc(file=sys.stdout)
 	txt_output()
+	pickle_data()
 
 
 def svg_update():
@@ -750,16 +751,17 @@ def dropbox_update():
 
 def pickle_data():
 	try:
-		pickle.dump(data0_global, open("pickle/data0_pickle.p", "wb"))
-		pickle.dump(data1_global, open("pickle/data1_pickle.p", "wb"))
-		pickle.dump(data2_global, open("pickle/data2_pickle.p", "wb"))
-		pickle.dump(data3_global, open("pickle/data3_pickle.p", "wb"))
-		pickle.dump(data4_global, open("pickle/data4_pickle.p", "wb"))
-		pickle.dump(data5_global, open("pickle/data5_pickle.p", "wb"))
-		pickle.dump(data6_global, open("pickle/data6_pickle.p", "wb"))
-		pickle.dump(data7_global, open("pickle/data7_pickle.p", "wb"))
-		pickle.dump(weather_data, open("pickle/weather_pickle.p", "wb"))
-		pickle.dump(tide_data, open("pickle/tide_pickle.p", "wb"))
+		location = '/home/pi/Power_Monitoring/pickle/'
+		pickle.dump(data0_global, open(os.path.join(location, 'data0_pickle.p'), "wb"))
+		pickle.dump(data1_global, open(os.path.join(location, 'data1_pickle.p'), "wb"))
+		pickle.dump(data2_global, open(os.path.join(location, 'data2_pickle.p'), "wb"))
+		pickle.dump(data3_global, open(os.path.join(location, 'data3_pickle.p'), "wb"))
+		pickle.dump(data4_global, open(os.path.join(location, 'data4_pickle.p'), "wb"))
+		pickle.dump(data5_global, open(os.path.join(location, 'data5_pickle.p'), "wb"))
+		pickle.dump(data6_global, open(os.path.join(location, 'data6_pickle.p'), "wb"))
+		pickle.dump(data7_global, open(os.path.join(location, 'data7_pickle.p'), "wb"))
+		pickle.dump(weather_data, open(os.path.join(location, 'weather_pickle.p'), "wb"))
+		pickle.dump(tide_data, open(os.path.join(location, 'tide_pickle.p'), "wb"))
 	except Exception:
 		print("ERROR: PICKLE", now.strftime("%Y-%m-%d %H:%M:%S"))
 		traceback.print_exc(file=sys.stdout)
@@ -770,7 +772,6 @@ if(1):
 	scheduler.add_job(hourly_wunder_update, 'cron', hour='*/1')
 	scheduler.add_job(svg_update, 'interval', seconds=5)
 	scheduler.add_job(data_call, 'interval', seconds=30)
-	scheduler.add_job(pickle_data, 'interval', seconds=90)
 	if dropbox_upload:
 		scheduler.add_job(dropbox_update, 'interval', minutes=5)
 	try:
