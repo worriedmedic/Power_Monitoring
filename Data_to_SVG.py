@@ -185,7 +185,8 @@ def data_call():
 	try:
 		if not data0.empty:
 			global data0_global
-			data0_global = {'time' 		: data0.index[-1:][0], 
+			data0_global = {'name'		: sensor0lable,
+				      'time' 		: data0.index[-1:][0], 
 				      'temperature'	: data0['Temperature'][-1:].values, 
 				      'temperature_max'	: data0['Temperature'].max(),
 				      'temperature_min' : data0['Temperature'].min(),
@@ -220,7 +221,8 @@ def data_call():
 	try:
 		if not data1.empty:
 			global data1_global
-			data1_global = {'time' 		: data1.index[-1:][0], 
+			data1_global = {'name'		: sensor1label,
+				      'time' 		: data1.index[-1:][0], 
 				      'temperature'	: data1['Temperature'][-1:].values, 
 				      'temperature_max'	: data1['Temperature'].max(),
 				      'temperature_min' : data1['Temperature'].min(),
@@ -255,7 +257,8 @@ def data_call():
 	try:
 		if not data2.empty:
 			global data2_global
-			data2_global = {'time' 		: data2.index[-1:][0], 
+			data2_global = {'name'		: sensor2label,
+				      'time' 		: data2.index[-1:][0], 
 				      'temperature'	: data2['Temperature'][-1:].values, 
 				      'temperature_max'	: data2['Temperature'].max(),
 				      'temperature_min' : data2['Temperature'].min(),
@@ -290,7 +293,8 @@ def data_call():
 	try:
 		if not data3.empty:
 			global data3_global
-			data3_global = {'time' 		: data3.index[-1:][0], 
+			data3_global = {'name'		: sensor3label,
+				      'time' 		: data3.index[-1:][0], 
 				      'temperature'	: data3['Temperature'][-1:].values, 
 				      'temperature_max'	: data3['Temperature'].max(),
 				      'temperature_min' : data3['Temperature'].min(),
@@ -325,7 +329,8 @@ def data_call():
 	try:
 		if not data4.empty:
 			global data4_global
-			data4_global = {'time' 		: data4.index[-1:][0], 
+			data4_global = {'name'		: sensor4label,
+				      'time' 		: data4.index[-1:][0], 
 				      'temperature'	: data4['Temperature'][-1:].values, 
 				      'temperature_max'	: data4['Temperature'].max(),
 				      'temperature_min' : data4['Temperature'].min(),
@@ -360,7 +365,8 @@ def data_call():
 	try:
 		if not data5.empty:
 			global data5_global
-			data5_global = {'time' 		: data5.index[-1:][0], 
+			data5_global = {'name'		: sensor5label,
+				      'time' 		: data5.index[-1:][0], 
 				      'temperature'	: data5['Temperature'][-1:].values, 
 				      'temperature_max'	: data5['Temperature'].max(),
 				      'temperature_min' : data5['Temperature'].min(),
@@ -395,7 +401,8 @@ def data_call():
 	try:
 		if not data6.empty:
 			global data6_global
-			data6_global = {'time' 		: data6.index[-1:][0], 
+			data6_global = {'name'		: sensor6label,
+				      'time' 		: data6.index[-1:][0], 
 				      'temperature'	: data6['Temperature'][-1:].values, 
 				      'temperature_max'	: data6['Temperature'].max(),
 				      'temperature_min' : data6['Temperature'].min(),
@@ -430,7 +437,8 @@ def data_call():
 	try:
 		if not data7.empty:
 			global data7_global
-			data7_global = {'time' 		: data7.index[-1:][0], 
+			data7_global = {'name'		: sensor7label,
+				      'time' 		: data7.index[-1:][0], 
 				      'temperature'	: data7['Temperature'][-1:].values, 
 				      'temperature_max'	: data7['Temperature'].max(),
 				      'temperature_min' : data7['Temperature'].min(),
