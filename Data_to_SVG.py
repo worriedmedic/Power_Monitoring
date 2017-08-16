@@ -463,7 +463,6 @@ def data_call():
 		print("ERROR: DATA7", now.strftime("%Y-%m-%d %H:%M:%S"))
 		traceback.print_exc(file=sys.stdout)
 	txt_output()
-	pickle_data()
 
 
 def svg_update():
@@ -759,6 +758,8 @@ def pickle_data():
 		pickle.dump(data5_global, open("pickle/data5_pickle.p", "wb"))
 		pickle.dump(data6_global, open("pickle/data6_pickle.p", "wb"))
 		pickle.dump(data7_global, open("pickle/data7_pickle.p", "wb"))
+		pickle.dump(weather_data, open("pickle/weather_pickle.p", "wb"))
+		pickle.dump(tide_data, open("pickle/tide_data.p", "wb"))
 	except Exception:
 		print("ERROR: PICKLE", now.strftime("%Y-%m-%d %H:%M:%S"))
 		traceback.print_exc(file=sys.stdout)
@@ -769,6 +770,7 @@ if(1):
 	scheduler.add_job(hourly_wunder_update, 'cron', hour='*/1')
 	scheduler.add_job(svg_update, 'interval', seconds=5)
 	scheduler.add_job(data_call, 'interval', seconds=30)
+	scheduler.add_job(pickle_data, 'interval', seconds=90)
 	if dropbox_upload:
 		scheduler.add_job(dropbox_update, 'interval', minutes=5)
 	try:
@@ -777,6 +779,7 @@ if(1):
 		hourly_wunder_update()
 		data_call()
 		dropbox_update()
+		pickle_data()
 		scheduler.start()
 	except (KeyboardInterrupt, SystemExit):
 		scheduler.shutdown()
