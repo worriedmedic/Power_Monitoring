@@ -204,7 +204,7 @@ def dataplot_sm(datatype, timedelta, sensor):
 		plt.style.use('dark_background')
 		matplotlib.rcParams.update({'font.size': 4})
 		if not data0.empty and sensor == '0':
-			plt.plot_date(data0.last(timedelta).index, data0[datatype].last(timedelta).values, linestyle="solid", linewidth=line_width, marker='None', color='w', label=sensor0label)
+			plt.plot_date(data0.last(timedelta).index, data0[datatype].last(timedelta).values, linestyle="solid", linewidth=line_width, marker='None', color=plt.rcParams['axes.color_cycle'][0], label=sensor0label)
 		if not data1.empty and sensor == '1':
 			plt.plot_date(data1.last(timedelta).index, data1[datatype].last(timedelta).values, linestyle="solid", linewidth=line_width, marker='None', color=plt.rcParams['axes.color_cycle'][1], label=sensor1label)
 		if not data2.empty and sensor == '2':
@@ -221,7 +221,7 @@ def dataplot_sm(datatype, timedelta, sensor):
 			plt.plot_date(data7.last(timedelta).index, data7[datatype].last(timedelta).values, linestyle="solid", linewidth=line_width, marker='None', color=plt.rcParams['axes.color_cycle'][7], label=sensor7label)
 		plt.grid(True)
 		plt.tight_layout()
-		fig.text(0.5, 0.8, '%s: %s' %(datatype, td), fontsize=10, color='white', ha='center', va='center', alpha=0.75)
+		fig.text(0.2, 0.8, '%s: %s' %(datatype, td), fontsize=10, color='white', ha='center', va='center', alpha=0.75)
 		fig.savefig('/home/pi/Power_Monitoring/output/plot_sm_%s_sensor_%s.png' %(datatype, sensor), bbox_inches='tight')
 		subprocess.call(["sudo", "chmod", "+x", "/home/pi/Power_Monitoring/output/plot_%s.png" %datatype])
 		subprocess.call(["sudo", "cp", "/home/pi/Power_Monitoring/output/plot_%s.png" %datatype, "/var/www/html/"])
@@ -243,3 +243,4 @@ if (1):
 	dataplot_sm('Temperature', td, '0')
 	dataplot_sm('Temperature', td, '1')
 	dataplot_sm('Temperature', td, '2')
+	dataplot_sm('Temperature', td, '3')
