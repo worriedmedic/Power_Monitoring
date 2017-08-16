@@ -760,7 +760,7 @@ def pickle_data():
 	try:
 		total_pickle = [data0_global, data1_global, data2_global, data3_global, data4_global, data5_global, data6_global, data7_global, weather_data, tide_data]
 		location = '/home/pi/Power_Monitoring/pickle/'
-		pickle.dump(total_pickle, open('total_pickle.p', 'wb'))
+		pickle.dump(total_pickle, open(os.path.join(location, 'total_pickle.p'), 'wb'))
 		if verbose:
 			print("Pickled Dumped", time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()))
 	except Exception:
