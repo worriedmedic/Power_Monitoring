@@ -440,13 +440,13 @@ class SmDisplay:
 		pygame.draw.line( display.screen, lc, (xmin,ymax*0.6),(xmax,ymax*0.6), lines)
 		
 		if display.data3['temperature'][0] < 100:
-			temp = str(display.data2['temperature'][0])[:4]
+			temp = str(display.data3['temperature'][0])[:4]
 		elif display.data3['temperature'][0] >= 100:
-			temp = str(display.data2['temperature'][0])[:3]
+			temp = str(display.data3['temperature'][0])[:3]
 		rtemp = lfont.render(temp, True, lc)
 		display.screen.blit(rtemp, (18, 32))
 		
-		rsensorlabel = font.render(sensor2label[:7], True, lc)
+		rsensorlabel = font.render(sensor3label[:7], True, lc)
 		display.screen.blit(rsensorlabel, (317,50))
 		
 		dfont = pygame.font.SysFont(fn, int(40), bold=1 )
@@ -468,7 +468,7 @@ class SmDisplay:
 		################################################################################
 		if display.data3['humidity'][0] == 100:
 			humid = str(display.data3['humidity'][0])[:3]
-		elif display.data2['humidity'][0] < 100:
+		elif display.data3['humidity'][0] < 100:
 			humid = str(display.data3['humidity'][0])[:4]
 		rhumid = tinyfont.render(humid + '%', True, lc)
 		display.screen.blit(rhumid, (400, 50+50))
@@ -477,16 +477,16 @@ class SmDisplay:
 		
 		if display.data3['dewpoint'][0] == 100:
 			dew = str(display.data3['dewpoint'][0])[:3]
-		elif display.data2['dewpoint'][0] < 100:
+		elif display.data3['dewpoint'][0] < 100:
 			dew = str(display.data3['dewpoint'][0])[:4]
 		rdew = tinyfont.render(dew + " " + uniTmp, True, lc)
 		display.screen.blit(rdew, (400,67+50))
 		rdew_label = tinyfont.render('Dewpoint:', True, lc)
 		display.screen.blit(rdew_label, (317,67+50))
 		
-		if display.data2['pressure'][0] >= 1000:
+		if display.data3['pressure'][0] >= 1000:
 			press = str(display.data3['pressure'][0])[:4]
-		elif display.data2['dewpoint'][0] < 1000:
+		elif display.data3['dewpoint'][0] < 1000:
 			press = str(display.data3['pressure'][0])[:5]
 		rpress = tinyfont.render(press + "Hg", True, lc)
 		display.screen.blit(rpress, (400,84+50))
