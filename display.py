@@ -3,15 +3,10 @@
 import os, sys
 import pygame
 import time, datetime
-import pandas as pd
-import numpy as np
 import cPickle as pickle
 from pygame.locals import *
 from standards import *
 from icon_def import *
-from apscheduler.schedulers.blocking import BlockingScheduler
-import logging
-logging.basicConfig()
 
 black = (0,0,0)
 white = (255,255,255)
@@ -60,31 +55,6 @@ class SmDisplay:
 	def __del___(display):
 		'''DESTRUCTOR'''
 	
-	def daily_wunder_update(display):
-		while True:
-			now = datetime.datetime.now()
-			try:
-				display.forecast_data = pd.read_json(wunder_site_forecast_json, typ='series')
-				display.astronomy_data = pd.read_json(wunder_site_astronomy_json, typ='series')
-			except Exception:
-				print("ERROR: DAILY WUNDER UPDATE", now.strftime("%Y-%m-%d %H:%M:%S"))
-				traceback.print_exc(file=sys.stdout)
-				time.sleep(10)
-				continue
-			break
-	
-	def hourly_wunder_update(display):
-		while True:
-			now = datetime.datetime.now()
-			try:
-				display.condition_data = pd.read_json(wunder_site_conditions_json, typ='series')
-			except Exception:
-				print("ERROR: DAILY WUNDER UPDATE", now.strftime("%Y-%m-%d %H:%M:%S"))
-				traceback.print_exc(file=sys.stdout)
-				time.sleep(10)
-				continue
-			break
-			
 	def pickle_update(display):
 		display.data0 = pickle.load(open("pickle/data0_pickle.p", "rb"))
 		display.data1 = pickle.load(open("pickle/data1_pickle.p", "rb"))
@@ -94,6 +64,8 @@ class SmDisplay:
 		display.data5 = pickle.load(open("pickle/data5_pickle.p", "rb"))
 		display.data6 = pickle.load(open("pickle/data6_pickle.p", "rb"))
 		display.data7 = pickle.load(open("pickle/data7_pickle.p", "rb"))
+		display.weather = pickle.load(open("pickle/weather_pickle.p", "rb"))
+		display.tides = pickle.load(open("pickle/tide_pickle.p", "rb"))
 	
 	def wx0_disp_update(display):
 		display.screen.fill(black)
@@ -110,8 +82,6 @@ class SmDisplay:
 		pygame.draw.line( display.screen, lc, (xmin,ymax),(xmax,ymax), lines ) #Bottom Line
 		pygame.draw.line( display.screen, lc, (xmax,0),(xmax,ymax), lines ) #Right Line
 		pygame.draw.line( display.screen, lc, (xmin,ymax*0.15),(xmax,ymax*0.15), lines ) #Horizontal Line Under Top
-		#pygame.draw.line( display.screen, lc, (xmax*0.5,ymax*0.15),(xmax*0.5,ymax), lines )
-		#pygame.draw.line( display.screen, lc, (xmax*0.75,ymax*0.5),(xmax*0.75,ymax), lines )
 		
 		font = pygame.font.SysFont( fn, int(ymax*(display.txth)), bold=1 )
 		lfont = pygame.font.SysFont( fn, int(135), bold=1 )
@@ -125,8 +95,8 @@ class SmDisplay:
 		
 		display.screen.blit(rtm1, (15,display.dateYPos))
 		
-		weather_data = {'sunrise'	: '5:42',
-				'sunset'	: '19:42'}
+		weather_data = {'sunrise'	: display.weather['sunrise'],
+				'sunset'	: display.weather['sunset']}
 		
 		sunrise = smfont.render(weather_data['sunrise'], True, lc)
 		(srx1, sry1) = sunrise.get_size()
@@ -135,11 +105,6 @@ class SmDisplay:
 		
 		display.screen.blit(sunrise, (428,2))
 		display.screen.blit(sunset, (417,20))
-		
-		icon_sunrise = pygame.image.load(sd + icons[0]).convert_alpha() #SunRise
-		(ix, iy) = icon_sunrise.get_size()
-		icon2_sunrise = pygame.transform.scale(icon_sunrise, (int(ix*.12), int(iy*.14)))
-		display.screen.blit(icon2_sunrise, (370,4))
 		################################################################################
 		pygame.draw.line( display.screen, lc, (310,ymax*0.15),(310,ymax*0.6), lines) #Vertical Line @x:310
 		pygame.draw.line( display.screen, lc, (xmin,ymax*0.6),(xmax,ymax*0.6), lines)
@@ -151,7 +116,7 @@ class SmDisplay:
 		rtemp = lfont.render(temp, True, lc)
 		display.screen.blit(rtemp, (18, 32))
 		
-		rsensorlabel = font.render(sensor0label, True, lc)
+		rsensorlabel = font.render(sensor0label[:7], True, lc)
 		display.screen.blit(rsensorlabel, (317,50))
 		
 		dfont = pygame.font.SysFont(fn, int(40), bold=1 )
@@ -227,8 +192,6 @@ class SmDisplay:
 		pygame.draw.line( display.screen, lc, (xmin,ymax),(xmax,ymax), lines ) #Bottom Line
 		pygame.draw.line( display.screen, lc, (xmax,0),(xmax,ymax), lines ) #Right Line
 		pygame.draw.line( display.screen, lc, (xmin,ymax*0.15),(xmax,ymax*0.15), lines ) #Horizontal Line Under Top
-		#pygame.draw.line( display.screen, lc, (xmax*0.5,ymax*0.15),(xmax*0.5,ymax), lines )
-		#pygame.draw.line( display.screen, lc, (xmax*0.75,ymax*0.5),(xmax*0.75,ymax), lines )
 		
 		font = pygame.font.SysFont( fn, int(ymax*(display.txth)), bold=1 )
 		lfont = pygame.font.SysFont( fn, int(135), bold=1 )
@@ -242,8 +205,8 @@ class SmDisplay:
 		
 		display.screen.blit(rtm1, (15,display.dateYPos))
 		
-		weather_data = {'sunrise'	: '5:42',
-				'sunset'	: '19:42'}
+		weather_data = {'sunrise'	: display.weather['sunrise'],
+				'sunset'	: display.weather['sunset']}
 		
 		sunrise = smfont.render(weather_data['sunrise'], True, lc)
 		(srx1, sry1) = sunrise.get_size()
@@ -252,11 +215,6 @@ class SmDisplay:
 		
 		display.screen.blit(sunrise, (428,2))
 		display.screen.blit(sunset, (417,20))
-		
-		icon_sunrise = pygame.image.load(sd + icons[0]).convert_alpha() #SunRise
-		(ix, iy) = icon_sunrise.get_size()
-		icon2_sunrise = pygame.transform.scale(icon_sunrise, (int(ix*.12), int(iy*.14)))
-		display.screen.blit(icon2_sunrise, (370,4))
 		################################################################################
 		pygame.draw.line( display.screen, lc, (310,ymax*0.15),(310,ymax*0.6), lines) #Vertical Line @x:310
 		pygame.draw.line( display.screen, lc, (xmin,ymax*0.6),(xmax,ymax*0.6), lines)
@@ -268,7 +226,7 @@ class SmDisplay:
 		rtemp = lfont.render(temp, True, lc)
 		display.screen.blit(rtemp, (18, 32))
 		
-		rsensorlabel = font.render(sensor1label, True, lc)
+		rsensorlabel = font.render(sensor1label[:7], True, lc)
 		display.screen.blit(rsensorlabel, (317,50))
 		
 		dfont = pygame.font.SysFont(fn, int(40), bold=1 )
@@ -344,8 +302,6 @@ class SmDisplay:
 		pygame.draw.line( display.screen, lc, (xmin,ymax),(xmax,ymax), lines ) #Bottom Line
 		pygame.draw.line( display.screen, lc, (xmax,0),(xmax,ymax), lines ) #Right Line
 		pygame.draw.line( display.screen, lc, (xmin,ymax*0.15),(xmax,ymax*0.15), lines ) #Horizontal Line Under Top
-		#pygame.draw.line( display.screen, lc, (xmax*0.5,ymax*0.15),(xmax*0.5,ymax), lines )
-		#pygame.draw.line( display.screen, lc, (xmax*0.75,ymax*0.5),(xmax*0.75,ymax), lines )
 		
 		font = pygame.font.SysFont( fn, int(ymax*(display.txth)), bold=1 )
 		lfont = pygame.font.SysFont( fn, int(135), bold=1 )
@@ -359,8 +315,8 @@ class SmDisplay:
 		
 		display.screen.blit(rtm1, (15,display.dateYPos))
 		
-		weather_data = {'sunrise'	: '5:42',
-				'sunset'	: '19:42'}
+		weather_data = {'sunrise'	: display.weather['sunrise'],
+				'sunset'	: display.weather['sunset']}
 		
 		sunrise = smfont.render(weather_data['sunrise'], True, lc)
 		(srx1, sry1) = sunrise.get_size()
@@ -369,11 +325,6 @@ class SmDisplay:
 		
 		display.screen.blit(sunrise, (428,2))
 		display.screen.blit(sunset, (417,20))
-		
-		icon_sunrise = pygame.image.load(sd + icons[0]).convert_alpha() #SunRise
-		(ix, iy) = icon_sunrise.get_size()
-		icon2_sunrise = pygame.transform.scale(icon_sunrise, (int(ix*.12), int(iy*.14)))
-		display.screen.blit(icon2_sunrise, (370,4))
 		################################################################################
 		pygame.draw.line( display.screen, lc, (310,ymax*0.15),(310,ymax*0.6), lines) #Vertical Line @x:310
 		pygame.draw.line( display.screen, lc, (xmin,ymax*0.6),(xmax,ymax*0.6), lines)
@@ -385,7 +336,7 @@ class SmDisplay:
 		rtemp = lfont.render(temp, True, lc)
 		display.screen.blit(rtemp, (18, 32))
 		
-		rsensorlabel = font.render(sensor2label, True, lc)
+		rsensorlabel = font.render(sensor2label[:7], True, lc)
 		display.screen.blit(rsensorlabel, (317,50))
 		
 		dfont = pygame.font.SysFont(fn, int(40), bold=1 )
@@ -445,39 +396,149 @@ class SmDisplay:
 		display.screen.blit(rrssi_label, (317,118+50))
 		
 		pygame.display.update()
+	
+	def wx3_disp_update(display):
+		display.screen.fill(black)
+		xmin = 10
+		xmax = display.xmax
+		ymax = display.ymax
+		fn = "freesans"
+		lines = 2
+		lc = (255,255,255)
+		
+		################################################################################
+		pygame.draw.line( display.screen, lc, (xmin,0),(xmax,0), lines ) #Top Line
+		pygame.draw.line( display.screen, lc, (xmin,0),(xmin,ymax), lines ) #Left Line
+		pygame.draw.line( display.screen, lc, (xmin,ymax),(xmax,ymax), lines ) #Bottom Line
+		pygame.draw.line( display.screen, lc, (xmax,0),(xmax,ymax), lines ) #Right Line
+		pygame.draw.line( display.screen, lc, (xmin,ymax*0.15),(xmax,ymax*0.15), lines ) #Horizontal Line Under Top
+		
+		font = pygame.font.SysFont( fn, int(ymax*(display.txth)), bold=1 )
+		lfont = pygame.font.SysFont( fn, int(135), bold=1 )
+		sfont = pygame.font.SysFont( fn, int(ymax*(display.smtxth)), bold=1 )
+		smfont = pygame.font.SysFont(fn, int(ymax*(display.smrtxth)), bold=1)
+		tinyfont = pygame.font.SysFont(fn, int(16), bold=1)
+		
+		tm1 = time.strftime("%a, %b %d %H:%M:%S", time.localtime() )
+		
+		rtm1 = font.render(tm1, True, lc )
+		
+		display.screen.blit(rtm1, (15,display.dateYPos))
+		
+		weather_data = {'sunrise'	: display.weather['sunrise'],
+				'sunset'	: display.weather['sunset']}
+		
+		sunrise = smfont.render(weather_data['sunrise'], True, lc)
+		(srx1, sry1) = sunrise.get_size()
+		sunset = smfont.render(weather_data['sunset'], True, lc)
+		(ssx1, ssy1) = sunset.get_size()
+		
+		display.screen.blit(sunrise, (428,2))
+		display.screen.blit(sunset, (417,20))
+		################################################################################
+		pygame.draw.line( display.screen, lc, (310,ymax*0.15),(310,ymax*0.6), lines) #Vertical Line @x:310
+		pygame.draw.line( display.screen, lc, (xmin,ymax*0.6),(xmax,ymax*0.6), lines)
+		
+		if display.data3['temperature'][0] < 100:
+			temp = str(display.data2['temperature'][0])[:4]
+		elif display.data3['temperature'][0] >= 100:
+			temp = str(display.data2['temperature'][0])[:3]
+		rtemp = lfont.render(temp, True, lc)
+		display.screen.blit(rtemp, (18, 32))
+		
+		rsensorlabel = font.render(sensor2label[:7], True, lc)
+		display.screen.blit(rsensorlabel, (317,50))
+		
+		dfont = pygame.font.SysFont(fn, int(40), bold=1 )
+		dtxt = dfont.render(uniTmp, True, lc )
+		display.screen.blit(dtxt, (270, 50))
+		
+		rtemptime = tinyfont.render(display.data3['time'].strftime("%y-%m-%d %H:%M:%S"), True, lc)
+		display.screen.blit(rtemptime, (15, 165))
+		
+		rtempmax = tinyfont.render('Max: ' + str(display.data3['temperature_max'])[:4], True, lc)
+		display.screen.blit(rtempmax, (162, 165))
+		
+		rtempmin = tinyfont.render('Min: ' + str(display.data3['temperature_min'])[:4], True, lc)
+		display.screen.blit(rtempmin, (238, 165))
+		################################################################################
+		tempgraph = pygame.image.load('output/plot_sm_Temperature_sensor_3.png')
+		tempgraph2 = pygame.transform.scale(tempgraph, (455, 122))
+		display.screen.blit(tempgraph2, (12,192))
+		################################################################################
+		if display.data3['humidity'][0] == 100:
+			humid = str(display.data3['humidity'][0])[:3]
+		elif display.data2['humidity'][0] < 100:
+			humid = str(display.data3['humidity'][0])[:4]
+		rhumid = tinyfont.render(humid + '%', True, lc)
+		display.screen.blit(rhumid, (400, 50+50))
+		rhumid_label = tinyfont.render('Humid:', True, lc)
+		display.screen.blit(rhumid_label, (317, 50+50))
+		
+		if display.data3['dewpoint'][0] == 100:
+			dew = str(display.data3['dewpoint'][0])[:3]
+		elif display.data2['dewpoint'][0] < 100:
+			dew = str(display.data3['dewpoint'][0])[:4]
+		rdew = tinyfont.render(dew + " " + uniTmp, True, lc)
+		display.screen.blit(rdew, (400,67+50))
+		rdew_label = tinyfont.render('Dewpoint:', True, lc)
+		display.screen.blit(rdew_label, (317,67+50))
+		
+		if display.data2['pressure'][0] >= 1000:
+			press = str(display.data3['pressure'][0])[:4]
+		elif display.data2['dewpoint'][0] < 1000:
+			press = str(display.data3['pressure'][0])[:5]
+		rpress = tinyfont.render(press + "Hg", True, lc)
+		display.screen.blit(rpress, (400,84+50))
+		rpress_label = tinyfont.render('Pressure:', True, lc)
+		display.screen.blit(rpress_label, (317,84+50))
+		
+		volt = str(display.data3['voltage'][0])[:4]
+		rvolt = tinyfont.render(volt + "vdc", True, lc)
+		display.screen.blit(rvolt, (400,101+50))
+		rvolt_label = tinyfont.render('Voltage:', True, lc)
+		display.screen.blit(rvolt_label, (317,101+50))
+		
+		rssi = str(display.data3['rssi'][0])[:2]
+		rrssi = tinyfont.render(rssi, True, lc)
+		display.screen.blit(rrssi, (400,118+50))
+		rrssi_label = tinyfont.render('RSSI:', True, lc)
+		display.screen.blit(rrssi_label, (317,118+50))
+		
+		pygame.display.update()
 
 
-d = SmDisplay()
-d.daily_wunder_update()
-d.pickle_update()
-d.wx0_disp_update()
-scheduler = BlockingScheduler()
-scheduler.add_job(d.daily_wunder_update, 'cron', hour=0, minute=5)
-disp0 = 0
-disp1 = 0
-disp2 = 0
-while True:
+if (1):
+	d = SmDisplay()
 	d.pickle_update()
-	while disp0 <= 30:
-		s = time.localtime().tm_sec
-		if s is not time.localtime().tm_sec:
-			s = time.localtime().tm_sec
-			d.wx0_disp_update()
-			disp0 += 1
-	d.pickle_update()
-	while disp1 <=30:
-		s = time.localtime().tm_sec
-		if s is not time.localtime().tm_sec:
-			s = time.localtime().tm_sec
-			d.wx1_disp_update()
-			disp1 += 1
-	d.pickle_update()
-	while disp2 <= 30:
-		s = time.localtime().tm_sec
-		if s is not time.localtime().tm_sec:
-			s = time.localtime().tm_sec
-			d.wx2_disp_update()
-			disp2 += 1
+	running = True
 	disp0 = 0
 	disp1 = 0
-	disp2 = 0
+	disp2 = 0 
+	disp3 = 0
+	while running:
+		try:
+			while disp0 < 15:
+				d.pickle_update()
+				d.wx0_disp_update()
+				disp0 +=1
+				pygame.time.wait(1000)
+			while disp1 < 15:
+				d.pickle_update()
+				d.wx1_disp_update()
+				disp1 +=1
+				pygame.time.wait(1000)
+			while disp2 < 15:
+				d.pickle_update()
+				d.wx2_disp_update()
+				disp2 +=1
+				pygame.time.wait(1000)
+			while disp3 < 15:
+				d.pickle_update()
+				d.wx3_disp_update()
+				disp3 +=1
+				pygame.time.wait(1000)
+			disp0, disp1, disp2, disp3 = 0, 0, 0, 0
+			continue
+		except Exception:
+			break
