@@ -323,13 +323,13 @@ class SmDisplay:
 		
 		rssi = str(display.data1['rssi'][0])[:2]
 		rrssi = tinyfont.render(rssi, True, lc)
-		display.screen.blit(rrssi1, (400,118+50))
+		display.screen.blit(rrssi, (400,118+50))
 		rrssi_label = tinyfont.render('RSSI:', True, lc)
 		display.screen.blit(rrssi_label, (317,118+50))
 		
 		pygame.display.update()
 		
-	def wx0_disp_update(display):
+	def wx2_disp_update(display):
 		display.screen.fill(black)
 		xmin = 10
 		xmax = display.xmax
@@ -452,7 +452,7 @@ d.daily_wunder_update()
 d.pickle_update()
 d.wx0_disp_update()
 scheduler = BlockingScheduler()
-scheduler.add_job(d.daily_wunder_update(), 'cron', hour=0, minute=5)
+scheduler.add_job(d.daily_wunder_update, 'cron', hour=0, minute=5)
 disp0 = 0
 disp1 = 0
 disp2 = 0
