@@ -200,7 +200,7 @@ def dataplot_sm(datatype, timedelta, sensor):
 	now = datetime.datetime.now()
 	today = datetime.date.today()
 	try:
-		fig = plt.figure(figsize=(4.5, 1.875))
+		fig = plt.figure(figsize=(4.6, 1.25))
 		plt.style.use('dark_background')
 		matplotlib.rcParams.update({'font.size': 4})
 		if not data0.empty and sensor == '0':
@@ -220,6 +220,7 @@ def dataplot_sm(datatype, timedelta, sensor):
 		if not data7.empty and sensor == '7':
 			plt.plot_date(data7.last(timedelta).index, data7[datatype].last(timedelta).values, linestyle="solid", linewidth=line_width, marker='None', color=plt.rcParams['axes.color_cycle'][7], label=sensor7label)
 		plt.grid(True)
+		plt.tight_layout()
 		fig.text(0.5, 0.8, '%s: %s' %(datatype, td), fontsize=10, color='white', ha='center', va='center', alpha=0.75)
 		fig.savefig('/home/pi/Power_Monitoring/output/plot_sm_%s_sensor_%s.png' %(datatype, sensor), bbox_inches='tight')
 		subprocess.call(["sudo", "chmod", "+x", "/home/pi/Power_Monitoring/output/plot_%s.png" %datatype])
