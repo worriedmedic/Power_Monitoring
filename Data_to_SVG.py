@@ -476,6 +476,8 @@ def data_call():
 
 def svg_update():
 	try:
+		today = datetime.date.today()
+		now = datetime.datetime.now()
 		output = codecs.open(template_svg_filename, 'r', encoding='utf-8').read()
 		output = output.replace('CURDATE', today.strftime("%m/%d/%Y"))
 		output = output.replace('CURTIME', now.strftime("%H:%M"))
