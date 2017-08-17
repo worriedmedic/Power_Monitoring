@@ -1,6 +1,7 @@
 #/bin/python
 
 import ephem
+import datetime
 
 verbose = True
 dst = True
@@ -29,25 +30,25 @@ for o in planets:
 			    'visible'	: False,
 			    'altitude'	: o.alt,
 			    'azimuth'	: o.az,
-			    'rising'	: ephem.Date(cutty.next_rising(o) + dst_const),
-			    'setting'	: ephem.Date(cutty.previous_setting(o) + dst_const)}
+			    'rising'	: ephem.Date(cutty.next_rising(o) + dst_const).datetime(),
+			    'setting'	: ephem.Date(cutty.previous_setting(o) + dst_const).datetime()}
 		if verbose:
 			print('%s IS NOT VISIBLE' %d[o.name]['name'])
 			print('%s: alt: %s azm: %s' %(d[o.name]['name'], d[o.name]['altitude'], d[o.name]['azimuth']))
-			print('Next Rising: ', ephem.Date(cutty.next_rising(o) + dst_const))
-			print('Previous Setting: ', ephem.Date(cutty.previous_setting(o) + dst_const))
+			print('Next Rising: %s' %d[o]['rising'])
+			print('Previous Setting: %s' %d[o]['setting'])
 	else:
 		d[o.name] = {'name'	: o.name,
 			    'visible'	: True,
 			    'altitude'	: o.alt,
 			    'azimuth'	: o.az,
-			    'rising'	: ephem.Date(cutty.previous_rising(o) + dst_const),
-			    'setting'	: ephem.Date(cutty.next_setting(o) + dst_const)}
+			    'rising'	: ephem.Date(cutty.previous_rising(o) + dst_const).datetime(),
+			    'setting'	: ephem.Date(cutty.next_setting(o) + dst_const).datetime()}
 		if verbose:
 			print('%s IS VISIBLE' %d[o.name]['name'])
 			print('%s: alt: %s azm: %s' %(d[o.name]['name'], d[o.name]['altitude'], d[o.name]['azimuth']))
-			print('Previous Rising: ', ephem.Date(cutty.previous_rising(o) + dst_const))
-			print('Next Setting: ', ephem.Date(cutty.next_setting(o) + dst_const))
+			print('Previous Rising: %s' %d[o]['rising'])
+			print('Next Setting: %s' %d[o]['setting'])
 
 
 for o in d:
