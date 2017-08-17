@@ -3,18 +3,11 @@
 import ephem
 import datetime
 
-verbose = True
-dst = True
-
 cutty = ephem.Observer()
 cutty.lat = '41.42'
 cutty.long = '-70.92'
 cutty.elevation = 20
-
-if dst:
-	dst_const = (ephem.hour * -4)
-else:
-	dst_const = (ephem.hour * -5)
+dst_const = (ephem.hour * -4)
 
 planets = 	[ephem.Sun(),
 		ephem.Moon(),
@@ -30,8 +23,8 @@ for o in planets:
 			    'visible'	: False,
 			    'altitude'	: o.alt,
 			    'azimuth'	: o.az,
-			    'rising'	: ephem.Date(cutty.next_rising(o) + dst_const).datetime(),
-			    'setting'	: ephem.Date(cutty.previous_setting(o) + dst_const).datetime()}
+			    'rising'	: ephem.Date(cutty.next_rising(o) + dst_const),
+			    'setting'	: ephem.Date(cutty.previous_setting(o) + dst_const)}
 		if verbose:
 			print('%s IS NOT VISIBLE' %d[o.name]['name'])
 			print('%s: alt: %s azm: %s' %(d[o.name]['name'], d[o.name]['altitude'], d[o.name]['azimuth']))
@@ -42,8 +35,8 @@ for o in planets:
 			    'visible'	: True,
 			    'altitude'	: o.alt,
 			    'azimuth'	: o.az,
-			    'rising'	: ephem.Date(cutty.previous_rising(o) + dst_const).datetime(),
-			    'setting'	: ephem.Date(cutty.next_setting(o) + dst_const).datetime()}
+			    'rising'	: ephem.Date(cutty.previous_rising(o) + dst_const),
+			    'setting'	: ephem.Date(cutty.next_setting(o) + dst_const)}
 		if verbose:
 			print('%s IS VISIBLE' %d[o.name]['name'])
 			print('%s: alt: %s azm: %s' %(d[o.name]['name'], d[o.name]['altitude'], d[o.name]['azimuth']))
