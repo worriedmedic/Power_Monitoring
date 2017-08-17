@@ -11,6 +11,7 @@ import logging
 import cPickle as pickle
 logging.basicConfig()
 from standards import *
+import ephem
 
 verbose = False
 sensordata = True
@@ -61,6 +62,55 @@ def hourly_wunder_update():
 			continue
 		break
 
+def astro_data():
+	try:
+		global d
+		d = {}
+		dst = True
+		cutty = ephem.Observer()
+		cutty.lat = '41.42'
+		cutty.long = '-70.92'
+		cutty.elevation = 20
+		if dst:
+			dst_const = (ephem.hour * -4)
+		else:
+			dst_const = (ephem.hour * -5)
+		planets = 	[ephem.Sun(),
+				ephem.Moon(),
+				ephem.Mars(),
+				ephem.Jupiter(),
+				ephem.Saturn(),
+				ephem.Venus()]
+		for o in planets:
+			o.compute(cutty)
+			if str(o.alt).startswith('-'):
+				d[o.name] = {'name'	: o.name,
+					    'visible'	: False,
+					    'altitude'	: str(o.alt),
+					    'azimuth'	: str(o.az),
+					    'rising'	: str(ephem.Date(cutty.next_rising(o) + dst_const)),
+					    'setting'	: str(ephem.Date(cutty.previous_setting(o) + dst_const))}
+				if verbose:
+					print('%s IS NOT VISIBLE' %d[o.name]['name'])
+					print('%s: alt: %s azm: %s' %(d[o.name]['name'], d[o.name]['altitude'], d[o.name]['azimuth']))
+					print('Next Rising: ', ephem.Date(cutty.next_rising(o) + dst_const))
+					print('Previous Setting: ', ephem.Date(cutty.previous_setting(o) + dst_const))
+			else:
+				d[o.name] = {'name'	: o.name,
+					    'visible'	: True,
+					    'altitude'	: str(o.alt),
+					    'azimuth'	: str(o.az),
+					    'rising'	: str(ephem.Date(cutty.previous_rising(o) + dst_const)),
+					    'setting'	: str(ephem.Date(cutty.next_setting(o) + dst_const))}
+				if verbose:
+					print('%s IS VISIBLE' %d[o.name]['name'])
+					print('%s: alt: %s azm: %s' %(d[o.name]['name'], d[o.name]['altitude'], d[o.name]['azimuth']))
+					print('Previous Rising: ', ephem.Date(cutty.previous_rising(o) + dst_const))
+					print('Next Setting: ', ephem.Date(cutty.next_setting(o) + dst_const))
+	except Exception:
+		print("ERROR: ASTRO DATA", time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()))
+		traceback.print_exc(file=sys.stdout)
+
 def data_call():	
 	today = datetime.date.today()
 	now = datetime.datetime.now()
@@ -71,6 +121,7 @@ def data_call():
 	today_plus_one = datetime.date.today() + datetime.timedelta(days=1)
 	today_plus_two = datetime.date.today() + datetime.timedelta(days=2)
 	today_plus_three = datetime.date.today() + datetime.timedelta(days=3)
+	astro_data()
 	if tide:
 		try:
 			global tide_data
@@ -671,6 +722,13 @@ def txt_output():
 			text_file.write("Sunrise: %s, Sunset: %s\n" %(weather_data['sunrise'],weather_data['sunset']))
 			text_file.write("Forecast High: %s Forecast Low: %s\n" %(weather_data['forecast_high'], weather_data['forecast_low']))
 			text_file.write("Wind (MPH): %s Wind Gust (MPH): %s Wind Direction: %s\n" %(weather_data['wind_mph'], weather_data['wind_gust'], weather_data['wind_direction']))
+			for o in d:
+				if str(d[o]['altitude']).startswith('-'):
+					text_file.write('%s is NOT visible\talt: %s \tazm: %s\n' %(d[o]['name'], d[o]['altitude'], d[o]['azimuth']))
+					text_file.write('Next Rising: %s\tPrevious Setting: %s\n' %(d[o]['rising'], d[o]['setting']))
+				else:
+					text_file.write('%s is VISIBLE\talt: %s\tazm: %s\n' %(d[o]['name'], d[o]['altitude'], d[o]['azimuth']))
+					text_file.write('Previous Rising: %s\tNext Setting: %s\n' %(d[o]['rising'], d[o]['setting']))
 			if tide:
 				text_file.write("Pressure Trend:\t\t\t %s\n" %(weather_data['pressure_trend']))
 				text_file.write("Previous Tide:\t\t\t %s %s %s %s\n" %(tide_data['tide_prior_time'], tide_data['tide_prior_level'], tide_data['tide_prior_type'], str(now - tide_data['tide_prior_time'])))
@@ -758,7 +816,7 @@ def dropbox_update():
 
 def pickle_data():
 	try:
-		total_pickle = [data0_global, data1_global, data2_global, data3_global, data4_global, data5_global, data6_global, data7_global, weather_data, tide_data]
+		total_pickle = [data0_global, data1_global, data2_global, data3_global, data4_global, data5_global, data6_global, data7_global, weather_data, tide_data, d]
 		location = '/home/pi/Power_Monitoring/'
 		pickle.dump(total_pickle, open(os.path.join(location, 'total_pickle.p'), 'wb'))
 		if verbose:
@@ -776,9 +834,9 @@ if(1):
 	if dropbox_upload:
 		scheduler.add_job(dropbox_update, 'interval', minutes=5)
 	try:
-		time.sleep(5)
 		daily_wunder_update()
 		hourly_wunder_update()
+		astro_data()
 		data_call()
 		dropbox_update()
 		pickle_data()
