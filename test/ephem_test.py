@@ -2,52 +2,62 @@
 
 import ephem
 
-dst_const = (ephem.hour * -4)
+verbose = True
+dst = True
 
 cutty = ephem.Observer()
 cutty.lat = '41.42'
 cutty.long = '-70.92'
 cutty.elevation = 20
 
-planets = 	[ephem.Sun(),
-			ephem.Moon(),
-			ephem.Mars(),
-			ephem.Jupiter(),
-			ephem.Saturn(),
-			ephem.Venus()]
+if dst:
+	dst_const = (ephem.hour * -4)
+else:
+	dst_const = (ephem.hour * -5)
 
-for planet in planets:
-	planet.compute(cutty)
-	if str(planet.alt).startswith('-'):
-		print('%s IS NOT VISIBLE' %planet.name)
-		print('%s: alt: %s azm: %s' %(planet.name, planet.alt, planet.az))
-		print('Next Rising: ', ephem.Date(cutty.next_rising(planet) + dst_const))
-		print('Next Transit: ', ephem.Date(cutty.next_transit(planet) + dst_const))
-		print('Next Setting: ', ephem.Date(cutty.next_setting(planet) + dst_const))
+planets = 	[ephem.Sun(),
+		ephem.Moon(),
+		ephem.Mars(),
+		ephem.Jupiter(),
+		ephem.Saturn(),
+		ephem.Venus()]
+
+for o in planets:
+	o.compute(cutty)
+	if str(o.alt).startswith('-'):
+		d[o.name] = {'name'	: o.name,
+			    'visible'	: False,
+			    'altitude'	: o.alt,
+			    'azimuth'	: o.az,
+			    'rising'	: ephem.Date(cutty.next_rising(o) + dst_const),
+			    'setting'	: ephem.Date(cutty.previous_setting(o) + dst_const)}
+		if verbose:
+			print('%s IS NOT VISIBLE' %d[o.name]['name'])
+			print('%s: alt: %s azm: %s' %(d[o.name]['name'], d[o.name]['altitude'], d[o.name]['azimuth']))
+			print('Next Rising: ', ephem.Date(cutty.next_rising(o) + dst_const))
+			print('Previous Setting: ', ephem.Date(cutty.previous_setting(o) + dst_const))
 	else:
-		print('%s IS VISIBLE' %planet.name)
-		print('%s: alt: %s azm: %s' %(planet.name, planet.alt, planet.az))
-		print('Previous Rising: ', ephem.Date(cutty.previous_rising(planet) + dst_const))
-		print('Next Transit: ', ephem.Date(cutty.next_transit(planet) + dst_const))
-		print('Next Setting: ', ephem.Date(cutty.next_setting(planet) + dst_const))
-		
-	
-astro_data  = 		{'sun_rise_pr'		: cutty.previous_rising(sol),
-					'sun_trans_pr'		: cutty.previous_transit(sol),
-					'sun_setting_pr'	: cutty.previous_setting(sol),
-					'sun_rise_nx'		: cutty.next_rising(sol),
-					'sun_trans_nx'		: cutty.next_transit(sol),
-					'sun_setting_nx'	: cutty.next_setting(sol),
-					'moon_rise_pr'		: cutty.previous_rising(moon),
-					'moon_trans_pr'		: cutty.previous_transit(moon),
-					'moon_setting_pr'	: cutty.previous_setting(moon),
-					'moon_rise_nx'		: cutty.next_rising(moon),
-					'moon_trans_nx'		: cutty.next_transit(moon),
-					'moon_setting_nx'	: cutty.next_setting(moon),
-					'mars_rise_pr'		: cutty.previous_rising(mars),
-					'mars_trans_pr'		: cutty.previous_transit(mars),
-					'mars_setting_pr'	: cutty.previous_setting(mars),
-					'mars_rise_nx'		: cutty.next_rising(mars),
-					'mars_trans_nx'		: cutty.next_transit(mars),
-					'mars_setting_nx'	: cutty.next_setting(mars),
-					
+		d[o.name] = {'name'	: o.name,
+			    'visible'	: True,
+			    'altitude'	: o.alt,
+			    'azimuth'	: o.az,
+			    'rising'	: ephem.Date(cutty.previous_rising(o) + dst_const),
+			    'setting'	: ephem.Date(cutty.next_setting(o) + dst_const)}
+		if verbose:
+			print('%s IS VISIBLE' %d[o.name]['name'])
+			print('%s: alt: %s azm: %s' %(d[o.name]['name'], d[o.name]['altitude'], d[o.name]['azimuth']))
+			print('Previous Rising: ', ephem.Date(cutty.previous_rising(o) + dst_const))
+			print('Next Setting: ', ephem.Date(cutty.next_setting(o) + dst_const))
+
+
+for o in d:
+	if str(d[o]['altitude']).startswith('-'):
+		print('%s IS NOT VISIBLE' %d[o]['name'])
+		print('%s: alt: %s azm: %s' %(d[o]['name'], d[o]['altitude'], d[o]['azimuth']))
+		print('Next Rising: %s || Previous Setting: %s' %(d[o]['rising'])
+		print('Previous Setting: %s' %d[o]['setting'])
+	else:
+		print('%s IS VISIBLE' %d[o]['name'])
+		print('%s: alt: %s azm: %s' %(d[o]['name'], d[o]['altitude'], d[o]['azimuth']))
+		print('Previous Rising: %s' %d[o]['rising'])
+		print('Next Setting: %s' %d[o]['setting'])
