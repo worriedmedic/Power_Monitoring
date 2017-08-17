@@ -4,6 +4,8 @@ import os, sys
 import pygame
 import time, datetime
 import cPickle as pickle
+import ephem
+import traceback
 from pygame.locals import *
 from standards import *
 from icon_def import *
@@ -49,21 +51,57 @@ class SmDisplay:
 		self.smtxth = 0.1
 		self.smrtxth = 0.065
 		self.tinytxth = 0.04
-		self.dateYPos = 1
-		self.dateYPosSm = 8
+		self.dateYPos = 3
+		self.dateYPosSm = 10
 	
 	def __del___(self):
 		'''DESTRUCTOR'''
 	
-	def pickle_update(self):
+	def pickle_data(self):
 		try:
 			location = '/home/pi/Power_Monitoring/pickle/'
 			self.data = pickle.load(open('total_pickle.p', "rb"))
 		except Exception:
 			print("ERROR: Pickle Update")
+			traceback.print_exc(file=sys.stdout)
+	
+	def astro_data(self):
+		try:
+			cutty = ephem.Observer()
+			cutty.lat = '41.42'
+			cutty.long = '-70.92'
+			cutty.elevation = 20
+			dst_const = (ephem.hour * -4)
+			self.d = {}
+			planets = 	[ephem.Sun(),
+					ephem.Moon(),
+					ephem.Mars(),
+					ephem.Jupiter(),
+					ephem.Saturn(),
+					ephem.Venus()]
+			for o in planets:
+				o.compute(cutty)
+				if str(o.alt).startswith('-'):
+					self.d[o.name] = {  'name'	: o.name,
+							    'visible'	: False,
+							    'altitude'	: o.alt,
+							    'azimuth'	: o.az,
+							    'rising'	: ephem.Date(cutty.next_rising(o) + dst_const),
+							    'setting'	: ephem.Date(cutty.previous_setting(o) + dst_const)}
+				else:
+					self.d[o.name] = {  'name'	: o.name,
+							    'visible'	: True,
+							    'altitude'	: o.alt,
+							    'azimuth'	: o.az,
+							    'rising'	: ephem.Date(cutty.previous_rising(o) + dst_const),
+							    'setting'	: ephem.Date(cutty.next_setting(o) + dst_const)}
+		except Exception:
+			print("ERROR: Ephem Update")
+			traceback.print_exc(file=sys.stdout)
 	
 	def wx_disp(self, data):
 		try:
+			self.pickle_data()
 			self.screen.fill(black)
 			xmin = 10
 			xmax = self.xmax
@@ -71,36 +109,27 @@ class SmDisplay:
 			fn = "freesans"
 			lines = 2
 			lc = (255,255,255)
-			
 			################################################################################
-			pygame.draw.line( self.screen, lc, (xmin,0),(xmax,0), lines ) #Top Line
-			pygame.draw.line( self.screen, lc, (xmin,0),(xmin,ymax), lines ) #Left Line
-			pygame.draw.line( self.screen, lc, (xmin,ymax),(xmax,ymax), lines ) #Bottom Line
-			pygame.draw.line( self.screen, lc, (xmax,0),(xmax,ymax), lines ) #Right Line
-			pygame.draw.line( self.screen, lc, (xmin,ymax*0.15),(xmax,ymax*0.15), lines ) #Horizontal Line Under Top
+			pygame.draw.line( self.screen, lc, (xmin,0),(xmax,0), lines) #Top Line
+			pygame.draw.line( self.screen, lc, (xmin,0),(xmin,ymax), lines) #Left Line
+			pygame.draw.line( self.screen, lc, (xmin,ymax),(xmax,ymax), lines) #Bottom Line
+			pygame.draw.line( self.screen, lc, (xmax,0),(xmax,ymax), lines) #Right Line
+			pygame.draw.line( self.screen, lc, (xmin,ymax*0.15),(xmax,ymax*0.15), lines) #Horizontal Line Under Top
 			
-			font = pygame.font.SysFont( fn, int(ymax*(self.txth)), bold=1 )
-			lfont = pygame.font.SysFont( fn, int(135), bold=1 )
-			sfont = pygame.font.SysFont( fn, int(ymax*(self.smtxth)), bold=1 )
-			smfont = pygame.font.SysFont(fn, int(ymax*(self.smrtxth)), bold=1)
+			font = pygame.font.SysFont(fn, int(ymax*(self.txth)), bold=1 )
+			tidefont = pygame.font.SysFont(fn, int(75), bold=1)
+			lfont = pygame.font.SysFont(fn, int(135), bold=1)
+			sfont = pygame.font.SysFont(fn, int(40), bold=1)
+			smfont = pygame.font.SysFont(fn, int(25), bold=False)
 			tinyfont = pygame.font.SysFont(fn, int(16), bold=1)
 			
-			tm1 = time.strftime("%a, %b %d %H:%M:%S", time.localtime() )
-			
+			tm1 = time.strftime("%a, %b %d %H:%M:%S", time.localtime())
 			rtm1 = font.render(tm1, True, lc)
+			self.screen.blit(rtm1, (30,self.dateYPos))
 			
-			self.screen.blit(rtm1, (15,self.dateYPos))
-			
-			weather_data = {'sunrise'	: self.data[8]['sunrise'],
-					'sunset'	: self.data[8]['sunset']}
-			
-			sunrise = smfont.render(weather_data['sunrise'], True, lc)
-			(srx1, sry1) = sunrise.get_size()
-			sunset = smfont.render(weather_data['sunset'], True, lc)
-			(ssx1, ssy1) = sunset.get_size()
-			
-			self.screen.blit(sunrise, (428,2))
-			self.screen.blit(sunset, (417,20))
+			icon_cutty = pygame.image.load(os.path.join('/home/pi/Power_Monitoring/resources/', 'Cuttyhunk-Logo.png'))
+			icon_cutty2 = pygame.transform.scale(icon_cutty, (62, 38))
+			self.screen.blit(icon_cutty2, (395, 5))
 			################################################################################
 			pygame.draw.line(self.screen, lc, (310,ymax*0.15),(310,ymax*0.6), lines) #Vertical Line @x:310
 			pygame.draw.line(self.screen, lc, (xmin,ymax*0.6),(xmax,ymax*0.6), lines)
@@ -170,15 +199,16 @@ class SmDisplay:
 			self.screen.blit(rrssi, (400,118+50))
 			rrssi_label = tinyfont.render('RSSI:', True, lc)
 			self.screen.blit(rrssi_label, (317,118+50))
-			
 			################################################################################
 			pygame.display.update()
 			################################################################################
 		except Exception:
 			print('ERROR: WX DISPLAY')
+			traceback.print_exc(file=sys.stdout)
 	
 	def tide_disp(self):
 		try:
+			self.pickle_data()
 			self.screen.fill(black)
 			xmin = 10
 			xmax = self.xmax
@@ -186,37 +216,27 @@ class SmDisplay:
 			fn = "freesans"
 			lines = 2
 			lc = (255,255,255)
-			
 			################################################################################
-			pygame.draw.line( self.screen, lc, (xmin,0),(xmax,0), lines ) #Top Line
-			pygame.draw.line( self.screen, lc, (xmin,0),(xmin,ymax), lines ) #Left Line
-			pygame.draw.line( self.screen, lc, (xmin,ymax),(xmax,ymax), lines ) #Bottom Line
-			pygame.draw.line( self.screen, lc, (xmax,0),(xmax,ymax), lines ) #Right Line
-			pygame.draw.line( self.screen, lc, (xmin,ymax*0.15),(xmax,ymax*0.15), lines ) #Horizontal Line Under Top
+			pygame.draw.line( self.screen, lc, (xmin,0),(xmax,0), lines) #Top Line
+			pygame.draw.line( self.screen, lc, (xmin,0),(xmin,ymax), lines) #Left Line
+			pygame.draw.line( self.screen, lc, (xmin,ymax),(xmax,ymax), lines) #Bottom Line
+			pygame.draw.line( self.screen, lc, (xmax,0),(xmax,ymax), lines) #Right Line
+			pygame.draw.line( self.screen, lc, (xmin,ymax*0.15),(xmax,ymax*0.15), lines) #Horizontal Line Under Top
 			
 			font = pygame.font.SysFont(fn, int(ymax*(self.txth)), bold=1 )
-			tidefont = pygame.font.SysFont(fn, int(75), bold=1 )
-			lfont = pygame.font.SysFont(fn, int(135), bold=1 )
-			sfont = pygame.font.SysFont(fn, int(40), bold=1 )
-			smfont = pygame.font.SysFont(fn, int(ymax*(self.smrtxth)), bold=1)
+			tidefont = pygame.font.SysFont(fn, int(75), bold=1)
+			lfont = pygame.font.SysFont(fn, int(135), bold=1)
+			sfont = pygame.font.SysFont(fn, int(40), bold=1)
+			smfont = pygame.font.SysFont(fn, int(25), bold=False)
 			tinyfont = pygame.font.SysFont(fn, int(16), bold=1)
 			
-			tm1 = time.strftime("%a, %b %d %H:%M:%S", time.localtime() )
-			
+			tm1 = time.strftime("%a, %b %d %H:%M:%S", time.localtime())
 			rtm1 = font.render(tm1, True, lc)
+			self.screen.blit(rtm1, (30,self.dateYPos))
 			
-			self.screen.blit(rtm1, (15,self.dateYPos))
-			
-			weather_data = {'sunrise'	: self.data[8]['sunrise'],
-					'sunset'	: self.data[8]['sunset']}
-			
-			sunrise = smfont.render(weather_data['sunrise'], True, lc)
-			(srx1, sry1) = sunrise.get_size()
-			sunset = smfont.render(weather_data['sunset'], True, lc)
-			(ssx1, ssy1) = sunset.get_size()
-			
-			self.screen.blit(sunrise, (428,2))
-			self.screen.blit(sunset, (417,20))
+			icon_cutty = pygame.image.load(os.path.join('/home/pi/Power_Monitoring/resources/', 'Cuttyhunk-Logo.png'))
+			icon_cutty2 = pygame.transform.scale(icon_cutty, (62, 38))
+			self.screen.blit(icon_cutty2, (395, 5))
 			################################################################################
 			tide_title = tidefont.render('Tides', True, lc)
 			self.screen.blit(tide_title, (20, 50))
@@ -268,36 +288,223 @@ class SmDisplay:
 			################################################################################
 		except Exception:
 			print("ERROR: TIDE DISPLAY")
+			traceback.print_exc(file=sys.stdout)
+	
+	def astro_disp(self):
+		try:
+			self.astro_data()
+			self.screen.fill(black)
+			xmin = 10
+			xmax = self.xmax
+			ymax = self.ymax
+			fn = "freesans"
+			lines = 2
+			lc = (255,255,255)
+			################################################################################
+			pygame.draw.line( self.screen, lc, (xmin,0),(xmax,0), lines) #Top Line
+			pygame.draw.line( self.screen, lc, (xmin,0),(xmin,ymax), lines) #Left Line
+			pygame.draw.line( self.screen, lc, (xmin,ymax),(xmax,ymax), lines) #Bottom Line
+			pygame.draw.line( self.screen, lc, (xmax,0),(xmax,ymax), lines) #Right Line
+			pygame.draw.line( self.screen, lc, (xmin,ymax*0.15),(xmax,ymax*0.15), lines) #Horizontal Line Under Top
+			
+			font = pygame.font.SysFont(fn, int(ymax*(self.txth)), bold=1 )
+			tidefont = pygame.font.SysFont(fn, int(75), bold=1)
+			lfont = pygame.font.SysFont(fn, int(135), bold=1)
+			sfont = pygame.font.SysFont(fn, int(32), bold=1)
+			snbfont = pygame.font.SysFont(fn, int(30), bold=False)
+			smfont = pygame.font.SysFont(fn, int(19), bold=False)
+			tinyfont = pygame.font.SysFont(fn, int(18), bold=1)
+			
+			tm1 = time.strftime("%a, %b %d %H:%M:%S", time.localtime())
+			rtm1 = font.render(tm1, True, lc)
+			self.screen.blit(rtm1, (30,self.dateYPos))
+			
+			icon_cutty = pygame.image.load(os.path.join('/home/pi/Power_Monitoring/resources/', 'Cuttyhunk-Logo.png'))
+			icon_cutty2 = pygame.transform.scale(icon_cutty, (62, 38))
+			self.screen.blit(icon_cutty2, (395, 5))
+			################################################################################
+			pygame.draw.line(self.screen, lc, (xmax*.5,ymax*.15),(xmax*.5,ymax), lines)
+			
+			sunname = self.d['Sun']['name']
+			rsunname = font.render(sunname, True, lc)
+			self.screen.blit(rsunname, (15, 47))
+			
+			alt = 'At:'
+			ralt = tinyfont.render(alt, True, lc)
+			self.screen.blit(ralt, (15, 82))
+			sunalt = str(self.d['Sun']['altitude'])[:8]
+			rsunalt = tinyfont.render(sunalt, True, lc)
+			self.screen.blit(rsunalt, (40, 82))
+			
+			azm = 'Az:'
+			razm = tinyfont.render(azm, True, lc)
+			self.screen.blit(razm, (124, 82))
+			sunazm = str(self.d['Sun']['azimuth'])[:9]
+			rsunazm = tinyfont.render(sunazm, True, lc)
+			self.screen.blit(rsunazm, (152, 82))
+			
+			pygame.draw.line(self.screen, lc, (xmin,213),(xmax*.5,213), lines)
+			
+			if self.d['Sun']['visible']:
+				sunvis = '+'
+				rsunvis = font.render(sunvis, True, lc)
+				self.screen.blit(rsunvis, (210,40))
+				
+				sunrise = 'Rise:'
+				rsunrise = smfont.render(sunrise, True, lc)
+				self.screen.blit(rsunrise, (55, 90+17))
+				
+				sunrisetm = self.d['Sun']['rising'].datetime().strftime("%H:%M:%S")
+				rsunrisetm = sfont.render(sunrisetm, True, lc)
+				self.screen.blit(rsunrisetm, (107, 80+17))
+				
+				tmsunrise = str(datetime.datetime.now() - self.d['Sun']['rising'].datetime())[:8]
+				rtmsunrise = snbfont.render(tmsunrise, True, lc)
+				self.screen.blit(rtmsunrise, (107,108+17))
+				
+				sunset = 'Set:'
+				rsunset = smfont.render(sunset, True, lc)
+				self.screen.blit(rsunset, (55, 145+17))
+				
+				sunsettm = self.d['Sun']['setting'].datetime().strftime("%H:%M:%S")
+				rsunsettm = sfont.render(sunsettm, True, lc)
+				self.screen.blit(rsunsettm, (107, 135+17))
+				
+				tmsunset = str(self.d['Sun']['setting'].datetime() - datetime.datetime.now())[:8]
+				rtmsunset = snbfont.render(tmsunset, True, lc)
+				self.screen.blit(rtmsunset, (107, 163+17))
+			else:
+				sunvis = '-'
+				rsunvis = font.render(sunvis, True, lc)
+				self.screen.blit(rsunvis, (210,40))
+				
+				sunrise = 'Rise:'
+				rsunrise = smfont.render(sunrise, True, lc)
+				self.screen.blit(rsunrise, (55, 90+17))
+				
+				sunrisetm = self.d['Sun']['rising'].datetime().strftime("%H:%M:%S")
+				rsunrisetm = sfont.render(sunrisetm, True, lc)
+				self.screen.blit(rsunrisetm, (107, 80+17))
+				
+				tmsunrise = str(self.d['Sun']['rising'].datetime() - datetime.datetime.now())[:8]
+				rtmsunrise = snbfont.render(tmsunrise, True, lc)
+				self.screen.blit(rtmsunrise, (107,108+17))
+				
+				sunset = 'Set:'
+				rsunset = smfont.render(sunset, True, lc)
+				self.screen.blit(rsunset, (55, 145+17))
+				
+				sunsettm = self.d['Sun']['setting'].datetime().strftime("%H:%M:%S")
+				rsunsettm = sfont.render(sunsettm, True, lc)
+				self.screen.blit(rsunsettm, (107, 135+17))
+				
+				tmsunset = str(datetime.datetime.now() - self.d['Sun']['setting'].datetime())[:8]
+				rtmsunset = snbfont.render(tmsunset, True, lc)
+				self.screen.blit(rtmsunset, (107, 163+17))
+			################################################################################
+			moonname = self.d['Moon']['name']
+			rmoonname = tinyfont.render(moonname, True, lc)
+			self.screen.blit(rmoonname, (15, 215))
+			
+			malt = 'At:'
+			rmalt = tinyfont.render(malt, True, lc)
+			self.screen.blit(rmalt, (15, 235))
+			moonalt = str(self.d['Moon']['altitude'])[:8]
+			rmoonalt = tinyfont.render(moonalt, True, lc)
+			self.screen.blit(rmoonalt, (40, 235))
+			
+			mazm = 'Az:'
+			rmazm = tinyfont.render(mazm, True, lc)
+			self.screen.blit(rmazm, (124, 235))
+			moonazm = str(self.d['Sun']['azimuth'])[:9]
+			rmoonazm = tinyfont.render(moonazm, True, lc)
+			self.screen.blit(rmoonazm, (152, 235))
+			if self.d['Moon']['visible']:
+				moonvis = '+'
+				rmoonvis = tinyfont.render(moonvis, True, lc)
+				self.screen.blit(rsunvis, (210,215))
+				
+				moonrise = 'Rise:'
+				rmoonrise = tinyfont.render(moonrise, True, lc)
+				self.screen.blit(rmoonrise, (55, 255))
+				
+				moonrisetm = self.d['Moon']['rising'].datetime().strftime("%H:%M:%S")
+				rmoonrisetm = tinyfont.render(moonrisetm, True, lc)
+				self.screen.blit(rmoonrisetm, (107, 255))
+				
+				tmmoonrise = str(datetime.datetime.now() - self.d['Moon']['rising'].datetime())[:8]
+				rtmmoonrise = tinyfont.render(tmmoonrise, True, lc)
+				self.screen.blit(rtmmoonrise, (107,275))
+				
+				moonset = 'Set:'
+				rmoonset = tinyfont.render(moonset, True, lc)
+				self.screen.blit(rmoonset, (55, 295))
+				
+				sunsettm = self.d['Sun']['setting'].datetime().strftime("%H:%M:%S")
+				rsunsettm = tinyfont.render(sunsettm, True, lc)
+				self.screen.blit(rsunsettm, (107, 295))
+				
+				tmsunset = str(self.d['Sun']['setting'].datetime() - datetime.datetime.now())[:8]
+				rtmsunset = tinyfont.render(tmsunset, True, lc)
+				self.screen.blit(rtmsunset, (107, 315))'''
+			else:
+				sunvis = '-'
+				rsunvis = font.render(sunvis, True, lc)
+				self.screen.blit(rsunvis, (210,40))
+				
+				sunrise = 'Rise:'
+				rsunrise = smfont.render(sunrise, True, lc)
+				self.screen.blit(rsunrise, (55, 90+17))
+				
+				sunrisetm = self.d['Sun']['rising'].datetime().strftime("%H:%M:%S")
+				rsunrisetm = sfont.render(sunrisetm, True, lc)
+				self.screen.blit(rsunrisetm, (107, 80+17))
+				
+				tmsunrise = str(self.d['Sun']['rising'].datetime() - datetime.datetime.now())[:8]
+				rtmsunrise = snbfont.render(tmsunrise, True, lc)
+				self.screen.blit(rtmsunrise, (107,108+17))
+				
+				sunset = 'Set:'
+				rsunset = smfont.render(sunset, True, lc)
+				self.screen.blit(rsunset, (55, 145+17))
+				
+				sunsettm = self.d['Sun']['setting'].datetime().strftime("%H:%M:%S")
+				rsunsettm = sfont.render(sunsettm, True, lc)
+				self.screen.blit(rsunsettm, (107, 135+17))
+				
+				tmsunset = str(datetime.datetime.now() - self.d['Sun']['setting'].datetime())[:8]
+				rtmsunset = snbfont.render(tmsunset, True, lc)
+				self.screen.blit(rtmsunset, (107, 163+17))'''
+			################################################################################
+			pygame.display.update()
+			################################################################################
+		except Exception:
+			print("ERROR: ASTRO DISPLAY")
+			traceback.print_exc(file=sys.stdout)
 
 if (1):
-	d = SmDisplay()
-	d.pickle_update()
-	d.tide_disp()
+	disp = SmDisplay()
+	disp.astro_disp()
 	running = True
 	disp0, disp1, disp2, disp3, disp4 = 0, 0, 0, 0, 0
 	while running:
 		while disp0 < 15:
-			d.pickle_update()
 			d.wx_disp(0)
 			disp0 +=1
 			pygame.time.wait(1000)
 		while disp1 < 15:
-			d.pickle_update()
 			d.wx_disp(1)
 			disp1 +=1
 			pygame.time.wait(1000)
 		while disp2 < 15:
-			d.pickle_update()
 			d.wx_disp(2)
 			disp2 +=1
 			pygame.time.wait(1000)
 		while disp3 < 15:
-			d.pickle_update()
 			d.wx_disp(3)
 			disp3 +=1
 			pygame.time.wait(1000)
 		while disp4 < 15:
-			d.pickle_update()
 			d.tide_disp()
 			disp4 += 1
 			pygame.time.wait(1000)
