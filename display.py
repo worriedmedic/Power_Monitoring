@@ -36,7 +36,7 @@ class SmDisplay:
 		self.screen = pygame.display.set_mode(size, pygame.FULLSCREEN)
 		self.screen.fill(black)
 		pygame.font.init()
-		#pygame.mouse.set_visible(0)
+		pygame.mouse.set_visible(0)
 		pygame.display.update()
 		
 		self.icon = [ 0, 0, 0, 0 ]
