@@ -36,7 +36,7 @@ class SmDisplay:
 		self.screen = pygame.display.set_mode(size, pygame.FULLSCREEN)
 		self.screen.fill(black)
 		pygame.font.init()
-		pygame.mouse.set_visible(0)
+		#pygame.mouse.set_visible(0)
 		pygame.display.update()
 		
 		self.icon = [ 0, 0, 0, 0 ]
@@ -55,7 +55,7 @@ class SmDisplay:
 		self.dateYPosSm = 10
 	
 	def __del___(self):
-		'''DESTRUCTOR'''
+		exit(0)
 	
 	def pickle_data(self):
 		try:
@@ -290,7 +290,7 @@ class SmDisplay:
 			print("ERROR: TIDE DISPLAY")
 			traceback.print_exc(file=sys.stdout)
 	
-	def astro_disp(self):
+	def astro_disp(self, data):
 		try:
 			self.astro_data()
 			self.screen.fill(black)
@@ -308,11 +308,12 @@ class SmDisplay:
 			pygame.draw.line( self.screen, lc, (xmin,ymax*0.15),(xmax,ymax*0.15), lines) #Horizontal Line Under Top
 			
 			font = pygame.font.SysFont(fn, int(ymax*(self.txth)), bold=1 )
-			tidefont = pygame.font.SysFont(fn, int(75), bold=1)
-			lfont = pygame.font.SysFont(fn, int(135), bold=1)
-			sfont = pygame.font.SysFont(fn, int(32), bold=1)
+			tidefont = pygame.font.SysFont(fn, int(68), bold=1)
+			lfont = pygame.font.SysFont(fn, int(62), bold=1)
+			sfont = pygame.font.SysFont(fn, int(48), bold=1)
 			snbfont = pygame.font.SysFont(fn, int(30), bold=False)
-			smfont = pygame.font.SysFont(fn, int(19), bold=False)
+			snbfont1 = pygame.font.SysFont(fn, int(36), bold=False)
+			smfont = pygame.font.SysFont(fn, int(26), bold=False)
 			tinyfont = pygame.font.SysFont(fn, int(18), bold=1)
 			
 			tm1 = time.strftime("%a, %b %d %H:%M:%S", time.localtime())
@@ -323,271 +324,73 @@ class SmDisplay:
 			icon_cutty2 = pygame.transform.scale(icon_cutty, (62, 38))
 			self.screen.blit(icon_cutty2, (395, 5))
 			################################################################################
-			pygame.draw.line(self.screen, lc, (xmax*.5,ymax*.15),(xmax*.5,ymax), lines)
+			sunname = self.d[data]['name']
+			rsunname = tidefont.render(sunname, True, lc)
+			self.screen.blit(rsunname, (15, 45))
 			
-			sunname = self.d['Sun']['name']
-			rsunname = font.render(sunname, True, lc)
-			self.screen.blit(rsunname, (15, 47))
+			azmlabel = 'Azi:'
+			azm = str(self.d[data]['azimuth'])[:9]
+			razm = snbfont.render(azmlabel + azm, True, lc)
+			self.screen.blit(razm, (270, 80))
 			
-			alt = 'At:'
-			ralt = tinyfont.render(alt, True, lc)
-			self.screen.blit(ralt, (15, 82))
-			sunalt = str(self.d['Sun']['altitude'])[:9]
-			rsunalt = tinyfont.render(sunalt, True, lc)
-			self.screen.blit(rsunalt, (40, 82))
-			
-			azm = 'Az:'
-			razm = tinyfont.render(azm, True, lc)
-			self.screen.blit(razm, (124, 82))
-			sunazm = str(self.d['Sun']['azimuth'])[:9]
-			rsunazm = tinyfont.render(sunazm, True, lc)
-			self.screen.blit(rsunazm, (152, 82))
-			
-			pygame.draw.line(self.screen, lc, (xmin,213),(xmax*.5,213), lines)
-			
-			if self.d['Sun']['visible']:
-				sunvis = '+'
-				rsunvis = font.render(sunvis, True, lc)
-				self.screen.blit(rsunvis, (210,40))
+			if self.d[data]['visible']:
+				altlabel = 'Alt: '
+				alt = str(self.d[data]['altitude'])[:8]
+				ralt = snbfont.render(altlabel + alt, True, lc)
+				self.screen.blit(ralt, (270, 50))
 				
-				sunrise = 'Rise:'
-				rsunrise = smfont.render(sunrise, True, lc)
-				self.screen.blit(rsunrise, (55, 90+17))
+				rise = 'Rise:'
+				rrise = smfont.render(rise, True, lc)
+				self.screen.blit(rrise, (25, 133))
 				
-				sunrisetm = self.d['Sun']['rising'].datetime().strftime("%H:%M:%S")
-				rsunrisetm = sfont.render(sunrisetm, True, lc)
-				self.screen.blit(rsunrisetm, (107, 80+17))
+				risetm = self.d[data]['rising'].datetime().strftime("%H:%M:%S")
+				rrisetm = sfont.render(risetm, True, lc)
+				self.screen.blit(rrisetm, (100, 115))
 				
-				tmsunrise = str(datetime.datetime.now() - self.d['Sun']['rising'].datetime())[:8]
-				rtmsunrise = snbfont.render(tmsunrise, True, lc)
-				self.screen.blit(rtmsunrise, (107,108+17))
+				tmrise = str(datetime.datetime.now() - self.d[data]['rising'].datetime())[:8]
+				rtmrise = snbfont1.render(tmrise, True, lc)
+				self.screen.blit(rtmrise, (100,160))
 				
-				sunset = 'Set:'
-				rsunset = smfont.render(sunset, True, lc)
-				self.screen.blit(rsunset, (55, 145+17))
+				setlabel = 'Set:'
+				rset = smfont.render(setlabel, True, lc)
+				self.screen.blit(rset, (25, 228))
 				
-				sunsettm = self.d['Sun']['setting'].datetime().strftime("%H:%M:%S")
-				rsunsettm = sfont.render(sunsettm, True, lc)
-				self.screen.blit(rsunsettm, (107, 135+17))
+				settm = self.d[data]['setting'].datetime().strftime("%H:%M:%S")
+				rsettm = sfont.render(settm, True, lc)
+				self.screen.blit(rsettm, (100, 210))
 				
-				tmsunset = str(self.d['Sun']['setting'].datetime() - datetime.datetime.now())[:8]
-				rtmsunset = snbfont.render(tmsunset, True, lc)
-				self.screen.blit(rtmsunset, (107, 163+17))
+				tmset = str(self.d[data]['setting'].datetime() - datetime.datetime.now())[:8]
+				rtmset = snbfont1.render(tmset, True, lc)
+				self.screen.blit(rtmset, (100, 160+95))
 			else:
-				sunvis = '-'
-				rsunvis = font.render(sunvis, True, lc)
-				self.screen.blit(rsunvis, (210,40))
+				altlabel = 'Alt: '
+				alt = str(self.d[data]['altitude'])[:9]
+				ralt = snbfont.render(altlabel + alt, True, lc)
+				self.screen.blit(ralt, (270, 50))
 				
-				sunrise = 'Rise:'
-				rsunrise = smfont.render(sunrise, True, lc)
-				self.screen.blit(rsunrise, (55, 90+17))
+				setlabel = 'Set:'
+				rset = smfont.render(setlabel, True, lc)
+				self.screen.blit(rset, (25, 133))
 				
-				sunrisetm = self.d['Sun']['rising'].datetime().strftime("%H:%M:%S")
-				rsunrisetm = sfont.render(sunrisetm, True, lc)
-				self.screen.blit(rsunrisetm, (107, 80+17))
+				settm = self.d[data]['setting'].datetime().strftime("%H:%M:%S")
+				rsettm = sfont.render(settm, True, lc)
+				self.screen.blit(rsettm, (100, 115))
 				
-				tmsunrise = str(self.d['Sun']['rising'].datetime() - datetime.datetime.now())[:9]
-				rtmsunrise = snbfont.render(tmsunrise, True, lc)
-				self.screen.blit(rtmsunrise, (107,108+17))
+				tmset = str(datetime.datetime.now() - self.d[data]['setting'].datetime())[:8]
+				rtmset = snbfont1.render(tmset, True, lc)
+				self.screen.blit(rtmset, (100, 160))
 				
-				sunset = 'Set:'
-				rsunset = smfont.render(sunset, True, lc)
-				self.screen.blit(rsunset, (55, 145+17))
+				rise = 'Rise:'
+				rrise = smfont.render(rise, True, lc)
+				self.screen.blit(rrise, (25, 228))
 				
-				sunsettm = self.d['Sun']['setting'].datetime().strftime("%H:%M:%S")
-				rsunsettm = sfont.render(sunsettm, True, lc)
-				self.screen.blit(rsunsettm, (107, 135+17))
+				risetm = self.d[data]['rising'].datetime().strftime("%H:%M:%S")
+				rrisetm = sfont.render(risetm, True, lc)
+				self.screen.blit(rrisetm, (100, 210))
 				
-				tmsunset = str(datetime.datetime.now() - self.d['Sun']['setting'].datetime())[:8]
-				rtmsunset = snbfont.render(tmsunset, True, lc)
-				self.screen.blit(rtmsunset, (107, 163+17))
-			################################################################################
-			moonname = self.d['Moon']['name']
-			rmoonname = font.render(moonname, True, lc)
-			self.screen.blit(rmoonname, (15, 215))
-			
-			malt = 'At:'
-			moonalt = str(self.d['Moon']['altitude'])[:9]
-			rmalt = tinyfont.render(malt + ' ' + moonalt, True, lc)
-			self.screen.blit(rmalt, (15, 250))
-			
-			mazm = 'Az:'
-			moonazm = str(self.d['Moon']['azimuth'])[:9]
-			rmazm = tinyfont.render(mazm + ' ' + moonazm, True, lc)
-			self.screen.blit(rmazm, (124, 250))
-			if self.d['Moon']['visible']:
-				moonvis = '+'
-				rmoonvis = font.render(moonvis, True, lc)
-				self.screen.blit(rmoonvis, (210,215))
-				
-				moonrise = 'Rise:'
-				moonrisetm = self.d['Moon']['rising'].datetime().strftime("%H:%M:%S")
-				tmmoonrise = str(datetime.datetime.now() - self.d['Moon']['rising'].datetime())[:8]
-				rmoonrise = tinyfont.render(moonrise + ' ' + moonrisetm + ' ' + tmmoonrise, True, lc)
-				self.screen.blit(rmoonrise, (15, 270))
-				
-				moonset = 'Set:'
-				tmmoonset = str(self.d['Moon']['setting'].datetime() - datetime.datetime.now())[:8]
-				moonsettm = self.d['Moon']['setting'].datetime().strftime("%H:%M:%S")
-				rmoonset = tinyfont.render(moonset + '   ' + moonsettm + ' ' + tmmoonset, True, lc)
-				self.screen.blit(rmoonset, (15, 290))
-			else:
-				moonvis = '-'
-				rmoonvis = font.render(moonvis, True, lc)
-				self.screen.blit(rmoonvis, (210,215))
-				
-				moonrise = 'Rise:'
-				moonrisetm = self.d['Moon']['rising'].datetime().strftime("%H:%M:%S")
-				tmmoonrise = str(self.d['Moon']['rising'].datetime() - datetime.datetime.now())[:9]
-				rmoonrise = tinyfont.render(moonrise + ' ' + moonrisetm + ' ' + tmmoonrise, True, lc)
-				self.screen.blit(rmoonrise, (15, 270))
-				
-				moonset = 'Set:'
-				moonsettm = self.d['Moon']['setting'].datetime().strftime("%H:%M:%S")
-				tmmoonset = str(datetime.datetime.now() - self.d['Moon']['setting'].datetime())[:8]
-				rmoonset = tinyfont.render(moonset + '   ' + moonsettm + ' ' + tmmoonset, True, lc)
-				self.screen.blit(rmoonset, (15, 290))
-			################################################################################
-			pygame.draw.line(self.screen, lc, (xmax*.5,(ymax*.15)+89),(xmax,(ymax*.15)+89), lines)
-			pygame.draw.line(self.screen, lc, (xmax*.5,(ymax*.15)+(89*2)),(xmax,(ymax*.15)+(89*2)), lines)
-			################################################################################
-			marsname = self.d['Mars']['name']
-			rmarsname = tinyfont.render(marsname, True, lc)
-			self.screen.blit(rmarsname, (240, 45+10))
-			
-			mralt = 'At:'
-			marsalt = str(self.d['Mars']['altitude'])[:9]
-			rmralt = tinyfont.render(mralt + ' ' + marsalt, True, lc)
-			self.screen.blit(rmralt, (240, 65+10))
-			
-			mrazm = 'Az:'
-			marsazm = str(self.d['Mars']['azimuth'])[:9]
-			rmrazm = tinyfont.render(mrazm + ' ' + marsazm, True, lc)
-			self.screen.blit(rmrazm, (350, 65+10))
-			if self.d['Mars']['visible']:
-				marsvis = '+'
-				rmarsvis = tinyfont.render(marsvis, True, lc)
-				self.screen.blit(rmarsvis, (440,45+10))
-				
-				marsrise = 'Rise:'
-				marsrisetm = self.d['Mars']['rising'].datetime().strftime("%H:%M:%S")
-				tmmarsrise = str(datetime.datetime.now() - self.d['Mars']['rising'].datetime())[:8]
-				rmarsrise = tinyfont.render(marsrise + ' ' + marsrisetm + ' ' + tmmarsrise, True, lc)
-				self.screen.blit(rmarsrise, (240, 85+10))
-				
-				marsset = 'Set:'
-				tmmarsset = str(self.d['Mars']['setting'].datetime() - datetime.datetime.now())[:8]
-				marssettm = self.d['Mars']['setting'].datetime().strftime("%H:%M:%S")
-				rmarsset = tinyfont.render(marsset + '   ' + marssettm + ' ' + tmmarsset, True, lc)
-				self.screen.blit(rmarsset, (240, 105+10))
-			else:
-				marsvis = '-'
-				rmarsvis = tinyfont.render(marsvis, True, lc)
-				self.screen.blit(rmarsvis, (440,45+10))
-				
-				marsrise = 'Rise:'
-				marsrisetm = self.d['Mars']['rising'].datetime().strftime("%H:%M:%S")
-				tmmarsrise = str(self.d['Mars']['rising'].datetime() - datetime.datetime.now())[:9]
-				rmarsrise = tinyfont.render(marsrise + ' ' + marsrisetm + ' ' + tmmarsrise, True, lc)
-				self.screen.blit(rmarsrise, (240, 85+10))
-				
-				marsset = 'Set:'
-				marssettm = self.d['Mars']['setting'].datetime().strftime("%H:%M:%S")
-				tmmarsset = str(datetime.datetime.now() - self.d['Mars']['setting'].datetime())[:8]
-				rmarsset = tinyfont.render(marsset + '   ' + marssettm + ' ' + tmmarsset, True, lc)
-				self.screen.blit(rmarsset, (240, 105+10))
-			################################################################################
-			jname = self.d['Jupiter']['name']
-			rjname = tinyfont.render(jname, True, lc)
-			self.screen.blit(rjname, (240, 45+10+89))
-			
-			jalt = 'At:'
-			jualt = str(self.d['Jupiter']['altitude'])[:9]
-			rjalt = tinyfont.render(jalt + ' ' + jualt, True, lc)
-			self.screen.blit(rjalt, (240, 65+10+89))
-			
-			jazm = 'Az:'
-			juazm = str(self.d['Jupiter']['azimuth'])[:9]
-			rjazm = tinyfont.render(jazm + ' ' + juazm, True, lc)
-			self.screen.blit(rjazm, (350, 65+10+89))
-			if self.d['Jupiter']['visible']:
-				jvis = '+'
-				rjvis = tinyfont.render(jvis, True, lc)
-				self.screen.blit(rjvis, (440,45+10+89))
-				
-				jrise = 'Rise:'
-				jrisetm = self.d['Jupiter']['rising'].datetime().strftime("%H:%M:%S")
-				tmjrise = str(datetime.datetime.now() - self.d['Jupiter']['rising'].datetime())[:8]
-				rjrise = tinyfont.render(jrise + ' ' + jrisetm + ' ' + tmjrise, True, lc)
-				self.screen.blit(rjrise, (240, 85+10+89))
-				
-				jset = 'Set:'
-				tmjset = str(self.d['Jupiter']['setting'].datetime() - datetime.datetime.now())[:8]
-				jsettm = self.d['Jupiter']['setting'].datetime().strftime("%H:%M:%S")
-				rjset = tinyfont.render(jset + '   ' + jsettm + ' ' + tmjset, True, lc)
-				self.screen.blit(rjset, (240, 105+10+89))
-			else:
-				jvis = '-'
-				rjvis = tinyfont.render(jvis, True, lc)
-				self.screen.blit(rjvis, (440,45+10+89))
-				
-				jrise = 'Rise:'
-				jrisetm = self.d['Jupiter']['rising'].datetime().strftime("%H:%M:%S")
-				tmjrise = str(self.d['Jupiter']['rising'].datetime() - datetime.datetime.now())[:9]
-				rjrise = tinyfont.render(jrise + ' ' + jrisetm + ' ' + tmjrise, True, lc)
-				self.screen.blit(rjrise, (240, 85+10+89))
-				
-				jset = 'Set:'
-				jsettm = self.d['Jupiter']['setting'].datetime().strftime("%H:%M:%S")
-				tmjset = str(datetime.datetime.now() - self.d['Jupiter']['setting'].datetime())[:8]
-				rjset = tinyfont.render(jset + '   ' + jsettm + ' ' + tmjset, True, lc)
-				self.screen.blit(rjset, (240, 105+10+89))
-			################################################################################
-			sname = self.d['Saturn']['name']
-			rsname = tinyfont.render(sname, True, lc)
-			self.screen.blit(rsname, (240, 45+10+89+89))
-			
-			salt = 'At:'
-			saalt = str(self.d['Saturn']['altitude'])[:9]
-			rsalt = tinyfont.render(salt + ' ' + saalt, True, lc)
-			self.screen.blit(rsalt, (240, 65+10+89+89))
-			
-			sazm = 'Az:'
-			saazm = str(self.d['Saturn']['azimuth'])[:9]
-			rsazm = tinyfont.render(sazm + ' ' + saazm, True, lc)
-			self.screen.blit(rsazm, (350, 65+10+89+89))
-			if self.d['Saturn']['visible']:
-				svis = '+'
-				rsvis = tinyfont.render(svis, True, lc)
-				self.screen.blit(rsvis, (440,45+10+89+89))
-				
-				srise = 'Rise:'
-				srisetm = self.d['Saturn']['rising'].datetime().strftime("%H:%M:%S")
-				tmsrise = str(datetime.datetime.now() - self.d['Saturn']['rising'].datetime())[:8]
-				rsrise = tinyfont.render(srise + ' ' + srisetm + ' ' + tmsrise, True, lc)
-				self.screen.blit(rsrise, (240, 85+10+89+89))
-				
-				sset = 'Set:'
-				tmsset = str(self.d['Saturn']['setting'].datetime() - datetime.datetime.now())[:8]
-				ssettm = self.d['Saturn']['setting'].datetime().strftime("%H:%M:%S")
-				rsset = tinyfont.render(sset + '   ' + ssettm + ' ' + tmsset, True, lc)
-				self.screen.blit(rsset, (240, 105+10+89+89))
-			else:
-				svis = '-'
-				rsvis = tinyfont.render(svis, True, lc)
-				self.screen.blit(rsvis, (440,45+10+89+89))
-				
-				srise = 'Rise:'
-				srisetm = self.d['Saturn']['rising'].datetime().strftime("%H:%M:%S")
-				tmsrise = str(self.d['Saturn']['rising'].datetime() - datetime.datetime.now())[:9]
-				rsrise = tinyfont.render(srise + ' ' + srisetm + ' ' + tmsrise, True, lc)
-				self.screen.blit(rjrise, (240, 85+10+89+89))
-				
-				sset = 'Set:'
-				ssettm = self.d['Saturn']['setting'].datetime().strftime("%H:%M:%S")
-				tmsset = str(datetime.datetime.now() - self.d['Saturn']['setting'].datetime())[:8]
-				rsset = tinyfont.render(sset + '   ' + ssettm + ' ' + tmsset, True, lc)
-				self.screen.blit(rsset, (240, 105+10+89+89))
+				tmrise = str(self.d[data]['rising'].datetime() - datetime.datetime.now())[:9]
+				rtmrise = snbfont1.render(tmrise, True, lc)
+				self.screen.blit(rtmrise, (100,160+95))
 			################################################################################
 			pygame.display.update()
 			################################################################################
@@ -602,9 +405,9 @@ if (1):
 	delay = {'Weather'	: 10,
 		 'Tide'		: 15,
 		 'Astronomy'	: 5}
-	wx_d = [1,2,3,4,5,6]
+	wx_d = [0,1,2,3,4,5,6]
 	as_d = ['Sun', 'Moon', 'Mars', 'Jupiter', 'Saturn']
-	while running:
+	while running:		
 		try:
 			for s in wx_d:
 				counter = 0
@@ -625,7 +428,7 @@ if (1):
 			for s in as_d:
 				counter = 0
 				while counter < delay['Astronomy']:
-					disp.astro_disp()
+					disp.astro_disp(s)
 					print("DISPLAY ASTRO_DISP() ", time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()))
 					pygame.time.wait(1000)
 					counter += 1
