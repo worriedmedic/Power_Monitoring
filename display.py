@@ -597,33 +597,40 @@ class SmDisplay:
 
 if (1):
 	disp = SmDisplay()
-	disp.astro_disp()
 	running = True
-	disp0, disp1, disp2, disp3, disp4, disp5 = 0, 0, 0, 0, 0, 0
+	tide_data = True
+	delay = {'Weather'	: 10,
+		 'Tide'		: 15,
+		 'Astronomy'	: 5}
+	wx_d = [1,2,3,4,5,6]
+	as_d = ['Sun', 'Moon', 'Mars', 'Jupiter', 'Saturn']
 	while running:
-		while disp0 < 15:
-			disp.wx_disp(0)
-			disp0 +=1
-			pygame.time.wait(1000)
-		while disp1 < 15:
-			disp.wx_disp(1)
-			disp1 +=1
-			pygame.time.wait(1000)
-		while disp2 < 15:
-			disp.wx_disp(2)
-			disp2 +=1
-			pygame.time.wait(1000)
-		while disp3 < 15:
-			disp.wx_disp(3)
-			disp3 +=1
-			pygame.time.wait(1000)
-		while disp4 < 15:
-			disp.tide_disp()
-			disp4 += 1
-			pygame.time.wait(1000)
-		while disp5 < 30:
-			disp.astro_disp()
-			disp5 += 1
-			pygame.time.wait(1000)
-		if disp0 >= 15 and disp1 >= 15 and disp2 >= 15 and disp3 >= 15 and disp4 >= 15 and disp5 >= 30:
-			disp0, disp1, disp2, disp3, disp4, disp5 = 0, 0, 0, 0, 0, 0
+		try:
+			for s in wx_d:
+				counter = 0
+				while counter < delay['Weather']:
+					disp.wx_disp(s)
+					print("DISPLAY WX_DISP(%s) " %s, time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()))
+					pygame.time.wait(1000)
+					counter += 1
+				pass
+			if tide_data:
+				counter = 0
+				while counter < delay['Tide']:
+					disp.tide_disp()
+					print("DISPLAY TIDE_DISP() ", time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()))
+					pygame.time.wait(1000)
+					counter += 1
+				pass
+			for s in as_d:
+				counter = 0
+				while counter < delay['Astronomy']:
+					disp.astro_disp()
+					print("DISPLAY ASTRO_DISP() ", time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()))
+					pygame.time.wait(1000)
+					counter += 1
+				pass
+					
+		except KeyboardInterrupt:
+    			running = False
+			print('interrupted!')
