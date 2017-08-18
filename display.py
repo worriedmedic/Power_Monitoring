@@ -326,7 +326,7 @@ class SmDisplay:
 			################################################################################
 			icon_planet = pygame.image.load(os.path.join('/home/pi/Power_Monitoring/resources/', '%s.png' %data))
 			icon_planet2 = pygame.transform.scale(icon_planet, (140, 140))
-			self.screen.blit(icon_planet2, (340, 140))
+			self.screen.blit(icon_planet2, (310, 130))
 			################################################################################
 			name = self.d[data]['name']
 			rname = tidefont.render(name, True, lc)
@@ -404,7 +404,7 @@ class SmDisplay:
 
 if (1):
 	disp = SmDisplay()
-	running = False
+	running = True
 	tide_data = True
 	delay = {'Weather'	: 10,
 		 'Tide'		: 15,
@@ -417,7 +417,6 @@ if (1):
 				counter = 0
 				while counter < delay['Weather']:
 					disp.wx_disp(s)
-					print("DISPLAY WX_DISP(%s) " %s, time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()))
 					pygame.time.wait(1000)
 					counter += 1
 				pass
@@ -425,7 +424,6 @@ if (1):
 				counter = 0
 				while counter < delay['Tide']:
 					disp.tide_disp()
-					print("DISPLAY TIDE_DISP() ", time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()))
 					pygame.time.wait(1000)
 					counter += 1
 				pass
@@ -433,7 +431,6 @@ if (1):
 				counter = 0
 				while counter < delay['Astronomy']:
 					disp.astro_disp(s)
-					print("DISPLAY ASTRO_DISP() ", time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()))
 					pygame.time.wait(1000)
 					counter += 1
 				pass
@@ -441,4 +438,3 @@ if (1):
 		except KeyboardInterrupt:
     			running = False
 			print('interrupted!')
-	disp.astro_disp('Sun')
