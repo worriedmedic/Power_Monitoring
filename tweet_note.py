@@ -51,3 +51,10 @@ tgateway.start()
 tdataproc.start()
 tplotting.start()
 tdisplay.start()
+
+running = True
+while running:
+	try:
+		pass
+	except KeyboardInterrupt:
+		running = False
