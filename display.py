@@ -324,9 +324,13 @@ class SmDisplay:
 			icon_cutty2 = pygame.transform.scale(icon_cutty, (62, 38))
 			self.screen.blit(icon_cutty2, (395, 5))
 			################################################################################
-			sunname = self.d[data]['name']
-			rsunname = tidefont.render(sunname, True, lc)
-			self.screen.blit(rsunname, (15, 45))
+			icon_planet = pygame.image.load(os.path.join('/home/pi/Power_Monitoring/resources/', '%s.png' %data))
+			icon_planet2 = pygame.transform.scale(icon_planet, (140, 140))
+			self.screen.blit(icon_planet2, (340, 140))
+			################################################################################
+			name = self.d[data]['name']
+			rname = tidefont.render(name, True, lc)
+			self.screen.blit(rname, (15, 45))
 			
 			azmlabel = 'Azi:'
 			azm = str(self.d[data]['azimuth'])[:9]
@@ -400,13 +404,13 @@ class SmDisplay:
 
 if (1):
 	disp = SmDisplay()
-	running = True
+	running = False
 	tide_data = True
 	delay = {'Weather'	: 10,
 		 'Tide'		: 15,
 		 'Astronomy'	: 5}
 	wx_d = [0,1,2,3,4,5,6]
-	as_d = ['Sun', 'Moon', 'Mars', 'Jupiter', 'Saturn']
+	as_d = ['Sun', 'Moon', 'Venus', 'Mars', 'Jupiter', 'Saturn']
 	while running:		
 		try:
 			for s in wx_d:
@@ -437,3 +441,4 @@ if (1):
 		except KeyboardInterrupt:
     			running = False
 			print('interrupted!')
+	disp.astro_disp('Sun')
