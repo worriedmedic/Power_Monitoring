@@ -36,21 +36,21 @@ if os.path.isfile('/home/pi/Power_Monitoring/dover.location'):
 elif os.path.isfile('/home/pi/Power_Monitoring/cuttyhunk.location'):
 	######## GLOBAL VARS ########
 	location = 'cuttyhunk'
-	sensor0		= 98
+	sensor0		= 93
 	sensor0label	= 'Outside'
 	sensor1		= 96
 	sensor1label	= 'Upstairs'
-	sensor2		= 95
-	sensor2label	= 'Reeds Room'
-	sensor3		= 97
-	sensor3label	= 'Barn'
-	sensor4		= 99
-	sensor4label	= 'TEST'
-	sensor5		= 88
-	sensor5label	= 'None'
-	sensor6		= 87
-	sensor6label	= 'None'
-	sensor7		= 86
+	sensor2		= 99
+	sensor2label	= 'Upstairs 2'
+	sensor3		= 95
+	sensor3label	= 'Reeds Room'
+	sensor4		= 98
+	sensor4label	= 'Utility Room'
+	sensor5		= 97
+	sensor5label	= 'Barn'
+	sensor6		= 94
+	sensor6label	= 'Paint Shed'
+	sensor7		= 90
 	sensor7label	= 'None'
 	######## GATEWAY VARS ########
 	gateway_addr = '/dev/serial/by-id/usb-FTDI_FT232R_USB_UART_AL02CC7C-if00-port0'
