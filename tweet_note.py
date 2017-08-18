@@ -29,7 +29,7 @@ def logfollower(filepath,loc):
 		for line in loglines:
 			print line
 			try:
-				if line.startswith("('ERROR") or line.startswith('serial'):
+				if line.startswith("('ERROR") or line.startswith('serial') or line.startswith('pygame.error'):
 					api.update_status(loc + line[:130])
 			except tweepy.TweepError as e:
 				print(e.reason)
