@@ -26,6 +26,19 @@ verbose = False
 line_width = 1.5
 rssi_line_width = 1
 label_offset = 3
+lrgd = ['Temperature',
+     'Pressure',
+     'Humidity',
+     'Voltage',
+     'RSSI',
+     'Dewpoint']
+smd = ['0',
+       '1',
+       '2',
+       '3',
+       '4',
+       '5',
+       '6']
 
 def datainput():
 	global data0, data1, data2, data3, data4, data5, data6, data7
@@ -234,13 +247,7 @@ def dataplot_sm(datatype, timedelta, sensor):
 
 if (1):
 	datainput()
-	dataplot('Temperature', td)
-	dataplot('Pressure', td)
-	dataplot('Humidity', td)
-	dataplot('Voltage', td)
-	dataplot('RSSI', td)
-	dataplot('Dewpoint', td)
-	dataplot_sm('Temperature', td, '0')
-	dataplot_sm('Temperature', td, '1')
-	dataplot_sm('Temperature', td, '2')
-	dataplot_sm('Temperature', td, '3')
+	for s in lrgd:
+		dataplot(s, td)
+	for s in smd:
+		dataplot_sm('Temperature', td, s)
