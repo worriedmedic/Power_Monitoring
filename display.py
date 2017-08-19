@@ -408,7 +408,7 @@ if (1):
 	tide_data = True
 	delay = {'Weather'	: 10,
 		 'Tide'		: 15,
-		 'Astronomy'	: 5}
+		 'Astronomy'	: 10}
 	wx_d = [0,1,2,3,4,5,6]
 	as_d = ['Sun', 'Moon', 'Venus', 'Mars', 'Jupiter', 'Saturn']
 	while running:		
