@@ -716,9 +716,10 @@ def svg_update():
 		traceback.print_exc(file=sys.stdout)
 
 def txt_output():
+	now = datetime.datetime.now()
 	try:
 		with open("/home/pi/Power_Monitoring/output/weather_output.txt", "w") as text_file:
-			text_file.write("Location: %s, Time: %s, Sunrise: %s, Sunset: %s\n" %(location,time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()),weather_data['sunrise'],weather_data['sunset']))
+			text_file.write("Location: %s, Time: %s, Sunrise: %s, Sunset: %s\n" %(location,now,weather_data['sunrise'],weather_data['sunset']))
 			text_file.write("Forecast High: %s Forecast Low: %s, Wind (MPH): %s Wind Gust (MPH): %s Wind Direction: %s\n" %(weather_data['forecast_high'], weather_data['forecast_low'],weather_data['wind_mph'], weather_data['wind_gust'], weather_data['wind_direction']))
 			for o in d:
 				if str(d[o]['altitude']).startswith('-'):
@@ -727,9 +728,9 @@ def txt_output():
 					text_file.write('%s is VISIBLE alt: %s azm: %s Previous Rise: %s Next Set: %s\n' %(d[o]['name'], d[o]['altitude'], d[o]['azimuth'],d[o]['rising'], d[o]['setting']))
 			if tide:
 				text_file.write("Pressure Trend:\t\t\t %s\n" %(weather_data['pressure_trend']))
-				text_file.write("Previous Tide:\t\t\t %s %s %s %s\n" %(tide_data['tide_prior_time'], tide_data['tide_prior_level'], tide_data['tide_prior_type'], str(time.localtime() - tide_data['tide_prior_time'])))
-				text_file.write("Next Tide:\t\t\t %s %s %s %s\n" %(tide_data['tide_next_time'], tide_data['tide_next_level'], tide_data['tide_next_type'], str(tide_data['tide_next_time'] - time.localtime())))
-				text_file.write("Following Tide:\t\t\t %s %s %s %s\n" %(tide_data['tide_after_time'], tide_data['tide_after_level'], tide_data['tide_after_type'], str(tide_data['tide_after_time'] - time.localtime())))
+				text_file.write("Previous Tide:\t\t\t %s %s %s %s\n" %(tide_data['tide_prior_time'], tide_data['tide_prior_level'], tide_data['tide_prior_type'], str(now - tide_data['tide_prior_time'])))
+				text_file.write("Next Tide:\t\t\t %s %s %s %s\n" %(tide_data['tide_next_time'], tide_data['tide_next_level'], tide_data['tide_next_type'], str(tide_data['tide_next_time'] - now)))
+				text_file.write("Following Tide:\t\t\t %s %s %s %s\n" %(tide_data['tide_after_time'], tide_data['tide_after_level'], tide_data['tide_after_type'], str(tide_data['tide_after_time'] - now)))
 			if data0_global:
 				text_file.write("%s Time of Data Read:\t %s\n" %(sensor0label, data0_global['time']))
 				text_file.write("%s Temperature:\t\t %s\t\t  H: %s L: %s\n" %(sensor0label, data0_global['temperature'], data0_global['temperature_max'], data0_global['temperature_min']))
