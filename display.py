@@ -8,7 +8,6 @@ import ephem
 import traceback
 from pygame.locals import *
 from standards import *
-from icon_def import *
 
 black = (0,0,0)
 white = (255,255,255)
