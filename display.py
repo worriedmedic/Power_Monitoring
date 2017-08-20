@@ -417,6 +417,10 @@ if (1):
 				while counter < delay['Weather']:
 					disp.wx_disp(s)
 					pygame.time.wait(1000)
+					for event in pygame.event.get():
+						if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
+							counter = 500
+							break
 					counter += 1
 				pass
 			if tide_data:
@@ -424,6 +428,10 @@ if (1):
 				while counter < delay['Tide']:
 					disp.tide_disp()
 					pygame.time.wait(1000)
+					for event in pygame.event.get():
+						if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
+							counter = 500
+							break
 					counter += 1
 				pass
 			for s in as_d:
@@ -431,6 +439,10 @@ if (1):
 				while counter < delay['Astronomy']:
 					disp.astro_disp(s)
 					pygame.time.wait(1000)
+					for event in pygame.event.get():
+						if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
+							counter = 500
+							break
 					counter += 1
 				pass
 					
