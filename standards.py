@@ -33,6 +33,10 @@ if os.path.isfile('/home/pi/Power_Monitoring/dover.location'):
 	plt_size_y   = 8
 	plt_size_dpi = 100
 	plot_style   = 'bmh'
+	######## ASTRONOMY VARS ########
+	lat		= '41.4621'
+	lon		= '-73.6465'
+	elev		= 225
 elif os.path.isfile('/home/pi/Power_Monitoring/cuttyhunk.location'):
 	######## GLOBAL VARS ########
 	location = 'cuttyhunk'
@@ -66,3 +70,7 @@ elif os.path.isfile('/home/pi/Power_Monitoring/cuttyhunk.location'):
 	plt_size_y   = 8
 	plt_size_dpi = 100
 	plot_style   = 'bmh'
+	######## ASTRONOMY VARS ########
+	lat		= '41.42'
+	lon		= '-70.92'
+	elev		= 15
