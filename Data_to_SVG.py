@@ -804,7 +804,7 @@ def txt_output():
 def dropbox_update():
 	try:
 		subprocess.call(["/usr/local/bin/dropbox_uploader.sh", "-q", "upload", "/home/pi/Power_Monitoring/output/weather_output.txt", "/Programming/logs/%s/" %location])
-		subprocess.call(["/usr/local/bin/dropbox_uploader.sh", "-q", "upload", "/home/pi/Power_Monitoring/total_pickle.p", "/Programming/logs/%s/" %location])
+		subprocess.call(["/usr/local/bin/dropbox_uploader.sh", "-q", "upload", "/home/pi/Power_Monitoring/total_%s.p" %location, "/Programming/logs/%s/" %location])
 	except Exception:
 		print("ERROR: DROPBOX UPLOADING", time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()))
 		traceback.print_exc(file=sys.stdout)
@@ -813,8 +813,8 @@ def dropbox_update():
 def pickle_data():
 	try:
 		total_pickle = [data0_global, data1_global, data2_global, data3_global, data4_global, data5_global, data6_global, data7_global, weather_data, tide_data]
-		location = '/home/pi/Power_Monitoring/'
-		pickle.dump(total_pickle, open(os.path.join(location, 'total_pickle.p'), 'wb'))
+		dir_location = '/home/pi/Power_Monitoring/'
+		pickle.dump(total_pickle, open(os.path.join(dir_location, 'total_%s.p' %location), 'wb'))
 		if verbose:
 			print("Pickled Dumped", time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()))
 	except Exception:
