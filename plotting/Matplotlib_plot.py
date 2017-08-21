@@ -18,7 +18,7 @@ press_plot = True
 humid_plot = True
 volt_plot = True
 rssi_plot = True
-dropbox_upload = False
+dropbox_upload = True
 verbose = False
 
 ######## GLOBAL VAR #######
@@ -236,10 +236,10 @@ def dataplot_sm(datatype, timedelta, sensor):
 		plt.tight_layout()
 		fig.text(0.2, 0.8, '%s: %s' %(datatype, td), fontsize=10, color='white', ha='center', va='center', alpha=0.75)
 		fig.savefig('/home/pi/Power_Monitoring/output/plot_sm_%s_sensor_%s.png' %(datatype, sensor), bbox_inches='tight')
-		subprocess.call(["sudo", "chmod", "+x", "/home/pi/Power_Monitoring/output/plot_%s.png" %datatype])
-		subprocess.call(["sudo", "cp", "/home/pi/Power_Monitoring/output/plot_%s.png" %datatype, "/var/www/html/"])
+		subprocess.call(["sudo", "chmod", "+x", "/home/pi/Power_Monitoring/output/plot_sm_%s_sensor_%s.png" %(datatype, sensor)])
+		subprocess.call(["sudo", "cp", "/home/pi/Power_Monitoring/output/plot_sm_%s_sensor_%s.png" %(datatype, sensor), "/var/www/html/"])
 		if dropbox_upload:
-			subprocess.call(["/usr/local/bin/dropbox_uploader.sh", "-q", "upload", "/home/pi/Power_Monitoring/output/plot_%s.png" %datatype, "/Programming/logs/%s/plots/" %location])
+			subprocess.call(["/usr/local/bin/dropbox_uploader.sh", "-q", "upload", "/home/pi/Power_Monitoring/output/plot_sm_%s_sensor_%s.png" %(datatype, sensor), "/Programming/logs/%s/plots/" %location])
 	except Exception:
 		print("ERROR: PLOTTING %s ERROR" %datatype, today, now)
 		traceback.print_exc(file=sys.stdout)
