@@ -58,7 +58,8 @@ class SmDisplay:
 	
 	def pickle_data(self):
 		try:
-			location = '/home/pi/Power_Monitoring/'
+			subprocess.call(["/usr/local/bin/dropbox_uploader.sh", "-q", "download", "/Programming/logs/cuttyhunk/total_pickle.p", "/home/pi/Power_Monitoring/output/"])
+			location = '/home/pi/Power_Monitoring/output/'
 			self.data = pickle.load(open(os.path.join(location, 'total_pickle.p'), "rb"))
 		except Exception:
 			print("ERROR: Pickle Update")
