@@ -23,7 +23,7 @@ if os.path.isfile('/home/pi/Power_Monitoring/dover.location'):
 	gateway_addr = '/dev/serial/by-id/usb-FTDI_FT232R_USB_UART_A104VAFG-if00-port0'
 	######## DATA VARS ########
 	template_svg_filename = '/home/pi/Power_Monitoring/resources/DOVER_WX_TEMPLATE.svg'
-	tide = False
+	tide = True
 	wunder_site_forecast_json = 'http://api.wunderground.com/api/1f86b1c989ac268c/forecast/q/ny/carmel.json'
 	wunder_site_astronomy_json = 'http://api.wunderground.com/api/1f86b1c989ac268c/astronomy/q/ny/carmel.json'
 	wunder_site_conditions_json = 'http://api.wunderground.com/api/1f86b1c989ac268c/conditions/q/ny/carmel.json'
