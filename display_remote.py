@@ -6,8 +6,8 @@ import time, datetime
 import cPickle as pickle
 import ephem
 import traceback
+import subprocess
 from pygame.locals import *
-from standards import *
 
 black = (0,0,0)
 white = (255,255,255)
@@ -56,10 +56,16 @@ class SmDisplay:
 	def __del___(self):
 		exit(0)
 	
+	def pickle_update(self):
+		try:
+			subprocess.call(["/usr/local/bin/dropbox_uploader.sh", "download", "/Programming/logs/cuttyhunk/total_pickle.p"])
+		except Exception:
+			print("ERROR: DROPBOX UPDATE OF PICKLE")
+			traceback.print_exc(file=sys.stdout)
+			
 	def pickle_data(self):
 		try:
-			subprocess.call(["/usr/local/bin/dropbox_uploader.sh", "-q", "download", "/Programming/logs/cuttyhunk/total_pickle.p", "/home/pi/Power_Monitoring/output/"])
-			location = '/home/pi/Power_Monitoring/output/'
+			location = '/home/pi/Power_Monitoring/'
 			self.data = pickle.load(open(os.path.join(location, 'total_pickle.p'), "rb"))
 		except Exception:
 			print("ERROR: Pickle Update")
@@ -68,9 +74,9 @@ class SmDisplay:
 	def astro_data(self):
 		try:
 			cutty = ephem.Observer()
-			cutty.lat = '41.42'
-			cutty.long = '-70.92'
-			cutty.elevation = 20
+			cutty.lat = '41.4621'
+			cutty.long = '-73.6465'
+			cutty.elevation = 225
 			dst_const = (ephem.hour * -4)
 			self.d = {}
 			planets = 	[ephem.Sun(),
@@ -157,9 +163,9 @@ class SmDisplay:
 			rtempmin = tinyfont.render('Min: ' + str(self.data[data]['temperature_min'])[:4], True, lc)
 			self.screen.blit(rtempmin, (238, 165))
 			################################################################################
-			tempgraph = pygame.image.load(os.path.join('/home/pi/Power_Monitoring/output/', 'plot_sm_Temperature_sensor_%s.png' %data))
-			tempgraph2 = pygame.transform.scale(tempgraph, (455, 122))
-			self.screen.blit(tempgraph2, (12,192))
+			#tempgraph = pygame.image.load(os.path.join('/home/pi/Power_Monitoring/output/', 'plot_sm_Temperature_sensor_%s.png' %data))
+			#tempgraph2 = pygame.transform.scale(tempgraph, (455, 122))
+			#self.screen.blit(tempgraph2, (12,192))
 			################################################################################
 			if self.data[data]['humidity'][0] == 100:
 				humid = str(self.data[data]['humidity'][0])[:3]
@@ -415,6 +421,7 @@ if (1):
 		try:
 			for s in wx_d:
 				counter = 0
+				disp.pickle_update()
 				while counter < delay['Weather']:
 					disp.wx_disp(s)
 					pygame.time.wait(1000)
