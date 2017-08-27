@@ -9,7 +9,7 @@ def datawrite(temp):
 
 def graph(temp):
 	y.append(temp)
-	x.append(time())
+	x.append(time.time ())
 	plt.clf()
 	plt.scatter(x,y)
 	plt.plot(x,y)
