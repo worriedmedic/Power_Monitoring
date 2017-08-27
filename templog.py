@@ -24,4 +24,4 @@ while running:
 	temp = CPUTemperature()
 	datawrite(temp)
 	#graph(temp)
-	sleep(10)
+	time.sleep(10)
