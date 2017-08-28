@@ -10,4 +10,4 @@ running = True
 while running:
 	temp = CPUTemperature()
 	datawrite(temp)
-	time.sleep(10)
+	time.sleep(30)
