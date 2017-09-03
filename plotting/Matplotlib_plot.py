@@ -38,7 +38,8 @@ smd = ['0',
        '3',
        '4',
        '5',
-       '6']
+       '6',
+       '7']
 
 def datainput():
 	global data0, data1, data2, data3, data4, data5, data6, data7
