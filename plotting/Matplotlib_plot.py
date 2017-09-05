@@ -18,7 +18,7 @@ press_plot = True
 humid_plot = True
 volt_plot = True
 rssi_plot = True
-dropbox_upload = True
+dropbox_upload = False
 verbose = False
 
 ######## GLOBAL VAR #######
