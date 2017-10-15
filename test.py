@@ -27,7 +27,7 @@ sensor7		= 90
 sensor7label	= 'None'
 
 #timedelta    = '6M'
-plt_size_x   = 12
+plt_size_x   = 60
 plt_size_y   = 10
 plt_size_dpi = 100
 plot_style   = 'bmh'
@@ -69,25 +69,26 @@ data5 = data.loc[data['Address'] == sensor5]
 data6 = data.loc[data['Address'] == sensor6]
 data7 = data.loc[data['Address'] == sensor7]
 
-def dataplot(datatype, dataset, datanumber, timedelta):
+def dataplot():
 	fig = plt.figure(figsize=(plt_size_x, plt_size_y), dpi=plt_size_dpi)
 	plt.rcParams['axes.facecolor']='w'
-	plt.plot_date(dataset.last(timedelta).index, dataset[datatype].last(timedelta).values, linestyle="solid", linewidth=line_width, marker='None')
-	plt.title('Plot: Past %s' %timedelta)
+	plt.plot_date(data0.last('6M').index, data0['Temperature'].last('6M').values, linestyle="solid", linewidth=line_width, marker='None', color=plt.rcParams['axes.color_cycle'][0], label=sensor0label)
+	plt.plot_date(data1.last('6M').index, data1['Temperature'].last('6M').values, linestyle="solid", linewidth=line_width, marker='None', color=plt.rcParams['axes.color_cycle'][1], label=sensor1label)
+	plt.plot_date(data3.last('6M').index, data3['Temperature'].last('6M').values, linestyle="solid", linewidth=line_width, marker='None', color=plt.rcParams['axes.color_cycle'][3], label=sensor3label)
+	plt.plot_date(data4.last('6M').index, data4['Temperature'].last('6M').values, linestyle="solid", linewidth=line_width, marker='None', color=plt.rcParams['axes.color_cycle'][4], label=sensor4label)
+	plt.plot_date(data5.last('6M').index, data5['Temperature'].last('6M').values, linestyle="solid", linewidth=line_width, marker='None', color=plt.rcParams['axes.color_cycle'][5], label=sensor5label)
+	plt.plot_date(data6.last('6M').index, data6['Temperature'].last('6M').values, linestyle="solid", linewidth=line_width, marker='None', color=plt.rcParams['axes.color_cycle'][6], label=sensor6label)
+	plt.legend(loc=2, ncol=2, fontsize=8).set_visible(True)
+	plt.title('2017 Cuttyhunk Temperature Plots')
 	plt.xlabel('Time')
 	plt.ylabel('Temp')
 	plt.grid(True)
-	plt.tight_layout()
+	#plt.tight_layout()
 	myFmt = mdates.DateFormatter('%m-%d %H:%M')
 	fig.axes[0].get_xaxis().set_major_formatter(myFmt)
 	fig.autofmt_xdate()
 	fig.text(0.5, 0.5, '%s Weather Station' %location, fontsize=25, color='gray', ha='center', va='center', alpha=0.35)
-	fig.savefig("test_%s_%s.png" %(datanumber, datatype))
+	fig.savefig("test.png")
 
 
-dataplot('Temperature', data0, '0', '6M')
-dataplot('Temperature', data1, '1', '6M')
-dataplot('Temperature', data3, '3', '6M')
-dataplot('Temperature', data4, '4', '6M')
-dataplot('Temperature', data5, '5', '6M')
-dataplot('Temperature', data6, '6', '6M')
+dataplot()
