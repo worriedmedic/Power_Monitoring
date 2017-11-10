@@ -40,19 +40,23 @@ for arg in sys.argv:
 
 def serial_data(port, baudrate):
 	while True:
-		pt = serial.Serial(port, baudrate, timeout=600)
-		spb = io.TextIOWrapper(io.BufferedRWPair(pt,pt,1), errors='strict',line_buffering=True)
-		while True:
-			buffer = spb.readline()
-			if buffer:
-				yield buffer
-				if verbose:
-					print("YIELDING DATA")
-			else:
-				if verbose:
-					print("ELSE, BREAKING")
-				break
-		pt.close()
+		try:
+			pt = serial.Serial(port, baudrate, timeout=600)
+			spb = io.TextIOWrapper(io.BufferedRWPair(pt,pt,1), errors='strict',line_buffering=True)
+			while True:
+				buffer = spb.readline()
+				if buffer:
+					yield buffer
+					if verbose:
+						print("YIELDING DATA")
+				else:
+					if verbose:
+						print("ELSE, BREAKING")
+					break
+			pt.close()
+		except Exception:
+			print("ERROR: SERIAL_DATA", today, now, buffer)
+			traceback.print_exc(file=sys.stdout)
 
 for buffer in serial_data(gateway_addr, 9600):
 	try:
