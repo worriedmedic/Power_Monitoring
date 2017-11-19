@@ -812,7 +812,10 @@ def dropbox_update():
 
 def pickle_data():
 	try:
-		total_pickle = [data0_global, data1_global, data2_global, data3_global, data4_global, data5_global, data6_global, data7_global, weather_data, tide_data]
+		if tides:
+			total_pickle = [data0_global, data1_global, data2_global, data3_global, data4_global, data5_global, data6_global, data7_global, weather_data, tide_data]
+		else:
+			total_pickle = [data0_global, data1_global, data2_global, data3_global, data4_global, data5_global, data6_global, data7_global, weather_data]
 		dir_location = '/home/pi/Power_Monitoring/'
 		pickle.dump(total_pickle, open(os.path.join(dir_location, 'total_%s.p' %location), 'wb'))
 		if verbose:
