@@ -44,16 +44,16 @@ elif os.path.isfile('/home/pi/Power_Monitoring/cuttyhunk.location'):
 	sensor0label	= 'Outside'
 	sensor1		= 96
 	sensor1label	= 'Upstairs'
-	sensor2		= 99
-	sensor2label	= 'Upstairs 2'
-	sensor3		= 95
-	sensor3label	= 'Reeds Room'
+	sensor2		= 94
+	sensor2label	= 'Paint Shed'
+	sensor3		= 97
+	sensor3label	= 'Barn'
 	sensor4		= 98
 	sensor4label	= 'Utility Room'
-	sensor5		= 97
-	sensor5label	= 'Barn'
-	sensor6		= 94
-	sensor6label	= 'Paint Shed'
+	sensor5		= 95
+	sensor5label	= 'Reeds Room'
+	sensor6		= 99
+	sensor6label	= 'Upstairs 2'
 	sensor7		= 90
 	sensor7label	= 'None'
 	######## GATEWAY VARS ########
