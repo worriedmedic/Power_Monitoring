@@ -2,7 +2,7 @@
 # get lines of text from serial port, save them to a file, upload to ThingSpeak
 # Base source (highly modified): https://www.raspberrypi.org/forums/viewtopic.php?f=44&t=64545
 
-import pyserial as serial
+import serial
 import io
 import time
 import datetime
