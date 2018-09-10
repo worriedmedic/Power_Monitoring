@@ -59,7 +59,7 @@ def serial_data(port, baudrate):
 			print("ERROR: SERIAL_DATA")
 			traceback.print_exc(file=sys.stdout)
 
-for buffer in serial_data('/dev/ttyUSB0', 9600):
+for buffer in serial_data(gateway_addr, 9600):
 	try:
 		now = time.strftime("%H:%M:%S")
 		today = datetime.date.today()
