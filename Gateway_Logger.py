@@ -40,8 +40,6 @@ for arg in sys.argv:
 
 def serial_data(port, baudrate):
 	while True:
-		now = time.strftime("%H:%M:%S"
-		today = datetime.date.today()
 		try:
 			pt = serial.Serial(port, baudrate, timeout=600)
 			spb = io.TextIOWrapper(io.BufferedRWPair(pt,pt,1), errors='strict',line_buffering=True)
@@ -57,7 +55,7 @@ def serial_data(port, baudrate):
 					break
 			pt.close()
 		except Exception:
-			print("ERROR: SERIAL_DATA", today, now, buffer)
+			print("ERROR: SERIAL_DATA", buffer)
 			traceback.print_exc(file=sys.stdout)
 
 for buffer in serial_data(gateway_addr, 9600):
