@@ -55,7 +55,7 @@ def serial_data(port, baudrate):
 					break
 			pt.close()
 		except Exception:
-			print("ERROR: SERIAL_DATA", buffer)
+			print("ERROR: SERIAL_DATA")
 			traceback.print_exc(file=sys.stdout)
 
 for buffer in serial_data(gateway_addr, 9600):
