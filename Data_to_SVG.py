@@ -532,13 +532,14 @@ def svg_update():
 		output = codecs.open(template_svg_filename, 'r', encoding='utf-8').read()
 		output = output.replace('CURDATE', today.strftime("%m/%d/%Y"))
 		output = output.replace('CURTIME', now.strftime("%H:%M"))
-		output = output.replace('SNRISE', str(weather_data['sunrise']))
-		output = output.replace('SNSET', str(weather_data['sunset']))
-		output = output.replace('FORHI', str(weather_data['forecast_high']))
-		output = output.replace('FORLO', str(weather_data['forecast_low']))
-		output = output.replace('WSP', str(weather_data['wind_mph']))
-		output = output.replace('WGUS', str(weather_data['wind_gust']))
-		output = output.replace('WDIRECT', str(weather_data['wind_direction']))
+		if weatherdata:
+			output = output.replace('SNRISE', str(weather_data['sunrise']))
+			output = output.replace('SNSET', str(weather_data['sunset']))
+			output = output.replace('FORHI', str(weather_data['forecast_high']))
+			output = output.replace('FORLO', str(weather_data['forecast_low']))
+			output = output.replace('WSP', str(weather_data['wind_mph']))
+			output = output.replace('WGUS', str(weather_data['wind_gust']))
+			output = output.replace('WDIRECT', str(weather_data['wind_direction']))
 		output = output.replace('TMP0LABEL', sensor0label)
 		output = output.replace('TMP1LABEL', sensor1label)
 		output = output.replace('TMP2LABEL', sensor2label)
@@ -720,7 +721,8 @@ def txt_output():
 	try:
 		with open("/home/pi/Power_Monitoring/output/weather_output.txt", "w") as text_file:
 			text_file.write("Location: %s, Time: %s, Sunrise: %s, Sunset: %s\n" %(location,now,weather_data['sunrise'],weather_data['sunset']))
-			text_file.write("Forecast High: %s Forecast Low: %s, Wind (MPH): %s Wind Gust (MPH): %s Wind Direction: %s\n" %(weather_data['forecast_high'], weather_data['forecast_low'],weather_data['wind_mph'], weather_data['wind_gust'], weather_data['wind_direction']))
+			if weatherdata:
+				text_file.write("Forecast High: %s Forecast Low: %s, Wind (MPH): %s Wind Gust (MPH): %s Wind Direction: %s\n" %(weather_data['forecast_high'], weather_data['forecast_low'],weather_data['wind_mph'], weather_data['wind_gust'], weather_data['wind_direction']))
 			for o in d:
 				if str(d[o]['altitude']).startswith('-'):
 					text_file.write('%s is NOT visible alt: %s azm: %s Next Rise: %s Previous Set: %s\n' %(d[o]['name'], d[o]['altitude'], d[o]['azimuth'],d[o]['rising'], d[o]['setting']))
@@ -813,9 +815,9 @@ def dropbox_update():
 def pickle_data():
 	try:
 		if tide:
-			total_pickle = [data0_global, data1_global, data2_global, data3_global, data4_global, data5_global, data6_global, data7_global, weather_data, tide_data]
+			total_pickle = [data0_global, data1_global, data2_global, data3_global, data4_global, data5_global, data6_global, data7_global, tide_data]
 		else:
-			total_pickle = [data0_global, data1_global, data2_global, data3_global, data4_global, data5_global, data6_global, data7_global, weather_data]
+			total_pickle = [data0_global, data1_global, data2_global, data3_global, data4_global, data5_global, data6_global, data7_global]
 		dir_location = '/home/pi/Power_Monitoring/'
 		pickle.dump(total_pickle, open(os.path.join(dir_location, 'total_%s.p' %location), 'wb'))
 		if verbose:
@@ -826,15 +828,15 @@ def pickle_data():
 
 if(1):
 	scheduler = BlockingScheduler()
-	scheduler.add_job(daily_wunder_update, 'cron', hour=0, minute=5)
-	scheduler.add_job(hourly_wunder_update, 'cron', hour='*/6')
+	#scheduler.add_job(daily_wunder_update, 'cron', hour=0, minute=5)
+	#scheduler.add_job(hourly_wunder_update, 'cron', hour='*/6')
 	scheduler.add_job(svg_update, 'interval', seconds=5)
 	scheduler.add_job(data_call, 'interval', seconds=30)
 	if dropbox_upload:
 		scheduler.add_job(dropbox_update, 'interval', minutes=5)
 	try:
-		daily_wunder_update()
-		hourly_wunder_update()
+		#daily_wunder_update()
+		#hourly_wunder_update()
 		astro_data()
 		data_call()
 		dropbox_update()
