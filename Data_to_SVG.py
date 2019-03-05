@@ -15,7 +15,7 @@ import ephem
 
 verbose = False
 sensordata = True
-weatherdata = True
+weatherdata = False
 dropbox_upload = True
 now = datetime.datetime.now()
 
