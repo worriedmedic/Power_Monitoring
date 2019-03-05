@@ -827,7 +827,7 @@ def pickle_data():
 if(1):
 	scheduler = BlockingScheduler()
 	scheduler.add_job(daily_wunder_update, 'cron', hour=0, minute=5)
-	scheduler.add_job(hourly_wunder_update, 'cron', hour='*/1')
+	scheduler.add_job(hourly_wunder_update, 'cron', hour='*/6')
 	scheduler.add_job(svg_update, 'interval', seconds=5)
 	scheduler.add_job(data_call, 'interval', seconds=30)
 	if dropbox_upload:
