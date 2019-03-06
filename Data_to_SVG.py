@@ -720,7 +720,7 @@ def txt_output():
 	now = datetime.datetime.now()
 	try:
 		with open("/home/pi/Power_Monitoring/output/weather_output.txt", "w") as text_file:
-			text_file.write("Location: %s, Time: %s, Sunrise: %s, Sunset: %s\n" %(location,now,))
+			text_file.write("Location: %s, Time: %s\n" %(location,now,))
 			if weatherdata:
 				text_file.write("Forecast High: %s Forecast Low: %s, Wind (MPH): %s Wind Gust (MPH): %s Wind Direction: %s\n" %(weather_data['forecast_high'], weather_data['forecast_low'],weather_data['wind_mph'], weather_data['wind_gust'], weather_data['wind_direction']))
 			for o in d:
