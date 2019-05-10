@@ -250,5 +250,6 @@ if (1):
 	datainput()
 	for s in lrgd:
 		dataplot(s, td)
-	for s in smd:
-		dataplot_sm('Temperature', td, s)
+	#for s in smd:
+	#	dataplot_sm('Temperature', td, s)
+	
