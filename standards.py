@@ -40,8 +40,8 @@ if os.path.isfile('/home/pi/Power_Monitoring/dover.location'):
 elif os.path.isfile('/home/pi/Power_Monitoring/cuttyhunk.location'):
 	######## GLOBAL VARS ########
 	location = 'cuttyhunk'
-	sensor0		= 93
-	sensor0label	= 'None'
+	sensor0		= 99
+	sensor0label	= 'Outside'
 	sensor1		= 96
 	sensor1label	= 'Upstairs'
 	sensor2		= 94
@@ -52,8 +52,8 @@ elif os.path.isfile('/home/pi/Power_Monitoring/cuttyhunk.location'):
 	sensor4label	= 'Utility Room'
 	sensor5		= 95
 	sensor5label	= 'Reeds Room'
-	sensor6		= 99
-	sensor6label	= 'Outside'
+	sensor6		= 93
+	sensor6label	= 'None'
 	sensor7		= 90
 	sensor7label	= 'None'
 	######## GATEWAY VARS ########
