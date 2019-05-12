@@ -86,8 +86,8 @@ def astro_data():
 			if str(o.alt).startswith('-'):
 				d[o.name] = {'name'	: o.name,
 					    'visible'	: False,
-					    'altitude'	: o.alt,
-					    'azimuth'	: o.az,
+					    'altitude'	: str(o.alt),
+					    'azimuth'	: str(o.az),
 					    'rising'	: ephem.Date(cutty.next_rising(o) + dst_const),
 					    'setting'	: ephem.Date(cutty.previous_setting(o) + dst_const)}
 				if verbose:
@@ -98,8 +98,8 @@ def astro_data():
 			else:
 				d[o.name] = {'name'	: o.name,
 					    'visible'	: True,
-					    'altitude'	: o.alt,
-					    'azimuth'	: o.az,
+					    'altitude'	: str(o.alt),
+					    'azimuth'	: str(o.az),
 					    'rising'	: ephem.Date(cutty.previous_rising(o) + dst_const),
 					    'setting'	: ephem.Date(cutty.next_setting(o) + dst_const)}
 				if verbose:
