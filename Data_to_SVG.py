@@ -86,10 +86,10 @@ def astro_data():
 			if str(o.alt).startswith('-'):
 				d[o.name] = {'name'	: o.name,
 					    'visible'	: False,
-					    'altitude'	: str(o.alt),
-					    'azimuth'	: str(o.az),
-					    'rising'	: str(ephem.Date(cutty.next_rising(o) + dst_const)),
-					    'setting'	: str(ephem.Date(cutty.previous_setting(o) + dst_const))}
+					    'altitude'	: o.alt,
+					    'azimuth'	: o.az,
+					    'rising'	: ephem.Date(cutty.next_rising(o) + dst_const),
+					    'setting'	: ephem.Date(cutty.previous_setting(o) + dst_const)}
 				if verbose:
 					print('%s IS NOT VISIBLE' %d[o.name]['name'])
 					print('%s: alt: %s azm: %s' %(d[o.name]['name'], d[o.name]['altitude'], d[o.name]['azimuth']))
@@ -98,10 +98,10 @@ def astro_data():
 			else:
 				d[o.name] = {'name'	: o.name,
 					    'visible'	: True,
-					    'altitude'	: str(o.alt),
-					    'azimuth'	: str(o.az),
-					    'rising'	: str(ephem.Date(cutty.previous_rising(o) + dst_const)),
-					    'setting'	: str(ephem.Date(cutty.next_setting(o) + dst_const))}
+					    'altitude'	: o.alt,
+					    'azimuth'	: o.az,
+					    'rising'	: ephem.Date(cutty.previous_rising(o) + dst_const),
+					    'setting'	: ephem.Date(cutty.next_setting(o) + dst_const)}
 				if verbose:
 					print('%s IS VISIBLE' %d[o.name]['name'])
 					print('%s: alt: %s azm: %s' %(d[o.name]['name'], d[o.name]['altitude'], d[o.name]['azimuth']))
